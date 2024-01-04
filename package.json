@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "14.0.4",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "clsx": "^2.1.0",
@@ -26,6 +27,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "postcss": "^8",
+    "supabase": "^1.127.4",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.10",
     "tailwindcss": "^3.3.0",
