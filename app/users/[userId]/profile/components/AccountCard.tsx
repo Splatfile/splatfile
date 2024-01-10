@@ -92,6 +92,7 @@ export function AccountCard() {
                       "m-auto hidden h-full w-20 object-cover md:block"
                     }
                     src={qrCode}
+                    alt={"QR Code"}
                   />
                 </div>
               </div>

@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { GameCardCommon } from "@/app/users/[userId]/profile/components/GameCardCommon";
 import { GameCardXMatch } from "@/app/users/[userId]/profile/components/GameCardXMatch";
+import { GameCardSalmonRun } from "@/app/users/[userId]/profile/components/GameCardSalmonRun";
 
 export function GameCard() {
   const level = 46;
@@ -22,36 +22,7 @@ export function GameCard() {
       >
         <GameCardCommon />
         <GameCardXMatch />
-
-        <InlineTextCard title={"연어런"}>
-          <div className={"flex w-full"}>
-            <Image
-              width={48}
-              height={48}
-              src="/ingames/level.png"
-              alt="Splatoon Level Icon"
-            />
-            <p>{level}</p>
-          </div>
-          <div className={"flex"}>
-            <Image
-              width={48}
-              height={48}
-              src="/ingames/ranked.png"
-              alt="Splatoon Rank Icon"
-            />
-            <p>{rank}</p>
-          </div>
-          <div className={"flex"}>
-            <Image
-              width={48}
-              height={48}
-              src="/ingames/salmon.png"
-              alt="Splatoon Salmon Icon"
-            />
-            <p>{salmon}</p>
-          </div>
-        </InlineTextCard>
+        <GameCardSalmonRun />
         <InlineTextCard title={"사용 무기"}>
           대충 무기 아이콘들 있어야함
         </InlineTextCard>

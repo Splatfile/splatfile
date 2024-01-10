@@ -1,6 +1,6 @@
-import { AccountCard } from "@/app/users/[userId]/profile/AccountCard";
-import { GameCard } from "@/app/users/[userId]/profile/GameCard";
-import { ProfileCard } from "@/app/users/[userId]/profile/ProfileCard";
+import { AccountCard } from "@/app/users/[userId]/profile/components/AccountCard";
+import { GameCard } from "@/app/users/[userId]/profile/components/GameCard";
+import { ProfileCard } from "@/app/users/[userId]/profile/components/ProfileCard";
 
 export default function Home() {
   return (
