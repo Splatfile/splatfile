@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Noto_Sans_KR } from "next/font/google";
-import { Header } from "@/app/ui/Header";
+import { Header } from "@/app/users/[userId]/profile/Header";
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
@@ -16,10 +16,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={notoSansKR.className}>
-        <Header />
-        {children}
+    <html lang="en" className={"md:text-lg"}>
+      <body
+        className={notoSansKR.className}
+        style={{
+          backgroundImage: 'url("/background/body.png")',
+
+          backgroundSize: "cover",
+          backgroundRepeat: "repeat",
+        }}
+      >
+        <div className={"bg-black/50 backdrop-blur"}>
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );

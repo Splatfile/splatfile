@@ -4,7 +4,7 @@ import { SquidLogo } from "@/app/ui/icons/SquidLogo";
 import { XLogo } from "@/app/ui/icons/XLogo";
 import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { TextCard } from "@/app/ui/components/TextCard";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 
 export function AccountCard() {
@@ -34,12 +34,8 @@ export function AccountCard() {
   }, []);
 
   return (
-    <div
-      className={
-        "flex flex-col justify-center gap-2 bg-white px-2 py-12 md:px-24"
-      }
-    >
-      <h2 className={"pb-2 pt-6 text-xl"}>계정 정보</h2>
+    <div className={"flex flex-col justify-center gap-2 px-2 py-12 md:px-24"}>
+      <h2 className={"pb-2 pt-6 text-xl font-semibold"}>계정 정보</h2>
       <div className={"flex flex-col items-stretch "}>
         <div className={"p-4"}>
           <div
