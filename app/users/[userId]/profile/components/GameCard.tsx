@@ -21,7 +21,9 @@ export function GameCard() {
         }
       >
         <GameCardCommon />
+        {/* 랭크 S+ 이상일 때만 보여짐 */}
         <GameCardXMatch />
+        {/*연어런 전설 등급 이상일 때만*/}
         <GameCardSalmonRun />
         <InlineTextCard title={"사용 무기"}>
           대충 무기 아이콘들 있어야함

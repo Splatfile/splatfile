@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
 
-type GameCardSalmonrunProps = {};
+type GameCardSalmonRunProps = {};
 
-export function GameCardSalmonRun(props: GameCardSalmonrunProps) {
+export function GameCardSalmonRun(props: GameCardSalmonRunProps) {
   const { aramaki, donbrako, meuniere, sekena, sujiko, tokisira } = {
     aramaki: 40,
     donbrako: 40,
