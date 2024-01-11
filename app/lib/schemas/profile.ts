@@ -74,6 +74,7 @@ type SwitchInfo = {
 export type UserInfo = {
   nickname: string;
   profileImageUrl?: string;
+  splatplateImageUrl?: string;
   twitterInfo?: TwitterInfo;
   switchInfo?: SwitchInfo;
   gender?: string;
