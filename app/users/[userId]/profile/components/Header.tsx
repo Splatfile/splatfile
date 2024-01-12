@@ -10,7 +10,7 @@ export function Header() {
       >
         {/* 헤더 왼쪽 */}
         <div className="flex text-white lg:flex-1">
-          <a href={"#"}>Hello Splatfile</a>
+          <a href={"/"}>Hello Splatfile</a>
         </div>
         {/* 모바일 헤더 오른쪽 */}
         <div className="flex lg:hidden">
@@ -25,7 +25,7 @@ export function Header() {
           {/*</button>*/}
           <Link
             key={"로그인"}
-            href={"/login"}
+            href={"/users/signin"}
             className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
           >
             <span>{"로그인"}</span>
@@ -37,7 +37,7 @@ export function Header() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link
             key={"로그인"}
-            href={"/login"}
+            href={"/users/signin"}
             className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
           >
             <span>{"로그인"}</span>

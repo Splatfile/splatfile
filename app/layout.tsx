@@ -21,14 +21,21 @@ export default function RootLayout({
         className={notoSansKR.className}
         style={{
           backgroundImage: 'url("/background/body.png")',
-
           backgroundSize: "cover",
           backgroundRepeat: "repeat",
         }}
       >
         <div className={"bg-black/50 backdrop-blur"}>
           <Header />
-          {children}
+          <div className="flex min-h-screen flex-col items-center justify-start gap-8 p-1 shadow-lg md:p-8">
+            <main
+              className={
+                "h-full max-w-screen-2xl rounded-2xl bg-white/95 px-2 py-4 md:p-6"
+              }
+            >
+              {children}
+            </main>
+          </div>
         </div>
       </body>
     </html>
