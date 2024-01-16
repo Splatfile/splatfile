@@ -1,7 +1,14 @@
+"use client";
 import Link from "next/link";
+import { Auth } from "@supabase/auth-ui-react";
+import { createSupabaseClientComponentClient } from "@/app/lib/supabase-client";
+import { useRouter } from "next/navigation";
+import useUser = Auth.useUser;
 
 export function Header() {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const user = useUser();
+
   return (
     <header className="bg-gray-900">
       <nav
@@ -23,28 +30,12 @@ export function Header() {
           {/*  <span className="sr-only">메뉴 열기</span>*/}
           {/*  <Bars3Icon className="h-6 w-6" aria-hidden="true" />*/}
           {/*</button>*/}
-          <Link
-            key={"로그인"}
-            href={"/users/signin"}
-            className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
-          >
-            <span>{"로그인"}</span>
-          </Link>
         </div>
         {/* 헤더 가운데 */}
         <div className="hidden lg:flex lg:gap-x-12"></div>
         {/* 헤더 오른쪽 */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link
-            key={"로그인"}
-            href={"/users/signin"}
-            className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
-          >
-            <span>{"로그인"}</span>
-            <span className={"ml-2"} aria-hidden="true">
-              &rarr;
-            </span>
-          </Link>
+          <SignInButton />
         </div>
       </nav>
       {/*메뉴가 늘어날 시 사용*/}
@@ -84,3 +75,33 @@ export function Header() {
     </header>
   );
 }
+
+export const SignInButton = () => {
+  const { user } = useUser();
+  const supabaseClient = createSupabaseClientComponentClient();
+  const router = useRouter();
+  if (user) {
+    return (
+      <button
+        className={
+          "rounded-md px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
+        }
+        onClick={async () => {
+          await supabaseClient.auth.signOut();
+          router.refresh();
+        }}
+      >
+        {"로그아웃"}
+      </button>
+    );
+  }
+  return (
+    <Link
+      key={"로그인"}
+      href={"/users/signin"}
+      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
+    >
+      <span>{"로그인"}</span>
+    </Link>
+  );
+};
