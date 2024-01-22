@@ -1,8 +1,11 @@
 import { AccountCard } from "@/app/users/[userId]/profile/components/AccountCard";
 import { GameCard } from "@/app/users/[userId]/profile/components/GameCard";
 import { ProfileCard } from "@/app/users/[userId]/profile/components/ProfileCard";
+import { createSupabaseClientComponentClient } from "@/app/lib/supabase-client";
 
-export default function Home() {
+export default async function Home() {
+  const supabaseClient = createSupabaseClientComponentClient();
+
   return (
     <div className={"flex flex-col items-stretch"}>
       <div className={"flex h-full flex-col md:flex-row md:items-stretch"}>
