@@ -14,6 +14,6 @@ export const createSupabaseClientComponentClient = () => {
 };
 
 export const getUserProfile = async (supabase: SupabaseClient) => {
-  const { user } = await supabase.from("");
-  return user;
+  // const { user } = await supabase.from("");
+  // return user;
 };
