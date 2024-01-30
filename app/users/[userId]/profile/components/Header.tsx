@@ -1,8 +1,11 @@
 "use client";
 import Link from "next/link";
 import { Auth } from "@supabase/auth-ui-react";
-import { createSupabaseClientComponentClient } from "@/app/lib/supabase-client";
 import { useRouter } from "next/navigation";
+import {
+  CLIENT_COMPONENT,
+  createSupabaseClient,
+} from "@/app/lib/supabase-client";
 import useUser = Auth.useUser;
 
 export function Header() {
@@ -78,7 +81,7 @@ export function Header() {
 
 export const SignInButton = () => {
   const { user } = useUser();
-  const supabaseClient = createSupabaseClientComponentClient();
+  const supabaseClient = createSupabaseClient(CLIENT_COMPONENT);
   const router = useRouter();
   if (user) {
     return (

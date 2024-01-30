@@ -1,9 +1,17 @@
 import * as configs from "./configs.ts";
-import { LangCode, MAIN, SPECIAL, SUB, WeaponType } from "./configs.ts";
+import {
+  LangCode,
+  MAIN,
+  SPECIAL,
+  SUB,
+  WEAPON_TYPES,
+  WeaponType,
+} from "./configs.ts";
 import { generateLabels } from "./label.ts";
 import {
   fetchJsonData,
   generateConstantOutput,
+  generateIndex,
   type JsonType,
 } from "./utils.ts";
 
@@ -25,8 +33,8 @@ function preprocessMainWeaponInfo(
   }
 
   const parseSubSpeName = (val: string) => val.split(".")[0].substring(10); // Work/Gyml/LineMarker.spl__WeaponInfoSub.gyml => LineMarker
-  const data = mainWeaponInfo.map(
-    (weaponInfo) => {
+  const data = mainWeaponInfo
+    .map((weaponInfo) => {
       weaponInfo = weaponInfo as { [key: string]: JsonType };
       const weaponCode = weaponInfo["__RowId"] as string;
 
@@ -42,8 +50,8 @@ function preprocessMainWeaponInfo(
         specialWeapon: parseSubSpeName(weaponInfo["SpecialWeapon"] as string),
         remoteImgIdent: `Path_Wst_${weaponInfo["__RowId"]}.webp`,
       } as PreprocessedWeaponInfo;
-    },
-  ).filter((v) => (v.innerId < 10000)); // Remove test weapons for nintendo developers
+    })
+    .filter((v) => v.innerId < 10000); // Remove test weapons for nintendo developers
 
   return data;
 }
@@ -56,8 +64,8 @@ function preprocessSubWeaponData(
     throw new Error("subWeaponInfo is not an array");
   }
 
-  const data = subWeaponInfo.map(
-    (weaponInfo) => {
+  const data = subWeaponInfo
+    .map((weaponInfo) => {
       weaponInfo = weaponInfo as { [key: string]: JsonType };
 
       return {
@@ -70,8 +78,8 @@ function preprocessSubWeaponData(
         innerId: weaponInfo["Id"] as number, // 8
         remoteImgIdent: `Wsb_${weaponInfo["__RowId"]}00.webp`,
       } as PreprocessedWeaponInfo;
-    },
-  ).filter((v) => (v.innerId < 100)); // Remove test weapons for nintendo developers
+    })
+    .filter((v) => v.innerId < 100); // Remove test weapons for nintendo developers
 
   return data;
 }
@@ -84,8 +92,8 @@ function preProcessSpecialWeaponData(
     throw new Error("specialWeaponInfo is not an array");
   }
 
-  const data = specialWeaponInfo.map(
-    (weaponInfo) => {
+  const data = specialWeaponInfo
+    .map((weaponInfo) => {
       weaponInfo = weaponInfo as { [key: string]: JsonType };
 
       return {
@@ -98,8 +106,8 @@ function preProcessSpecialWeaponData(
         innerId: weaponInfo["Id"] as number, // 8
         remoteImgIdent: `Wsp_${weaponInfo["__RowId"]}00.webp`,
       } as PreprocessedWeaponInfo;
-    },
-  ).filter((v) => (v.innerId < 20)); // Remove test weapons for nintendo developers
+    })
+    .filter((v) => v.innerId < 20); // Remove test weapons for nintendo developers
 
   return data;
 }
@@ -132,9 +140,9 @@ async function downloadImageFiles(
     await Promise.all(downloadPromises.slice(i, i + 5));
     await new Promise((resolve) => setTimeout(resolve, 400));
     console.log(
-      `${targetPath}: Downloaded ${
-        Math.min(i + 5, downloadPromises.length)
-      }/${downloadPromises.length} files`,
+      `${targetPath}: Downloaded ${Math.min(i + 5, downloadPromises.length)}/${
+        downloadPromises.length
+      } files`,
     );
   }
 }
@@ -171,14 +179,14 @@ export async function main(labelDataJsonByLangCode: Map<LangCode, JsonType>) {
   const _generateConstantOutput = (type: WeaponType) =>
     generateConstantOutput(
       configs.OUTPUT_CONSTANT_FILENAME_BY_TYPE[type],
+      configs.OUTPUT_WEAPON_TYPE_PREFIX[type],
       weaponInfoByType[type],
     );
-  await Promise.all(
-    [
-      _generateConstantOutput(MAIN),
-      _generateConstantOutput(SUB),
-      _generateConstantOutput(SPECIAL),
-    ],
+
+  await Promise.all(WEAPON_TYPES.map(_generateConstantOutput));
+  await generateIndex(
+    WEAPON_TYPES.map((type) => configs.OUTPUT_WEAPON_TYPE_PREFIX[type]),
+    configs.OUTPUT_WEAPON_DIR,
   );
 
   /** --------------------------------------------
@@ -193,15 +201,8 @@ export async function main(labelDataJsonByLangCode: Map<LangCode, JsonType>) {
 
   const getRemoteIdentAndDestFilenames = (
     data: Array<PreprocessedWeaponInfo>,
-  ) => (
-    data.map((v) => [v.remoteImgIdent, `${v.code}.webp`] as [string, string])
-  );
+  ) =>
+    data.map((v) => [v.remoteImgIdent, `${v.code}.webp`] as [string, string]);
 
-  await Promise.all(
-    [
-      _downloadImageFiles(MAIN),
-      _downloadImageFiles(SUB),
-      _downloadImageFiles(SPECIAL),
-    ],
-  );
+  await Promise.all(WEAPON_TYPES.map(_downloadImageFiles));
 }

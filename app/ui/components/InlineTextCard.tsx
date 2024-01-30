@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { PencilIcon } from "@heroicons/react/20/solid";
 
 export type InlineTextCardProps = {
@@ -27,6 +27,8 @@ type EditableInlineTextCardProps = InlineTextCardProps & {
 };
 
 export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
+  const [isMine, setIsMine] = useState(false);
+
   return (
     <div
       className={
@@ -45,12 +47,14 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
             완료
           </button>
         ) : (
-          <button
-            className={"h-4 w-4 text-neutral-500"}
-            onClick={() => props.setEdit(true)}
-          >
-            <PencilIcon />
-          </button>
+          isMine && (
+            <button
+              className={"h-4 w-4 text-neutral-500"}
+              onClick={() => props.setEdit(true)}
+            >
+              <PencilIcon />
+            </button>
+          )
         )}
       </div>
       <div className={"flex flex-col gap-1 font-semibold text-neutral-700"}>

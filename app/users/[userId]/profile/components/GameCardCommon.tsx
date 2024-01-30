@@ -1,16 +1,12 @@
 "use client";
 import Image from "next/image";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { matchRanks } from "@/app/lib/const";
+import { useGameStore } from "@/app/lib/hooks/use-profile-store";
 
 export function GameCardCommon() {
-  const rank = "S+3";
-  const salmon = "전설";
   const [edit, setEdit] = useState(false);
-  const [isMine, setIsMine] = useState(false);
-  useEffect(() => {
-    //TODO : check if this is my profile
-  });
 
   return (
     <EditableInlineTextCard title={"종합"} edit={edit} setEdit={setEdit}>
@@ -27,7 +23,6 @@ export type LevelTextProps = {
 
 export const LevelText = ({ edit }: LevelTextProps) => {
   const level = 46;
-
   return (
     <div className={"flex items-center gap-2"}>
       <div className={"h-6 w-6 md:h-8 md:w-8"}>
@@ -58,7 +53,8 @@ export type RankTextProps = {
 };
 export const RankText = (props: RankTextProps) => {
   const { edit } = props;
-  const rank = "S+3";
+  const rank: string = "S+3";
+  if (!rank) return <></>;
 
   return (
     <div className={"flex items-center gap-2"}>
@@ -71,14 +67,22 @@ export const RankText = (props: RankTextProps) => {
         />
       </div>
       {edit ? (
-        <input
-          type="text"
-          className={"w-32 underline underline-offset-2 outline-none"}
-          value={rank}
-          onChange={(e) => {
-            console.log(e.target.value);
-          }}
-        />
+        <div className={"flex"}>
+          <select>
+            {matchRanks.map((rank) => (
+              <option key={rank}>{rank}</option>
+            ))}
+          </select>
+          {rank.startsWith("S+") && (
+            <input
+              className={"w-20 px-2"}
+              type={"number"}
+              minLength={0}
+              maxLength={50}
+              defaultValue={0}
+            />
+          )}
+        </div>
       ) : (
         <p>{rank}</p>
       )}
@@ -91,7 +95,8 @@ export type SalmonTextProps = {
 };
 export const SalmonText = (props: SalmonTextProps) => {
   const { edit } = props;
-  const salmon = "전설";
+  const { salmonRunRank } = useGameStore();
+  if (!salmonRunRank) return <></>;
 
   return (
     <div className={"flex items-center gap-2"}>
@@ -104,16 +109,36 @@ export const SalmonText = (props: SalmonTextProps) => {
         />
       </div>
       {edit ? (
+        <div className={"flex"}>
+          <select>
+            {matchRanks.map((rank) => (
+              <option key={rank}>{rank}</option>
+            ))}
+          </select>
+          {salmonRunRank?.startsWith("전설") && (
+            <input
+              className={"w-20 px-2"}
+              type={"number"}
+              minLength={0}
+              maxLength={50}
+              defaultValue={0}
+            />
+          )}
+        </div>
+      ) : (
+        <p>{salmonRunRank}</p>
+      )}
+      {edit ? (
         <input
           type="text"
           className={"w-32 underline underline-offset-2 outline-none"}
-          value={salmon}
+          value={salmonRunRank}
           onChange={(e) => {
             console.log(e.target.value);
           }}
         />
       ) : (
-        <p>{salmon}</p>
+        <p>{salmonRunRank}</p>
       )}
     </div>
   );

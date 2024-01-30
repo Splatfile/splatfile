@@ -1,3 +1,11 @@
+import {
+  mainsCodes,
+  specialsCodes,
+  subsCodes,
+} from "@/app/lib/constants/weapons"; // 뉴비 / 진심 (일본어로 Gachi) / 캐주얼
+import { gearPowerCodes } from "@/app/lib/constants/weapons/etc";
+import { battleCodes, salmonrunCodes } from "@/app/lib/constants/maps";
+
 type ServerRegion = "KR/HK" | "JP" | "EU" | "NA/SA/AT/NC";
 type RankRule = "Area" | "Fish" | "Clam" | "Tower";
 type Rule = RankRule | "Regular" | "SalmonRun";
@@ -26,26 +34,17 @@ type RuleFavoriteInfo = {
 
 type PlayStyle = "Newbie" | "Gachi" | "Casual"; // 뉴비 / 진심 (일본어로 Gachi) / 캐주얼
 
-import { codes as mainWeaponCodes } from "@/app/lib/constants/weapons/mains";
-type MainWeaponCode = typeof mainWeaponCodes[number];
+type MainWeaponCode = (typeof mainsCodes)[number];
 
-import { codes as subWeaponCodes } from "@/app/lib/constants/weapons/subs";
-type SubWeaponCode = typeof subWeaponCodes[number];
+type SubWeaponCode = (typeof subsCodes)[number];
 
-import { codes as specialWeaponCodes } from "@/app/lib/constants/weapons/specials";
-type SpecialWeaponCode = typeof specialWeaponCodes[number];
+type SpecialWeaponCode = (typeof specialsCodes)[number];
 
-import { gearPowerCodes } from "@/app/lib/constants/weapons/etc";
-type GearPowerCode = typeof gearPowerCodes[number];
+type GearPowerCode = (typeof gearPowerCodes)[number];
 
-import {
-  battleMapCodes,
-  codes as mapCodes,
-  salmonRunMapCodes,
-} from "@/app/lib/constants/maps";
-type MapCode = typeof mapCodes[number];
-type BattleMapCode = typeof battleMapCodes[number];
-type SalmonRunMapCode = typeof salmonRunMapCodes[number];
+type MapCode = (typeof mapCodes)[number];
+type BattleMapCode = (typeof battleCodes)[number];
+type SalmonRunMapCode = (typeof salmonrunCodes)[number];
 
 export type WeaponGearInfo = {
   mainWeapon: MainWeaponCode;
