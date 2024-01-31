@@ -43,7 +43,7 @@ export const LevelText = ({ edit }: LevelTextProps) => {
     if (level < 1) {
       setLevel(1);
     } else if (level > 999) {
-      setLevel(99);
+      setLevel(999);
     } else {
       setLevel(level);
     }
@@ -64,8 +64,9 @@ export const LevelText = ({ edit }: LevelTextProps) => {
           onChange={onChangeLevel}
           type="number"
           className={"w-32 underline underline-offset-2 outline-none"}
-          value={level}
-          defaultValue={level}
+          value={level ?? 0}
+          min={1}
+          max={999}
         />
       ) : (
         <p>{level}</p>
