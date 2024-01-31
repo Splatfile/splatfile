@@ -5,6 +5,7 @@ import {
 } from "@/app/lib/constants/weapons"; // 뉴비 / 진심 (일본어로 Gachi) / 캐주얼
 import { gearPowerCodes } from "@/app/lib/constants/weapons/etc";
 import { battleCodes, salmonrunCodes } from "@/app/lib/constants/maps";
+import { isMatching, P } from "ts-pattern";
 
 type ServerRegion = "KR/HK" | "JP" | "EU" | "NA/SA/AT/NC";
 type RankRule = "Area" | "Fish" | "Clam" | "Tower";
@@ -91,3 +92,49 @@ export type GameInfo = {
   ruleFavoriteInfo?: RuleFavoriteInfo;
   playStyle?: PlayStyle;
 };
+
+export const isUserInfo = (data: unknown): data is UserInfo =>
+  isMatching(
+    {
+      nickname: P.string,
+      profileImageUrl: P.string.optional(),
+      splatplateImageUrl: P.string.optional(),
+      twitterInfo: P.optional({
+        name: P.string,
+        id: P.string,
+      }),
+      switchInfo: P.optional({
+        name: P.string,
+        inGameName: P.string.optional(),
+        friendCode: P.string.optional(),
+        friendLink: P.string.optional(),
+      }),
+      gender: P.string.optional(),
+      introductionMessage: P.string.optional(),
+      languages: P.array(P.string).optional(),
+      favoritePlayHours: P.array(P.number).optional(),
+    },
+    data,
+  );
+
+export const isGameInfo = (data: unknown): data is GameInfo =>
+  isMatching(
+    {
+      serverRegion: P.string.optional(),
+      level: P.number.optional(),
+      anarchyBattleRank: P.string.optional(),
+      salmonRunRank: P.string.optional(),
+      xMatchInfo: P.optional({
+        area: P.string.optional(),
+        fish: P.string.optional(),
+        clam: P.string.optional(),
+        tower: P.string.optional(),
+      }),
+      ruleFavoriteInfo: P.optional({
+        area: P.string.optional(),
+        salmonrun: P.string.optional(),
+      }),
+      playStyle: P.string.optional(),
+    },
+    data,
+  );

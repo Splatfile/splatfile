@@ -3,6 +3,9 @@ import {
   SupabaseClient,
 } from "@supabase/auth-helpers-nextjs";
 import { notFound } from "next/navigation";
+import { InsertProfile } from "@/app/lib/types/supabase-alias";
+import { GameInfo, UserInfo, WeaponGearInfo } from "@/app/lib/schemas/profile";
+import Profile = module;
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -26,14 +29,13 @@ export const createSupabaseClient = (context: ContextType) => {
   throw new Error("Invalid contextType");
 };
 
-export const getUserProfile = async (supabase: SupabaseClient) => {
-  // const { user } = await supabase.from("");
-  // return user;
-};
-
-export const createOrGetMyProfile = async (supabase: SupabaseClient) => {
+export const createOrGetMyProfile = async (
+  supabase: SupabaseClient,
+): Promise<Profile> => {
   const user = await supabase.auth.getUser();
-  console.log("userId", user.data.user?.id);
+  if (!user.data.user?.id) {
+    notFound();
+  }
 
   const { data, error } = await supabase
     .from("profiles")
@@ -42,23 +44,38 @@ export const createOrGetMyProfile = async (supabase: SupabaseClient) => {
     .maybeSingle();
 
   if (!data) {
-    const { data, error } = await supabase.from("profiles").insert([
-      {
-        user_id: user.data.user?.id,
-        name: user.data.user?.email,
-        twitter_name: "",
-        twitter_id: "",
-        switch_name: "",
-        switch_in_game_name: "",
-        switch_friend_code: "",
-        switch_friend_link: "",
-        x_match_info: {},
-        rule_favorite_info: {},
-        play_style: "Newbie",
-        weapon_gear_info: {},
-      },
-    ]);
+    const game_info: GameInfo = {};
+    const user_info: UserInfo = {
+      nickname: "",
+    };
+
+    const weapon_gear_infos: WeaponGearInfo[] = [];
+
+    const insert: InsertProfile = {
+      user_id: user.data.user?.id,
+      game_info,
+      user_info,
+      weapon_gear_infos,
+    };
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .insert([
+        {
+          ...insert,
+        },
+      ])
+      .select("*")
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
     return data;
+  }
+  if (error) {
+    throw error;
   }
 
   return data;

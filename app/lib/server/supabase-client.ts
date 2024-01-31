@@ -22,3 +22,23 @@ export const createSupabaseServerClient = (contextType: ContextType) => {
   }
   throw new Error("Invalid contextType");
 };
+
+export const createSupabaseServerAdminClient = (contextType: ContextType) => {
+  switch (contextType) {
+    case "SERVER_COMPONENT":
+      return createServerComponentClient(
+        { cookies },
+        {
+          supabaseKey: process.env.SUPABASE_ADMIN_KEY,
+        },
+      );
+    case "ROUTER":
+      return createRouteHandlerClient(
+        { cookies },
+        {
+          supabaseKey: process.env.SUPABASE_ADMIN_KEY,
+        },
+      );
+  }
+  throw new Error("Invalid contextType");
+};

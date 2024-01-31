@@ -1,7 +1,13 @@
-import { GameInfo, UserInfo } from "@/app/lib/schemas/profile";
+import {
+  GameInfo,
+  isGameInfo,
+  isUserInfo,
+  UserInfo,
+} from "@/app/lib/schemas/profile";
 import { shallow } from "zustand/shallow";
 import { useEffect } from "react";
 import { createWithEqualityFn } from "zustand/traditional";
+import { Profile } from "@/app/lib/types/supabase-alias";
 
 type ProfileState = {
   user: UserInfo;
@@ -28,6 +34,22 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
   }),
   shallow,
 );
+
+export const initProfileStore = (profile: Profile, isMine: boolean) => {
+  const { user_info, game_info } = profile;
+  if (!isUserInfo(user_info) || !isGameInfo(game_info)) {
+    console.error("Invalid profile data", profile);
+    throw new Error(
+      "Invalid profile data userInfo: " + user_info + " gameInfo: " + game_info,
+    );
+  }
+
+  useProfileStore.setState((state) => ({
+    user: user_info,
+    game: game_info,
+  }));
+  setMine(isMine);
+};
 
 export const useUserStore = () => useProfileStore((state) => state.user);
 
@@ -73,20 +95,27 @@ export const subscribeEdit = (userId: string) => {
 };
 
 type LoadingStore = {
+  isMine: boolean;
   isLoading: boolean;
   setLoading: (isLoading: boolean) => void;
 };
 
-export const useLoadingStore = createWithEqualityFn<LoadingStore>(
+export const useEditStore = createWithEqualityFn<LoadingStore>(
   (set) => ({
+    isMine: false,
     isLoading: false,
+
     setLoading: (isLoading: boolean) => set({ isLoading }),
   }),
   shallow,
 );
 
 const setLoading = (isLoading: boolean) => {
-  useLoadingStore.setState((state) => ({ ...state, isLoading }));
+  useEditStore.setState((state) => ({ ...state, isLoading }));
+};
+
+const setMine = (isMine: boolean) => {
+  useEditStore.setState((state) => ({ ...state, isMine }));
 };
 
 //

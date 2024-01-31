@@ -2,15 +2,23 @@
 import { ProfileCard } from "@/app/users/[userId]/profile/components/ProfileCard";
 import { GameCard } from "@/app/users/[userId]/profile/components/GameCard";
 import { AccountCard } from "@/app/users/[userId]/profile/components/AccountCard";
-import { useDebounceEdit } from "@/app/lib/hooks/use-profile-store";
+import {
+  initProfileStore,
+  useDebounceEdit,
+} from "@/app/lib/hooks/use-profile-store";
+import { Profile } from "@/app/lib/types/supabase-alias";
 
 type ProfileWrapperProps = {
+  profile: Profile;
   userId: string;
   isMine: boolean;
 };
 
 export function ProfileWrapper(props: ProfileWrapperProps) {
-  useDebounceEdit(props.userId, props.isMine);
+  const { profile, isMine, userId } = props;
+  useDebounceEdit(userId, isMine);
+  initProfileStore(profile, isMine);
+
   return (
     <div className={"flex flex-col items-stretch"}>
       <div className={"flex h-full flex-col md:flex-row md:items-stretch"}>

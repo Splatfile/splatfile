@@ -1,5 +1,6 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { PencilIcon } from "@heroicons/react/20/solid";
+import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 
 export type InlineTextCardProps = {
   title: ReactNode;
@@ -27,7 +28,7 @@ type EditableInlineTextCardProps = InlineTextCardProps & {
 };
 
 export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
-  const [isMine, setIsMine] = useState(false);
+  const { isMine } = useEditStore();
 
   return (
     <div
