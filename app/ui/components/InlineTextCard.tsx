@@ -45,7 +45,7 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
             }
             onClick={() => props.setEdit(false)}
           >
-            완료
+            확인
           </button>
         ) : (
           isMine && (

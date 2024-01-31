@@ -86,8 +86,13 @@ export type UserInfo = {
 export type GameInfo = {
   serverRegion?: ServerRegion;
   level?: number;
-  anarchyBattleRank?: string;
-  salmonRunRank?: string;
+  anarchyBattleRank?: {
+    grade: AnarchyBattleRankGrade;
+    point: number;
+  };
+  salmonRunRank?: {
+    grade: SalmonRunRankGrade;
+  };
   xMatchInfo?: XMatchInfo;
   ruleFavoriteInfo?: RuleFavoriteInfo;
   playStyle?: PlayStyle;
@@ -122,8 +127,13 @@ export const isGameInfo = (data: unknown): data is GameInfo =>
     {
       serverRegion: P.string.optional(),
       level: P.number.optional(),
-      anarchyBattleRank: P.string.optional(),
-      salmonRunRank: P.string.optional(),
+      anarchyBattleRank: P.optional({
+        grade: P.union(...anarchyBattleRanks),
+        point: P.number,
+      }),
+      salmonRunRank: P.optional({
+        grade: P.union(...salmonRunRanks),
+      }),
       xMatchInfo: P.optional({
         area: P.string.optional(),
         fish: P.string.optional(),
@@ -138,3 +148,57 @@ export const isGameInfo = (data: unknown): data is GameInfo =>
     },
     data,
   );
+
+export const anarchyBattleRanks = [
+  "C-",
+  "C",
+  "C+",
+  "B-",
+  "B",
+  "B+",
+  "A-",
+  "A",
+  "A+",
+  "S",
+  "S+",
+] as const;
+
+export type AnarchyBattleRankGrade = (typeof anarchyBattleRanks)[number];
+
+export const isAnarchyBattleRank = (
+  rank: string,
+): rank is AnarchyBattleRankGrade =>
+  anarchyBattleRanks.includes(rank as AnarchyBattleRankGrade);
+
+export const salmonRunRanks = [
+  "Grade_00",
+  "Grade_01",
+  "Grade_02",
+  "Grade_03",
+  "Grade_04",
+  "Grade_05",
+  "Grade_06",
+  "Grade_07",
+  "Grade_08",
+] as const;
+
+export type SalmonRunRankGrade = (typeof salmonRunRanks)[number];
+
+export const isSalmonRunRank = (rank: string): rank is SalmonRunRankGrade =>
+  salmonRunRanks.includes(rank as SalmonRunRankGrade);
+
+export const SUPPORT_LABEL_LANGUAGES = ["KRko", "JPja", "USen"] as const;
+export type LangCode = (typeof SUPPORT_LABEL_LANGUAGES)[number];
+
+// 임시로 만든 코드 추후 제대로 언어 객체 만들어서 사용 예정
+export const salmonRunRanksKo: Record<SalmonRunRankGrade, string> = {
+  Grade_00: "\ucd08\ubcf4",
+  Grade_01: "\uacac\uc2b5",
+  Grade_02: "\uc77c\ubc18",
+  Grade_03: "\uc804\ubb38",
+  Grade_04: "\ub2ec\uc778",
+  Grade_05: "\ub2ec\uc778 +1",
+  Grade_06: "\ub2ec\uc778 +2",
+  Grade_07: "\ub2ec\uc778 +3",
+  Grade_08: "\uc804\uc124",
+};

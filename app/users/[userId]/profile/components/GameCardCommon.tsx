@@ -2,8 +2,19 @@
 import Image from "next/image";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { useState } from "react";
-import { matchRanks } from "@/app/lib/const";
-import { useGameStore } from "@/app/lib/hooks/use-profile-store";
+
+import {
+  setAnarchyBattleRank,
+  setSalmonRunRank,
+  useGameStore,
+} from "@/app/lib/hooks/use-profile-store";
+import {
+  anarchyBattleRanks,
+  isAnarchyBattleRank,
+  isSalmonRunRank,
+  salmonRunRanks,
+  salmonRunRanksKo,
+} from "@/app/lib/schemas/profile";
 
 export function GameCardCommon() {
   const [edit, setEdit] = useState(false);
@@ -53,8 +64,25 @@ export type RankTextProps = {
 };
 export const RankText = (props: RankTextProps) => {
   const { edit } = props;
-  const rank: string = "S+3";
-  if (!rank) return <></>;
+  const { anarchyBattleRank } = useGameStore();
+
+  const onChangeGrade = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (!isAnarchyBattleRank(e.target.value)) {
+      console.error("Invalid AnarchyBattleRank:", e.target.value);
+      throw new Error("Invalid AnarchyBattleRank:" + e.target.value);
+    }
+    setAnarchyBattleRank(e.target.value, anarchyBattleRank?.point ?? 0);
+  };
+
+  const onChangePoint = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const point = parseInt(e.target.value);
+    setAnarchyBattleRank(
+      anarchyBattleRank?.grade || "S+",
+      point > 50 ? 50 : point < 0 ? 0 : point,
+    );
+  };
+
+  if (!anarchyBattleRank && !edit) return <></>;
 
   return (
     <div className={"flex items-center gap-2"}>
@@ -68,13 +96,19 @@ export const RankText = (props: RankTextProps) => {
       </div>
       {edit ? (
         <div className={"flex"}>
-          <select>
-            {matchRanks.map((rank) => (
-              <option key={rank}>{rank}</option>
+          <select
+            defaultValue={anarchyBattleRank?.grade}
+            onChange={onChangeGrade}
+          >
+            {anarchyBattleRanks.map((rank) => (
+              <option key={rank} value={rank}>
+                {rank}
+              </option>
             ))}
           </select>
-          {rank.startsWith("S+") && (
+          {anarchyBattleRank?.grade?.startsWith("S+") && (
             <input
+              onChange={onChangePoint}
               className={"w-20 px-2"}
               type={"number"}
               minLength={0}
@@ -84,7 +118,10 @@ export const RankText = (props: RankTextProps) => {
           )}
         </div>
       ) : (
-        <p>{rank}</p>
+        <p>
+          {anarchyBattleRank?.grade}{" "}
+          {anarchyBattleRank?.grade === "S+" && anarchyBattleRank?.point}{" "}
+        </p>
       )}
     </div>
   );
@@ -96,7 +133,16 @@ export type SalmonTextProps = {
 export const SalmonText = (props: SalmonTextProps) => {
   const { edit } = props;
   const { salmonRunRank } = useGameStore();
-  if (!salmonRunRank) return <></>;
+
+  const onChangeGrade = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (!isSalmonRunRank(e.target.value)) {
+      console.error("Invalid SalmonRunRank:", e.target.value);
+      throw new Error("Invalid SalmonRunRank:" + e.target.value);
+    }
+    setSalmonRunRank(e.target.value);
+  };
+
+  if (!salmonRunRank?.grade && !edit) return <></>;
 
   return (
     <div className={"flex items-center gap-2"}>
@@ -110,35 +156,16 @@ export const SalmonText = (props: SalmonTextProps) => {
       </div>
       {edit ? (
         <div className={"flex"}>
-          <select>
-            {matchRanks.map((rank) => (
-              <option key={rank}>{rank}</option>
+          <select onChange={onChangeGrade} defaultValue={salmonRunRank?.grade}>
+            {salmonRunRanks.map((rank) => (
+              <option key={rank} value={rank}>
+                {salmonRunRanksKo[rank]}
+              </option>
             ))}
           </select>
-          {salmonRunRank?.startsWith("전설") && (
-            <input
-              className={"w-20 px-2"}
-              type={"number"}
-              minLength={0}
-              maxLength={50}
-              defaultValue={0}
-            />
-          )}
         </div>
       ) : (
-        <p>{salmonRunRank}</p>
-      )}
-      {edit ? (
-        <input
-          type="text"
-          className={"w-32 underline underline-offset-2 outline-none"}
-          value={salmonRunRank}
-          onChange={(e) => {
-            console.log(e.target.value);
-          }}
-        />
-      ) : (
-        <p>{salmonRunRank}</p>
+        <p>{salmonRunRank?.grade && salmonRunRanksKo[salmonRunRank.grade]}</p>
       )}
     </div>
   );

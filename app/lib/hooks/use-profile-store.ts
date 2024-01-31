@@ -1,13 +1,16 @@
 import {
+  AnarchyBattleRankGrade,
   GameInfo,
   isGameInfo,
   isUserInfo,
+  SalmonRunRankGrade,
   UserInfo,
 } from "@/app/lib/schemas/profile";
 import { shallow } from "zustand/shallow";
 import { useEffect } from "react";
 import { createWithEqualityFn } from "zustand/traditional";
 import { Profile } from "@/app/lib/types/supabase-alias";
+import { createSupabaseClient, updateProfile } from "@/app/lib/supabase-client";
 
 type ProfileState = {
   user: UserInfo;
@@ -37,6 +40,7 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
 
 export const initProfileStore = (profile: Profile, isMine: boolean) => {
   const { user_info, game_info } = profile;
+
   if (!isUserInfo(user_info) || !isGameInfo(game_info)) {
     console.error("Invalid profile data", profile);
     throw new Error(
@@ -69,6 +73,26 @@ export const setGameInfo = (gameInfo: Partial<GameInfo>) => {
   }));
 };
 
+export const setAnarchyBattleRank = (
+  rank: AnarchyBattleRankGrade,
+  point: number,
+) => {
+  setGameInfo({
+    anarchyBattleRank: {
+      grade: rank,
+      point,
+    },
+  });
+};
+
+export const setSalmonRunRank = (rank: SalmonRunRankGrade) => {
+  setGameInfo({
+    salmonRunRank: {
+      grade: rank,
+    },
+  });
+};
+
 // State가 변경될 때마다, 2초 뒤에 supabase에 저장하는 로직을 실행합니다.
 export const useDebounceEdit = (userId: string, isMine: boolean) => {
   useEffect(
@@ -79,16 +103,26 @@ export const useDebounceEdit = (userId: string, isMine: boolean) => {
 
 export const subscribeEdit = (userId: string) => {
   let timeoutId: NodeJS.Timeout | string | number | undefined;
+  const supabase = createSupabaseClient("CLIENT_COMPONENT");
+
   // subscribe은 unsubscribe를 return 하여, useEffect의 cleanup 함수로 사용할 수 있습니다.
   return useProfileStore.subscribe((state, prevState) => {
+    setLoading(true);
+
     const currJson = JSON.stringify(state);
     const prevJson = JSON.stringify(prevState);
-    if (currJson === prevJson) return;
 
+    if (currJson === prevJson) return;
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      setLoading(true);
-      // TODO: supabase에 저장하는 로직
+    timeoutId = setTimeout(async () => {
+      await updateProfile(
+        supabase,
+        {
+          user_info: state.user,
+          game_info: state.game,
+        },
+        userId,
+      );
       setLoading(false);
     }, 2 * 1000);
   });
@@ -115,7 +149,11 @@ const setLoading = (isLoading: boolean) => {
 };
 
 const setMine = (isMine: boolean) => {
-  useEditStore.setState((state) => ({ ...state, isMine }));
+  useEditStore.setState((state) => ({
+    ...state,
+    isMine,
+    isLoading: isMine ? state.isLoading : false,
+  }));
 };
 
 //

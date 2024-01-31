@@ -6,11 +6,14 @@ import {
   CLIENT_COMPONENT,
   createSupabaseClient,
 } from "@/app/lib/supabase-client";
+import { useEditStore } from "@/app/lib/hooks/use-profile-store";
+import { LoadingLogo } from "@/app/ui/components/LoadingLogo";
 import useUser = Auth.useUser;
 
 export function Header() {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const user = useUser();
+  const { isLoading } = useEditStore();
 
   return (
     <header className="bg-gray-900">
@@ -21,6 +24,11 @@ export function Header() {
         {/* 헤더 왼쪽 */}
         <div className="flex text-white lg:flex-1">
           <a href={"/"}>Hello Splatfile</a>
+          {isLoading && (
+            <div className={"mx-4 flex items-center justify-center"}>
+              <LoadingLogo />
+            </div>
+          )}
         </div>
         {/* 모바일 헤더 오른쪽 */}
         <div className="flex lg:hidden">

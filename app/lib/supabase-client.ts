@@ -3,9 +3,12 @@ import {
   SupabaseClient,
 } from "@supabase/auth-helpers-nextjs";
 import { notFound } from "next/navigation";
-import { InsertProfile } from "@/app/lib/types/supabase-alias";
+import {
+  Profile,
+  ProfileInsert,
+  ProfileUpdate,
+} from "@/app/lib/types/supabase-alias";
 import { GameInfo, UserInfo, WeaponGearInfo } from "@/app/lib/schemas/profile";
-import Profile = module;
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -51,7 +54,7 @@ export const createOrGetMyProfile = async (
 
     const weapon_gear_infos: WeaponGearInfo[] = [];
 
-    const insert: InsertProfile = {
+    const insert: ProfileInsert = {
       user_id: user.data.user?.id,
       game_info,
       user_info,
@@ -90,6 +93,32 @@ export const getProfile = async (supabase: SupabaseClient, userId: string) => {
 
   if (!data) {
     notFound();
+  }
+
+  return data;
+};
+
+export const updateProfile = async (
+  supabase: SupabaseClient,
+  profile: ProfileUpdate,
+  userId: string,
+) => {
+  const user = await supabase.auth.getUser();
+
+  if (user.data.user?.id !== userId) {
+    console.error("Invalid user id", profile.user_id, user.data.user?.id);
+    throw new Error(
+      "Invalid user id " + profile.user_id + " " + user.data.user?.id,
+    );
+  }
+  const { data, error } = await supabase
+    .from("profiles")
+    .update(profile)
+    .eq("user_id", user.data.user?.id)
+    .single();
+
+  if (error) {
+    throw error;
   }
 
   return data;

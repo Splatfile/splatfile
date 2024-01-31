@@ -7,6 +7,7 @@ import {
   useDebounceEdit,
 } from "@/app/lib/hooks/use-profile-store";
 import { Profile } from "@/app/lib/types/supabase-alias";
+import { useEffect } from "react";
 
 type ProfileWrapperProps = {
   profile: Profile;
@@ -16,8 +17,11 @@ type ProfileWrapperProps = {
 
 export function ProfileWrapper(props: ProfileWrapperProps) {
   const { profile, isMine, userId } = props;
+
   useDebounceEdit(userId, isMine);
-  initProfileStore(profile, isMine);
+  useEffect(() => {
+    initProfileStore(profile, isMine);
+  }, [profile, isMine, userId]);
 
   return (
     <div className={"flex flex-col items-stretch"}>
