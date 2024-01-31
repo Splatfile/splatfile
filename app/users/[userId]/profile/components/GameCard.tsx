@@ -4,9 +4,6 @@ import { GameCardXMatch } from "@/app/users/[userId]/profile/components/GameCard
 import { GameCardSalmonRun } from "@/app/users/[userId]/profile/components/GameCardSalmonRun";
 
 export function GameCard() {
-  const level = 46;
-  const rank = "S+3";
-  const salmon = "전설";
   const playstyle = "즐빡겜";
 
   return (

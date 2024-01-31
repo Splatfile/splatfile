@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import {
   setAnarchyBattleRank,
+  setLevel,
   setSalmonRunRank,
   useGameStore,
 } from "@/app/lib/hooks/use-profile-store";
@@ -33,7 +34,21 @@ export type LevelTextProps = {
 };
 
 export const LevelText = ({ edit }: LevelTextProps) => {
-  const level = 46;
+  const { level } = useGameStore();
+
+  if (!level && !edit) return <></>;
+
+  const onChangeLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const level = parseInt(e.target.value);
+    if (level < 1) {
+      setLevel(1);
+    } else if (level > 999) {
+      setLevel(99);
+    } else {
+      setLevel(level);
+    }
+  };
+
   return (
     <div className={"flex items-center gap-2"}>
       <div className={"h-6 w-6 md:h-8 md:w-8"}>
@@ -46,12 +61,11 @@ export const LevelText = ({ edit }: LevelTextProps) => {
       </div>
       {edit ? (
         <input
+          onChange={onChangeLevel}
           type="number"
           className={"w-32 underline underline-offset-2 outline-none"}
           value={level}
-          onChange={(e) => {
-            console.log(e.target.value);
-          }}
+          defaultValue={level}
         />
       ) : (
         <p>{level}</p>

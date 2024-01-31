@@ -73,6 +73,14 @@ export const setGameInfo = (gameInfo: Partial<GameInfo>) => {
   }));
 };
 
+export const setNickname = (nickname: string) => {
+  setUserInfo({ nickname });
+};
+
+export const setLevel = (level: number) => {
+  setGameInfo({ level });
+};
+
 export const setAnarchyBattleRank = (
   rank: AnarchyBattleRankGrade,
   point: number,
