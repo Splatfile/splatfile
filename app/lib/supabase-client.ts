@@ -88,9 +88,10 @@ export const getProfile = async (supabase: SupabaseClient, userId: string) => {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq("user_id", userId)
+    .eq("user_id", "7973f2b0-ee0d-43ab-aeaf-a4d978e1609d")
     .maybeSingle();
 
+  console.log("getProfile", data, error, userId);
   if (!data) {
     notFound();
   }

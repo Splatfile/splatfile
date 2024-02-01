@@ -3,7 +3,10 @@ import {
   getProfile,
   SERVER_COMPONENT,
 } from "@/app/lib/supabase-client";
-import { createSupabaseServerAdminClient } from "@/app/lib/server/supabase-client";
+import {
+  createSupabaseServerClient,
+  createSupabaseServiceClient,
+} from "@/app/lib/server/supabase-client";
 import { ProfileWrapper } from "@/app/users/[userId]/profile/components/ProfileWrapper";
 
 type PageProps = {
@@ -13,7 +16,7 @@ type PageProps = {
 };
 
 export default async function ProfilePage(props: PageProps) {
-  const supabaseClient = createSupabaseServerAdminClient(SERVER_COMPONENT);
+  const supabaseClient = createSupabaseServerClient(SERVER_COMPONENT);
   const user = await supabaseClient.auth.getUser();
 
   if (user.data.user && user.data.user?.id === props.params.userId) {
@@ -27,7 +30,8 @@ export default async function ProfilePage(props: PageProps) {
     );
   }
 
-  const profile = await getProfile(supabaseClient, props.params.userId);
+  const adminClient = createSupabaseServiceClient(SERVER_COMPONENT);
+  const profile = await getProfile(adminClient, props.params.userId);
 
   return (
     <ProfileWrapper

@@ -4,41 +4,30 @@ import {
 } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { ContextType } from "@/app/lib/supabase-client";
-
-export const createSupabaseServerComponentClent = () => {
-  return createServerComponentClient({ cookies });
-};
-
-export const createSupabaseRouterClient = () => {
-  return createRouteHandlerClient({ cookies });
-};
+import { createClient } from "@supabase/supabase-js";
 
 export const createSupabaseServerClient = (contextType: ContextType) => {
   switch (contextType) {
     case "SERVER_COMPONENT":
-      return createSupabaseServerComponentClent();
+      return createServerComponentClient({ cookies });
     case "ROUTER":
-      return createSupabaseRouterClient();
+      return createRouteHandlerClient({ cookies });
   }
-  throw new Error("Invalid contextType");
+  throw new Error("Invalid contextType: " + contextType);
 };
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 
-export const createSupabaseServerAdminClient = (contextType: ContextType) => {
+export const createSupabaseServiceClient = (contextType: ContextType) => {
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error(
+      `Supabase Url or Supabase Service Key is not defined, url: ${supabaseUrl}, key: ${supabaseServiceKey}`,
+    );
+  }
   switch (contextType) {
     case "SERVER_COMPONENT":
-      return createServerComponentClient(
-        { cookies },
-        {
-          supabaseKey: process.env.SUPABASE_ADMIN_KEY,
-        },
-      );
     case "ROUTER":
-      return createRouteHandlerClient(
-        { cookies },
-        {
-          supabaseKey: process.env.SUPABASE_ADMIN_KEY,
-        },
-      );
+      return createClient(supabaseUrl, supabaseServiceKey);
   }
-  throw new Error("Invalid contextType");
+  throw new Error("Invalid contextType: " + contextType);
 };

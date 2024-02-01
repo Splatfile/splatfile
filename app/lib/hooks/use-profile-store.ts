@@ -115,14 +115,21 @@ export const subscribeEdit = (userId: string) => {
 
   // subscribe은 unsubscribe를 return 하여, useEffect의 cleanup 함수로 사용할 수 있습니다.
   return useProfileStore.subscribe((state, prevState) => {
-    setLoading(true);
+    if (!prevState) return;
 
     const currJson = JSON.stringify(state);
     const prevJson = JSON.stringify(prevState);
 
     if (currJson === prevJson) return;
+    setLoading(true);
     clearTimeout(timeoutId);
+
     timeoutId = setTimeout(async () => {
+      const user = await supabase.auth.getUser();
+      if (userId !== user.data.user?.id) {
+        setLoading(false);
+        return;
+      }
       await updateProfile(
         supabase,
         {
