@@ -12,7 +12,7 @@ type RankRule = "Area" | "Fish" | "Clam" | "Tower";
 type Rule = RankRule | "Regular" | "SalmonRun";
 
 type XMatchInfo = {
-  [K in RankRule as Lowercase<K>]?: string;
+  [K in RankRule as Lowercase<K>]?: number;
 };
 /*
 엑스 매치 정보
@@ -135,10 +135,10 @@ export const isGameInfo = (data: unknown): data is GameInfo =>
         grade: P.union(...salmonRunRanks),
       }),
       xMatchInfo: P.optional({
-        area: P.string.optional(),
-        fish: P.string.optional(),
-        clam: P.string.optional(),
-        tower: P.string.optional(),
+        area: P.string,
+        fish: P.string,
+        clam: P.string,
+        tower: P.string,
       }),
       ruleFavoriteInfo: P.optional({
         area: P.string.optional(),
