@@ -1,28 +1,43 @@
-import { AccountCard } from "@/app/users/[userId]/profile/components/AccountCard";
-import { GameCard } from "@/app/users/[userId]/profile/components/GameCard";
-import { ProfileCard } from "@/app/users/[userId]/profile/components/ProfileCard";
+import {
+  createOrGetMyProfile,
+  getProfile,
+  SERVER_COMPONENT,
+} from "@/app/lib/supabase-client";
+import {
+  createSupabaseServerClient,
+  createSupabaseServiceClient,
+} from "@/app/lib/server/supabase-client";
+import { ProfileWrapper } from "@/app/users/[userId]/profile/components/ProfileWrapper";
 
-export default function Home() {
+type PageProps = {
+  params: {
+    userId: string;
+  };
+};
+
+export default async function ProfilePage(props: PageProps) {
+  const supabaseClient = createSupabaseServerClient(SERVER_COMPONENT);
+  const user = await supabaseClient.auth.getUser();
+
+  if (user.data.user && user.data.user?.id === props.params.userId) {
+    const profile = await createOrGetMyProfile(supabaseClient);
+    return (
+      <ProfileWrapper
+        profile={profile}
+        userId={props.params.userId}
+        isMine={true}
+      />
+    );
+  }
+
+  const adminClient = createSupabaseServiceClient(SERVER_COMPONENT);
+  const profile = await getProfile(adminClient, props.params.userId);
+
   return (
-    <div className={"flex flex-col items-stretch"}>
-      <div className={"flex h-full flex-col md:flex-row md:items-stretch"}>
-        {/* 유저 사진 및 프로필 */}
-        <div
-          className={
-            "flex h-full w-full items-center justify-center p-8 text-white md:w-1/3 md:items-stretch md:p-0 md:py-24"
-          }
-        >
-          <ProfileCard />
-        </div>
-        {/* 인게임 정보 */}
-        <div className={"w-full md:w-2/3"}>
-          <GameCard></GameCard>
-        </div>
-      </div>
-      <div>
-        {/* 계정 정보*/}
-        <AccountCard />
-      </div>
-    </div>
+    <ProfileWrapper
+      profile={profile}
+      userId={props.params.userId}
+      isMine={false}
+    />
   );
 }

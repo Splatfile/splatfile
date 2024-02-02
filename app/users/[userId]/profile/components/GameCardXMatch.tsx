@@ -4,11 +4,11 @@ import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
 type GameCardXMatchProps = {};
 
 export function GameCardXMatch(props: GameCardXMatchProps) {
-  const { area, fish, shell, tower } = {
-    area: 2100,
-    fish: 2100,
-    shell: 2100,
-    tower: 2300,
+  const { area, fish, clam, tower } = {
+    area: "2100",
+    fish: "2100",
+    clam: "2100",
+    tower: "2300",
   };
 
   return (
@@ -40,7 +40,7 @@ export function GameCardXMatch(props: GameCardXMatchProps) {
             src="/ingames/shell.webp"
             alt="Splatoon Salmon Icon"
           />
-          <p>{shell}</p>
+          <p>{clam}</p>
         </div>
         <div className={"flex gap-2"}>
           <Image

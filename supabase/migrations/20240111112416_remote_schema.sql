@@ -55,6 +55,7 @@ ALTER TABLE ONLY "public"."profiles"
 
 ALTER TABLE "public"."profiles" ENABLE ROW LEVEL SECURITY;
 
+
 GRANT USAGE ON SCHEMA "public" TO "postgres";
 GRANT USAGE ON SCHEMA "public" TO "anon";
 GRANT USAGE ON SCHEMA "public" TO "authenticated";

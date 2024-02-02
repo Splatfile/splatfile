@@ -2,16 +2,19 @@
 
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { createSupabaseClientComponentClient } from "@/app/lib/supabase-client";
 import { ko } from "@/app/lib/supabase-auth-ui-localization";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import {
+  CLIENT_COMPONENT,
+  createSupabaseClient,
+} from "@/app/lib/supabase-client";
 import useUser = Auth.useUser;
 
 type LoginButtonProps = {};
 
 export function LoginView(props: LoginButtonProps) {
-  const supabaseClient = createSupabaseClientComponentClient();
+  const supabaseClient = createSupabaseClient(CLIENT_COMPONENT);
   const { user } = useUser();
   const router = useRouter();
   useEffect(() => {
