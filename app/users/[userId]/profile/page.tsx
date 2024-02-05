@@ -8,6 +8,7 @@ import {
   createSupabaseServiceClient,
 } from "@/app/lib/server/supabase-client";
 import { ProfileWrapper } from "@/app/users/[userId]/profile/components/ProfileWrapper";
+import { unstable_noStore } from "next/cache";
 
 type PageProps = {
   params: {
@@ -15,7 +16,12 @@ type PageProps = {
   };
 };
 
+// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
+export const dynamic = "force-dynamic";
+
 export default async function ProfilePage(props: PageProps) {
+  unstable_noStore();
+
   const supabaseClient = createSupabaseServerClient(SERVER_COMPONENT);
   const user = await supabaseClient.auth.getUser();
 

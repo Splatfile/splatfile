@@ -102,6 +102,7 @@ export const SignInButton = () => {
             "rounded-md px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
           }
           href={`/users/${user.id}/profile`}
+          prefetch={false}
         >
           내 프로필
         </Link>

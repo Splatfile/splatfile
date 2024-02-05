@@ -6,13 +6,14 @@ import {
 import { gearPowerCodes } from "@/app/lib/constants/weapons/etc";
 import { battleCodes, salmonrunCodes } from "@/app/lib/constants/maps";
 import { isMatching, P } from "ts-pattern";
+import { GameCardXMatch } from "@/app/users/[userId]/profile/components/GameCardXMatch";
 
 type ServerRegion = "KR/HK" | "JP" | "EU" | "NA/SA/AT/NC";
 type RankRule = "Area" | "Fish" | "Clam" | "Tower";
 type Rule = RankRule | "Regular" | "SalmonRun";
 
-type XMatchInfo = {
-  [K in RankRule as Lowercase<K>]?: number;
+export type XMatchInfo = {
+  [K in RankRule as Lowercase<K>]?: string;
 };
 /*
 엑스 매치 정보
@@ -162,6 +163,11 @@ export const anarchyBattleRanks = [
   "S",
   "S+",
 ] as const;
+
+export const isKeyOfXmatch = (
+  key: string,
+): key is keyof typeof GameCardXMatch =>
+  isMatching(P.union("area", "fish", "clam", "tower"), key);
 
 export type AnarchyBattleRankGrade = (typeof anarchyBattleRanks)[number];
 

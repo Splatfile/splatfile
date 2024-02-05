@@ -124,7 +124,7 @@ export const RankText = (props: RankTextProps) => {
           {anarchyBattleRank?.grade?.startsWith("S+") && (
             <input
               onChange={onChangePoint}
-              className={"w-20 px-2"}
+              className={"w-20 px-2 underline underline-offset-2 outline-none"}
               type={"number"}
               minLength={0}
               maxLength={50}

@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { createWithEqualityFn } from "zustand/traditional";
 import { Profile } from "@/app/lib/types/supabase-alias";
 import { createSupabaseClient, updateProfile } from "@/app/lib/supabase-client";
+import { GameCardXMatch } from "@/app/users/[userId]/profile/components/GameCardXMatch";
 
 type ProfileState = {
   user: UserInfo;
@@ -163,11 +164,27 @@ const setLoading = (isLoading: boolean) => {
   useEditStore.setState((state) => ({ ...state, isLoading }));
 };
 
-const setMine = (isMine: boolean) => {
+export const setMine = (isMine: boolean) => {
   useEditStore.setState((state) => ({
     ...state,
     isMine,
     isLoading: isMine ? state.isLoading : false,
+  }));
+};
+
+export const setXMatchPoint = (
+  key: keyof typeof GameCardXMatch,
+  value: string,
+) => {
+  useProfileStore.setState((state) => ({
+    ...state,
+    game: {
+      ...state.game,
+      xMatchInfo: {
+        ...state.game.xMatchInfo,
+        [key]: value,
+      },
+    },
   }));
 };
 
