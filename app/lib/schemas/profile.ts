@@ -136,10 +136,10 @@ export const isGameInfo = (data: unknown): data is GameInfo =>
         grade: P.union(...salmonRunRanks),
       }),
       xMatchInfo: P.optional({
-        area: P.string,
-        fish: P.string,
-        clam: P.string,
-        tower: P.string,
+        area: P.string.optional(),
+        fish: P.string.optional(),
+        clam: P.string.optional(),
+        tower: P.string.optional(),
       }),
       ruleFavoriteInfo: P.optional({
         area: P.string.optional(),
