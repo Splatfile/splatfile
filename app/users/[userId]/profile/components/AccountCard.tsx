@@ -2,12 +2,22 @@
 import { NintendoSwitchLogo } from "@/app/ui/icons/NintendoSwitchLogo";
 import { SquidLogo } from "@/app/ui/icons/SquidLogo";
 import { XLogo } from "@/app/ui/icons/XLogo";
-import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
+import {
+  EditableInlineTextCard,
+  InlineTextCard,
+} from "@/app/ui/components/InlineTextCard";
 import { TextCard } from "@/app/ui/components/TextCard";
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
+import {
+  useEditStore,
+  useSwitchInfo,
+  useUserStore,
+} from "@/app/lib/hooks/use-profile-store";
 
 export function AccountCard() {
+  const userInfo = useUserStore();
+
   const { nintendoNickname, splatoonNickname } = {
     nintendoNickname: "Splatfile",
     splatoonNickname: "Splat Nick",
@@ -43,26 +53,6 @@ export function AccountCard() {
               "bottom-auto grid grid-cols-1 content-around gap-6 sm:grid-cols-2 md:grid-cols-4"
             }
           >
-            <InlineTextCard title={"닉네임"}>
-              <div className={"flex flex-col gap-2"}>
-                <div className={"mt-2 flex items-center gap-2"}>
-                  <div className={"h-6 w-6 text-[#d42d22]"}>
-                    <NintendoSwitchLogo className={"h-6 w-6"} />
-                  </div>
-                  <p className={"font-medium text-neutral-700"}>
-                    {nintendoNickname}
-                  </p>
-                </div>
-                <div className={"flex items-center gap-2"}>
-                  <div className={"fill-[#d42d22] text-[#d42d22]"}>
-                    <SquidLogo className={"h-6 w-6"} />
-                  </div>
-                  <p className={"font-medium text-neutral-700"}>
-                    {splatoonNickname}
-                  </p>
-                </div>
-              </div>
-            </InlineTextCard>
             {/* X / 트위터 */}
             <InlineTextCard title={<XLogo className={"h-6 w-6"} />}>
               <p className={"text-md text-neutral-900 md:text-center"}>
@@ -150,3 +140,39 @@ export function AccountCard() {
     </div>
   );
 }
+
+type SwitchInfoCardProps = {
+  userInfo: any;
+};
+
+const SwitchInfoCard = (props: SwitchInfoCardProps) => {
+  const switchInfo = useSwitchInfo();
+  const { isMine } = useEditStore();
+
+  const [edit, setEdit] = useState(false);
+
+  if (!isMine && !switchInfo) {
+    return null;
+  }
+
+  return (
+    <EditableInlineTextCard title={"닉네임"} edit={edit} setEdit={setEdit}>
+      <div className={"flex flex-col gap-2"}>
+        <div className={"mt-2 flex items-center gap-2"}>
+          <div className={"h-6 w-6 text-[#d42d22]"}>
+            <NintendoSwitchLogo className={"h-6 w-6"} />
+          </div>
+          <p className={"font-medium text-neutral-700"}>{switchInfo?.name}</p>
+        </div>
+        <div className={"flex items-center gap-2"}>
+          <div className={"fill-[#d42d22] text-[#d42d22]"}>
+            <SquidLogo className={"h-6 w-6"} />
+          </div>
+          <p className={"font-medium text-neutral-700"}>
+            {switchInfo?.inGameName}
+          </p>
+        </div>
+      </div>
+    </EditableInlineTextCard>
+  );
+};

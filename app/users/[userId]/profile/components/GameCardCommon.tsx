@@ -121,16 +121,16 @@ export const RankText = (props: RankTextProps) => {
               onChange={onChangePoint}
               className={"w-20 px-2 underline underline-offset-2 outline-none"}
               type={"number"}
-              minLength={0}
-              maxLength={50}
+              min={0}
+              max={50}
               defaultValue={0}
             />
           )}
         </div>
       ) : (
         <p>
-          {anarchyBattleRank?.grade}{" "}
-          {anarchyBattleRank?.grade === "S+" && anarchyBattleRank?.point}{" "}
+          {anarchyBattleRank?.grade}
+          {anarchyBattleRank?.grade === "S+" && anarchyBattleRank?.point}
         </p>
       )}
     </div>

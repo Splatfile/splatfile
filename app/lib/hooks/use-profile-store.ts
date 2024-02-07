@@ -69,6 +69,9 @@ export const initProfileStore = (profile: Profile, isMine: boolean) => {
 
 export const useUserStore = () => useProfileStore((state) => state.user);
 
+export const useSwitchInfo = () =>
+  useProfileStore((state) => state.user.switchInfo);
+
 export const useGameStore = () => useProfileStore((state) => state.game);
 
 export const setUserInfo = (userInfo: Partial<UserInfo>) => {
