@@ -120,7 +120,7 @@ const XMatchCardEdit = () => {
           src="/ingames/area.webp"
           alt="Splatoon Area Icon"
         />
-        <label htmlFor={area} className={"hidden"}>
+        <label htmlFor={"area"} className={"hidden"}>
           Area Level
         </label>
         <input
@@ -139,7 +139,7 @@ const XMatchCardEdit = () => {
           src="/ingames/shell.webp"
           alt="Splatoon clam Icon"
         />
-        <label htmlFor={clam} className={"hidden"}>
+        <label htmlFor={"clam"} className={"hidden"}>
           Clam Level
         </label>
         <input
@@ -158,7 +158,7 @@ const XMatchCardEdit = () => {
           src="/ingames/fish.webp"
           alt="Splatoon Fish Icon"
         />
-        <label htmlFor={fish} className={"hidden"}>
+        <label htmlFor={"fish"} className={"hidden"}>
           Fish Level
         </label>
         <input
@@ -177,7 +177,7 @@ const XMatchCardEdit = () => {
           src="/ingames/tower.webp"
           alt="Splatoon Tower Icon"
         />
-        <label htmlFor={tower} className={"hidden"}>
+        <label htmlFor={"tower"} className={"hidden"}>
           Tower Level
         </label>
         <input

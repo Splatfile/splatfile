@@ -26,7 +26,7 @@ export function Header() {
       >
         {/* 헤더 왼쪽 */}
         <div className="flex text-white lg:flex-1">
-          <a href={"/"}>Hello Splatfile</a>
+          <a href={"/"}>Splatfile</a>
           {isLoading && (
             <div className={"mx-4 flex items-center justify-center"}>
               <LoadingLogo />
