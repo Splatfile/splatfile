@@ -16,6 +16,7 @@ import {
   salmonRunRanks,
   salmonRunRanksKo,
 } from "@/app/lib/schemas/profile";
+import { EditableNumber } from "@/app/ui/components/EditableText";
 
 export function GameCardCommon() {
   const [edit, setEdit] = useState(false);
@@ -38,8 +39,8 @@ export const LevelText = ({ edit }: LevelTextProps) => {
 
   if (!level && !edit) return <></>;
 
-  const onChangeLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const level = parseInt(e.target.value);
+  const onChangeLevel = (value: string) => {
+    const level = parseInt(value);
     if (level < 1) {
       setLevel(1);
     } else if (level > 999) {
@@ -59,18 +60,12 @@ export const LevelText = ({ edit }: LevelTextProps) => {
           alt="Splatoon Level Icon"
         />
       </div>
-      {edit ? (
-        <input
-          onChange={onChangeLevel}
-          type="number"
-          className={"w-32 underline underline-offset-2 outline-none"}
-          value={level ?? 0}
-          min={1}
-          max={999}
-        />
-      ) : (
-        <p>{level}</p>
-      )}
+      <EditableNumber
+        inputClassName={"w-32 underline underline-offset-2 outline-none"}
+        edit={edit}
+        value={level ?? 1}
+        onChange={onChangeLevel}
+      />
     </div>
   );
 };

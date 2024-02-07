@@ -28,7 +28,7 @@ export function EditableText(props: EditableTextProps) {
 
 type EditableNumberProps = {
   edit: boolean;
-  value: string;
+  value: string | number;
   onChange: (value: string) => void;
   step?: number;
   min?: number;
