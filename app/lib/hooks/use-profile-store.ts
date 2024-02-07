@@ -3,6 +3,9 @@ import {
   GameInfo,
   isGameInfo,
   isUserInfo,
+  RankRule,
+  salmonrun_legend,
+  SalmonRunMapPoints,
   SalmonRunRankGrade,
   UserInfo,
 } from "@/app/lib/schemas/profile";
@@ -11,7 +14,6 @@ import { useEffect } from "react";
 import { createWithEqualityFn } from "zustand/traditional";
 import { Profile } from "@/app/lib/types/supabase-alias";
 import { createSupabaseClient, updateProfile } from "@/app/lib/supabase-client";
-import { GameCardXMatch } from "@/app/users/[userId]/profile/components/GameCardXMatch";
 
 type ProfileState = {
   user: UserInfo;
@@ -31,7 +33,16 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
         id: "",
       },
     },
-    game: {},
+    game: {
+      salmonRunMapPoints: {
+        dent: 40,
+        highway: 40,
+        lift: 40,
+        ship: 40,
+        spiral: 40,
+        up: 40,
+      },
+    },
     set: (state: Partial<ProfileState>) => {
       set({ ...get(), ...state });
     },
@@ -95,12 +106,35 @@ export const setAnarchyBattleRank = (
 };
 
 export const setSalmonRunRank = (rank: SalmonRunRankGrade) => {
+  const state = useProfileStore.getState();
+  if (rank === salmonrun_legend && !state.game.salmonRunMapPoints) {
+    setGameInfo({
+      salmonRunRank: {
+        grade: rank,
+      },
+      salmonRunMapPoints: {
+        dent: 40,
+        highway: 40,
+        lift: 40,
+        ship: 40,
+        spiral: 40,
+        up: 40,
+      },
+    });
+    return;
+  }
   setGameInfo({
     salmonRunRank: {
       grade: rank,
     },
   });
 };
+
+export const useSalmonRunMapPoints = () =>
+  useProfileStore((state) => state.game.salmonRunMapPoints);
+
+export const useSalmonRunRank = () =>
+  useProfileStore((state) => state.game.salmonRunRank);
 
 // State가 변경될 때마다, 2초 뒤에 supabase에 저장하는 로직을 실행합니다.
 export const useDebounceEdit = (userId: string, isMine: boolean) => {
@@ -144,13 +178,13 @@ export const subscribeEdit = (userId: string) => {
   });
 };
 
-type LoadingStore = {
+type EditStore = {
   isMine: boolean;
   isLoading: boolean;
   setLoading: (isLoading: boolean) => void;
 };
 
-export const useEditStore = createWithEqualityFn<LoadingStore>(
+export const useEditStore = createWithEqualityFn<EditStore>(
   (set) => ({
     isMine: false,
     isLoading: false,
@@ -173,7 +207,7 @@ export const setMine = (isMine: boolean) => {
 };
 
 export const setXMatchPoint = (
-  key: keyof typeof GameCardXMatch,
+  key: keyof Lowercase<RankRule>,
   value: string,
 ) => {
   useProfileStore.setState((state) => ({
@@ -186,6 +220,25 @@ export const setXMatchPoint = (
       },
     },
   }));
+};
+
+export const useMine = () => {
+  return useEditStore((state) => state.isMine);
+};
+
+export const setSalmonRunMapPoints = (
+  key: keyof SalmonRunMapPoints,
+  value: number,
+) => {
+  const state = useProfileStore.getState();
+
+  setGameInfo({
+    ...state.game,
+    salmonRunMapPoints: {
+      ...state.game.salmonRunMapPoints,
+      [key]: value,
+    },
+  });
 };
 
 //

@@ -47,7 +47,16 @@ export const createOrGetMyProfile = async (
     .maybeSingle();
 
   if (!data) {
-    const game_info: GameInfo = {};
+    const game_info: GameInfo = {
+      salmonRunMapPoints: {
+        dent: 40,
+        highway: 40,
+        lift: 40,
+        ship: 40,
+        spiral: 40,
+        up: 40,
+      },
+    };
     const user_info: UserInfo = {
       nickname: "",
     };

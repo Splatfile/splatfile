@@ -9,12 +9,22 @@ import { isMatching, P } from "ts-pattern";
 import { GameCardXMatch } from "@/app/users/[userId]/profile/components/GameCardXMatch";
 
 type ServerRegion = "KR/HK" | "JP" | "EU" | "NA/SA/AT/NC";
-type RankRule = "Area" | "Fish" | "Clam" | "Tower";
+export type RankRule = "Area" | "Fish" | "Clam" | "Tower";
 type Rule = RankRule | "Regular" | "SalmonRun";
 
 export type XMatchInfo = {
   [K in RankRule as Lowercase<K>]?: string;
 };
+
+export type SalmonRunMapPoints = {
+  dent: number;
+  highway: number;
+  lift: number;
+  ship: number;
+  spiral: number;
+  up: number;
+};
+
 /*
 엑스 매치 정보
 {
@@ -94,7 +104,8 @@ export type GameInfo = {
   salmonRunRank?: {
     grade: SalmonRunRankGrade;
   };
-  xMatchInfo?: XMatchInfo;
+  xMatchInfo?: XMatchInfo; // S+ 이상만
+  salmonRunMapPoints: SalmonRunMapPoints; // 전설 이상만
   ruleFavoriteInfo?: RuleFavoriteInfo;
   playStyle?: PlayStyle;
 };
@@ -114,6 +125,14 @@ export const isUserInfo = (data: unknown): data is UserInfo =>
         inGameName: P.string.optional(),
         friendCode: P.string.optional(),
         friendLink: P.string.optional(),
+      }),
+      salmonRunInfo: P.optional({
+        dent: P.number.gte(0).lte(999),
+        highway: P.number.gte(0).lte(999),
+        lift: P.number.gte(0).lte(999),
+        ship: P.number.gte(0).lte(999),
+        spiral: P.number.gte(0).lte(999),
+        up: P.number.gte(0).lte(999),
       }),
       gender: P.string.optional(),
       introductionMessage: P.string.optional(),
@@ -169,6 +188,20 @@ export const isKeyOfXmatch = (
 ): key is keyof typeof GameCardXMatch =>
   isMatching(P.union("area", "fish", "clam", "tower"), key);
 
+export const salmonRunMapPointKeys = [
+  "dent",
+  "highway",
+  "lift",
+  "ship",
+  "spiral",
+  "up",
+] as const;
+
+export const isKeyOfSalmonRunMapPoints = (
+  key: string,
+): key is keyof SalmonRunMapPoints =>
+  isMatching(P.union(...salmonRunMapPointKeys), key);
+
 export type AnarchyBattleRankGrade = (typeof anarchyBattleRanks)[number];
 
 export const isAnarchyBattleRank = (
@@ -208,3 +241,5 @@ export const salmonRunRanksKo: Record<SalmonRunRankGrade, string> = {
   Grade_07: "\ub2ec\uc778 +3",
   Grade_08: "\uc804\uc124",
 };
+
+export const salmonrun_legend = "Grade_08";
