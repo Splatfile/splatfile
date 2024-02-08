@@ -1,0 +1,14 @@
+{
+  "title": "screenshotter input schema",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "description": "URL of the page to scrape.",
+      "editor": "textfield",
+      "minLength": 1
+    }
+  }
+}

@@ -16,6 +16,7 @@
     "@supabase/auth-ui-react": "^0.4.7",
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/supabase-js": "^2.39.2",
+    "apify": "^3.1.15",
     "clsx": "^2.1.0",
     "next": "14.0.4",
     "qrcode": "^1.5.3",
