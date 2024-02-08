@@ -4,19 +4,29 @@ type EditableTextProps = {
   edit: boolean;
   value: string;
   onChange: (value: string) => void;
+  placeholder?: string;
   type?: HTMLInputTypeAttribute;
   textClassName?: string;
   inputClassName?: string;
 };
 
 export function EditableText(props: EditableTextProps) {
-  const { edit, value, type, onChange, textClassName, inputClassName } = props;
+  const {
+    edit,
+    value,
+    type,
+    onChange,
+    textClassName,
+    inputClassName,
+    placeholder,
+  } = props;
 
   if (edit) {
     return (
       <input
         className={inputClassName}
         type={type ?? "text"}
+        placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />

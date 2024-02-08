@@ -6,7 +6,7 @@ import {
 import { gearPowerCodes } from "@/app/lib/constants/weapons/etc";
 import { battleCodes, salmonrunCodes } from "@/app/lib/constants/maps";
 import { isMatching, P } from "ts-pattern";
-import { GameCardXMatch } from "@/app/users/[userId]/profile/components/GameCardXMatch";
+import { GameCardXMatch } from "@/app/users/[userId]/profile/components/game-information/GameCardXMatch";
 
 type ServerRegion = "KR/HK" | "JP" | "EU" | "NA/SA/AT/NC";
 export type RankRule = "Area" | "Fish" | "Clam" | "Tower";
@@ -70,13 +70,13 @@ export type WeaponGearInfo = {
   rules: Rule[];
 }; // 무기와 기어 정보
 
-type TwitterInfo = {
+export type TwitterInfo = {
   name: string;
   id: string;
 };
 
-type SwitchInfo = {
-  name: string;
+export type SwitchInfo = {
+  name?: string;
   inGameName?: string;
   friendCode?: string;
   friendLink?: string;
@@ -86,7 +86,7 @@ export type UserInfo = {
   nickname: string;
   profileImageUrl?: string;
   splatplateImageUrl?: string;
-  twitterInfo?: TwitterInfo;
+  twitterInfo: TwitterInfo;
   switchInfo?: SwitchInfo;
   gender?: string;
   introductionMessage?: string;

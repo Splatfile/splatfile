@@ -1,6 +1,6 @@
 "use client";
 import { ProfileCard } from "@/app/users/[userId]/profile/components/ProfileCard";
-import { GameCard } from "@/app/users/[userId]/profile/components/GameCard";
+import { GameCard } from "@/app/users/[userId]/profile/components/game-information/GameCard";
 import { AccountCard } from "@/app/users/[userId]/profile/components/AccountCard";
 import {
   initProfileStore,

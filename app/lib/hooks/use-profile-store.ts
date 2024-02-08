@@ -7,6 +7,8 @@ import {
   salmonrun_legend,
   SalmonRunMapPoints,
   SalmonRunRankGrade,
+  SwitchInfo,
+  TwitterInfo,
   UserInfo,
 } from "@/app/lib/schemas/profile";
 import { shallow } from "zustand/shallow";
@@ -96,6 +98,16 @@ export const setLevel = (level: number) => {
   setGameInfo({ level });
 };
 
+export const setSwitchInfo = (key: keyof SwitchInfo, value: string) => {
+  const switchInfo = useProfileStore.getState().user.switchInfo;
+  setUserInfo({
+    switchInfo: {
+      ...switchInfo,
+      [key]: value,
+    },
+  });
+};
+
 export const setAnarchyBattleRank = (
   rank: AnarchyBattleRankGrade,
   point: number,
@@ -138,6 +150,15 @@ export const useSalmonRunMapPoints = () =>
 
 export const useSalmonRunRank = () =>
   useProfileStore((state) => state.game.salmonRunRank);
+
+export const useTwitterInfo = () =>
+  useProfileStore((state) => state.user.twitterInfo);
+
+export const useGender = () => useProfileStore((state) => state.user.gender);
+
+export const setGender = (gender: string) => {
+  setUserInfo({ gender });
+};
 
 // State가 변경될 때마다, 2초 뒤에 supabase에 저장하는 로직을 실행합니다.
 export const useDebounceEdit = (userId: string, isMine: boolean) => {
@@ -223,6 +244,16 @@ export const setXMatchPoint = (
       },
     },
   }));
+};
+
+export const setTwitterInfo = (key: keyof TwitterInfo, value: string) => {
+  const twitterInfo = useProfileStore.getState().user.twitterInfo;
+  setUserInfo({
+    twitterInfo: {
+      ...twitterInfo,
+      [key]: value,
+    },
+  });
 };
 
 export const useMine = () => {

@@ -59,6 +59,10 @@ export const createOrGetMyProfile = async (
     };
     const user_info: UserInfo = {
       nickname: "",
+      twitterInfo: {
+        name: "",
+        id: "",
+      },
     };
 
     const weapon_gear_infos: WeaponGearInfo[] = [];
