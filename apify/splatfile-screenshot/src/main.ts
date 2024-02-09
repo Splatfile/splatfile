@@ -9,16 +9,13 @@ type Input = {
 
 const input = await Actor.getInput<Input>();
 
-// Create a PuppeteerCrawler
 const crawler = new PuppeteerCrawler({
-  async requestHandler({ request, page }) {
-    // Capture the screenshot with Puppeteer
-    const screenshot = await page.screenshot();
-    // Convert the URL into a valid key
-    const key = request.url.replace(/[:/]/g, "_");
-    request.userData;
-    // Save the screenshot to the default key-value store
-    await Actor.setValue(key, screenshot, { contentType: "image/png" });
+  async requestHandler({ page }) {
+    const screenshot = await page.screenshot({
+      fullPage: true,
+    });
+
+    await Actor.setValue("result", screenshot, { contentType: "image/png" });
   },
 });
 
