@@ -2,7 +2,6 @@ import {
   isUserInfo,
   SwitchInfo,
   TwitterInfo,
-  UserInfo,
   UserInfoObject,
 } from "@/app/lib/schemas/profile";
 import { shallow } from "zustand/shallow";
@@ -82,7 +81,7 @@ export const useSwitchInfo = () =>
 
 export const useGameStore = () => useProfileStore((state) => state.game);
 
-const setUserInfo = (userInfo: Partial<UserInfo>) => {
+const setUserInfo = (userInfo: z.infer<typeof UserInfoObject>) => {
   useProfileStore.setState((state) => ({
     ...state,
     user: { ...state.user, ...userInfo },
@@ -96,10 +95,6 @@ export const setGameInfo = (
     ...state,
     game: { ...state.game, ...gameInfo },
   }));
-};
-
-export const setNickname = (nickname: string) => {
-  setUserInfo({ nickname });
 };
 
 export const setLevel = (level: number) => {
@@ -184,6 +179,24 @@ export const useIntroductionMessage = () =>
 export const setIntroductionMessage = (introductionMessage: string) => {
   setUserInfo({ introductionMessage });
 };
+
+export const setPlaytime = (
+  timeType: "weekdayPlaytime" | "weekendPlaytime",
+  playtime: Partial<{
+    start: number;
+    end: number;
+  }>,
+) => {
+  setUserInfo({
+    [timeType]: {
+      ...useProfileStore.getState().user[timeType],
+      ...playtime,
+    },
+  });
+};
+
+export const usePlaytime = (timeType: "weekdayPlaytime" | "weekendPlaytime") =>
+  useProfileStore((state) => state.user[timeType]);
 
 // State가 변경될 때마다, 2초 뒤에 supabase에 저장하는 로직을 실행합니다.
 export const useDebounceEdit = (userId: string, isMine: boolean) => {

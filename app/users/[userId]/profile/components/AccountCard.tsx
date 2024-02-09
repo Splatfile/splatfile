@@ -2,10 +2,7 @@ import { SwitchInfoCard } from "@/app/users/[userId]/profile/components/account-
 import { TwitterInfoCard } from "@/app/users/[userId]/profile/components/account-information/TwitterInfoCard";
 import { GenderCard } from "@/app/users/[userId]/profile/components/account-information/GenderCard";
 import { SwitchCodeCard } from "@/app/users/[userId]/profile/components/account-information/SwitchCodeCard";
-import {
-  WeekdayPlayTimeCard,
-  WeekendPlayTimeCard,
-} from "@/app/users/[userId]/profile/components/account-information/PlayTimeCards";
+import { PlaytimeCard } from "@/app/users/[userId]/profile/components/account-information/PlayTimeCards";
 import { IntroductionCard } from "@/app/users/[userId]/profile/components/account-information/IntroductionCard";
 
 export function AccountCard() {
@@ -33,8 +30,8 @@ export function AccountCard() {
               "mt-4 flex w-full min-w-60 items-center justify-center gap-4 md:flex-row"
             }
           >
-            <WeekdayPlayTimeCard />
-            <WeekendPlayTimeCard />
+            <PlaytimeCard timeType={"weekdayPlaytime"} />
+            <PlaytimeCard timeType={"weekendPlaytime"} />
           </div>
         </div>
         <div className={"mx-2 p-2"}>

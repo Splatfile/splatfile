@@ -76,16 +76,14 @@ export const GameInfoObject = z.object({
       grade: z.enum(salmonRunRanks).optional(),
     })
     .optional(),
-  salmonRunMapPoints: z
-    .object({
-      Shakedent: z.number(),
-      Shakehighway: z.number(),
-      Shakelift: z.number(),
-      Shakeship: z.number(),
-      Shakespiral: z.number(),
-      Shakeup: z.number(),
-    })
-    .optional(),
+  salmonRunMapPoints: z.object({
+    Shakedent: z.number(),
+    Shakehighway: z.number(),
+    Shakelift: z.number(),
+    Shakeship: z.number(),
+    Shakespiral: z.number(),
+    Shakeup: z.number(),
+  }),
   xMatchInfo: z
     .object({
       area: z.string().optional(),

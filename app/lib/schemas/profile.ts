@@ -28,20 +28,7 @@ export type SwitchInfo = {
   friendLink?: string;
 };
 
-export type UserInfo = {
-  nickname: string;
-  profileImageUrl?: string;
-  splatplateImageUrl?: string;
-  twitterInfo: TwitterInfo;
-  switchInfo?: SwitchInfo;
-  gender?: string;
-  introductionMessage?: string;
-  languages?: string[];
-  favoritePlayHours?: [number, number];
-};
-
 export const UserInfoObject = z.object({
-  nickname: z.string(),
   profileImageUrl: z.string().optional(),
   splatplateImageUrl: z.string().optional(),
   twitterInfo: z
@@ -71,17 +58,16 @@ export const UserInfoObject = z.object({
   gender: z.string().optional(),
   introductionMessage: z.string().optional(),
   languages: z.array(z.string()).optional(),
-  favoritePlayHours: z.array(z.number().int()).optional(),
-  weekdayPlayTime: z
+  weekdayPlaytime: z
     .object({
-      start: z.number().int().min(0).max(24),
-      end: z.number().int().min(24).max(48),
+      start: z.number().int().min(0).max(23),
+      end: z.number().int().min(0).max(23),
     })
     .optional(),
-  weekendPlayTime: z
+  weekendPlaytime: z
     .object({
-      start: z.number().int().min(0).max(24),
-      end: z.number().int().min(24).max(48),
+      start: z.number().int().min(0).max(23),
+      end: z.number().int().min(0).max(23),
     })
     .optional(),
 });
