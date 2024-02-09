@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import {
   setGender,
@@ -19,6 +21,8 @@ export const GenderCard = () => {
       <EditableText
         edit={edit}
         value={gender ?? ""}
+        placeholder={"성별 입력"}
+        inputClassName={"w-full"}
         onChange={(value) => setGender(value)}
       />
     </EditableInlineTextCard>

@@ -9,6 +9,7 @@ import {
 } from "@/app/lib/server/supabase-client";
 import { ProfileWrapper } from "@/app/users/[userId]/profile/components/ProfileWrapper";
 import { unstable_noStore } from "next/cache";
+import { StoreSetting } from "@/app/users/[userId]/profile/components/StoreSetting";
 
 type PageProps = {
   params: {
@@ -28,11 +29,14 @@ export default async function ProfilePage(props: PageProps) {
   if (user.data.user && user.data.user?.id === props.params.userId) {
     const profile = await createOrGetMyProfile(supabaseClient);
     return (
-      <ProfileWrapper
-        profile={profile}
-        userId={props.params.userId}
-        isMine={true}
-      />
+      <>
+        <StoreSetting
+          profile={profile}
+          userId={props.params.userId}
+          isMine={true}
+        />
+        <ProfileWrapper />
+      </>
     );
   }
 
@@ -40,10 +44,13 @@ export default async function ProfilePage(props: PageProps) {
   const profile = await getProfile(adminClient, props.params.userId);
 
   return (
-    <ProfileWrapper
-      profile={profile}
-      userId={props.params.userId}
-      isMine={false}
-    />
+    <>
+      <StoreSetting
+        profile={profile}
+        userId={props.params.userId}
+        isMine={true}
+      />
+      <ProfileWrapper />
+    </>
   );
 }

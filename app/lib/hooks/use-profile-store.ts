@@ -1,25 +1,29 @@
 import {
-  AnarchyBattleRankGrade,
-  GameInfo,
-  isGameInfo,
   isUserInfo,
-  RankRule,
-  salmonrun_legend,
-  SalmonRunMapPoints,
-  SalmonRunRankGrade,
   SwitchInfo,
   TwitterInfo,
   UserInfo,
+  UserInfoObject,
 } from "@/app/lib/schemas/profile";
 import { shallow } from "zustand/shallow";
 import { useEffect } from "react";
 import { createWithEqualityFn } from "zustand/traditional";
 import { Profile } from "@/app/lib/types/supabase-alias";
 import { createSupabaseClient, updateProfile } from "@/app/lib/supabase-client";
+import { z } from "zod";
+import {
+  AnarchyBattleRankGrade,
+  GameInfoObject,
+  isGameInfo,
+  RankRule,
+  salmonrun_legend,
+  SalmonRunMapPoints,
+  SalmonRunRankGrade,
+} from "@/app/lib/schemas/profile/game-info";
 
 type ProfileState = {
-  user: UserInfo;
-  game: GameInfo;
+  user: z.infer<typeof UserInfoObject>;
+  game: z.infer<typeof GameInfoObject>;
 };
 
 type ProfileStore = {
@@ -37,12 +41,12 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
     },
     game: {
       salmonRunMapPoints: {
-        dent: 40,
-        highway: 40,
-        lift: 40,
-        ship: 40,
-        spiral: 40,
-        up: 40,
+        Shakedent: 40,
+        Shakehighway: 40,
+        Shakelift: 40,
+        Shakeship: 40,
+        Shakespiral: 40,
+        Shakeup: 40,
       },
     },
     set: (state: Partial<ProfileState>) => {
@@ -62,10 +66,12 @@ export const initProfileStore = (profile: Profile, isMine: boolean) => {
     );
   }
 
-  useProfileStore.setState((state) => ({
-    user: user_info,
-    game: game_info,
-  }));
+  useProfileStore.setState((state) => {
+    return {
+      user: user_info,
+      game: game_info,
+    };
+  });
   setMine(isMine);
 };
 
@@ -76,14 +82,16 @@ export const useSwitchInfo = () =>
 
 export const useGameStore = () => useProfileStore((state) => state.game);
 
-export const setUserInfo = (userInfo: Partial<UserInfo>) => {
+const setUserInfo = (userInfo: Partial<UserInfo>) => {
   useProfileStore.setState((state) => ({
     ...state,
     user: { ...state.user, ...userInfo },
   }));
 };
 
-export const setGameInfo = (gameInfo: Partial<GameInfo>) => {
+export const setGameInfo = (
+  gameInfo: Partial<z.infer<typeof GameInfoObject>>,
+) => {
   useProfileStore.setState((state) => ({
     ...state,
     game: { ...state.game, ...gameInfo },
@@ -100,6 +108,18 @@ export const setLevel = (level: number) => {
 
 export const setSwitchInfo = (key: keyof SwitchInfo, value: string) => {
   const switchInfo = useProfileStore.getState().user.switchInfo;
+
+  const qrUrlRegex =
+    "https://lounge.nintendo.com/friendcode/\\d{4}-\\d{4}-\\d{4}/[A-Za-z0-9]{10}";
+
+  if (key === "friendLink" && !value.match(qrUrlRegex)) {
+    console.error("Invalid friend link", value);
+  }
+
+  if (key === "friendCode" && !value.match(/\d{4}-\d{4}-\d{4}/)) {
+    console.error("Invalid friend code", value);
+  }
+
   setUserInfo({
     switchInfo: {
       ...switchInfo,
@@ -128,12 +148,12 @@ export const setSalmonRunRank = (rank: SalmonRunRankGrade) => {
         grade: rank,
       },
       salmonRunMapPoints: {
-        dent: 40,
-        highway: 40,
-        lift: 40,
-        ship: 40,
-        spiral: 40,
-        up: 40,
+        Shakedent: 40,
+        Shakehighway: 40,
+        Shakelift: 40,
+        Shakeship: 40,
+        Shakespiral: 40,
+        Shakeup: 40,
       },
     });
     return;
@@ -156,8 +176,13 @@ export const useTwitterInfo = () =>
 
 export const useGender = () => useProfileStore((state) => state.user.gender);
 
-export const setGender = (gender: string) => {
-  setUserInfo({ gender });
+export const setGender = (gender: string) => setUserInfo({ gender });
+
+export const useIntroductionMessage = () =>
+  useProfileStore((state) => state.user.introductionMessage);
+
+export const setIntroductionMessage = (introductionMessage: string) => {
+  setUserInfo({ introductionMessage });
 };
 
 // State가 변경될 때마다, 2초 뒤에 supabase에 저장하는 로직을 실행합니다.

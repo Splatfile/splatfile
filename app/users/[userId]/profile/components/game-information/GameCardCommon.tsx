@@ -9,14 +9,14 @@ import {
   setSalmonRunRank,
   useGameStore,
 } from "@/app/lib/hooks/use-profile-store";
+import { EditableNumber } from "@/app/ui/components/EditableText";
 import {
   anarchyBattleRanks,
   isAnarchyBattleRank,
   isSalmonRunRank,
   salmonRunRanks,
   salmonRunRanksKo,
-} from "@/app/lib/schemas/profile";
-import { EditableNumber } from "@/app/ui/components/EditableText";
+} from "@/app/lib/schemas/profile/game-info";
 
 export function GameCardCommon() {
   const [edit, setEdit] = useState(false);

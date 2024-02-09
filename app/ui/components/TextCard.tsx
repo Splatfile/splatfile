@@ -54,10 +54,13 @@ export function EditableTextCard(props: EditableTextCardProps) {
       )}
     >
       <div
-        className={clsx("flex items-center gap-2 md:flex-row", {
-          "flex-col": props.edit,
-          "flex-row": !props.edit,
-        })}
+        className={clsx(
+          "flex w-full items-center justify-center gap-2 text-center md:flex-row",
+          {
+            "flex-col": props.edit,
+            "flex-row": !props.edit,
+          },
+        )}
       >
         <h3
           className={clsx("text-lg font-bold md:text-xl", props.titleClassName)}

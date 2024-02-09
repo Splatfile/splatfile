@@ -1,4 +1,5 @@
 import { HTMLInputTypeAttribute } from "react";
+import sanitizeHtml from "sanitize-html";
 
 type EditableTextProps = {
   edit: boolean;
@@ -6,8 +7,10 @@ type EditableTextProps = {
   onChange: (value: string) => void;
   placeholder?: string;
   type?: HTMLInputTypeAttribute;
+
   textClassName?: string;
   inputClassName?: string;
+  pattern?: string;
 };
 
 export function EditableText(props: EditableTextProps) {
@@ -19,6 +22,7 @@ export function EditableText(props: EditableTextProps) {
     textClassName,
     inputClassName,
     placeholder,
+    pattern,
   } = props;
 
   if (edit) {
@@ -28,12 +32,58 @@ export function EditableText(props: EditableTextProps) {
         type={type ?? "text"}
         placeholder={placeholder}
         value={value}
+        pattern={pattern}
         onChange={(e) => onChange(e.target.value)}
       />
     );
   }
 
   return <p className={textClassName}>{value}</p>;
+}
+
+type EditableParagraphProps = Omit<EditableTextProps, "inputClassName"> & {
+  cols?: number;
+  rows?: number;
+  textareaClassName?: string;
+};
+
+export function EditableParagraph(props: EditableParagraphProps) {
+  const {
+    edit,
+    value,
+    onChange,
+    textClassName,
+    textareaClassName,
+    placeholder,
+    cols,
+    rows,
+  } = props;
+
+  if (edit) {
+    return (
+      <div className={"block w-full"}>
+        <textarea
+          className={textareaClassName}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          rows={rows}
+          cols={cols}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <p
+      className={textClassName}
+      dangerouslySetInnerHTML={{
+        __html: sanitizeHtml(value)
+          .replaceAll("\n", "<br>")
+          .replaceAll(" ", "&nbsp;"),
+      }}
+    />
+  );
 }
 
 type EditableNumberProps = {

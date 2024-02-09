@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import {
@@ -6,7 +8,7 @@ import {
   useGameStore,
 } from "@/app/lib/hooks/use-profile-store";
 import { ChangeEvent, useState } from "react";
-import { isKeyOfXmatch, XMatchInfo } from "@/app/lib/schemas/profile";
+import { isKeyOfXmatch, XMatchInfo } from "@/app/lib/schemas/profile/game-info";
 
 type GameCardXMatchProps = {};
 

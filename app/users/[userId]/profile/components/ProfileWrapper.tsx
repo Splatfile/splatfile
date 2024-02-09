@@ -1,31 +1,8 @@
-"use client";
 import { ProfileCard } from "@/app/users/[userId]/profile/components/ProfileCard";
 import { GameCard } from "@/app/users/[userId]/profile/components/game-information/GameCard";
 import { AccountCard } from "@/app/users/[userId]/profile/components/AccountCard";
-import {
-  initProfileStore,
-  useDebounceEdit,
-} from "@/app/lib/hooks/use-profile-store";
-import { Profile } from "@/app/lib/types/supabase-alias";
-import { useEffect } from "react";
-import { Auth } from "@supabase/auth-ui-react";
-import useUser = Auth.useUser;
 
-type ProfileWrapperProps = {
-  profile: Profile;
-  userId: string;
-  isMine: boolean;
-};
-
-export function ProfileWrapper(props: ProfileWrapperProps) {
-  const { profile, isMine, userId } = props;
-  const user = useUser();
-
-  useDebounceEdit(userId, userId === user.user?.id);
-  useEffect(() => {
-    initProfileStore(profile, userId === user.user?.id);
-  }, [profile, isMine, userId, user]);
-
+export function ProfileWrapper() {
   return (
     <div className={"flex flex-col items-stretch"}>
       <div className={"flex h-full flex-col md:flex-row md:items-stretch"}>

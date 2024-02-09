@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import {
@@ -6,14 +8,14 @@ import {
   useSalmonRunMapPoints,
   useSalmonRunRank,
 } from "@/app/lib/hooks/use-profile-store";
+import { useState } from "react";
+import { EditableNumber } from "@/app/ui/components/EditableText";
 import {
   isKeyOfSalmonRunMapPoints,
   salmonrun_legend,
-  salmonRunMapPointKeys,
   SalmonRunMapPoints,
-} from "@/app/lib/schemas/profile";
-import { useState } from "react";
-import { EditableNumber } from "@/app/ui/components/EditableText";
+} from "@/app/lib/schemas/profile/game-info";
+import { salmonrunCodes } from "@/app/lib/constants/maps";
 
 export function GameCardSalmonRun() {
   const salmonRunRank = useSalmonRunRank();
@@ -42,7 +44,7 @@ const SalmonRunView = (props: SalmonRunViewProps) => {
 
   return (
     <div className={"grid grid-cols-2 gap-4"}>
-      {salmonRunMapPointKeys.map(
+      {salmonrunCodes.map(
         (key) =>
           isKeyOfSalmonRunMapPoints(key) && (
             <SalmonEditText
@@ -75,12 +77,12 @@ const SalmonEditText = (props: SalmonEditTextProps) => {
   };
 
   return (
-    <div className={"flex w-full gap-2"}>
-      <div className={"h-6 w-6 md:h-8 md:w-8"}>
+    <div className={"flex w-full gap-1"}>
+      <div className={"h-6 w-6 min-w-6 md:h-8 md:w-8 md:min-w-8"}>
         <Image
           width={48}
           height={48}
-          src={`/ingames/salmonrun/Badge_CoopGrade_Normal_Shake${mapKey}_Lv${
+          src={`/ingames/salmonrun/Badge_CoopGrade_Normal_${mapKey}_Lv${
             point === 999
               ? "03"
               : point >= 600
@@ -97,7 +99,7 @@ const SalmonEditText = (props: SalmonEditTextProps) => {
         value={String(point || 40)}
         step={10}
         onChange={onChangePoint}
-        inputClassName={"w-20 px-2 underline underline-offset-2 outline-none"}
+        inputClassName={"w-14 px-2 underline underline-offset-2 outline-none"}
       />
     </div>
   );

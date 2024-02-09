@@ -1,3 +1,5 @@
+"use client";
+
 import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { GameCardCommon } from "@/app/users/[userId]/profile/components/game-information/GameCardCommon";
 import { GameCardXMatch } from "@/app/users/[userId]/profile/components/game-information/GameCardXMatch";

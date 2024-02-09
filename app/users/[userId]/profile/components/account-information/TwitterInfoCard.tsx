@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import {
   setTwitterInfo,
@@ -45,7 +47,7 @@ export const TwitterInfoCard = () => {
           <span>@</span>
           <input
             type="text"
-            className={"w-full underline underline-offset-2"}
+            className={"w-full max-w-full underline underline-offset-2"}
             placeholder={"트위터 핸들"}
             value={id}
             onChange={(e) => {
@@ -54,12 +56,14 @@ export const TwitterInfoCard = () => {
           />
         </div>
       ) : (
-        <a
-          href={`https://twitter.com/${id}`}
-          className={"text-sm font-medium text-gray-400 md:text-center"}
-        >
-          @{id}
-        </a>
+        id && (
+          <a
+            href={`https://twitter.com/${id}`}
+            className={"text-sm font-medium text-gray-400 md:text-center"}
+          >
+            @{id}
+          </a>
+        )
       )}
     </EditableInlineTextCard>
   );

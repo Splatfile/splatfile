@@ -8,7 +8,12 @@ import {
   ProfileInsert,
   ProfileUpdate,
 } from "@/app/lib/types/supabase-alias";
-import { GameInfo, UserInfo, WeaponGearInfo } from "@/app/lib/schemas/profile";
+import { UserInfoObject } from "@/app/lib/schemas/profile";
+import {
+  GameInfoObject,
+  WeaponGearInfo,
+} from "@/app/lib/schemas/profile/game-info";
+import { z } from "zod";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -47,17 +52,17 @@ export const createOrGetMyProfile = async (
     .maybeSingle();
 
   if (!data) {
-    const game_info: GameInfo = {
+    const game_info: z.infer<typeof GameInfoObject> = {
       salmonRunMapPoints: {
-        dent: 40,
-        highway: 40,
-        lift: 40,
-        ship: 40,
-        spiral: 40,
-        up: 40,
+        Shakedent: 40,
+        Shakehighway: 40,
+        Shakelift: 40,
+        Shakeship: 40,
+        Shakespiral: 40,
+        Shakeup: 40,
       },
     };
-    const user_info: UserInfo = {
+    const user_info: z.infer<typeof UserInfoObject> = {
       nickname: "",
       twitterInfo: {
         name: "",
