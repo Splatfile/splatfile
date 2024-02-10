@@ -1,0 +1,20 @@
+{
+  "title": "splatfile-screenshot input schema",
+  "description": "it just makes screenshot",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "스크린샷을 찍을 url",
+      "type": "string",
+      "description": "스크린샷을 찍을 url",
+      "default": "https://deno.com",
+      "editor": "textfield",
+      "minLength": 1,
+      "maxLength": 1024
+    }
+  },
+  "required": [
+    "url"
+  ]
+}
