@@ -39,7 +39,7 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
       setEdit={setEdit}
     >
       {edit ? (
-        <EditPlayTimeCard timeType={timeType} />
+        <EditPlayTimeCard timeType={timeType} playtime={playtime} />
       ) : (
         playtime?.start &&
         playtime?.end && (
@@ -54,37 +54,51 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
 
 type EditPlayTimeCardProps = {
   timeType: "weekdayPlaytime" | "weekendPlaytime";
+  playtime?: { start: number; end: number };
 };
 
 export const EditPlayTimeCard = (props: EditPlayTimeCardProps) => {
-  const { timeType } = props;
+  const { timeType, playtime } = props;
 
   const onChange = (key: "start" | "end", value: string) => {
+    const otherKey = key === "start" ? "end" : "start";
     setPlaytime(timeType, {
       [key]: parseInt(value),
+      [otherKey]: playtime?.[otherKey] ?? 0,
     });
   };
 
   return (
-    <div>
-      시작 시간:{" "}
-      <input
-        type="number"
-        min={0}
-        max={23}
-        onChange={(e) => {
-          onChange("start", e.target.value);
-        }}
-      />
-      종료 시간:{" "}
-      <input
-        type="number"
-        min={0}
-        max={23}
-        onChange={(e) => {
-          onChange("end", e.target.value);
-        }}
-      />
+    <div className={"px-4"}>
+      <div className={"flex justify-center gap-2"}>
+        <div className={"flex gap-1"}>
+          <p>시작 시간:</p>
+          <input
+            type="number"
+            min={0}
+            max={23}
+            value={playtime?.start ?? 0}
+            onChange={(e) => {
+              onChange("start", e.target.value);
+            }}
+          />
+        </div>
+        <div className={"flex gap-1"}>
+          <p>종료 시간:</p>
+          <input
+            type="number"
+            min={0}
+            max={23}
+            value={playtime?.end ?? 0}
+            onChange={(e) => {
+              onChange("end", e.target.value);
+            }}
+          />
+        </div>
+      </div>
+      <p className={"px-2 pt-4 text-center text-sm text-gray-400"}>
+        00~23시 사이의 숫자를 입력해주세요.
+      </p>
     </div>
   );
 };

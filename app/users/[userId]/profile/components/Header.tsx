@@ -77,7 +77,7 @@ export function Header() {
                 <Link
                   key={"로그인"}
                   href={"/login"}
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
+                  className="-mx-3 block cursor-pointer rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 "
                 >
                   {"로그인"}
                 </Link>
@@ -99,7 +99,7 @@ export const SignInButton = () => {
       <>
         <Link
           className={
-            "rounded-md px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
+            "cursor-pointer rounded-md px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
           }
           href={`/users/${user.id}/profile`}
           prefetch={false}
@@ -108,7 +108,7 @@ export const SignInButton = () => {
         </Link>
         <button
           className={
-            "rounded-md px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
+            "cursor-pointer rounded-md px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
           }
           onClick={async () => {
             await supabaseClient.auth.signOut();
@@ -124,7 +124,7 @@ export const SignInButton = () => {
     <Link
       key={"로그인"}
       href={"/users/signin"}
-      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
+      className="-mx-3 block cursor-pointer rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
     >
       <span>{"로그인"}</span>
     </Link>
