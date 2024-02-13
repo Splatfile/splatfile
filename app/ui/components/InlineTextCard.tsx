@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { PencilIcon } from "@heroicons/react/20/solid";
 import { useEditStore } from "@/app/lib/hooks/use-profile-store";
+import { clsx } from "clsx";
 
 export type InlineTextCardProps = {
   title: ReactNode;
@@ -36,7 +37,12 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
         "flex w-full items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 drop-shadow-sm md:w-auto md:flex-col md:items-center md:justify-center md:px-4 md:py-12"
       }
     >
-      <div className={"flex items-center gap-2"}>
+      <div
+        className={clsx("flex items-center gap-2 md:flex-row", {
+          "flex-col": props.edit,
+          "flex-row": !props.edit,
+        })}
+      >
         <h3 className={"text-lg font-bold md:text-xl"}>{props.title}</h3>
         {props.edit ? (
           <button

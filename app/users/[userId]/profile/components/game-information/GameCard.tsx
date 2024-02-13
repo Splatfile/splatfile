@@ -1,7 +1,9 @@
+"use client";
+
 import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
-import { GameCardCommon } from "@/app/users/[userId]/profile/components/GameCardCommon";
-import { GameCardXMatch } from "@/app/users/[userId]/profile/components/GameCardXMatch";
-import { GameCardSalmonRun } from "@/app/users/[userId]/profile/components/GameCardSalmonRun";
+import { GameCardCommon } from "@/app/users/[userId]/profile/components/game-information/GameCardCommon";
+import { GameCardXMatch } from "@/app/users/[userId]/profile/components/game-information/GameCardXMatch";
+import { GameCardSalmonRun } from "@/app/users/[userId]/profile/components/game-information/GameCardSalmonRun";
 
 export function GameCard() {
   const playstyle = "즐빡겜";
