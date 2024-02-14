@@ -101,7 +101,11 @@ export const ProfileModal = (props: ProfileModalProps) => {
       closeButtonText={file ? "" : "취소"}
       onClose={() => props.setOpen(false)}
     >
-      <div className={"block h-fit"}>
+      <div
+        className={
+          "block h-fit max-h-fit min-h-48 overflow-y-auto lg:max-h-[75vh]"
+        }
+      >
         {file === "" && (
           <div
             className={
@@ -127,7 +131,7 @@ export const ProfileModal = (props: ProfileModalProps) => {
             <p className={"mb-6 block text-gray-600 lg:hidden"}>
               두 손가락 터치로 크기조절 가능합니다.
             </p>
-            <div className={"aspect-video max-h-80 w-full"}>
+            <div className={"aspect-video w-full"}>
               <div
                 className={
                   "relative mx-auto aspect-auto h-full min-h-fit overflow-auto rounded-md lg:max-w-md"
