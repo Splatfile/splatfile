@@ -18,6 +18,7 @@
     "@supabase/supabase-js": "^2.39.2",
     "apify": "^3.1.15",
     "clsx": "^2.1.0",
+    "crawlee": "^3.7.3",
     "date-fns": "^3.3.1",
     "next": "14.0.4",
     "qrcode": "^1.5.3",
