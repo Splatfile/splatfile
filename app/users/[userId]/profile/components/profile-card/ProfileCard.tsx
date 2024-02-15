@@ -35,7 +35,7 @@ export function ProfileImage() {
         ) : (
           <div
             className={
-              "aspect-9/16 w-full rounded-t-md border-2 border-dashed border-gray-400 bg-gray-200 group-hover:border-gray-200 group-hover:bg-gray-50"
+              "aspect-[2/3]  w-full rounded-t-md border-2 border-dashed border-gray-400 bg-gray-200 group-hover:border-gray-200 group-hover:bg-gray-50"
             }
           ></div>
         )}

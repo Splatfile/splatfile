@@ -57,8 +57,8 @@ export const ProfileModal = (props: ProfileModalProps) => {
     if (!ctx) return;
 
     // 일단 임시로 고정 사이즈
-    canvas.width = 540;
-    canvas.height = 960;
+    canvas.width = 400;
+    canvas.height = 600;
 
     ctx.drawImage(img, x, y, width, height, 0, 0, canvas.width, canvas.height);
 
@@ -141,7 +141,7 @@ export const ProfileModal = (props: ProfileModalProps) => {
                   image={file}
                   crop={crop}
                   zoom={zoom}
-                  aspect={9 / 16}
+                  aspect={2 / 3}
                   zoomWithScroll={true}
                   onCropChange={setCrop}
                   onCropComplete={onCropComplete}
