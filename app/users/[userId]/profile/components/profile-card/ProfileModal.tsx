@@ -155,16 +155,16 @@ export const ProfileModal = (props: ProfileModalProps) => {
                   }
                 >
                   <button
-                    className="w-2/3 rounded-md bg-indigo-500 py-2 text-center text-white hover:bg-indigo-700"
-                    onClick={onSubmit}
-                  >
-                    확인
-                  </button>
-                  <button
                     className="w-1/3 rounded-md bg-gray-500 py-2 text-center text-white hover:bg-gray-700"
                     onClick={() => props.setOpen(false)}
                   >
                     취소
+                  </button>
+                  <button
+                    className="w-2/3 rounded-md bg-indigo-500 py-2 text-center text-white hover:bg-indigo-700"
+                    onClick={onSubmit}
+                  >
+                    확인
                   </button>
                 </div>
               </div>
