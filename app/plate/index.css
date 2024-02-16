@@ -1,0 +1,49 @@
+@font-face {
+    font-family: "Splat-title";
+    src: url("./assets/fonts/SplatoonTitle.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Splat-text";
+    src: url("./assets/fonts/SplatoonText.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* Language Fonts */
+/* Korean */
+@font-face {
+    font-family: "KCUBEr";
+    src: url("./assets/fonts/KRko/AsiaKCUBE-R.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "KERINm";
+    src: url("./assets/fonts/KRko/AsiaKERIN-M.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+body[lang="KRko"],
+body[lang="KRko"] select,
+body[lang="KRko"] input,
+option[value="KRko"] {
+    font-family: 'Splat-text', 'KERINm';
+}
+
+body[lang="KRko"] .tab,
+body[lang="KRko"] .category-title,
+body[lang="KRko"] .title-font {
+    font-family: 'Splat-title', 'KCUBEr';
+}
+
+
+html {
+    height: 100%;
+}
+
+

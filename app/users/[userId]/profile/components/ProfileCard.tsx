@@ -1,5 +1,6 @@
 import React from "react";
 import { ProfileImage } from "@/app/users/[userId]/profile/components/profile-card/ProfileCard";
+import { PlateImage } from "@/app/users/[userId]/profile/components/profile-card/PlateImage";
 
 type ProfileCardProps = {};
 
@@ -11,7 +12,7 @@ export function ProfileCard(props: ProfileCardProps) {
       }
     >
       <ProfileImage />
-      <div className={"aspect-[7/2] w-full max-w-full bg-amber-700"}>Plate</div>
+      <PlateImage />
     </div>
   );
 }
