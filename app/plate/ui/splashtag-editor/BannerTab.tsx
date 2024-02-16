@@ -31,7 +31,7 @@ export function BannerTab() {
   // const definedCustomBanner = defineBanners(castedCustomBanners);
 
   return (
-    <div className="h-full max-h-[calc(100vh-180px)] overflow-y-scroll text-white">
+    <div className="h-full max-h-[calc(100vh-240px)] overflow-y-scroll text-white">
       {/*<label className="file">*/}
       {/*  (<span id="textUpload">Upload</span>)*/}
       {/*  <input*/}

@@ -7,13 +7,8 @@ import { BadgeTab } from "./splashtag-editor/BadgeTab";
 import { useTagStore } from "../lib/store/use-tag-store";
 import { renderPlate } from "../lib/render-plate";
 import { clsx } from "clsx";
-import { downloadTag } from "../lib/download-tag";
-import { ShareTab } from "./splashtag-editor/ShareTab";
-import {
-  getPrintPreview,
-  setPrintPreview,
-  useTagPosition,
-} from "../lib/store/use-position";
+import { useTagPosition } from "../lib/store/use-position";
+import "../index.css";
 
 const language = "KRko";
 
@@ -57,7 +52,7 @@ export function SplatPlateEditor() {
           "mx-auto mt-4 min-h-[420px] w-full overflow-clip rounded-md backdrop-brightness-95 sm:mt-8 md:max-w-3xl"
         }
       >
-        <div className="flex h-full bg-gray-900 md:h-[420px]">
+        <div className="flex h-full max-h-[calc(100vh-120px)] bg-gray-900 md:h-[420px]">
           <div
             className={
               "flex h-full min-w-fit flex-col items-start justify-start "
@@ -106,55 +101,6 @@ export function SplatPlateEditor() {
                     >
                       {lang[language].ui.tabBadges}
                     </button>
-                    <button
-                      onClick={() => setTab(3)}
-                      className={clsx(
-                        tab === 3
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-400 hover:bg-gray-800 hover:text-white",
-                        "group flex w-full gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 disabled:cursor-not-allowed disabled:opacity-50",
-                      )}
-                      type="button"
-                      name="tabBadges"
-                    >
-                      위치 및 크기
-                    </button>
-                    <button
-                      onClick={() => setTab(4)}
-                      className={clsx(
-                        tab === 4
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-400 hover:bg-gray-800 hover:text-white",
-                        "group flex w-full gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 disabled:cursor-not-allowed disabled:opacity-50",
-                      )}
-                      type="button"
-                      name="tabBadges"
-                    >
-                      정보 및 공유
-                    </button>
-                    <button
-                      disabled={!canvasRef.current}
-                      onClick={() => {
-                        if (!canvasRef.current) return;
-                        if (getPrintPreview()) {
-                          setPrintPreview(false);
-                          setTimeout(() => {
-                            if (!canvasRef.current) return;
-                            downloadTag(canvasRef.current);
-                          }, 1000);
-                        } else {
-                          downloadTag(canvasRef.current);
-                        }
-                      }}
-                      className={clsx(
-                        "text-gray-400 hover:bg-gray-800 hover:text-white",
-                        "group flex w-full gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
-                      )}
-                      type="button"
-                      name="tabBadges"
-                    >
-                      다운로드
-                    </button>
                   </ul>
                 </nav>
               </div>
@@ -165,7 +111,6 @@ export function SplatPlateEditor() {
             {tab === 0 && <TextTab />}
             {tab === 1 && <BannerTab />}
             {tab === 2 && <BadgeTab />}
-            {tab === 4 && <ShareTab />}
           </div>
         </div>
       </div>

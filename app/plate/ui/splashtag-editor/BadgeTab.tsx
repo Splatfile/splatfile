@@ -135,7 +135,7 @@ export function BadgeTab() {
         </div>
       </div>
       <div className={"my-4 h-px w-full bg-black/20"}></div>
-      <div className="h-full max-h-[calc(100vh-240px)] overflow-y-scroll pr-2 sm:pb-24">
+      <div className="h-full max-h-[calc(100vh-360px)] overflow-y-scroll pr-2 sm:pb-24">
         {Object.entries(badges).map((b) => {
           return (
             <BadgeItem
