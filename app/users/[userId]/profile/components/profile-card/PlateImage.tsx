@@ -1,9 +1,11 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { SplatPlateEditor } from "@/app/plate/ui/SplatPlateEditor";
 import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { clsx } from "clsx";
 import { Dialog, Transition } from "@headlessui/react";
+import { renderPlate } from "@/app/plate/lib/render-plate";
+import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
 
 type PlateImageProps = {};
 
@@ -11,18 +13,47 @@ export function PlateImage(props: PlateImageProps) {
   const [open, setOpen] = useState(false);
 
   const { isMine } = useEditStore();
+  const tag = useTagStore();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    return useTagStore.subscribe((tag) => {
+      if (!canvasRef.current) return;
+      renderPlate(canvasRef.current, tag).then(() => {
+        console.log("rendered");
+      });
+    });
+  }, []);
 
   return (
     <button
       disabled={!isMine}
       onClick={() => setOpen(true)}
       className={clsx(
-        "aspect-[7/2] w-full max-w-full bg-amber-700",
-        isMine && "cursor-pointer hover:opacity-90",
+        "relative aspect-[7/2] w-full max-w-full bg-amber-700",
+        isMine && "cursor-pointer hover:opacity-80",
       )}
     >
       <PlateModal open={open} setOpen={setOpen} />
-      Plate
+
+      <canvas
+        className={"max-w-full"}
+        style={{
+          aspectRatio: `auto ${700} / ${200}`,
+        }}
+        ref={canvasRef}
+        id="splashtag"
+        width={700}
+        height={200}
+      />
+      <div
+        className={clsx(
+          "absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 text-lg font-semibold text-black opacity-0 hover:opacity-50",
+          isMine ? "block" : "hidden",
+        )}
+      >
+        클릭해서 플레이트 꾸미기
+      </div>
     </button>
   );
 }
