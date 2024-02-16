@@ -63,7 +63,6 @@ export const createOrGetMyProfile = async (
       },
     };
     const user_info: z.infer<typeof UserInfoObject> = {
-      nickname: "",
       twitterInfo: {
         name: "",
         id: "",

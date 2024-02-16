@@ -180,6 +180,9 @@ export const setIntroductionMessage = (introductionMessage: string) => {
   setUserInfo({ introductionMessage });
 };
 
+export const useProfileImageUrl = () =>
+  useProfileStore((state) => state.user.profileImageUrl);
+
 export const setPlaytime = (
   timeType: "weekdayPlaytime" | "weekendPlaytime",
   playtime: Partial<{

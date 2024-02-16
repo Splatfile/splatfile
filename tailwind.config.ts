@@ -10,6 +10,8 @@ const config: Config = {
     extend: {
       aspectRatio: {
         "7/2": "7 / 2",
+        "9/16": "9 / 16",
+        "4/5": "4 / 5",
       },
     },
   },
