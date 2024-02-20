@@ -2,7 +2,7 @@ import lang from "../../lang.json";
 import { create } from "zustand";
 import { GradientDirection } from "../types/gradient";
 
-import { createJSONStorage, persist, StateStorage } from "zustand/middleware";
+import { StateStorage } from "zustand/middleware";
 
 export const hashStorage: StateStorage = {
   getItem: (key): string => {
@@ -68,22 +68,14 @@ export const initTagState: TagState = {
   gradientDirection: "to bottom",
 };
 
-export const useTagStore = create<TagStore, [["zustand/persist", TagStore]]>(
-  persist(
-    (set) => ({
-      ...initTagState,
-      set: (tag: TagState) =>
-        set((state) => ({
-          ...state,
-          ...tag,
-        })),
-    }),
-    {
-      name: "tag-storage", // unique name
-      storage: createJSONStorage(() => hashStorage),
-    },
-  ),
-);
+export const useTagStore = create<TagStore>((set) => ({
+  ...initTagState,
+  set: (tag: TagState) =>
+    set((state) => ({
+      ...state,
+      ...tag,
+    })),
+}));
 
 export const setTitle = (title: Partial<Title>) => {
   useTagStore.setState((state) => ({

@@ -47,14 +47,6 @@ export function BadgeTab() {
     setBadges(newBadges);
   };
 
-  // const [selectedCategory, setSelectedCategory] = useState<
-  //   keyof typeof badges | ""
-  // >("");
-  //
-  // useEffect(() => {
-  //   // Set Scroll To Category
-  // });
-
   useEffect(() => {
     console.log("currentBadges", currentBadges);
   }, [currentBadges]);

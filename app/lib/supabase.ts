@@ -6,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       profiles: {
@@ -14,6 +14,7 @@ export interface Database {
           created_at: string
           game_info: Json
           id: number
+          plate_info: Json
           user_id: string
           user_info: Json
           weapon_gear_infos: Json
@@ -22,6 +23,7 @@ export interface Database {
           created_at?: string
           game_info: Json
           id?: number
+          plate_info: Json
           user_id: string
           user_info: Json
           weapon_gear_infos: Json
@@ -30,6 +32,7 @@ export interface Database {
           created_at?: string
           game_info?: Json
           id?: number
+          plate_info?: Json
           user_id?: string
           user_info?: Json
           weapon_gear_infos?: Json
