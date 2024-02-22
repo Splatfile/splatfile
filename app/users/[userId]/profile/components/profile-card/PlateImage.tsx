@@ -5,7 +5,10 @@ import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { clsx } from "clsx";
 import { Dialog, Transition } from "@headlessui/react";
 import { renderPlate } from "@/app/plate/lib/render-plate";
-import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
+import {
+  initializeTagStore,
+  useTagStore,
+} from "@/app/plate/lib/store/use-tag-store";
 
 type PlateImageProps = {};
 
@@ -17,6 +20,10 @@ export function PlateImage(props: PlateImageProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    initializeTagStore();
+  });
+
+  useEffect(() => {
     return useTagStore.subscribe((tag) => {
       if (!canvasRef.current) return;
       renderPlate(canvasRef.current, tag).then(() => {
@@ -25,12 +32,19 @@ export function PlateImage(props: PlateImageProps) {
     });
   }, []);
 
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    renderPlate(canvasRef.current, useTagStore.getState()).then(() => {
+      console.log("rendered");
+    });
+  }, []);
+
   return (
     <button
       disabled={!isMine}
       onClick={() => setOpen(true)}
       className={clsx(
-        "relative aspect-[7/2] w-full max-w-full bg-amber-700",
+        "relative aspect-[7/2] w-full max-w-full bg-gray-900",
         isMine && "cursor-pointer hover:opacity-80",
       )}
     >
@@ -48,11 +62,12 @@ export function PlateImage(props: PlateImageProps) {
       />
       <div
         className={clsx(
-          "absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 text-lg font-semibold text-black opacity-0 hover:opacity-50",
-          isMine ? "block" : "hidden",
+          "absolute inset-0 flex items-center justify-center bg-opacity-80 text-lg font-semibold hover:bg-opacity-50",
         )}
       >
-        클릭해서 플레이트 꾸미기
+        <p className={isMine ? "block text-white" : "hidden"}>
+          클릭해서 플레이트 꾸미기
+        </p>
       </div>
     </button>
   );

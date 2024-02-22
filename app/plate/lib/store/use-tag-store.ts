@@ -3,6 +3,8 @@ import { create } from "zustand";
 import { GradientDirection } from "../types/gradient";
 
 import { StateStorage } from "zustand/middleware";
+import { Profile } from "@/app/lib/types/supabase-alias";
+import { z } from "zod";
 
 export const hashStorage: StateStorage = {
   getItem: (key): string => {
@@ -22,22 +24,10 @@ export const hashStorage: StateStorage = {
   },
 };
 
-export type TagState = {
-  name: string;
-  title: Title;
-  banner: string;
-  id: string;
-  badges: [string, string, string];
-  color: string;
-  bgColours: string[];
-  isCustom: boolean;
-  isGradient: boolean;
-  layers: number;
-  gradientDirection: GradientDirection;
-};
+type TagState = z.infer<typeof PlateInfoObject>;
 
-type TagStore = TagState & {
-  set: (tag: TagState) => void;
+type TagStore = z.infer<typeof PlateInfoObject> & {
+  set: (tag: z.infer<typeof PlateInfoObject>) => void;
 };
 
 type Title = {
@@ -54,7 +44,7 @@ const initTitle = {
   },
 };
 
-export const initTagState: TagState = {
+export const initTagState: z.infer<typeof PlateInfoObject> = {
   name: "Player",
   title: { ...initTitle.title },
   banner: "Npl_Tutorial00.png",
@@ -68,6 +58,30 @@ export const initTagState: TagState = {
   gradientDirection: "to bottom",
 };
 
+export const PlateInfoObject = z.object({
+  id: z.string(),
+  name: z.string(),
+  title: z.object({
+    first: z.number(),
+    last: z.number(),
+    string: z.string(),
+  }),
+  banner: z.string(),
+  badges: z.tuple([z.string(), z.string(), z.string()]),
+  color: z.string(),
+  bgColours: z.tuple([z.string(), z.string(), z.string(), z.string()]),
+  isCustom: z.boolean(),
+  isGradient: z.boolean(),
+  layers: z.number(),
+  gradientDirection: z.string(),
+});
+
+export const isPlateInfo = (
+  obj: unknown,
+): obj is z.infer<typeof PlateInfoObject> => {
+  return PlateInfoObject.safeParse(obj).success;
+};
+
 export const useTagStore = create<TagStore>((set) => ({
   ...initTagState,
   set: (tag: TagState) =>
@@ -76,6 +90,22 @@ export const useTagStore = create<TagStore>((set) => ({
       ...tag,
     })),
 }));
+
+export const initializeTagStore = (profile: Profile) => {
+  const { plate_info } = profile;
+
+  if (!isPlateInfo(plate_info)) {
+    console.error("Invalid Plate Info", profile);
+    throw new Error(
+      "Invalid profile data plateInfo: " + JSON.stringify(plate_info, null, 2),
+    );
+  }
+
+  useTagStore.setState({
+    ...initTagState,
+    ...plate_info,
+  });
+};
 
 export const setTitle = (title: Partial<Title>) => {
   useTagStore.setState((state) => ({
@@ -154,7 +184,7 @@ export const setLayers = (layers: number) => {
   }));
 };
 
-export const setGradient = (bgColours: string[]) => {
+export const setGradient = (bgColours: [string, string, string, string]) => {
   useTagStore.setState((state) => ({
     ...state,
     bgColours,
