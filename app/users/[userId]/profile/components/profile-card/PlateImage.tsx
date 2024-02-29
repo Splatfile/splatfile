@@ -5,10 +5,7 @@ import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { clsx } from "clsx";
 import { Dialog, Transition } from "@headlessui/react";
 import { renderPlate } from "@/app/plate/lib/render-plate";
-import {
-  initializeTagStore,
-  useTagStore,
-} from "@/app/plate/lib/store/use-tag-store";
+import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
 
 type PlateImageProps = {};
 
@@ -18,10 +15,6 @@ export function PlateImage(props: PlateImageProps) {
   const { isMine } = useEditStore();
   const tag = useTagStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    initializeTagStore();
-  });
 
   useEffect(() => {
     return useTagStore.subscribe((tag) => {
@@ -38,6 +31,8 @@ export function PlateImage(props: PlateImageProps) {
       console.log("rendered");
     });
   }, []);
+
+  useEffect(() => {});
 
   return (
     <button
@@ -63,9 +58,12 @@ export function PlateImage(props: PlateImageProps) {
       <div
         className={clsx(
           "absolute inset-0 flex items-center justify-center bg-opacity-80 text-lg font-semibold hover:bg-opacity-50",
+          isMine
+            ? "flex h-full w-full items-center justify-center bg-black/50  text-white opacity-0 hover:opacity-100"
+            : "hidden",
         )}
       >
-        <p className={isMine ? "block text-white" : "hidden"}>
+        <p className={isMine ? "text-white" : "hidden"}>
           클릭해서 플레이트 꾸미기
         </p>
       </div>
