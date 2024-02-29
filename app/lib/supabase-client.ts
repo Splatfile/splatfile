@@ -14,7 +14,10 @@ import {
   WeaponGearInfo,
 } from "@/app/lib/schemas/profile/game-info";
 import { z } from "zod";
-import { initTagState, TagState } from "@/app/plate/lib/store/use-tag-store";
+import {
+  initTagState,
+  PlateInfoObject,
+} from "@/app/plate/lib/store/use-tag-store";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -70,7 +73,7 @@ export const createOrGetMyProfile = async (
       },
     };
 
-    const plate_info: TagState = {
+    const plate_info: z.infer<typeof PlateInfoObject> = {
       ...initTagState,
     };
 

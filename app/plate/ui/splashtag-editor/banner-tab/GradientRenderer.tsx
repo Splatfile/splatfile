@@ -1,5 +1,5 @@
 import {
-  Gradiants,
+  Gradients,
   setGradient,
   setGradientDirection,
   useGradient,
@@ -32,7 +32,7 @@ export const GradientRenderer = () => {
             type="color"
             value={color}
             onChange={(e) => {
-              const newGradients: Gradiants = [...gradient];
+              const newGradients: Gradients = [...gradient];
               newGradients[index] = e.target.value;
               setGradient(newGradients);
             }}

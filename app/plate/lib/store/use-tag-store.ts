@@ -9,7 +9,7 @@ import { z } from "zod";
 import { createSupabaseClient, updateProfile } from "@/app/lib/supabase-client";
 import { useEffect } from "react";
 
-export type Gradiants = [string, string, string, string];
+export type Gradients = [string, string, string, string];
 
 export const hashStorage: StateStorage = {
   getItem: (key): string => {
@@ -29,7 +29,7 @@ export const hashStorage: StateStorage = {
   },
 };
 
-type TagState = z.infer<typeof PlateInfoObject>;
+export type TagState = z.infer<typeof PlateInfoObject>;
 
 type TagStore = z.infer<typeof PlateInfoObject> & {
   set: (tag: z.infer<typeof PlateInfoObject>) => void;
@@ -49,7 +49,7 @@ const initTitle = {
   },
 };
 
-export const initTagState: z.infer<typeof PlateInfoObject> = {
+export const initTagState: TagState = {
   name: "Player",
   title: { ...initTitle.title },
   banner: "Npl_Tutorial00.png",
@@ -78,7 +78,17 @@ export const PlateInfoObject = z.object({
   isCustom: z.boolean(),
   isGradient: z.boolean(),
   layers: z.number(),
-  gradientDirection: z.string(),
+  gradientDirection: z.enum([
+    "to top",
+    "to bottom",
+    "to left",
+    "to right",
+    "to top left",
+    "to top right",
+    "to bottom left",
+    "to bottom right",
+    "to outside",
+  ]),
 });
 
 export const isPlateInfo = (
@@ -189,7 +199,7 @@ export const setLayers = (layers: number) => {
   }));
 };
 
-export const setGradient = (bgColours: Gradiants) => {
+export const setGradient = (bgColours: Gradients) => {
   useTagStore.setState((state) => ({
     ...state,
     bgColours,

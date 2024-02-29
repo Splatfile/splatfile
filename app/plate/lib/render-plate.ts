@@ -1,4 +1,3 @@
-import { TagState } from "./store/use-tag-store";
 import lang from "../lang.json";
 import { base } from "./const";
 import { scaleStepByGradientDirection } from "./types/gradient";
@@ -10,6 +9,7 @@ import {
   getTagSize,
   getTitlePosition,
 } from "./store/use-position";
+import { TagState } from "@/app/plate/lib/store/use-tag-store";
 
 const bannerSrc = (file: string, custom = false) =>
   `${base}/assets/${custom ? "custom/" : ""}banners/${file}`;
