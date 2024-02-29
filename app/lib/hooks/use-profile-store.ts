@@ -61,7 +61,10 @@ export const initProfileStore = (profile: Profile, isMine: boolean) => {
   if (!isUserInfo(user_info) || !isGameInfo(game_info)) {
     console.error("Invalid profile data", profile);
     throw new Error(
-      "Invalid profile data userInfo: " + user_info + " gameInfo: " + game_info,
+      "Invalid profile data userInfo: " +
+        JSON.stringify(user_info, null, 2) +
+        " gameInfo: " +
+        JSON.stringify(game_info, null, 2),
     );
   }
 
