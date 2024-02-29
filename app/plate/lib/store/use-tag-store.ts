@@ -6,6 +6,8 @@ import { StateStorage } from "zustand/middleware";
 import { Profile } from "@/app/lib/types/supabase-alias";
 import { z } from "zod";
 
+export type Gradiants = [string, string, string, string];
+
 export const hashStorage: StateStorage = {
   getItem: (key): string => {
     const searchParams = new URLSearchParams(location.hash.slice(1));
@@ -184,7 +186,7 @@ export const setLayers = (layers: number) => {
   }));
 };
 
-export const setGradient = (bgColours: [string, string, string, string]) => {
+export const setGradient = (bgColours: Gradiants) => {
   useTagStore.setState((state) => ({
     ...state,
     bgColours,

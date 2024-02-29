@@ -1,4 +1,5 @@
 import {
+  Gradiants,
   setGradient,
   setGradientDirection,
   useGradient,
@@ -27,10 +28,11 @@ export const GradientRenderer = () => {
       <div id="bannercolours" style={{ display: "" }}>
         {gradient.map((color, index) => (
           <input
+            key={index}
             type="color"
             value={color}
             onChange={(e) => {
-              const newGradients = [...gradient];
+              const newGradients: Gradiants = [...gradient];
               newGradients[index] = e.target.value;
               setGradient(newGradients);
             }}
