@@ -47,7 +47,6 @@ export type Database = {
           game_info: Json
           id: number
           plate_info: Json
-          profile_image: string | null
           user_id: string
           user_info: Json
           weapon_gear_infos: Json
@@ -57,7 +56,6 @@ export type Database = {
           game_info: Json
           id?: number
           plate_info: Json
-          profile_image?: string | null
           user_id: string
           user_info: Json
           weapon_gear_infos: Json
@@ -67,7 +65,6 @@ export type Database = {
           game_info?: Json
           id?: number
           plate_info?: Json
-          profile_image?: string | null
           user_id?: string
           user_info?: Json
           weapon_gear_infos?: Json
