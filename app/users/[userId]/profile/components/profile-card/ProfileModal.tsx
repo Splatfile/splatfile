@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { DefaultModal } from "@/app/ui/components/DefaultModal";
 import Cropper from "react-easy-crop";
+import { useParams } from "next/navigation";
+import { setProfileImageUrl } from "@/app/lib/hooks/use-profile-store";
 
 type ProfileModalProps = {
   open: boolean;
@@ -22,6 +24,8 @@ export const createImage = (url: string): Promise<HTMLImageElement> =>
     resolve(image);
   });
 export const ProfileModal = (props: ProfileModalProps) => {
+  const params = useParams<{ userId: string }>();
+
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [file, setFile] = useState("");
@@ -66,16 +70,24 @@ export const ProfileModal = (props: ProfileModalProps) => {
     canvas.toBlob(function (blob) {
       if (!blob) return;
       const formData = new FormData();
+      formData.append("userId", params.userId);
       formData.append("file", blob, "image.png");
 
-      //TODO : URL 수정
-      fetch("/", {
+      fetch("/api/upload/profile", {
         method: "POST",
         body: formData,
       })
         .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error("Error:", error));
+        .then((data: { key: string }) => {
+          setProfileImageUrl(data.key);
+          props.setOpen(false);
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+
+          props.setOpen(false);
+        });
     }, "image/png");
   };
 

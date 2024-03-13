@@ -9,12 +9,45 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      capture_requests: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: number
+          result_img_url: string | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: number
+          result_img_url?: string | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: number
+          result_img_url?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_apfiy_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
           game_info: Json
           id: number
           plate_info: Json
+          profile_image: string | null
           user_id: string
           user_info: Json
           weapon_gear_infos: Json
@@ -24,6 +57,7 @@ export type Database = {
           game_info: Json
           id?: number
           plate_info: Json
+          profile_image?: string | null
           user_id: string
           user_info: Json
           weapon_gear_infos: Json
@@ -33,6 +67,7 @@ export type Database = {
           game_info?: Json
           id?: number
           plate_info?: Json
+          profile_image?: string | null
           user_id?: string
           user_info?: Json
           weapon_gear_infos?: Json

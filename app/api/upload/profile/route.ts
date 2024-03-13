@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { createR2Client, uploadFile } from "@/app/lib/server/cloudflare-r2";
 
 export async function POST(request: NextRequest) {
-  const appClient = await createSupabaseServerClient("ROUTER");
+  const appClient = createSupabaseServerClient("ROUTER");
 
   const formData = await request.formData();
 
@@ -40,7 +40,14 @@ export async function POST(request: NextRequest) {
 
   const arrayBuffer = await (file as File).arrayBuffer();
 
-  const key = await uploadFile(client, Buffer.from(arrayBuffer), "temp.png");
+  const key = await uploadFile(
+    client,
+    Buffer.from(arrayBuffer),
+    userId + ".png",
+  );
 
-  appClient.from("users").update({ profile_image: key }).eq("id", userId);
+  return NextResponse.json({
+    message: "Upload is Succeed",
+    key,
+  });
 }

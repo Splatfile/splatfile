@@ -67,6 +67,7 @@ export const initProfileStore = (profile: Profile, isMine: boolean) => {
         JSON.stringify(game_info, null, 2),
     );
   }
+  user_info.profileImageUrl = profile.profile_image || "";
 
   useProfileStore.setState((state) => {
     return {
@@ -185,6 +186,10 @@ export const setIntroductionMessage = (introductionMessage: string) => {
 
 export const useProfileImageUrl = () =>
   useProfileStore((state) => state.user.profileImageUrl);
+
+export const setProfileImageUrl = (profileImageUrl: string) => {
+  setUserInfo({ profileImageUrl });
+};
 
 export const setPlaytime = (
   timeType: "weekdayPlaytime" | "weekendPlaytime",

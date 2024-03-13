@@ -5,7 +5,6 @@ import {
   useProfileImageUrl,
 } from "@/app/lib/hooks/use-profile-store";
 import clsx from "clsx";
-import Image from "next/image";
 
 import { ProfileModal } from "@/app/users/[userId]/profile/components/profile-card/ProfileModal";
 
@@ -26,11 +25,11 @@ export function ProfileImage() {
       <ProfileModal open={open} setOpen={setOpen} />
       <div className={clsx("relative h-full w-full", isMine && "group")}>
         {profileImageUrl ? (
-          <Image
+          <img
             width={480}
             height={960}
-            src="/samples/sample_profile.png"
-            alt="Sample Profile Image"
+            src={profileImageUrl}
+            alt="Profile Image"
           />
         ) : (
           <div
@@ -41,8 +40,8 @@ export function ProfileImage() {
         )}
         <div
           className={clsx(
-            "absolute inset-0 z-10  h-full w-full bg-black bg-opacity-50 group-hover:flex",
-            isMine ? "flex" : "hidden",
+            "absolute inset-0 z-10  h-full w-full bg-black opacity-0 group-hover:flex",
+            isMine ? "flex group-hover:opacity-50" : "hidden",
           )}
         >
           <p className={"m-auto w-full text-white"}>클릭해서 이미지 업로드</p>
