@@ -89,7 +89,7 @@ export async function POST(
     });
   };
 
-  requestCapturingProfile(apifyClient, "qewr").then((result) =>
+  requestCapturingProfile(apifyClient, params.userId).then((result) =>
     captureCallback(result),
   );
 
