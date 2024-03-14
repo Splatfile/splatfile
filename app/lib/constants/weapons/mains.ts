@@ -14,29 +14,38 @@ export const mainsCodes = [
   "Blaster_Precision_01", // S-BLAST91
   "Blaster_Short_00", // 노바 블래스터
   "Blaster_Short_01", // 네오 노바 블래스터
+  "Blaster_Short_O", // 오더 블래스터 레플리카
   "Brush_Heavy_00", // 빈센트
   "Brush_Heavy_01", // 빈센트 휴
   "Brush_Mini_00", // 파블로
   "Brush_Mini_01", // 파블로 휴
   "Brush_Normal_00", // 호쿠사이
   "Brush_Normal_01", // 호쿠사이 휴
+  "Brush_Normal_O", // 오더 브러시 레플리카
   "Charger_Keeper_00", // 소이 튜버
   "Charger_Keeper_01", // 커스텀 소이 튜버
   "Charger_Light_00", // 14식 대나무 총 갑
   "Charger_LongScope_00", // 4K 스코프
+  "Charger_LongScope_01", // 커스텀 4K 스코프
   "Charger_Long_00", // 리터 4K
+  "Charger_Long_01", // 커스텀 리터 4K
   "Charger_NormalScope_00", // 스플랫 스코프
   "Charger_NormalScope_01", // 스플랫 스코프 컬래버
   "Charger_Normal_00", // 스플랫 차저
   "Charger_Normal_01", // 스플랫 차저 컬래버
+  "Charger_Normal_O", // 오더 차저 레플리카
   "Charger_Pencil_00", // R-PEN/5H
   "Charger_Pencil_01", // R-PEN/5B
   "Charger_Quick_00", // 스퀵 클린 α
+  "Charger_Quick_01", // 스퀵 클린 β
   "Maneuver_Dual_00", // 듀얼 스위퍼
   "Maneuver_Dual_01", // 커스텀 듀얼 스위퍼
   "Maneuver_Gallon_00", // 켈빈 525
+  "Maneuver_Gallon_01", // 켈빈 525 데코
+  "Maneuver_Long_00", // 소방 FF
   "Maneuver_Normal_00", // 스플랫 머누버
   "Maneuver_Normal_01", // 스플랫 머누버 컬래버
+  "Maneuver_Normal_O", // 오더 머누버 레플리카
   "Maneuver_Short_00", // 스퍼터리
   "Maneuver_Short_01", // 스퍼터리 휴
   "Maneuver_Stepper_00", // 블랙 쿼드 호퍼
@@ -46,18 +55,23 @@ export const mainsCodes = [
   "Roller_Heavy_00", // 다이너모 롤러
   "Roller_Heavy_01", // 골드 다이너모 롤러
   "Roller_Hunter_00", // 베리어블 롤러
+  "Roller_Hunter_01", // 포일 베리어블 롤러
   "Roller_Normal_00", // 스플랫 롤러
   "Roller_Normal_01", // 스플랫 롤러 컬래버
+  "Roller_Normal_O", // 오더 롤러 레플리카
   "Roller_Wide_00", // 와이드 롤러
   "Roller_Wide_01", // 와이드 롤러 컬래버
   "Saber_Lite_00", // 드라이브 와이퍼
   "Saber_Lite_01", // 드라이브 와이퍼 데코
   "Saber_Normal_00", // 사무 와이퍼
   "Saber_Normal_01", // 사무 와이퍼 휴
+  "Saber_Normal_O", // 오더 와이퍼 레플리카
   "Shelter_Compact_00", // 스파이 가젯
   "Shelter_Compact_01", // 스파이 가젯 소렐라
+  "Shelter_Focus_00", // 24식 도돌이 우산 갑
   "Shelter_Normal_00", // 파라 셸터
   "Shelter_Normal_01", // 파라 셸터 소렐라
+  "Shelter_Normal_O", // 오더 셸터 레플리카
   "Shelter_Wide_00", // 캠핑 셸터
   "Shelter_Wide_01", // 캠핑 셸터 소렐라
   "Shooter_Blaze_00", // 프로모델러 MG
@@ -69,6 +83,7 @@ export const mainsCodes = [
   "Shooter_Flash_00", // 보틀 가이저
   "Shooter_Flash_01", // 포일 보틀 가이저
   "Shooter_Gravity_00", // .52 갤런
+  "Shooter_Gravity_01", // .52 갤런 데코
   "Shooter_Heavy_00", // .96 갤런
   "Shooter_Heavy_01", // .96 갤런 데코
   "Shooter_Long_00", // 제트 스위퍼
@@ -76,6 +91,8 @@ export const mainsCodes = [
   "Shooter_Normal_00", // 스플랫 슈터
   "Shooter_Normal_01", // 스플랫 슈터 컬래버
   "Shooter_Normal_H", // 히어로 슈터 레플리카
+  "Shooter_Normal_O", // 오더 슈터 레플리카
+  "Shooter_Normal_Oct", // 옥타 슈터 레플리카
   "Shooter_Precision_00", // 샤프 마커
   "Shooter_Precision_01", // 네오 샤프 마커
   "Shooter_QuickLong_00", // 스페이스 슈터
@@ -93,11 +110,14 @@ export const mainsCodes = [
   "Slosher_Diffusion_00", // 물통
   "Slosher_Diffusion_01", // 물통 휴
   "Slosher_Double_00", // 몹 링
+  "Slosher_Double_01", // 몹 링 D
   "Slosher_Launcher_00", // 스크루 슬로셔
   "Slosher_Launcher_01", // 네오 스크루 슬로셔
   "Slosher_Strong_00", // 버킷 슬로셔
   "Slosher_Strong_01", // 버킷 슬로셔 데코
+  "Slosher_Strong_O", // 오더 슬로셔 레플리카
   "Slosher_Washtub_00", // 익스플로셔
+  "Slosher_Washtub_01", // 커스텀 익스플로셔
   "Spinner_Downpour_00", // 쿠겔 슈라이버
   "Spinner_Downpour_01", // 쿠겔 슈라이버 휴
   "Spinner_HyperShort_00", // 이그재미너
@@ -105,10 +125,13 @@ export const mainsCodes = [
   "Spinner_Quick_00", // 스플랫 스피너
   "Spinner_Quick_01", // 스플랫 스피너 컬래버
   "Spinner_Serein_00", // 노틸러스 47
+  "Spinner_Serein_01", // 노틸러스 79
   "Spinner_Standard_00", // 배럴 스피너
   "Spinner_Standard_01", // 배럴 스피너 데코
+  "Spinner_Standard_O", // 오더 스피너 레플리카
   "Stringer_Normal_00", // 트라이 스트링거
   "Stringer_Normal_01", // 트라이 스트링거 컬래버
+  "Stringer_Normal_O", // 오더 스트링거 레플리카
   "Stringer_Short_00", // LACT-450
   "Stringer_Short_01", // LACT-450 데코
 ] as const;
@@ -270,6 +293,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpUltraStamp",
     "remoteImgIdent": "Path_Wst_Blaster_Short_01.webp",
   },
+  "Blaster_Short_O": {
+    "code": "Blaster_Short_O",
+    "labels": {
+      "KRko": "오더 블래스터 레플리카",
+      "JPja": "オーダーブラスター レプリカ",
+      "USen": "Order Blaster Replica",
+    },
+    "innerId": 205,
+    "subWeapon": "Bomb_Splash",
+    "specialWeapon": "SpSuperHook",
+    "remoteImgIdent": "Path_Wst_Blaster_Short_O.webp",
+  },
   "Brush_Heavy_00": {
     "code": "Brush_Heavy_00",
     "labels": { "KRko": "빈센트", "JPja": "フィンセント", "USen": "Painbrush" },
@@ -330,6 +365,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpInkStorm",
     "remoteImgIdent": "Path_Wst_Brush_Normal_01.webp",
   },
+  "Brush_Normal_O": {
+    "code": "Brush_Normal_O",
+    "labels": {
+      "KRko": "오더 브러시 레플리카",
+      "JPja": "オーダーブラシ レプリカ",
+      "USen": "Orderbrush Replica",
+    },
+    "innerId": 1115,
+    "subWeapon": "Bomb_Suction",
+    "specialWeapon": "SpSuperHook",
+    "remoteImgIdent": "Path_Wst_Brush_Normal_O.webp",
+  },
   "Charger_Keeper_00": {
     "code": "Charger_Keeper_00",
     "labels": {
@@ -378,6 +425,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpShockSonar",
     "remoteImgIdent": "Path_Wst_Charger_LongScope_00.webp",
   },
+  "Charger_LongScope_01": {
+    "code": "Charger_LongScope_01",
+    "labels": {
+      "KRko": "커스텀 4K 스코프",
+      "JPja": "4Kスコープカスタム",
+      "USen": "Custom E-liter 4K Scope",
+    },
+    "innerId": 2041,
+    "subWeapon": "Beacon",
+    "specialWeapon": "SpCastle",
+    "remoteImgIdent": "Path_Wst_Charger_LongScope_01.webp",
+  },
   "Charger_Long_00": {
     "code": "Charger_Long_00",
     "labels": { "KRko": "리터 4K", "JPja": "リッター4K", "USen": "E-liter 4K" },
@@ -385,6 +444,18 @@ export const mainsCodeToData = {
     "subWeapon": "Trap",
     "specialWeapon": "SpShockSonar",
     "remoteImgIdent": "Path_Wst_Charger_Long_00.webp",
+  },
+  "Charger_Long_01": {
+    "code": "Charger_Long_01",
+    "labels": {
+      "KRko": "커스텀 리터 4K",
+      "JPja": "リッター4Kカスタム",
+      "USen": "Custom E-liter 4K",
+    },
+    "innerId": 2031,
+    "subWeapon": "Beacon",
+    "specialWeapon": "SpCastle",
+    "remoteImgIdent": "Path_Wst_Charger_Long_01.webp",
   },
   "Charger_NormalScope_00": {
     "code": "Charger_NormalScope_00",
@@ -434,6 +505,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpTripleTornado",
     "remoteImgIdent": "Path_Wst_Charger_Normal_01.webp",
   },
+  "Charger_Normal_O": {
+    "code": "Charger_Normal_O",
+    "labels": {
+      "KRko": "오더 차저 레플리카",
+      "JPja": "オーダーチャージャー レプリカ",
+      "USen": "Order Charger Replica",
+    },
+    "innerId": 2015,
+    "subWeapon": "Bomb_Splash",
+    "specialWeapon": "SpBlower",
+    "remoteImgIdent": "Path_Wst_Charger_Normal_O.webp",
+  },
   "Charger_Pencil_00": {
     "code": "Charger_Pencil_00",
     "labels": {
@@ -469,6 +552,18 @@ export const mainsCodeToData = {
     "subWeapon": "PointSensor",
     "specialWeapon": "SpGreatBarrier",
     "remoteImgIdent": "Path_Wst_Charger_Quick_00.webp",
+  },
+  "Charger_Quick_01": {
+    "code": "Charger_Quick_01",
+    "labels": {
+      "KRko": "스퀵 클린 β",
+      "JPja": "スクイックリンβ",
+      "USen": "New Squiffer",
+    },
+    "innerId": 2001,
+    "subWeapon": "Bomb_Robot",
+    "specialWeapon": "SpSuperHook",
+    "remoteImgIdent": "Path_Wst_Charger_Quick_01.webp",
   },
   "Maneuver_Dual_00": {
     "code": "Maneuver_Dual_00",
@@ -506,6 +601,30 @@ export const mainsCodeToData = {
     "specialWeapon": "SpNiceBall",
     "remoteImgIdent": "Path_Wst_Maneuver_Gallon_00.webp",
   },
+  "Maneuver_Gallon_01": {
+    "code": "Maneuver_Gallon_01",
+    "labels": {
+      "KRko": "켈빈 525 데코",
+      "JPja": "ケルビン525デコ",
+      "USen": "Glooga Dualies Deco",
+    },
+    "innerId": 5021,
+    "subWeapon": "PointSensor",
+    "specialWeapon": "SpUltraShot",
+    "remoteImgIdent": "Path_Wst_Maneuver_Gallon_01.webp",
+  },
+  "Maneuver_Long_00": {
+    "code": "Maneuver_Long_00",
+    "labels": {
+      "KRko": "소방 FF",
+      "JPja": "ガエンFF",
+      "USen": "Douser Dualies FF",
+    },
+    "innerId": 5050,
+    "subWeapon": "Trap",
+    "specialWeapon": "SpMicroLaser",
+    "remoteImgIdent": "Path_Wst_Maneuver_Long_00.webp",
+  },
   "Maneuver_Normal_00": {
     "code": "Maneuver_Normal_00",
     "labels": {
@@ -529,6 +648,18 @@ export const mainsCodeToData = {
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpPogo",
     "remoteImgIdent": "Path_Wst_Maneuver_Normal_01.webp",
+  },
+  "Maneuver_Normal_O": {
+    "code": "Maneuver_Normal_O",
+    "labels": {
+      "KRko": "오더 머누버 레플리카",
+      "JPja": "オーダーマニューバー レプリカ",
+      "USen": "Order Dualie Replicas",
+    },
+    "innerId": 5015,
+    "subWeapon": "Bomb_Suction",
+    "specialWeapon": "SpChariot",
+    "remoteImgIdent": "Path_Wst_Maneuver_Normal_O.webp",
   },
   "Maneuver_Short_00": {
     "code": "Maneuver_Short_00",
@@ -638,6 +769,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpMultiMissile",
     "remoteImgIdent": "Path_Wst_Roller_Hunter_00.webp",
   },
+  "Roller_Hunter_01": {
+    "code": "Roller_Hunter_01",
+    "labels": {
+      "KRko": "포일 베리어블 롤러",
+      "JPja": "ヴァリアブルローラーフォイル",
+      "USen": "Foil Flingza Roller",
+    },
+    "innerId": 1031,
+    "subWeapon": "Bomb_Suction",
+    "specialWeapon": "SpChimney",
+    "remoteImgIdent": "Path_Wst_Roller_Hunter_01.webp",
+  },
   "Roller_Normal_00": {
     "code": "Roller_Normal_00",
     "labels": {
@@ -661,6 +804,18 @@ export const mainsCodeToData = {
     "subWeapon": "Beacon",
     "specialWeapon": "SpCastle",
     "remoteImgIdent": "Path_Wst_Roller_Normal_01.webp",
+  },
+  "Roller_Normal_O": {
+    "code": "Roller_Normal_O",
+    "labels": {
+      "KRko": "오더 롤러 레플리카",
+      "JPja": "オーダーローラー レプリカ",
+      "USen": "Order Roller Replica",
+    },
+    "innerId": 1015,
+    "subWeapon": "Bomb_Curling",
+    "specialWeapon": "SpGreatBarrier",
+    "remoteImgIdent": "Path_Wst_Roller_Normal_O.webp",
   },
   "Roller_Wide_00": {
     "code": "Roller_Wide_00",
@@ -727,12 +882,24 @@ export const mainsCodeToData = {
     "labels": {
       "KRko": "사무 와이퍼 휴",
       "JPja": "ジムワイパー・ヒュー",
-      "USen": "Neo Splatana Stamper",
+      "USen": "Splatana Stamper Nouveau",
     },
     "innerId": 8001,
     "subWeapon": "PoisonMist",
     "specialWeapon": "SpChariot",
     "remoteImgIdent": "Path_Wst_Saber_Normal_01.webp",
+  },
+  "Saber_Normal_O": {
+    "code": "Saber_Normal_O",
+    "labels": {
+      "KRko": "오더 와이퍼 레플리카",
+      "JPja": "オーダーワイパー レプリカ",
+      "USen": "Order Splatana Replica",
+    },
+    "innerId": 8005,
+    "subWeapon": "Bomb_Quick",
+    "specialWeapon": "SpSuperHook",
+    "remoteImgIdent": "Path_Wst_Saber_Normal_O.webp",
   },
   "Shelter_Compact_00": {
     "code": "Shelter_Compact_00",
@@ -758,6 +925,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpChimney",
     "remoteImgIdent": "Path_Wst_Shelter_Compact_01.webp",
   },
+  "Shelter_Focus_00": {
+    "code": "Shelter_Focus_00",
+    "labels": {
+      "KRko": "24식 도돌이 우산 갑",
+      "JPja": "24式張替傘・甲",
+      "USen": "Recycled Brella 24 Mk I",
+    },
+    "innerId": 6030,
+    "subWeapon": "LineMarker",
+    "specialWeapon": "SpGreatBarrier",
+    "remoteImgIdent": "Path_Wst_Shelter_Focus_00.webp",
+  },
   "Shelter_Normal_00": {
     "code": "Shelter_Normal_00",
     "labels": {
@@ -781,6 +960,18 @@ export const mainsCodeToData = {
     "subWeapon": "Bomb_Robot",
     "specialWeapon": "SpJetpack",
     "remoteImgIdent": "Path_Wst_Shelter_Normal_01.webp",
+  },
+  "Shelter_Normal_O": {
+    "code": "Shelter_Normal_O",
+    "labels": {
+      "KRko": "오더 셸터 레플리카",
+      "JPja": "オーダーシェルター レプリカ",
+      "USen": "Order Brella Replica",
+    },
+    "innerId": 6005,
+    "subWeapon": "Sprinkler",
+    "specialWeapon": "SpTripleTornado",
+    "remoteImgIdent": "Path_Wst_Shelter_Normal_O.webp",
   },
   "Shelter_Wide_00": {
     "code": "Shelter_Wide_00",
@@ -910,6 +1101,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpMicroLaser",
     "remoteImgIdent": "Path_Wst_Shooter_Gravity_00.webp",
   },
+  "Shooter_Gravity_01": {
+    "code": "Shooter_Gravity_01",
+    "labels": {
+      "KRko": ".52 갤런 데코",
+      "JPja": ".52ガロンデコ",
+      "USen": ".52 Gal Deco",
+    },
+    "innerId": 51,
+    "subWeapon": "Bomb_Curling",
+    "specialWeapon": "SpChimney",
+    "remoteImgIdent": "Path_Wst_Shooter_Gravity_01.webp",
+  },
   "Shooter_Heavy_00": {
     "code": "Shooter_Heavy_00",
     "labels": { "KRko": ".96 갤런", "JPja": ".96ガロン", "USen": ".96 Gal" },
@@ -989,6 +1192,30 @@ export const mainsCodeToData = {
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpUltraShot",
     "remoteImgIdent": "Path_Wst_Shooter_Normal_H.webp",
+  },
+  "Shooter_Normal_O": {
+    "code": "Shooter_Normal_O",
+    "labels": {
+      "KRko": "오더 슈터 레플리카",
+      "JPja": "オーダーシューター レプリカ",
+      "USen": "Order Shot Replica",
+    },
+    "innerId": 47,
+    "subWeapon": "Bomb_Suction",
+    "specialWeapon": "SpUltraShot",
+    "remoteImgIdent": "Path_Wst_Shooter_Normal_O.webp",
+  },
+  "Shooter_Normal_Oct": {
+    "code": "Shooter_Normal_Oct",
+    "labels": {
+      "KRko": "옥타 슈터 레플리카",
+      "JPja": "オクタシューター レプリカ",
+      "USen": "Octo Shot Replica",
+    },
+    "innerId": 46,
+    "subWeapon": "Bomb_Splash",
+    "specialWeapon": "SpTripleTornado",
+    "remoteImgIdent": "Path_Wst_Shooter_Normal_Oct.webp",
   },
   "Shooter_Precision_00": {
     "code": "Shooter_Precision_00",
@@ -1182,6 +1409,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpSkewer",
     "remoteImgIdent": "Path_Wst_Slosher_Double_00.webp",
   },
+  "Slosher_Double_01": {
+    "code": "Slosher_Double_01",
+    "labels": {
+      "KRko": "몹 링 D",
+      "JPja": "モップリンD",
+      "USen": "Dread Wringer D",
+    },
+    "innerId": 3051,
+    "subWeapon": "Beacon",
+    "specialWeapon": "SpShockSonar",
+    "remoteImgIdent": "Path_Wst_Slosher_Double_01.webp",
+  },
   "Slosher_Launcher_00": {
     "code": "Slosher_Launcher_00",
     "labels": {
@@ -1230,6 +1469,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpSuperHook",
     "remoteImgIdent": "Path_Wst_Slosher_Strong_01.webp",
   },
+  "Slosher_Strong_O": {
+    "code": "Slosher_Strong_O",
+    "labels": {
+      "KRko": "오더 슬로셔 레플리카",
+      "JPja": "オーダースロッシャー レプリカ",
+      "USen": "Order Slosher Replica",
+    },
+    "innerId": 3005,
+    "subWeapon": "Bomb_Splash",
+    "specialWeapon": "SpTripleTornado",
+    "remoteImgIdent": "Path_Wst_Slosher_Strong_O.webp",
+  },
   "Slosher_Washtub_00": {
     "code": "Slosher_Washtub_00",
     "labels": {
@@ -1241,6 +1492,18 @@ export const mainsCodeToData = {
     "subWeapon": "PointSensor",
     "specialWeapon": "SpInkStorm",
     "remoteImgIdent": "Path_Wst_Slosher_Washtub_00.webp",
+  },
+  "Slosher_Washtub_01": {
+    "code": "Slosher_Washtub_01",
+    "labels": {
+      "KRko": "커스텀 익스플로셔",
+      "JPja": "エクスプロッシャーカスタム",
+      "USen": "Custom Explosher",
+    },
+    "innerId": 3041,
+    "subWeapon": "Shield",
+    "specialWeapon": "SpPogo",
+    "remoteImgIdent": "Path_Wst_Slosher_Washtub_01.webp",
   },
   "Spinner_Downpour_00": {
     "code": "Spinner_Downpour_00",
@@ -1326,6 +1589,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpInkStorm",
     "remoteImgIdent": "Path_Wst_Spinner_Serein_00.webp",
   },
+  "Spinner_Serein_01": {
+    "code": "Spinner_Serein_01",
+    "labels": {
+      "KRko": "노틸러스 79",
+      "JPja": "ノーチラス79",
+      "USen": "Nautilus 79",
+    },
+    "innerId": 4041,
+    "subWeapon": "Bomb_Suction",
+    "specialWeapon": "SpPogo",
+    "remoteImgIdent": "Path_Wst_Spinner_Serein_01.webp",
+  },
   "Spinner_Standard_00": {
     "code": "Spinner_Standard_00",
     "labels": {
@@ -1350,6 +1625,18 @@ export const mainsCodeToData = {
     "specialWeapon": "SpCastle",
     "remoteImgIdent": "Path_Wst_Spinner_Standard_01.webp",
   },
+  "Spinner_Standard_O": {
+    "code": "Spinner_Standard_O",
+    "labels": {
+      "KRko": "오더 스피너 레플리카",
+      "JPja": "オーダースピナー レプリカ",
+      "USen": "Order Splatling Replica",
+    },
+    "innerId": 4015,
+    "subWeapon": "Sprinkler",
+    "specialWeapon": "SpShockSonar",
+    "remoteImgIdent": "Path_Wst_Spinner_Standard_O.webp",
+  },
   "Stringer_Normal_00": {
     "code": "Stringer_Normal_00",
     "labels": {
@@ -1373,6 +1660,18 @@ export const mainsCodeToData = {
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpFirework",
     "remoteImgIdent": "Path_Wst_Stringer_Normal_01.webp",
+  },
+  "Stringer_Normal_O": {
+    "code": "Stringer_Normal_O",
+    "labels": {
+      "KRko": "오더 스트링거 레플리카",
+      "JPja": "オーダーストリンガー レプリカ",
+      "USen": "Order Stringer Replica",
+    },
+    "innerId": 7015,
+    "subWeapon": "PoisonMist",
+    "specialWeapon": "SpMicroLaser",
+    "remoteImgIdent": "Path_Wst_Stringer_Normal_O.webp",
   },
   "Stringer_Short_00": {
     "code": "Stringer_Short_00",
