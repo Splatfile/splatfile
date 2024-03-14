@@ -67,7 +67,6 @@ export const initProfileStore = (profile: Profile, isMine: boolean) => {
         JSON.stringify(game_info, null, 2),
     );
   }
-  user_info.profileImageUrl = profile.profile_image || "";
 
   useProfileStore.setState((state) => {
     return {
