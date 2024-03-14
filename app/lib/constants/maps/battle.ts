@@ -13,6 +13,7 @@ export const battleCodes = [
   "Nagasaki", // 철갑상어 조선소
   "Pillar", // 만타 마리아호
   "Pivot", // 도미 미술관
+  "Propeller", // 청새치 공항
   "Ruins", // 참치 탄광
   "Scrap", // 나메로우 금속
   "Section", // 대구 포트 쇼핑 파크
@@ -116,6 +117,14 @@ export const battleCodeToData = {
       "KRko": "도미 미술관",
       "JPja": "キンメダイ美術館",
       "USen": "Museum d'Alfonsino",
+    },
+  },
+  "Propeller": {
+    "code": "Propeller",
+    "labels": {
+      "KRko": "청새치 공항",
+      "JPja": "カジキ空港",
+      "USen": "Marlin Airport",
     },
   },
   "Ruins": {

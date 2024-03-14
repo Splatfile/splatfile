@@ -4,6 +4,7 @@ export const salmonrunCodes = [
   "Shakedent", // 뫼니 엘 해양 발전소
   "Shakehighway", // 연어알젓 교차로 옛터
   "Shakelift", // 사계절 훈제 공방
+  "Shakerail", // 연어 심장 투기장
   "Shakeship", // 난파선 돈 브라코
   "Shakespiral", // 연어말이 요새
   "Shakeup", // 셰케나 댐
@@ -32,6 +33,14 @@ export const salmonrunCodeToData = {
       "KRko": "사계절 훈제 공방",
       "JPja": "トキシラズいぶし工房",
       "USen": "Salmonid Smokeyard",
+    },
+  },
+  "Shakerail": {
+    "code": "Shakerail",
+    "labels": {
+      "KRko": "연어 심장 투기장",
+      "JPja": "どんぴこ闘技場",
+      "USen": "Bonerattle Arena",
     },
   },
   "Shakeship": {

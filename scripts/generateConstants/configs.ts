@@ -14,7 +14,7 @@ export type MapType = (typeof MAP_TYPES)[number];
  *                         data source definitions
  * ------------------------------------------------------------------------**/
 
-export const TARGET_VERSION = "610"; // ex. 610 => v6.1.0
+export const TARGET_VERSION = "700"; // ex. 610 => v6.1.0
 export const SUPPORT_LABEL_LANGUAGES = ["KRko", "JPja", "USen"] as const;
 export type LangCode = (typeof SUPPORT_LABEL_LANGUAGES)[number];
 
