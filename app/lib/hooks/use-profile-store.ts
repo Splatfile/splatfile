@@ -68,12 +68,10 @@ export const initProfileStore = (profile: Profile, isMine: boolean) => {
     );
   }
 
-  useProfileStore.setState((state) => {
-    return {
-      user: user_info,
-      game: game_info,
-    };
-  });
+  useProfileStore.setState(() => ({
+    user: user_info,
+    game: game_info,
+  }));
   setMine(isMine);
 };
 
@@ -124,6 +122,21 @@ export const setSwitchInfo = (key: keyof SwitchInfo, value: string) => {
       [key]: value,
     },
   });
+};
+
+export const useWeaponGearInfo = () =>
+  useProfileStore((state) => state.game.weaponGearInfo, shallow);
+
+export const setWeaponGearInfo = (
+  weaponGearInfo: z.infer<typeof GameInfoObject>["weaponGearInfo"],
+) => {
+  useProfileStore.setState((state) => ({
+    ...state,
+    game: {
+      ...state.game,
+      weaponGearInfo,
+    },
+  }));
 };
 
 export const setAnarchyBattleRank = (

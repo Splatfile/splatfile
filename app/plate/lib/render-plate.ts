@@ -142,6 +142,7 @@ export const renderPlate = async (
   tagState: TagState,
 ) => {
   initCanvases();
+  await loadFonts();
   if (!((await isFontLoaded(titleFont)) && (await isFontLoaded(textFont)))) {
     return;
   }

@@ -99,6 +99,22 @@ export const GameInfoObject = z.object({
     })
     .optional(),
   playStyle: z.string().optional(),
+  weaponGearInfo: z
+    .record(
+      z.object({
+        isActivated: z.boolean(),
+        mainWeapon: z.string(),
+        subWeapon: z.string(),
+        specialWeapon: z.string(),
+        gearPowers: z.object({
+          head: z.tuple([z.string(), z.string(), z.string(), z.string()]),
+          body: z.tuple([z.string(), z.string(), z.string(), z.string()]),
+          shoes: z.tuple([z.string(), z.string(), z.string(), z.string()]),
+        }),
+        rules: z.array(z.string()),
+      }),
+    )
+    .optional(),
 });
 export const isGameInfo = (
   data: unknown,

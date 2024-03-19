@@ -4,6 +4,7 @@ import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { GameCardCommon } from "@/app/users/[userId]/profile/components/game-information/GameCardCommon";
 import { GameCardXMatch } from "@/app/users/[userId]/profile/components/game-information/GameCardXMatch";
 import { GameCardSalmonRun } from "@/app/users/[userId]/profile/components/game-information/GameCardSalmonRun";
+import { GameCardWeapons } from "@/app/users/[userId]/profile/components/game-information/GameCardWeapons";
 
 export function GameCard() {
   const playstyle = "즐빡겜";
@@ -24,9 +25,8 @@ export function GameCard() {
         <GameCardXMatch />
         {/*연어런 전설 등급 이상일 때만*/}
         <GameCardSalmonRun />
-        <InlineTextCard title={"사용 무기"}>
-          대충 무기 아이콘들 있어야함
-        </InlineTextCard>
+
+        <GameCardWeapons></GameCardWeapons>
       </div>
       <div className={"pt-4"}>
         <InlineTextCard title={"플레이 스타일"}>

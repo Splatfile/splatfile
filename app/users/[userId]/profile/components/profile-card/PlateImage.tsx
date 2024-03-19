@@ -26,10 +26,12 @@ export function PlateImage(props: PlateImageProps) {
   }, []);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
-    renderPlate(canvasRef.current, useTagStore.getState()).then(() => {
-      console.log("rendered");
-    });
+    setTimeout(() => {
+      if (!canvasRef.current) return;
+      renderPlate(canvasRef.current, useTagStore.getState()).then(() => {
+        console.log("rerendered");
+      });
+    }, 1500);
   }, []);
 
   useEffect(() => {});
