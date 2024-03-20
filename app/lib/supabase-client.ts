@@ -4,6 +4,9 @@ import {
   WeaponGearInfo,
 } from "@/app/lib/schemas/profile/game-info";
 import {
+  CaptureRequest,
+  CaptureRequestInsert,
+  CaptureRequestUpdate,
   Profile,
   ProfileInsert,
   ProfileUpdate,
@@ -144,6 +147,83 @@ export const updateProfile = async (
     .update(profile)
     .eq("user_id", user.data.user?.id)
     .single();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+};
+
+export const listCaptureRequest = async (
+  supabase: SupabaseClient,
+  userId: string,
+  filter: {
+    isCompleted?: boolean;
+  } = {},
+  pagination: {
+    limit: number;
+    offset: number;
+  } = {
+    limit: 10,
+    offset: 0,
+  },
+) => {
+  let query = supabase
+    .from("capture_requests")
+    .select("*")
+    .eq("user_id", userId);
+
+  if (filter.isCompleted !== undefined) {
+    query = query.filter(
+      "completed_at",
+      filter.isCompleted ? "not.is" : "is",
+      null,
+    );
+  }
+
+  const { data, error } = await query
+    .order("created_at", { ascending: false })
+    .order("id", { ascending: false })
+    .range(pagination.offset, pagination.offset + pagination.limit - 1)
+    .returns<CaptureRequest[]>();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+};
+
+export const createCaptureRequest = async (
+  supabase: SupabaseClient,
+  userId: string,
+) => {
+  const insert: CaptureRequestInsert = { user_id: userId };
+
+  const { data, error } = await supabase
+    .from("capture_requests")
+    .insert([insert])
+    .select("*")
+    .single<CaptureRequest>();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+};
+
+export const updateCaptureRequest = async (
+  supabase: SupabaseClient,
+  captureRequestId: number,
+  captureRequest: CaptureRequestUpdate,
+) => {
+  const { data, error } = await supabase
+    .from("capture_requests")
+    .update(captureRequest)
+    .eq("id", captureRequestId)
+    .single<CaptureRequest>();
 
   if (error) {
     throw error;
