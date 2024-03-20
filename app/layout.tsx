@@ -3,6 +3,7 @@ import "./globals.css";
 import { Noto_Sans_KR } from "next/font/google";
 import { Header } from "@/app/users/[userId]/profile/components/Header";
 import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
+import { Footer } from "./ui/components/Footer";
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
             </div>
           </div>
         </UserContextWrapper>
+        <Footer />
       </body>
     </html>
   );
