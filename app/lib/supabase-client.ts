@@ -1,23 +1,23 @@
-import {
-  createClientComponentClient,
-  SupabaseClient,
-} from "@supabase/auth-helpers-nextjs";
-import { notFound } from "next/navigation";
-import {
-  Profile,
-  ProfileInsert,
-  ProfileUpdate,
-} from "@/app/lib/types/supabase-alias";
 import { UserInfoObject } from "@/app/lib/schemas/profile";
 import {
   GameInfoObject,
   WeaponGearInfo,
 } from "@/app/lib/schemas/profile/game-info";
-import { z } from "zod";
 import {
-  initTagState,
+  Profile,
+  ProfileInsert,
+  ProfileUpdate,
+} from "@/app/lib/types/supabase-alias";
+import {
   PlateInfoObject,
+  initTagState,
 } from "@/app/plate/lib/store/use-tag-store";
+import {
+  SupabaseClient,
+  createClientComponentClient,
+} from "@supabase/auth-helpers-nextjs";
+import { notFound } from "next/navigation";
+import { z } from "zod";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -64,6 +64,7 @@ export const createOrGetMyProfile = async (
         Shakeship: 40,
         Shakespiral: 40,
         Shakeup: 40,
+        Shakerail: 40,
       },
     };
     const user_info: z.infer<typeof UserInfoObject> = {

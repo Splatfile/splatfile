@@ -1,13 +1,13 @@
-import { isMatching, P } from "ts-pattern";
-import { GameCardXMatch } from "@/app/users/[userId]/profile/components/game-information/GameCardXMatch";
-import { z } from "zod";
+import { battleCodes, salmonrunCodes } from "@/app/lib/constants/maps";
 import {
   mainsCodes,
   specialsCodes,
   subsCodes,
 } from "@/app/lib/constants/weapons";
 import { gearPowerCodes } from "@/app/lib/constants/weapons/etc";
-import { battleCodes, salmonrunCodes } from "@/app/lib/constants/maps";
+import { GameCardXMatch } from "@/app/users/[userId]/profile/components/game-information/GameCardXMatch";
+import { isMatching, P } from "ts-pattern";
+import { z } from "zod";
 
 type ServerRegion = "KR/HK" | "JP" | "EU" | "NA/SA/AT/NC";
 export type RankRule = "Area" | "Fish" | "Clam" | "Tower";
@@ -83,6 +83,7 @@ export const GameInfoObject = z.object({
     Shakeship: z.number(),
     Shakespiral: z.number(),
     Shakeup: z.number(),
+    Shakerail: z.number(),
   }),
   xMatchInfo: z
     .object({

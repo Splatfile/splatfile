@@ -1,21 +1,21 @@
 "use client";
 
-import Image from "next/image";
-import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
+import { salmonrunCodes } from "@/app/lib/constants/maps";
 import {
   setSalmonRunMapPoints,
   useMine,
   useSalmonRunMapPoints,
   useSalmonRunRank,
 } from "@/app/lib/hooks/use-profile-store";
-import { useState } from "react";
-import { EditableNumber } from "@/app/ui/components/EditableText";
 import {
+  SalmonRunMapPoints,
   isKeyOfSalmonRunMapPoints,
   salmonrun_legend,
-  SalmonRunMapPoints,
 } from "@/app/lib/schemas/profile/game-info";
-import { salmonrunCodes } from "@/app/lib/constants/maps";
+import { EditableNumber } from "@/app/ui/components/EditableText";
+import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
+import Image from "next/image";
+import { useState } from "react";
 
 export function GameCardSalmonRun() {
   const salmonRunRank = useSalmonRunRank();
