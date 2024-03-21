@@ -22,7 +22,8 @@ export const requestCapturingProfile = async (
     throw new Error("CAPTURE_ACTOR_ID is not defined");
   }
 
+  // TODO: baseurl을 .env로 빼기
   return await client.actor(capture_actor_id).call({
-    url: `https://example.com/users/${userId}/profile`,
+    url: `https://splatfile.vercel.app/users/${userId}/profile`,
   });
 };
