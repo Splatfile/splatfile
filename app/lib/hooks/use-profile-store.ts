@@ -4,12 +4,6 @@ import {
   TwitterInfo,
   UserInfoObject,
 } from "@/app/lib/schemas/profile";
-import { shallow } from "zustand/shallow";
-import { useEffect } from "react";
-import { createWithEqualityFn } from "zustand/traditional";
-import { Profile } from "@/app/lib/types/supabase-alias";
-import { createSupabaseClient, updateProfile } from "@/app/lib/supabase-client";
-import { z } from "zod";
 import {
   AnarchyBattleRankGrade,
   GameInfoObject,
@@ -19,6 +13,12 @@ import {
   SalmonRunMapPoints,
   SalmonRunRankGrade,
 } from "@/app/lib/schemas/profile/game-info";
+import { createSupabaseClient, updateProfile } from "@/app/lib/supabase-client";
+import { Profile } from "@/app/lib/types/supabase-alias";
+import { useEffect } from "react";
+import { z } from "zod";
+import { shallow } from "zustand/shallow";
+import { createWithEqualityFn } from "zustand/traditional";
 
 type ProfileState = {
   user: z.infer<typeof UserInfoObject>;
@@ -46,6 +46,7 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
         Shakeship: 40,
         Shakespiral: 40,
         Shakeup: 40,
+        Shakerail: 40,
       },
     },
     set: (state: Partial<ProfileState>) => {
@@ -165,6 +166,7 @@ export const setSalmonRunRank = (rank: SalmonRunRankGrade) => {
         Shakeship: 40,
         Shakespiral: 40,
         Shakeup: 40,
+        Shakerail: 40,
       },
     });
     return;
