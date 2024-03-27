@@ -8,9 +8,11 @@ import {
   AnarchyBattleRankGrade,
   GameInfoObject,
   isGameInfo,
-  PlayStyleObject,
+  PlayStyleEnumObject,
+  PlayStyleKeysObject,
   RankRule,
   RuleFavorEnum,
+  RuleFavorObject,
   salmonrun_legend,
   SalmonRunMapPoints,
   SalmonRunRankGrade,
@@ -50,7 +52,10 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
         Shakeup: 40,
         Shakerail: 40,
       },
-      playStyle: {},
+      playStyle: {
+        open: "Newbie",
+        regular: "Newbie",
+      },
     },
     set: (state: Partial<ProfileState>) => {
       set({ ...get(), ...state });
@@ -313,15 +318,15 @@ export const setXMatchPoint = (
 };
 
 export const setRuleFavor = (
-  key: keyof z.infer<typeof PlayStyleObject>,
+  key: keyof z.infer<typeof RuleFavorObject>,
   value: z.infer<typeof RuleFavorEnum>,
 ) => {
   useProfileStore.setState((state) => ({
     ...state,
     game: {
       ...state.game,
-      playStyle: {
-        ...state.game.playStyle,
+      ruleFavor: {
+        ...state.game.ruleFavor,
         [key]: value,
       },
     },
@@ -357,8 +362,23 @@ export const setSalmonRunMapPoints = (
   });
 };
 
+export const useRuleFavor = () =>
+  useProfileStore((state) => state.game.ruleFavor);
+
 export const usePlayStyle = () =>
   useProfileStore((state) => state.game.playStyle);
+
+export const setPlayStyle = (
+  key: z.infer<typeof PlayStyleKeysObject>,
+  value: z.infer<typeof PlayStyleEnumObject>,
+) => {
+  setGameInfo({
+    playStyle: {
+      ...useProfileStore.getState().game.playStyle,
+      [key]: value,
+    },
+  });
+};
 
 //
 // export type UserInfo = {
