@@ -62,6 +62,29 @@ export const salmonRunRanks = [
   "Grade_07",
   "Grade_08",
 ] as const;
+
+export const ruleFavor = ["love", "like", "normal", "dislike", "hate"] as const;
+export const ruleFavorRules = [
+  "salmon" as const,
+  "regular" as const,
+  "area" as const,
+  "fish" as const,
+  "clam" as const,
+  "tower" as const,
+] as const;
+
+export const RuleFavorEnum = z.enum(ruleFavor).optional();
+export const PlayStyleObject = z
+  .object({
+    regular: RuleFavorEnum,
+    salmon: RuleFavorEnum,
+    area: RuleFavorEnum,
+    fish: RuleFavorEnum,
+    clam: RuleFavorEnum,
+    tower: RuleFavorEnum,
+  })
+  .optional();
+
 export const GameInfoObject = z.object({
   serverRegion: z.string().optional(),
   level: z.number().optional(),
@@ -99,7 +122,7 @@ export const GameInfoObject = z.object({
       salmonrun: z.string().optional(),
     })
     .optional(),
-  playStyle: z.string().optional(),
+  playStyle: PlayStyleObject,
   weaponGearInfo: z
     .record(
       z.object({
@@ -121,13 +144,20 @@ export const isGameInfo = (
   data: unknown,
 ): data is z.infer<typeof GameInfoObject> => {
   const result = GameInfoObject.safeParse(data);
-  if (!result.success) console.error(result.error);
+  if (!result.success) {
+    console.error(result.error);
+  }
   return result.success;
 };
 export const isKeyOfXmatch = (
   key: string,
 ): key is keyof typeof GameCardXMatch =>
   isMatching(P.union("area", "fish", "clam", "tower"), key);
+
+export const isKeyOfRuleFavor = (
+  key: string,
+): key is keyof z.infer<typeof PlayStyleObject> =>
+  isMatching(P.union(...ruleFavorRules), key);
 
 export const isKeyOfSalmonRunMapPoints = (
   key: string,

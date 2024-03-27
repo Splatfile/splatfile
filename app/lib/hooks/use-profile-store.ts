@@ -8,7 +8,9 @@ import {
   AnarchyBattleRankGrade,
   GameInfoObject,
   isGameInfo,
+  PlayStyleObject,
   RankRule,
+  RuleFavorEnum,
   salmonrun_legend,
   SalmonRunMapPoints,
   SalmonRunRankGrade,
@@ -48,6 +50,7 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
         Shakeup: 40,
         Shakerail: 40,
       },
+      playStyle: {},
     },
     set: (state: Partial<ProfileState>) => {
       set({ ...get(), ...state });
@@ -309,6 +312,22 @@ export const setXMatchPoint = (
   }));
 };
 
+export const setRuleFavor = (
+  key: keyof z.infer<typeof PlayStyleObject>,
+  value: z.infer<typeof RuleFavorEnum>,
+) => {
+  useProfileStore.setState((state) => ({
+    ...state,
+    game: {
+      ...state.game,
+      playStyle: {
+        ...state.game.playStyle,
+        [key]: value,
+      },
+    },
+  }));
+};
+
 export const setTwitterInfo = (key: keyof TwitterInfo, value: string) => {
   const twitterInfo = useProfileStore.getState().user.twitterInfo;
   setUserInfo({
@@ -337,6 +356,9 @@ export const setSalmonRunMapPoints = (
     },
   });
 };
+
+export const usePlayStyle = () =>
+  useProfileStore((state) => state.game.playStyle);
 
 //
 // export type UserInfo = {

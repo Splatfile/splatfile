@@ -76,7 +76,9 @@ export const isUserInfo = (
   data: unknown,
 ): data is z.infer<typeof UserInfoObject> => {
   const result = UserInfoObject.safeParse(data);
-  if (!result.success) console.error(result.error);
+  if (!result.success) {
+    throw result.error;
+  }
   return result.success;
 };
 
