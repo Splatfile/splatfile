@@ -9,7 +9,7 @@ import { GameCardPlayStyle } from "@/app/users/[userId]/profile/components/game-
 export function GameCard() {
   return (
     <div
-      className={"flex w-full flex-col justify-center gap-2 px-4 py-6 md:px-8"}
+      className={"flex w-full flex-col justify-center gap-2 py-6 pl-4 lg:px-8"}
     >
       <h2 className={"pb-2 pt-6 text-xl font-semibold"}>인게임 정보</h2>
 

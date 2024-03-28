@@ -77,7 +77,7 @@ function EditPlayCard() {
           {ruleFavorRules.map((rule, i) => {
             if (!isKeyOfRuleFavor(rule)) return null;
             return (
-              <div key={i} className={"flex w-full gap-2"}>
+              <div key={i} className={"flex w-full gap-0.5"}>
                 <Image
                   width={24}
                   height={24}
@@ -124,7 +124,7 @@ function ViewPlayStyleCard() {
         </h3>
         <div
           className={
-            "grid grid-cols-2 items-center gap-x-3 gap-y-2 sm:gap-y-1 md:grid-cols-3"
+            "grid grid-cols-2 items-center gap-x-4 gap-y-2 sm:gap-y-1 md:grid-cols-3"
           }
         >
           {ruleFavorRules.map((rule, i) => {
@@ -166,7 +166,9 @@ function EditPlayStyleItem({ playKey }: PlayStyleItemProps) {
 function PlayStyleItem({ playKey }: PlayStyleItemProps) {
   const playStyle = usePlayStyle();
   return (
-    <div className={"flex w-full gap-2 text-center"}>
+    <div
+      className={"flex w-full items-center justify-center gap-0.5 text-center"}
+    >
       <p className={"w-full"}>{getPlayStyle(playStyle?.[playKey])}</p>
     </div>
   );
@@ -181,7 +183,7 @@ function RuleFavorItem({
   const favor = ruleFavor?.[rule];
 
   return (
-    <div className={"flex w-full gap-2"}>
+    <div className={"flex w-full items-center justify-center gap-0.5"}>
       <div className={"h-6 w-6"}>
         <Image
           width={24}
