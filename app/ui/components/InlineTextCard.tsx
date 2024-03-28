@@ -15,7 +15,9 @@ export function InlineTextCard(props: InlineTextCardProps) {
         "flex w-full items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 drop-shadow-sm md:w-auto md:flex-col md:items-center md:justify-center md:px-4 md:py-12"
       }
     >
-      <h3 className={"text-lg font-bold md:text-xl"}>{props.title}</h3>
+      <h3 className={"break-normal text-lg font-bold md:text-xl"}>
+        {props.title}
+      </h3>
       <div className={"flex flex-col gap-1 font-semibold text-neutral-700"}>
         {props.children}
       </div>
@@ -26,6 +28,7 @@ export function InlineTextCard(props: InlineTextCardProps) {
 type EditableInlineTextCardProps = InlineTextCardProps & {
   edit: boolean;
   setEdit: (edit: boolean) => void;
+  childrenClassName?: string;
 };
 
 export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
@@ -43,7 +46,9 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
           "flex-row": !props.edit,
         })}
       >
-        <h3 className={"text-lg font-bold md:text-xl"}>{props.title}</h3>
+        <h3 className={"break-keep text-lg font-bold md:text-xl"}>
+          {props.title}
+        </h3>
         {props.edit ? (
           <button
             className={
@@ -64,7 +69,12 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
           )
         )}
       </div>
-      <div className={"flex flex-col gap-1 font-semibold text-neutral-700"}>
+      <div
+        className={clsx(
+          "flex flex-col gap-1 font-semibold text-neutral-700",
+          props.childrenClassName,
+        )}
+      >
         {props.children}
       </div>
     </div>

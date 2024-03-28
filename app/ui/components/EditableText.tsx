@@ -7,10 +7,10 @@ type EditableTextProps = {
   onChange: (value: string) => void;
   placeholder?: string;
   type?: HTMLInputTypeAttribute;
-
   textClassName?: string;
   inputClassName?: string;
   pattern?: string;
+  maxLength?: number;
 };
 
 export function EditableText(props: EditableTextProps) {
@@ -23,6 +23,7 @@ export function EditableText(props: EditableTextProps) {
     inputClassName,
     placeholder,
     pattern,
+    maxLength,
   } = props;
 
   if (edit) {
@@ -33,6 +34,7 @@ export function EditableText(props: EditableTextProps) {
         placeholder={placeholder}
         value={value}
         pattern={pattern}
+        maxLength={maxLength}
         onChange={(e) => onChange(e.target.value)}
       />
     );

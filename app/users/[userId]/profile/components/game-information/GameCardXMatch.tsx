@@ -48,7 +48,7 @@ const XMatchCardView = (props: XMatchCardViewProps) => {
           <Image
             width={24}
             height={24}
-            src="/ingames/area.webp"
+            src="/ingames/clam.webp"
             alt="Splatoon Level Icon"
           />
           <p>{area}</p>
@@ -59,7 +59,7 @@ const XMatchCardView = (props: XMatchCardViewProps) => {
           <Image
             width={24}
             height={24}
-            src="/ingames/shell.webp"
+            src="/ingames/clam.webp"
             alt="Splatoon Salmon Icon"
           />
           <p>{clam}</p>

@@ -7,10 +7,10 @@ import {
   createSupabaseServerClient,
   createSupabaseServiceClient,
 } from "@/app/lib/server/supabase-client";
-import { ProfileWrapper } from "@/app/users/[userId]/profile/components/ProfileWrapper";
 import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/users/[userId]/profile/components/StoreSetting";
 import { isUserInfo } from "@/app/lib/schemas/profile";
+import { ProfileCanvas } from "@/app/preview/[userId]/components/ProfileCanvas";
 
 type PageProps = {
   params: {
@@ -57,7 +57,7 @@ export default async function ProfilePage(props: PageProps) {
           userId={props.params.userId}
           isMine={true}
         />
-        <ProfileWrapper />
+        <ProfileCanvas />
       </>
     );
   }
@@ -72,7 +72,7 @@ export default async function ProfilePage(props: PageProps) {
         userId={props.params.userId}
         isMine={true}
       />
-      <ProfileWrapper />
+      <ProfileCanvas />
     </>
   );
 }

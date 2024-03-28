@@ -1,17 +1,15 @@
 "use client";
 
-import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { GameCardCommon } from "@/app/users/[userId]/profile/components/game-information/GameCardCommon";
 import { GameCardXMatch } from "@/app/users/[userId]/profile/components/game-information/GameCardXMatch";
 import { GameCardSalmonRun } from "@/app/users/[userId]/profile/components/game-information/GameCardSalmonRun";
 import { GameCardWeapons } from "@/app/users/[userId]/profile/components/game-information/GameCardWeapons";
+import { GameCardPlayStyle } from "@/app/users/[userId]/profile/components/game-information/GameCardPlayStyle";
 
 export function GameCard() {
-  const playstyle = "즐빡겜";
-
   return (
     <div
-      className={"flex w-full flex-col justify-center gap-2 px-4 py-6 md:px-8"}
+      className={"flex w-full flex-col justify-center gap-2 py-6 pl-4 lg:px-8"}
     >
       <h2 className={"pb-2 pt-6 text-xl font-semibold"}>인게임 정보</h2>
 
@@ -29,9 +27,7 @@ export function GameCard() {
         <GameCardWeapons></GameCardWeapons>
       </div>
       <div className={"pt-4"}>
-        <InlineTextCard title={"플레이 스타일"}>
-          <p>{playstyle}</p>
-        </InlineTextCard>
+        <GameCardPlayStyle />
       </div>
     </div>
   );

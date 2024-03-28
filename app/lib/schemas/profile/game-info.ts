@@ -18,10 +18,7 @@ export type XMatchInfo = {
 export type SalmonRunMapPoints = {
   [K in SalmonRunMapCode]: number;
 };
-type RuleFavoriteInfo = {
-  [K in Rule as Lowercase<K>]?: string;
-};
-type PlayStyle = "Newbie" | "Gachi" | "Casual"; // 뉴비 / 진심 (일본어로 Gachi) / 캐주얼
+
 type MainWeaponCode = (typeof mainsCodes)[number];
 type SubWeaponCode = (typeof subsCodes)[number];
 type SpecialWeaponCode = (typeof specialsCodes)[number];
@@ -62,6 +59,53 @@ export const salmonRunRanks = [
   "Grade_07",
   "Grade_08",
 ] as const;
+
+export const ruleFavors = [
+  "love",
+  "like",
+  "normal",
+  "dislike",
+  "hate",
+] as const;
+export const ruleFavorRules = [
+  "salmon" as const,
+  "regular" as const,
+  "area" as const,
+  "fish" as const,
+  "clam" as const,
+  "tower" as const,
+] as const;
+
+export const RuleFavorEnum = z.enum(ruleFavors).optional();
+export const RuleFavorObject = z
+  .object({
+    regular: RuleFavorEnum,
+    salmon: RuleFavorEnum,
+    area: RuleFavorEnum,
+    fish: RuleFavorEnum,
+    clam: RuleFavorEnum,
+    tower: RuleFavorEnum,
+  })
+  .optional();
+
+export const NEWBIE = "Newbie" as const;
+export const GACHI = "Gachi" as const;
+export const CASUAL = "Casual" as const;
+
+export const playStyleKeys = ["open", "regular"] as const;
+
+export const PlayStyleKeysObject = z.enum(playStyleKeys);
+
+export const playStyleEnum = [NEWBIE, GACHI, CASUAL] as const;
+export const PlayStyleEnumObject = z.enum(playStyleEnum).optional();
+
+export const PlayStyleObject = z
+  .object({
+    open: PlayStyleEnumObject,
+    regular: PlayStyleEnumObject,
+  })
+  .optional();
+
 export const GameInfoObject = z.object({
   serverRegion: z.string().optional(),
   level: z.number().optional(),
@@ -93,13 +137,8 @@ export const GameInfoObject = z.object({
       tower: z.string().optional(),
     })
     .optional(),
-  ruleFavoriteInfo: z
-    .object({
-      area: z.string().optional(),
-      salmonrun: z.string().optional(),
-    })
-    .optional(),
-  playStyle: z.string().optional(),
+  ruleFavor: RuleFavorObject,
+  playStyle: PlayStyleObject,
   weaponGearInfo: z
     .record(
       z.object({
@@ -121,13 +160,20 @@ export const isGameInfo = (
   data: unknown,
 ): data is z.infer<typeof GameInfoObject> => {
   const result = GameInfoObject.safeParse(data);
-  if (!result.success) console.error(result.error);
+  if (!result.success) {
+    console.error(result.error);
+  }
   return result.success;
 };
 export const isKeyOfXmatch = (
   key: string,
 ): key is keyof typeof GameCardXMatch =>
   isMatching(P.union("area", "fish", "clam", "tower"), key);
+
+export const isKeyOfRuleFavor = (
+  key: string,
+): key is keyof z.infer<typeof RuleFavorObject> =>
+  isMatching(P.union(...ruleFavorRules), key);
 
 export const isKeyOfSalmonRunMapPoints = (
   key: string,
