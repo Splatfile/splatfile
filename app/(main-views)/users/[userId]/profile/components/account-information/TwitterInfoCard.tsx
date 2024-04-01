@@ -36,6 +36,7 @@ export const TwitterInfoCard = () => {
         edit={edit}
         value={name ?? ""}
         placeholder={"트위터 닉네임"}
+        textClassName={"text-center"}
         inputClassName={
           "w-full underline underline-offset-2 outline-none max-w-full"
         }

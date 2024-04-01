@@ -1,17 +1,13 @@
-import { SwitchInfoCard } from "@/app/users/[userId]/profile/components/account-information/SwitchInfoCard";
-import { TwitterInfoCard } from "@/app/users/[userId]/profile/components/account-information/TwitterInfoCard";
-import { GenderCard } from "@/app/users/[userId]/profile/components/account-information/GenderCard";
-import { SwitchCodeCard } from "@/app/users/[userId]/profile/components/account-information/SwitchCodeCard";
-import { PlaytimeCard } from "@/app/users/[userId]/profile/components/account-information/PlayTimeCards";
-import { IntroductionCard } from "@/app/users/[userId]/profile/components/account-information/IntroductionCard";
+import { SwitchInfoCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/SwitchInfoCard";
+import { TwitterInfoCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/TwitterInfoCard";
+import { GenderCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/GenderCard";
+import { SwitchCodeCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/SwitchCodeCard";
+import { PlaytimeCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/PlayTimeCards";
+import { IntroductionCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/IntroductionCard";
 
 export function AccountCard() {
   return (
-    <div
-      className={
-        "flex flex-col justify-center gap-2 px-2 py-12 lg:px-8 xl:px-24"
-      }
-    >
+    <div>
       <h2 className={"pb-2 pt-6 text-xl font-semibold"}>계정 정보</h2>
       <div className={"flex flex-col items-stretch "}>
         <div className={"p-4"}>

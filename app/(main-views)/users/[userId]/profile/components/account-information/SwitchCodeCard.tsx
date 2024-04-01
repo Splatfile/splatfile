@@ -43,7 +43,7 @@ export const SwitchCodeCard = () => {
       <EditableText
         edit={edit}
         value={friendCode ?? ""}
-        textClassName={clsx(friendCode || "hidden")}
+        textClassName={clsx(friendCode || "hidden", "text-center")}
         inputClassName={
           "text-center underline underline-offset-2 max-w-full w-full"
         }

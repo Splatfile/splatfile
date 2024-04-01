@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Noto_Sans_KR } from "next/font/google";
-import { Header } from "@/app/users/[userId]/profile/components/Header";
 import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
-import { Footer } from "./ui/components/Footer";
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
@@ -18,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={"md:text-lg"}>
+    <html lang="en" className={""}>
       <body
         className={notoSansKR.className}
         style={{
@@ -27,21 +25,13 @@ export default function RootLayout({
           backgroundRepeat: "repeat",
         }}
       >
-        <UserContextWrapper>
-          <div className={"bg-black/50 backdrop-blur"}>
-            <Header />
-            <div className="flex min-h-screen flex-col items-center justify-start gap-8 p-1 shadow-lg md:p-8">
-              <main
-                className={
-                  "h-full max-w-screen-2xl rounded-2xl bg-white/95 px-2 py-4 md:p-6"
-                }
-              >
-                {children}
-              </main>
-            </div>
-          </div>
-        </UserContextWrapper>
-        <Footer />
+        <div
+          className={
+            "min-w-screen min-h-screen bg-black/50 backdrop-blur md:text-lg"
+          }
+        >
+          <UserContextWrapper>{children}</UserContextWrapper>
+        </div>
       </body>
     </html>
   );
