@@ -116,7 +116,7 @@ async function downloadImageFiles(
   targetPath: string,
   remoteFileBaseUrl: string,
   remoteIdentAndDestFilenames: Array<[string, string]>,
-) {
+): Promise<string[]> {
   await Deno.remove(targetPath, { recursive: true });
   await Deno.mkdir(targetPath);
 
@@ -133,17 +133,56 @@ async function downloadImageFiles(
         targetPath + destFilename,
         new Uint8Array(await imgBlob.arrayBuffer()),
       );
+
+      return targetPath + destFilename;
     },
   );
 
+  const savedFilePaths: string[] = [];
+
   for (let i = 0; i < downloadPromises.length; i += 5) {
-    await Promise.all(downloadPromises.slice(i, i + 5));
+    savedFilePaths.push(
+      ...(await Promise.all(downloadPromises.slice(i, i + 5))),
+    );
+
     await new Promise((resolve) => setTimeout(resolve, 400));
     console.log(
       `${targetPath}: Downloaded ${Math.min(i + 5, downloadPromises.length)}/${
         downloadPromises.length
       } files`,
     );
+  }
+
+  return savedFilePaths;
+}
+
+async function replaceMaskColorToSomthing(imgPath: string, color: string) {
+  // convert origin.webp \
+  //   \( +clone xc:"#28a1e1" -channel RGB -clut \)  # 알파레이어를 제외한 부분을 특정 컬러로 채운 이미지를 \
+  //   -compose Screen -composite  # Screen Composition 시킨다 \
+  //   result.webp
+  const imageMagickCommand = new Deno.Command("convert", {
+    args: [
+      imgPath,
+      "(",
+      "+clone",
+      `xc:${color}`,
+      "-channel",
+      "RGB",
+      "-clut",
+      ")",
+      "-compose",
+      "Screen",
+      "-composite",
+      imgPath,
+    ],
+  });
+
+  const { code, stderr } = await imageMagickCommand.output();
+
+  if (code !== 0) {
+    console.error(new TextDecoder().decode(stderr));
+    throw new Error("Failed to replace mask color");
   }
 }
 
@@ -192,17 +231,31 @@ export async function main(labelDataJsonByLangCode: Map<LangCode, JsonType>) {
   /** --------------------------------------------
    *               download images
    * ---------------------------------------------**/
-  const _downloadImageFiles = (type: WeaponType) =>
-    downloadImageFiles(
+  const _downloadAndPostprocessFiles = (type: WeaponType) => {
+    return downloadImageFiles(
       configs.OUTPUT_IMAGE_DIR_BY_WEAPON_TYPE[type],
       configs.WEAPON_IMAGE_BASEURL_BY_TYPE[type],
       getRemoteIdentAndDestFilenames(weaponInfoByType[type]),
-    );
+    ).then(async (savedFilePaths) => {
+      if (type === MAIN) {
+        return;
+      }
+
+      await Promise.all(
+        savedFilePaths.map((filename) =>
+          replaceMaskColorToSomthing(
+            filename,
+            configs.OUTPUT_SUBSPE_KEY_COLOR[type],
+          ),
+        ),
+      );
+    });
+  };
 
   const getRemoteIdentAndDestFilenames = (
     data: Array<PreprocessedWeaponInfo>,
   ) =>
     data.map((v) => [v.remoteImgIdent, `${v.code}.webp`] as [string, string]);
 
-  await Promise.all(WEAPON_TYPES.map(_downloadImageFiles));
+  await Promise.all(WEAPON_TYPES.map(_downloadAndPostprocessFiles));
 }
