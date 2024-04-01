@@ -87,3 +87,8 @@ export const OUTPUT_WEAPON_TYPE_PREFIX = {
   [SUB]: "subs",
   [SPECIAL]: "specials",
 } as const;
+
+export const OUTPUT_SUBSPE_KEY_COLOR = {
+  [SUB]: "#1bbeab",
+  [SPECIAL]: "#e38d24",
+};
