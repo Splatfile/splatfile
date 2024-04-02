@@ -16,7 +16,7 @@ export function ProfileWrapper() {
         </div>
         {/* 인게임 정보 */}
         <div className={"w-full md:w-2/3"}>
-          <GameCard></GameCard>
+          <GameCard />
         </div>
       </div>
       <div>

@@ -4,16 +4,15 @@ import { SplatPlateEditor } from "@/app/plate/ui/SplatPlateEditor";
 import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { clsx } from "clsx";
 import { Dialog, Transition } from "@headlessui/react";
-import { renderPlate } from "@/app/plate/lib/render-plate";
+import { loadFonts, renderPlate } from "@/app/plate/lib/render-plate";
 import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
 
 type PlateImageProps = {};
 
 export function PlateImage(props: PlateImageProps) {
   const [open, setOpen] = useState(false);
-
+  const [fontLoaded, setFontLoaded] = useState(false);
   const { isMine } = useEditStore();
-  const tag = useTagStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -32,9 +31,24 @@ export function PlateImage(props: PlateImageProps) {
         console.log("rerendered");
       });
     }, 1500);
-  }, []);
+  }, [fontLoaded]);
 
-  useEffect(() => {});
+  useEffect(() => {
+    const timeout = setInterval(async () => {
+      const fontLoaded = await loadFonts();
+      console.log("fontLoaded", fontLoaded);
+
+      setFontLoaded(fontLoaded);
+
+      if (fontLoaded) {
+        clearInterval(timeout);
+      }
+    }, 1500);
+
+    return () => {
+      clearInterval(timeout);
+    };
+  }, []);
 
   return (
     <button
