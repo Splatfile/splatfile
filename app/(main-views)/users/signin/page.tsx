@@ -1,4 +1,4 @@
-import { LoginView } from "@/app/users/signin/components/LoginView";
+import { LoginView } from "@/app/(main-views)/users/signin/components/LoginView";
 
 type PageProps = {};
 

@@ -22,6 +22,7 @@ export const GenderCard = () => {
         edit={edit}
         value={gender ?? ""}
         placeholder={"성별 입력"}
+        textClassName={"text-center"}
         inputClassName={"w-full"}
         onChange={(value) => setGender(value)}
       />

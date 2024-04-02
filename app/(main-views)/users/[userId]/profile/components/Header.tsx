@@ -123,7 +123,7 @@ export const SignInButton = () => {
   return (
     <Link
       key={"로그인"}
-      href={"/users/signin"}
+      href={"/user-info/signin"}
       className="-mx-3 block cursor-pointer rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
     >
       <span>{"로그인"}</span>

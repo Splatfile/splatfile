@@ -6,7 +6,7 @@ import {
 } from "@/app/lib/hooks/use-profile-store";
 import clsx from "clsx";
 
-import { ProfileModal } from "@/app/users/[userId]/profile/components/profile-card/ProfileModal";
+import { ProfileModal } from "@/app/(main-views)/users/[userId]/profile/components/profile-card/ProfileModal";
 
 export function ProfileImage() {
   const [open, setOpen] = useState(false);

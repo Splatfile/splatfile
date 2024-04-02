@@ -8,9 +8,9 @@ import {
   createSupabaseServiceClient,
 } from "@/app/lib/server/supabase-client";
 import { unstable_noStore } from "next/cache";
-import { StoreSetting } from "@/app/users/[userId]/profile/components/StoreSetting";
+import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
 import { isUserInfo } from "@/app/lib/schemas/profile";
-import { ProfileCanvas } from "@/app/preview/[userId]/components/ProfileCanvas";
+import { ProfileCanvas } from "@/app/(capture-view)/preview/[userId]/components/ProfileCanvas";
 
 type PageProps = {
   params: {

@@ -1,6 +1,6 @@
-import { GameCard } from "@/app/users/[userId]/profile/components/game-information/GameCard";
-import { AccountCard } from "@/app/users/[userId]/profile/components/AccountCard";
-import { ProfileCard } from "@/app/users/[userId]/profile/components/ProfileCard";
+import { GameCard } from "@/app/(main-views)/users/[userId]/profile/components/game-information/GameCard";
+import { AccountCard } from "@/app/(main-views)/users/[userId]/profile/components/AccountCard";
+import { ProfileCard } from "@/app/(main-views)/users/[userId]/profile/components/ProfileCard";
 
 export function ProfileWrapper() {
   return (
@@ -20,8 +20,14 @@ export function ProfileWrapper() {
         </div>
       </div>
       <div>
-        {/* 계정 정보*/}
-        <AccountCard />
+        <div
+          className={
+            "flex flex-col justify-center gap-2 px-2 py-12 lg:px-8 xl:px-24"
+          }
+        >
+          {/* 계정 정보*/}
+          <AccountCard />
+        </div>
       </div>
     </div>
   );
