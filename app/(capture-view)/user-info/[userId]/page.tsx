@@ -9,7 +9,6 @@ import {
 } from "@/app/lib/server/supabase-client";
 import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
-import { isUserInfo } from "@/app/lib/schemas/profile";
 import { UserInfoWrapper } from "@/app/(capture-view)/user-info/[userId]/components/UserInfoWrapper";
 
 type PageProps = {
@@ -20,27 +19,6 @@ type PageProps = {
 
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 export const dynamic = "force-dynamic";
-
-export const generateMetadata = async () => {
-  const supabaseClient = createSupabaseServerClient(SERVER_COMPONENT);
-  const profile = await createOrGetMyProfile(supabaseClient);
-
-  const userInfo = profile.user_info;
-
-  if (isUserInfo(userInfo)) {
-    const userName =
-      userInfo.switchInfo?.name || userInfo.twitterInfo?.name || "";
-    return {
-      title: userName + " 프로필",
-      description: userName + " 스플래툰 프로필. 스플랫파일",
-    };
-  }
-
-  return {
-    title: "프로필",
-    description: "스플래툰 프로필. 스플랫파일",
-  };
-};
 
 export default async function ProfilePage(props: PageProps) {
   unstable_noStore();

@@ -21,9 +21,9 @@ type PageProps = {
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 export const dynamic = "force-dynamic";
 
-export const generateMetadata = async () => {
-  const supabaseClient = createSupabaseServerClient(SERVER_COMPONENT);
-  const profile = await createOrGetMyProfile(supabaseClient);
+export const generateMetadata = async (props: PageProps) => {
+  const adminClient = createSupabaseServiceClient(SERVER_COMPONENT);
+  const profile = await getProfile(adminClient, props.params.userId);
 
   const userInfo = profile.user_info;
 
