@@ -16,7 +16,7 @@
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/auth-ui-react": "^0.4.7",
     "@supabase/auth-ui-shared": "^0.1.8",
-    "@supabase/supabase-js": "^2.39.2",
+    "@supabase/supabase-js": "^2.42.0",
     "apify": "^3.1.15",
     "clsx": "^2.1.0",
     "crawlee": "^3.7.3",
@@ -47,7 +47,7 @@
     "postcss": "^8",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.10",
-    "supabase": "^1.136.3",
+    "supabase": "^1.153.4",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

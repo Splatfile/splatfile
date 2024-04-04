@@ -24,9 +24,17 @@ export function LoginView(props: LoginButtonProps) {
     }
   }, [router, user]);
 
+  async function signInWithTwitter() {
+    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+      provider: "twitter",
+    });
+  }
+
   return (
     <div className={"flex w-full justify-center"}>
       <div className={"w-80"}>
+        <button onClick={signInWithTwitter}>Twitter 로그인</button>
+
         <Auth
           localization={{
             variables: ko,
