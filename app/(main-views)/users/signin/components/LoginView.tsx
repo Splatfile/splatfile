@@ -31,7 +31,7 @@ export function LoginView(props: LoginButtonProps) {
           localization={{
             variables: ko,
           }}
-          redirectTo={"/signin"}
+          redirectTo={"/users/signin"}
           providers={["twitter"]}
           supabaseClient={supabaseClient}
           appearance={{ theme: ThemeSupa }}
