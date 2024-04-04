@@ -31,7 +31,7 @@ export function LoginView(props: LoginButtonProps) {
           localization={{
             variables: ko,
           }}
-          redirectTo={"/users/signin"}
+          redirectTo={"https://splatfile.vercel.app/users/signin"}
           providers={["twitter"]}
           supabaseClient={supabaseClient}
           appearance={{ theme: ThemeSupa }}
