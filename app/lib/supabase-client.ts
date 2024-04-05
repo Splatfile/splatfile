@@ -11,19 +11,39 @@ import {
   ProfileInsert,
   ProfileUpdate,
 } from "@/app/lib/types/supabase-alias";
+import { PlateInfoObject, TagState } from "@/app/plate/lib/store/use-tag-store";
 import {
-  PlateInfoObject,
-  initTagState,
-} from "@/app/plate/lib/store/use-tag-store";
-import {
-  SupabaseClient,
   createClientComponentClient,
+  SupabaseClient,
 } from "@supabase/auth-helpers-nextjs";
 import { notFound } from "next/navigation";
 import { z } from "zod";
+import lang from "@/app/plate/lang.json";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+const initTitle = {
+  title: {
+    first: 0,
+    last: 0,
+    string: "100% .52 갤런 유저",
+  },
+};
+
+const initTagState: TagState = {
+  name: "Player",
+  title: { ...initTitle.title },
+  banner: "Npl_Tutorial00.png",
+  layers: 0,
+  id: lang["KRko"].sign + "0001",
+  badges: ["", "", ""],
+  color: "#ffffff",
+  bgColours: ["#bbbbbb", "#999999", "#555555", "#222222"],
+  isGradient: false,
+  isCustom: false,
+  gradientDirection: "to bottom",
+};
 
 export const ROUTER = "ROUTER" as const;
 export const SERVER_COMPONENT = "SERVER_COMPONENT" as const;
@@ -81,7 +101,20 @@ export const createOrGetMyProfile = async (
       ...initTagState,
     };
 
+    console.log("plate_info:", plate_info);
+
     const weapon_gear_infos: WeaponGearInfo[] = [];
+
+    const userInfo = user.data.user;
+    console.log("userMetadata:", userInfo.user_metadata);
+
+    const name = userInfo.user_metadata?.name;
+
+    user_info.twitterInfo = {
+      name: name || "",
+      id: userInfo.user_metadata?.user_name || "",
+    };
+    plate_info.name = name || "Player";
 
     const insert: ProfileInsert = {
       user_id: user.data.user?.id,
@@ -118,11 +151,10 @@ export const getProfile = async (supabase: SupabaseClient, userId: string) => {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq("user_id", "7973f2b0-ee0d-43ab-aeaf-a4d978e1609d")
+    .eq("user_id", userId)
     .maybeSingle();
 
-  console.log("getProfile", data, error, userId);
-  if (!data) {
+  if (!data || error) {
     notFound();
   }
 

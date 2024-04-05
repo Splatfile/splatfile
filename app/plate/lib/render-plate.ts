@@ -140,6 +140,7 @@ export const loadFonts = async () => {
 export const renderPlate = async (
   canvas: HTMLCanvasElement,
   tagState: TagState,
+  preview = false,
 ) => {
   initCanvases();
   await loadFonts();
@@ -147,6 +148,10 @@ export const renderPlate = async (
     return;
   }
   console.log("font loaded");
+  let x = 0,
+    y = 0,
+    w = 0,
+    h = 0;
 
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
   const textCtx = textCanvas.getContext("2d") as CanvasRenderingContext2D & {
@@ -154,8 +159,13 @@ export const renderPlate = async (
   };
   const tagSize = getTagSize();
 
-  textCtx.clearRect(0, 0, tagSize.w, tagSize.h);
-  ctx.clearRect(0, 0, tagSize.w, tagSize.h);
+  if (!preview) {
+    w = tagSize.w;
+    h = tagSize.h;
+  }
+
+  textCtx.clearRect(x, y, w, h);
+  ctx.clearRect(x, y, w, h);
 
   const {
     banner,
@@ -172,24 +182,24 @@ export const renderPlate = async (
   } = tagState;
 
   const bannerImage = await getBannerImage(banner);
-  compositeCanvas.width = tagSize.w;
-  compositeCanvas.height = tagSize.h;
+  compositeCanvas.width = w;
+  compositeCanvas.height = h;
   const compositeCtx = compositeCanvas.getContext("2d");
-  canvasLayer.width = tagSize.w;
-  canvasLayer.height = tagSize.h;
+  canvasLayer.width = w;
+  canvasLayer.height = h;
   const layerCtx = canvasLayer.getContext("2d");
   ctx.save();
   if (isGradient) {
     // If gradient, draw the gradient then the banner
     const [sx, sy, dx, dy] = scaleStepByGradientDirection(
       gradientDirection,
-      tagSize.w,
-      tagSize.h,
+      w,
+      h,
     );
 
     let gradient = ctx.createLinearGradient(sx, sy, dx, dy);
     if (gradientDirection === "to outside") {
-      gradient = ctx.createRadialGradient(sx, sy, 0, dx, dy, tagSize.w / 2);
+      gradient = ctx.createRadialGradient(sx, sy, 0, dx, dy, w / 2);
     }
 
     gradient.addColorStop(0, bgColours[0]);
@@ -197,10 +207,10 @@ export const renderPlate = async (
     gradient.addColorStop(0.66, bgColours[2]);
     gradient.addColorStop(1, bgColours[3]);
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, tagSize.w, tagSize.h);
+    ctx.fillRect(x, y, w, h);
   } else if (!layers) {
     // If not one of the special "pick your own colour" banners, just draw it
-    ctx.drawImage(bannerImage, 0, 0, tagSize.w, tagSize.h);
+    ctx.drawImage(bannerImage, x, y, w, h);
   } else {
     // Special custom colour banners draw each layer then are added
 
@@ -221,29 +231,29 @@ export const renderPlate = async (
       if (!compositeCtx || !layerCtx) {
         return;
       }
-      compositeCtx.clearRect(0, 0, tagSize.w, tagSize.h);
+      compositeCtx.clearRect(x, y, w, h);
       compositeCtx.save();
       compositeCtx.fillStyle = bgColours[!i ? i : imageLayers.length - i];
-      compositeCtx.drawImage(imageLayers[i], 0, 0, tagSize.w, tagSize.h);
+      compositeCtx.drawImage(imageLayers[i], x, y, w, h);
       compositeCtx.globalCompositeOperation = "difference";
-      compositeCtx.fillRect(0, 0, tagSize.w, tagSize.h);
+      compositeCtx.fillRect(x, y, w, h);
       compositeCtx.restore();
 
       layerCtx.save();
-      layerCtx.drawImage(imageLayers[i], 0, 0, tagSize.w, tagSize.h);
+      layerCtx.drawImage(imageLayers[i], x, y, w, h);
       layerCtx.globalCompositeOperation = "source-in";
-      layerCtx.drawImage(compositeCanvas, 0, 0, tagSize.w, tagSize.h);
+      layerCtx.drawImage(compositeCanvas, x, y, w, h);
       layerCtx.restore();
-      ctx.drawImage(canvasLayer, 0, 0);
-      layerCtx.clearRect(0, 0, tagSize.w, tagSize.h);
+      ctx.drawImage(canvasLayer, x, y);
+      layerCtx.clearRect(x, y, w, h);
     }
   }
   ctx.restore();
 
   /// About Text
   const textScale = 2;
-  textCanvas.width = tagSize.w * textScale;
-  textCanvas.height = tagSize.h * textScale;
+  textCanvas.width = w * textScale;
+  textCanvas.height = h * textScale;
 
   textCtx.scale(textScale, textScale);
 
@@ -259,14 +269,14 @@ export const renderPlate = async (
     textCtx.font = `${titlePosition.fontSize}px ${textFont}`;
     textCtx.letterSpacing = "-0.3px";
     const textWidth = textCtx.measureText(titleToString(title)).width;
-    const xScale = getXScale(textWidth, tagSize.w - 32);
+    const xScale = getXScale(textWidth, w - 32);
 
-    textCtx.transform(1, 0, -7.5 / 100, 1, 0, 0);
+    textCtx.transform(1, 0, -7.5 / 100, 1, x, y);
     textCtx.scale(xScale, 1);
     textCtx.fillText(
       titleToString(title),
       18 / xScale + titlePosition.x,
-      42 + titlePosition.y + (tagSize.h - 200) / 2,
+      42 + titlePosition.y + (h - 200) / 2,
     );
     textCtx.restore();
     textCtx.letterSpacing = "0px";
@@ -283,7 +293,7 @@ export const renderPlate = async (
     const leftBadge = badges.indexOf(
       badges.find((b) => b !== "") || "No Badge",
     );
-    const maxX = (leftBadge === -1 ? tagSize.w : 480 + 74 * leftBadge) - 48;
+    const maxX = (leftBadge === -1 ? w : 480 + 74 * leftBadge) - 48;
     const textWidth = textCtx.measureText(id).width;
     const xScale = getXScale(textWidth, maxX);
 
@@ -291,7 +301,7 @@ export const renderPlate = async (
     textCtx.fillText(
       "" + id,
       24 / xScale + idPosition.x,
-      185 + (tagSize.h - 200) / 2 + idPosition.y,
+      185 + (h - 200) / 2 + idPosition.y,
     );
     textCtx.restore();
   }
@@ -304,21 +314,21 @@ export const renderPlate = async (
     textCtx.font = `${namePosition.fontSize}px ${titleFont}`;
     textCtx.letterSpacing = "-0.4px";
     const textWidth = textCtx.measureText(name).width;
-    const xScale = getXScale(textWidth, tagSize.w - 32);
+    const xScale = getXScale(textWidth, w - 32);
 
     textCtx.textAlign = "center";
     textCtx.scale(xScale, 1);
     textCtx.fillText(
       name,
-      (tagSize.w / 2 - 1.5) / xScale + namePosition.x,
-      119 + namePosition.y + (tagSize.h - 200) / 2,
+      (w / 2 - 1.5) / xScale + namePosition.x,
+      119 + namePosition.y + (h - 200) / 2,
     );
 
     textCtx.restore();
   }
   ctx.save();
-  ctx.drawImage(textCanvas, 0, 0, tagSize.w, tagSize.h);
-  textCtx.clearRect(0, 0, tagSize.w, tagSize.h);
+  ctx.drawImage(textCanvas, x, y, w, h);
+  textCtx.clearRect(x, y, w, h);
   ctx.restore();
 
   // If the banner name or badge has either "custom" or "data" it is definitely a custom resource
@@ -328,7 +338,7 @@ export const renderPlate = async (
   for (let i = 0; i < 3; i++) {
     if (badges[i] !== "") {
       const sizeRatio = 1 + 0.02 * badgesPosition.size;
-      const x = tagSize.w - 72 + (i - 2) * (74 * sizeRatio) + badgesPosition.x;
+      const x = w - 72 + (i - 2) * (74 * sizeRatio) + badgesPosition.x;
       const badgeImage = await getBadgeImage(badges[i]);
 
       // Below used to resize custom badges to retain their scale.
@@ -346,7 +356,7 @@ export const renderPlate = async (
         ctx.drawImage(
           badgeImage,
           x + (70 / 2 - width / 2),
-          128 + (70 / 2 - height / 2) + (tagSize.h - 200) / 2,
+          128 + (70 / 2 - height / 2) + (h - 200) / 2,
           width,
           height,
         );
@@ -354,7 +364,7 @@ export const renderPlate = async (
         ctx.drawImage(
           badgeImage,
           x,
-          128 + badgesPosition.y + (tagSize.h - 200) / 2,
+          128 + badgesPosition.y + (h - 200) / 2,
           70 * sizeRatio,
           70 * sizeRatio,
         );
@@ -370,22 +380,22 @@ export const renderPlate = async (
     ctx.strokeStyle = "red";
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(tagSize.w / 2, 0);
-    ctx.lineTo(tagSize.w / 2, tagSize.h);
+    ctx.moveTo(w / 2, 0);
+    ctx.lineTo(w / 2, h);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(0, tagSize.h / 2);
-    ctx.lineTo(tagSize.w, tagSize.h / 2);
+    ctx.moveTo(0, h / 2);
+    ctx.lineTo(w, h / 2);
     ctx.stroke();
 
     //draw rectangle on center of canvas (700, 200)
     ctx.strokeStyle = "red";
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.rect(tagSize.w / 2 - 350, tagSize.h / 2 - 100, 700, 200);
+    ctx.rect(w / 2 - 350, h / 2 - 100, 700, 200);
     ctx.stroke();
   }
 
-  ctx.drawImage(textCanvas, 0, 0, tagSize.w, tagSize.h);
+  ctx.drawImage(textCanvas, x, y, w, h);
   ctx.restore();
 };
