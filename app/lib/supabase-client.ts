@@ -101,12 +101,9 @@ export const createOrGetMyProfile = async (
       ...initTagState,
     };
 
-    console.log("plate_info:", plate_info);
-
     const weapon_gear_infos: WeaponGearInfo[] = [];
 
     const userInfo = user.data.user;
-    console.log("userMetadata:", userInfo.user_metadata);
 
     const name = userInfo.user_metadata?.name;
 
