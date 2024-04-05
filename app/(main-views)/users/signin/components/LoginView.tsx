@@ -24,22 +24,17 @@ export function LoginView(props: LoginButtonProps) {
     }
   }, [router, user]);
 
-  async function signInWithTwitter() {
-    const { data, error } = await supabaseClient.auth.signInWithOAuth({
-      provider: "twitter",
-    });
-  }
+  const baseURL =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://splatfile.vercel.app";
 
   return (
     <div className={"flex w-full justify-center"}>
       <div className={"w-80"}>
-        <button onClick={signInWithTwitter}>Twitter 로그인</button>
-
         <Auth
           localization={{
             variables: ko,
           }}
-          redirectTo={"https://splatfile.vercel.app/users/signin"}
+          redirectTo={baseURL + "/users/signin"}
           providers={["twitter"]}
           supabaseClient={supabaseClient}
           appearance={{ theme: ThemeSupa }}
