@@ -150,8 +150,8 @@ export const renderPlate = async (
   console.log("font loaded");
   let x = 0,
     y = 0,
-    w = 0,
-    h = 0;
+    w: number,
+    h: number;
 
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
   const textCtx = textCanvas.getContext("2d") as CanvasRenderingContext2D & {
@@ -162,6 +162,9 @@ export const renderPlate = async (
   if (!preview) {
     w = tagSize.w;
     h = tagSize.h;
+  } else {
+    w = 350;
+    h = 100;
   }
 
   textCtx.clearRect(x, y, w, h);

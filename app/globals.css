@@ -2,3 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@font-face {
+    font-family: "Splat-title";
+    src: url("./plate/assets/fonts/SplatoonTitle.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Splat-text";
+    src: url("./plate/assets/fonts/SplatoonText.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* Language Fonts */
+/* Korean */
+@font-face {
+    font-family: "KCUBEr";
+    src: url("./plate/assets/fonts/KRko/AsiaKCUBE-R.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "KERINm";
+    src: url("./plate/assets/fonts/KRko/AsiaKERIN-M.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+body[lang="KRko"],
+body[lang="KRko"] select,
+body[lang="KRko"] input,
+option[value="KRko"] {
+    font-family: 'Splat-text', 'KERINm';
+}
+
+body[lang="KRko"] .tab,
+body[lang="KRko"] .category-title,
+body[lang="KRko"] .title-font {
+    font-family: 'Splat-title', 'KCUBEr';
+}
