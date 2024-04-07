@@ -8,11 +8,84 @@ import {
 } from "@/app/lib/hooks/use-profile-store";
 
 export function ProfileCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const plateRef = useRef<HTMLCanvasElement>(null);
   const tag = useTagStore();
   const userStore = useUserStore();
   const profileImageUrl = useProfileImageUrl();
+  return (
+    <ProfileCanvasRender
+      tag={tag}
+      userStore={userStore}
+      profileImageUrl={profileImageUrl}
+    />
+  );
+}
+
+type X = number;
+type Y = number;
+type Width = number;
+type Height = number;
+
+type Rect = [X, Y, Width, Height];
+const x = 0;
+const y = 1;
+const w = 2;
+const h = 3;
+
+const canvasWidth = 1024;
+const canvasHeight = 536;
+
+const profileImageRect: Rect = [20, 20, 267, 400];
+
+const plateRect: Rect = [
+  profileImageRect[x],
+  profileImageRect[y] + profileImageRect[h],
+  profileImageRect[w],
+  200 * (profileImageRect[w] / 700),
+];
+
+type TextRender = {
+  text: string;
+  x: number;
+  y: number;
+  size: number;
+  maxWidth: number;
+};
+
+const defaultFontSize = 20;
+const leftPadding = 20;
+const leftSideWidth = 350;
+const topPadding = 20;
+const getNameText = (text: string): TextRender => {
+  return {
+    text: "이름: " + text,
+    x: profileImageRect[x] + profileImageRect[w] + leftPadding,
+    y: profileImageRect[y] + topPadding,
+    size: defaultFontSize,
+    maxWidth: leftSideWidth,
+  };
+};
+
+const renderText = (ctx: CanvasRenderingContext2D, text: TextRender) => {
+  ctx.font = `${text.size}px KERINm`;
+  ctx.fillStyle = "#FFFFFF";
+  ctx.fillText(text.text, text.x, text.y, text.maxWidth);
+};
+
+const endOfTextX = (text: TextRender) => text.x + text.maxWidth;
+
+type ProfileCanvasRenderProps = {
+  tag: ReturnType<typeof useTagStore.getState>;
+  userStore: ReturnType<typeof useUserStore>;
+  profileImageUrl: ReturnType<typeof useProfileImageUrl>;
+};
+
+export function ProfileCanvasRender({
+  tag,
+  userStore,
+  profileImageUrl,
+}: ProfileCanvasRenderProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const plateRef = useRef<HTMLCanvasElement>(null);
 
   const renderImage = () => {
     if (!profileImageUrl) return;
@@ -25,7 +98,7 @@ export function ProfileCanvas() {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      ctx.drawImage(image, 20, 20, 267, 400);
+      ctx.drawImage(image, ...profileImageRect);
     };
   };
 
@@ -41,7 +114,13 @@ export function ProfileCanvas() {
     ctx.fillStyle = "#bbbbbb";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     renderImage();
-    ctx.drawImage(plate, 20, 420, 267, 76);
+    ctx.drawImage(plate, ...plateRect);
+    renderText(
+      ctx,
+      getNameText(
+        userStore.switchInfo?.name || userStore.twitterInfo?.name || "",
+      ),
+    );
   };
 
   useEffect(() => {
@@ -68,7 +147,11 @@ export function ProfileCanvas() {
 
   return (
     <div>
-      <canvas ref={canvasRef} width={1024} height={536}></canvas>
+      <canvas
+        ref={canvasRef}
+        width={canvasWidth}
+        height={canvasHeight}
+      ></canvas>
       <canvas
         className={"hidden"}
         ref={plateRef}
