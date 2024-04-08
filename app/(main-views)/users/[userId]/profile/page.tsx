@@ -11,6 +11,7 @@ import { ProfileWrapper } from "@/app/(main-views)/users/[userId]/profile/compon
 import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
 import { isUserInfo } from "@/app/lib/schemas/profile";
+import { DebounceEditing } from "@/app/(main-views)/users/[userId]/profile/components/DebounceEditing";
 
 type PageProps = {
   params: {
@@ -52,6 +53,7 @@ export default async function ProfilePage(props: PageProps) {
     const profile = await createOrGetMyProfile(supabaseClient);
     return (
       <>
+        <DebounceEditing userId={props.params.userId} />
         <StoreSetting
           profile={profile}
           userId={props.params.userId}

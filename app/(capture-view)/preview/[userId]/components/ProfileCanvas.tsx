@@ -51,7 +51,7 @@ type TextRender = {
   maxWidth: number;
 };
 
-const defaultFontSize = 20;
+const defaultFontSize = 28;
 const leftPadding = 20;
 const leftSideWidth = 350;
 const topPadding = 20;
@@ -59,7 +59,7 @@ const getNameText = (text: string): TextRender => {
   return {
     text: "이름: " + text,
     x: profileImageRect[x] + profileImageRect[w] + leftPadding,
-    y: profileImageRect[y] + topPadding,
+    y: profileImageRect[y] + defaultFontSize,
     size: defaultFontSize,
     maxWidth: leftSideWidth,
   };
@@ -67,6 +67,7 @@ const getNameText = (text: string): TextRender => {
 
 const renderText = (ctx: CanvasRenderingContext2D, text: TextRender) => {
   ctx.font = `${text.size}px KERINm`;
+  // ctx.font = `${text.size}px KCUBEr`;
   ctx.fillStyle = "#FFFFFF";
   ctx.fillText(text.text, text.x, text.y, text.maxWidth);
 };
