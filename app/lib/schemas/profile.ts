@@ -28,6 +28,13 @@ export type SwitchInfo = {
   friendLink?: string;
 };
 
+export const PlayTimeObject = z
+  .object({
+    start: z.number().int().min(0).max(23),
+    end: z.number().int().min(0).max(23),
+  })
+  .optional();
+
 export const UserInfoObject = z.object({
   profileImageUrl: z.string().optional(),
   splatplateImageUrl: z.string().optional(),
@@ -58,18 +65,8 @@ export const UserInfoObject = z.object({
   gender: z.string().optional(),
   introductionMessage: z.string().optional(),
   languages: z.array(z.string()).optional(),
-  weekdayPlaytime: z
-    .object({
-      start: z.number().int().min(0).max(23),
-      end: z.number().int().min(0).max(23),
-    })
-    .optional(),
-  weekendPlaytime: z
-    .object({
-      start: z.number().int().min(0).max(23),
-      end: z.number().int().min(0).max(23),
-    })
-    .optional(),
+  weekdayPlaytime: PlayTimeObject,
+  weekendPlaytime: PlayTimeObject,
 });
 
 export const isUserInfo = (

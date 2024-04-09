@@ -17,6 +17,11 @@ import {
   salmonRunRanks,
   salmonRunRanksKo,
 } from "@/app/lib/schemas/profile/game-info";
+import {
+  rankImageUrl,
+  regularImageUrl,
+  salmonImageUrl,
+} from "@/app/lib/constants/image-urls";
 
 export function GameCardCommon() {
   const [edit, setEdit] = useState(false);
@@ -56,7 +61,7 @@ export const LevelText = ({ edit }: LevelTextProps) => {
         <Image
           width={48}
           height={48}
-          src="/ingames/level.png"
+          src={regularImageUrl}
           alt="Splatoon Level Icon"
         />
       </div>
@@ -100,7 +105,7 @@ export const RankText = (props: RankTextProps) => {
         <Image
           width={48}
           height={48}
-          src="/ingames/ranked.png"
+          src={rankImageUrl}
           alt="Splatoon Rank Icon"
         />
       </div>
@@ -160,7 +165,7 @@ export const SalmonText = (props: SalmonTextProps) => {
         <Image
           width={48}
           height={48}
-          src="/ingames/salmon.png"
+          src={salmonImageUrl}
           alt="Splatoon Salmon Icon"
         />
       </div>
