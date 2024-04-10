@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { loadFonts, renderPlate } from "@/app/plate/lib/render-plate";
 import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
 import QRCode from "qrcode";
@@ -490,7 +490,7 @@ export function ProfileCanvasRender({
   const downloadRef = useRef<HTMLAnchorElement>(null);
   const twitterPreviewRef = useRef<HTMLCanvasElement>(null);
 
-  const renderImage = () => {
+  const renderImage = useCallback(() => {
     if (!profileImageUrl) return;
     const image = new Image();
 
@@ -504,7 +504,7 @@ export function ProfileCanvasRender({
 
       ctx.drawImage(image, ...profileImageRect);
     };
-  };
+  }, [profileImageUrl]);
 
   const renderBackground = () => {
     return new Promise<void>((resolve) => {
@@ -522,139 +522,145 @@ export function ProfileCanvasRender({
     });
   };
 
-  const renderCanvas = async (
-    tag: ReturnType<typeof useTagStore.getState>,
-    userStore: ReturnType<typeof useUserStore>,
-    gameStore: ReturnType<typeof useGameStore>,
-  ) => {
-    const canvas = canvasRef.current;
-    const plate = plateRef.current;
-    if (!canvas || !plate) return;
-    await renderPlate(plate, tag);
+  const renderCanvas = useCallback(
+    async (
+      tag: ReturnType<typeof useTagStore.getState>,
+      userStore: ReturnType<typeof useUserStore>,
+      gameStore: ReturnType<typeof useGameStore>,
+    ) => {
+      const canvas = canvasRef.current;
+      const plate = plateRef.current;
+      if (!canvas || !plate) return;
+      await renderPlate(plate, tag);
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    // Background
-    await renderBackground();
-    ctx.globalAlpha = 0.8;
-    ctx.fillStyle = "#222222";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.globalAlpha = 1;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      // Background
+      await renderBackground();
+      ctx.globalAlpha = 0.8;
+      ctx.fillStyle = "#222222";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalAlpha = 1;
 
-    // Profile Image
-    renderImage();
-    ctx.drawImage(plate, ...plateRect);
+      // Profile Image
+      renderImage();
+      ctx.drawImage(plate, ...plateRect);
 
-    // Left Text Side
-    const nameText = getNameText(
-      userStore.switchInfo?.name || userStore.twitterInfo?.name || "",
-    );
-    const weekendText = getWeekendTimeText(userStore.weekendPlaytime);
-
-    // Left Text Side Rect
-    ctx.strokeStyle = "#dddddd";
-    ctx.lineWidth = 3;
-
-    // const y = nameText.y - topPadding / 2 - topPadding - defaultFontSize;
-    // drawRoundedRect(
-    //   ctx,
-    //   nameText.x - leftPadding / 2,
-    //   y,
-    //   leftSideWidth,
-    //   weekendText.y - y + defaultFontSize,
-    //   12,
-    //   "#bbbbbb",
-    //   0.5,
-    // );
-
-    // Left Text Side Render
-    renderText(ctx, nameText);
-    renderText(ctx, getFriendCodeText(userStore.switchInfo?.friendCode || ""));
-    renderText(ctx, getPlaytimeTitleText());
-    renderText(ctx, getWeekdayText(userStore.weekdayPlaytime));
-
-    renderText(ctx, weekendText);
-
-    const weaponTitleText = getWeaponTitleText();
-    renderText(ctx, weaponTitleText);
-
-    const weaponKeys = Object.keys(gameStore.weaponGearInfo ?? {}).filter(
-      (w) => gameStore.weaponGearInfo?.[w]?.isActivated,
-    );
-
-    const filteredWeapons = chunkArrayInGroups(
-      weaponKeys,
-      Math.floor(weaponKeys.length / 2),
-    );
-
-    await renderWeapons(
-      ctx,
-      filteredWeapons,
-      getWeaponTitleText().x,
-      getWeaponTitleText().y + 20,
-    );
-
-    // Right Text Side
-
-    const levelTitleText = getLevelTitleText();
-    renderText(ctx, levelTitleText);
-    // renderText(ctx, levelTitleText);
-
-    const regularLevelText = await getRegularLevelText(
-      ctx,
-      levelTitleText,
-      `${gameStore?.level || ""}`,
-    );
-    renderText(ctx, regularLevelText);
-
-    const rankLevelText = await renderRankLevelImageAngGetText(
-      ctx,
-      regularLevelText,
-      `${gameStore?.anarchyBattleRank?.grade || ""}`,
-    );
-    renderText(ctx, rankLevelText);
-
-    const salmonGrade = gameStore?.salmonRunRank?.grade;
-    const salmonLevelText = await renderSalmonLevelImageAndGetText(
-      ctx,
-      rankLevelText,
-      `${salmonGrade ? salmonRunRanksKo[salmonGrade] : ""}`,
-    );
-    renderText(ctx, salmonLevelText);
-
-    if (gameStore.anarchyBattleRank?.grade === "S+") {
-      const rect = matchPointRect(ctx, regularLevelText);
-      renderMatchPoint(ctx, rect, gameStore.xMatchInfo);
-    }
-    const qrUrlRegex =
-      "https://lounge.nintendo.com/friendcode/\\d{4}-\\d{4}-\\d{4}/[A-Za-z0-9]{10}";
-    if (
-      userStore.switchInfo?.friendLink &&
-      userStore.switchInfo.friendLink.match(qrUrlRegex)
-    ) {
-      const qrCode = await QRCode.toCanvas(userStore.switchInfo.friendLink, {
-        margin: 1,
-        color: { light: "#dddddd" },
-      });
-
-      const size = 180;
-
-      ctx.drawImage(
-        qrCode,
-        canvasWidth - size,
-        canvasHeight - size,
-        size,
-        size,
+      // Left Text Side
+      const nameText = getNameText(
+        userStore.switchInfo?.name || userStore.twitterInfo?.name || "",
       );
-    }
+      const weekendText = getWeekendTimeText(userStore.weekendPlaytime);
 
-    // Preview
-    setTimeout(() => {
-      twitterPreviewRef.current
-        ?.getContext("2d")
-        ?.drawImage(canvas, 0, 0, canvasWidth / 2, canvasHeight / 2);
-    }, 500);
-  };
+      // Left Text Side Rect
+      ctx.strokeStyle = "#dddddd";
+      ctx.lineWidth = 3;
+
+      // const y = nameText.y - topPadding / 2 - topPadding - defaultFontSize;
+      // drawRoundedRect(
+      //   ctx,
+      //   nameText.x - leftPadding / 2,
+      //   y,
+      //   leftSideWidth,
+      //   weekendText.y - y + defaultFontSize,
+      //   12,
+      //   "#bbbbbb",
+      //   0.5,
+      // );
+
+      // Left Text Side Render
+      renderText(ctx, nameText);
+      renderText(
+        ctx,
+        getFriendCodeText(userStore.switchInfo?.friendCode || ""),
+      );
+      renderText(ctx, getPlaytimeTitleText());
+      renderText(ctx, getWeekdayText(userStore.weekdayPlaytime));
+
+      renderText(ctx, weekendText);
+
+      const weaponTitleText = getWeaponTitleText();
+      renderText(ctx, weaponTitleText);
+
+      const weaponKeys = Object.keys(gameStore.weaponGearInfo ?? {}).filter(
+        (w) => gameStore.weaponGearInfo?.[w]?.isActivated,
+      );
+
+      const filteredWeapons = chunkArrayInGroups(
+        weaponKeys,
+        Math.floor(weaponKeys.length / 2),
+      );
+
+      await renderWeapons(
+        ctx,
+        filteredWeapons,
+        getWeaponTitleText().x,
+        getWeaponTitleText().y + 20,
+      );
+
+      // Right Text Side
+
+      const levelTitleText = getLevelTitleText();
+      renderText(ctx, levelTitleText);
+      // renderText(ctx, levelTitleText);
+
+      const regularLevelText = await getRegularLevelText(
+        ctx,
+        levelTitleText,
+        `${gameStore?.level || ""}`,
+      );
+      renderText(ctx, regularLevelText);
+
+      const rankLevelText = await renderRankLevelImageAngGetText(
+        ctx,
+        regularLevelText,
+        `${gameStore?.anarchyBattleRank?.grade || ""}`,
+      );
+      renderText(ctx, rankLevelText);
+
+      const salmonGrade = gameStore?.salmonRunRank?.grade;
+      const salmonLevelText = await renderSalmonLevelImageAndGetText(
+        ctx,
+        rankLevelText,
+        `${salmonGrade ? salmonRunRanksKo[salmonGrade] : ""}`,
+      );
+      renderText(ctx, salmonLevelText);
+
+      if (gameStore.anarchyBattleRank?.grade === "S+") {
+        const rect = matchPointRect(ctx, regularLevelText);
+        renderMatchPoint(ctx, rect, gameStore.xMatchInfo);
+      }
+      const qrUrlRegex =
+        "https://lounge.nintendo.com/friendcode/\\d{4}-\\d{4}-\\d{4}/[A-Za-z0-9]{10}";
+      if (
+        userStore.switchInfo?.friendLink &&
+        userStore.switchInfo.friendLink.match(qrUrlRegex)
+      ) {
+        const qrCode = await QRCode.toCanvas(userStore.switchInfo.friendLink, {
+          margin: 1,
+          color: { light: "#dddddd" },
+        });
+
+        const size = 180;
+
+        ctx.drawImage(
+          qrCode,
+          canvasWidth - size,
+          canvasHeight - size,
+          size,
+          size,
+        );
+      }
+
+      // Preview
+      setTimeout(() => {
+        twitterPreviewRef.current
+          ?.getContext("2d")
+          ?.drawImage(canvas, 0, 0, canvasWidth / 2, canvasHeight / 2);
+      }, 500);
+    },
+    [renderImage],
+  );
   useEffect(() => {
     const plate = plateRef.current;
     const canvas = canvasRef.current;
