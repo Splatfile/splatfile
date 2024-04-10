@@ -9,6 +9,7 @@ import {
 import { PencilIcon } from "@heroicons/react/20/solid";
 import { DefaultModal } from "@/app/ui/components/DefaultModal";
 import clsx from "clsx";
+import { chunkArrayInGroups } from "@/app/lib/utils/array";
 
 type GameCardWeaponsProps = {};
 
@@ -68,16 +69,6 @@ export function WeaponRenderer({ weaponKey }: WeaponRendererProps) {
       <img src={"/ingames/weapons/mains/" + weaponKey + ".webp"} alt="" />
     </div>
   );
-}
-
-function chunkArrayInGroups<T>(arr: T[], size: number) {
-  let result = [];
-
-  for (let i = 0; i < arr.length; i += size) {
-    result.push(arr.slice(i, i + size));
-  }
-
-  return result;
 }
 
 type WeaponEditModalProps = {

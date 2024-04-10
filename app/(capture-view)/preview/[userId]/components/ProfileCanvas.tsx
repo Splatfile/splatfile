@@ -2,6 +2,8 @@
 import { useEffect, useRef } from "react";
 import { loadFonts, renderPlate } from "@/app/plate/lib/render-plate";
 import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
+import QRCode from "qrcode";
+
 import {
   useGameStore,
   useProfileImageUrl,
@@ -16,7 +18,11 @@ import {
   regularImageUrl,
   salmonImageUrl,
 } from "@/app/lib/constants/image-urls";
-import { salmonRunRanksKo } from "@/app/lib/schemas/profile/game-info";
+import {
+  salmonRunRanksKo,
+  XMatchInfoObject,
+} from "@/app/lib/schemas/profile/game-info";
+import { chunkArrayInGroups } from "@/app/lib/utils/array";
 
 export function ProfileCanvas() {
   const tag = useTagStore();
@@ -66,7 +72,7 @@ type TextRender = {
   maxWidth: number;
 };
 
-const defaultFontSize = 28;
+const defaultFontSize = 34;
 const leftPadding = 20;
 const leftSideWidth = 350;
 const topPadding = 10;
@@ -143,6 +149,18 @@ const getWeekendTimeText = (
     maxWidth: leftSideWidth,
   };
 };
+
+const getWeaponTitleText = (): TextRender => {
+  const prevText = getWeekendTimeText();
+  return {
+    text: "사용 무기",
+    x: prevText.x,
+    y: prevText.y + defaultFontSize + topPadding * 4,
+    size: defaultFontSize,
+    maxWidth: leftSideWidth,
+  };
+};
+
 const rightSideWidth = 280;
 const getLevelTitleText = (): TextRender => {
   const prevText = getNameText("");
@@ -168,7 +186,7 @@ const getRegularLevelText = async (
   levelImage.src = regularImageUrl;
 
   const imageX = prevText.x;
-  const imageY = prevText.y + 12;
+  const imageY = prevText.y + 20;
 
   levelImage.onload = () => {
     ctx.drawImage(levelImage, imageX, imageY, imageWidth, imageHeight);
@@ -194,7 +212,7 @@ const renderRankLevelImageAngGetText = async (
   const levelImage = new Image();
   levelImage.src = rankImageUrl;
 
-  const imageX = leftText.x + 36;
+  const imageX = leftText.x + 56;
   const imageY = leftText.y - defaultFontSize + 5;
 
   levelImage.onload = () => {
@@ -221,7 +239,7 @@ const renderSalmonLevelImageAndGetText = async (
   const levelImage = new Image();
   levelImage.src = salmonImageUrl;
 
-  const imageX = leftText.x + 36;
+  const imageX = leftText.x + 56;
   const imageY = leftText.y - defaultFontSize + 6;
 
   levelImage.onload = () => {
@@ -234,6 +252,128 @@ const renderSalmonLevelImageAndGetText = async (
     y: imageY + defaultFontSize * 0.8,
     size: defaultFontSize,
     maxWidth: rightSideWidth,
+  };
+};
+
+const matchPointRect = (
+  ctx: CanvasRenderingContext2D,
+  prevText: TextRender,
+): MatchPointRect => {
+  ctx.strokeStyle = "#f67018";
+  ctx.lineWidth = 3;
+
+  const x = prevText.x - 30;
+  const y = prevText.y + defaultFontSize + topPadding;
+
+  const width = canvasWidth - prevText.x + 10;
+  const height = 160;
+
+  drawRoundedRect(ctx, x, y, width, height, 12);
+
+  return {
+    x1: x,
+    y1: y,
+    x2: x + width,
+    y2: y + height,
+  };
+};
+
+type MatchPointRect = {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+};
+
+const renderMatchPoint = (
+  ctx: CanvasRenderingContext2D,
+  rect: MatchPointRect,
+  point: z.infer<typeof XMatchInfoObject>,
+) => {
+  if (!point) return;
+  const { x1, y1, x2, y2 } = rect;
+  ctx.font = `${defaultFontSize}px KERINm`;
+  ctx.fillStyle = "#FFFFFF";
+
+  const areaImage = new Image();
+  areaImage.src = "/ingames/area.webp";
+
+  const clamImage = new Image();
+  clamImage.src = "/ingames/clam.webp";
+
+  const fishImage = new Image();
+  fishImage.src = "/ingames/fish.webp";
+
+  const towerImage = new Image();
+  towerImage.src = "/ingames/tower.webp";
+
+  const paddingX = 20;
+  const paddingY = 20;
+  const imageSize = 42;
+
+  const areaX = rect.x1 + paddingX;
+  const areaY = rect.y1 + paddingY;
+
+  const clamX = x1 + (x2 - x1) / 2 + paddingX;
+  const clamY = areaY;
+
+  const fishX = areaX;
+  const fishY = y1 + (y2 - y1) - imageSize - paddingY;
+
+  const towerX = clamX;
+  const towerY = fishY;
+
+  const { area, clam, fish, tower } = point;
+
+  const textMargin = 10;
+  const maxTextWidth = (x2 - x1) / 2 - (paddingX + imageSize + textMargin);
+
+  renderText(ctx, {
+    text: area || "",
+    x: areaX + imageSize + textMargin,
+    y: areaY + imageSize * 0.8,
+    size: imageSize,
+    maxWidth: maxTextWidth,
+  });
+
+  renderText(ctx, {
+    text: clam || "",
+    x: clamX + imageSize + textMargin,
+    y: clamY + imageSize * 0.8,
+    size: imageSize,
+    maxWidth: maxTextWidth,
+  });
+
+  renderText(ctx, {
+    text: fish || "",
+    x: fishX + imageSize + textMargin,
+    y: fishY + imageSize * 0.8,
+    size: imageSize,
+    maxWidth: maxTextWidth,
+  });
+
+  renderText(ctx, {
+    text: tower || "",
+    x: towerX + imageSize + textMargin,
+    y: towerY + imageSize * 0.8,
+    size: imageSize,
+    maxWidth: maxTextWidth,
+  });
+
+  areaImage.onload = () => {
+    ctx.drawImage(areaImage, areaX, areaY, imageSize, imageSize);
+  };
+
+  clamImage.onload = () => {
+    ctx.drawImage(clamImage, clamX, clamY, imageSize, imageSize);
+  };
+
+  fishImage.onload = () => {
+    ctx.drawImage(fishImage, fishX, fishY, imageSize, imageSize);
+  };
+
+  towerImage.onload = () => {
+    ctx.drawImage(towerImage, towerX, towerY, imageSize, imageSize);
   };
 };
 
@@ -251,6 +391,72 @@ type ProfileCanvasRenderProps = {
   userStore: ReturnType<typeof useUserStore>;
   gameStore: ReturnType<typeof useGameStore>;
   profileImageUrl: ReturnType<typeof useProfileImageUrl>;
+};
+
+const renderTower = async (
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+) => {
+  const towerImage = new Image();
+  towerImage.src = "/ingames/tower.webp";
+
+  towerImage.onload = () => {
+    ctx.drawImage(towerImage, x, y, width, height);
+  };
+};
+
+function drawRoundedRect(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  radius: number,
+) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.arcTo(x + width, y, x + width, y + height, radius);
+  ctx.arcTo(x + width, y + height, x, y + height, radius);
+  ctx.arcTo(x, y + height, x, y, radius);
+  ctx.arcTo(x, y, x + width, y, radius);
+  ctx.closePath();
+  ctx.stroke();
+}
+
+const renderWeapons = async (
+  ctx: CanvasRenderingContext2D,
+  weapons: string[][],
+  x: number,
+  y: number,
+) => {
+  const weaponSize = 64;
+  const weaponPadding = 10;
+
+  for (let i = 0; i < weapons.length; i++) {
+    const weaponRow = weapons[i];
+
+    for (let j = 0; j < weaponRow.length; j++) {
+      const weapon = weaponRow[j];
+      const weaponImage = new Image();
+      weaponImage.src = `/ingames/weapons/mains/${weapon}.webp`;
+
+      const weaponX =
+        x + j * (weaponSize + weaponPadding) + (i * weaponSize) / 2;
+      const weaponY = y + i * (weaponSize + weaponPadding);
+
+      ctx.strokeStyle = "#bfec4b";
+
+      ctx.lineWidth = 2;
+      drawRoundedRect(ctx, weaponX, weaponY, weaponSize, weaponSize, 12);
+
+      weaponImage.onload = () => {
+        ctx.drawImage(weaponImage, weaponX, weaponY, weaponSize, weaponSize);
+      };
+    }
+  }
 };
 
 export function ProfileCanvasRender({
@@ -280,6 +486,22 @@ export function ProfileCanvasRender({
     };
   };
 
+  const renderBackground = () => {
+    return new Promise<void>((resolve) => {
+      const image = new Image();
+      image.src = "/background/body.png";
+      image.onload = () => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        resolve();
+      };
+    });
+  };
+
   const renderCanvas = async () => {
     const canvas = canvasRef.current;
     const plate = plateRef.current;
@@ -289,8 +511,11 @@ export function ProfileCanvasRender({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     // Background
-    ctx.fillStyle = "#bbbbbb";
+    await renderBackground();
+    ctx.globalAlpha = 0.8;
+    ctx.fillStyle = "#222222";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 1;
 
     // Profile Image
     renderImage();
@@ -307,6 +532,25 @@ export function ProfileCanvasRender({
     renderText(ctx, getPlaytimeTitleText());
     renderText(ctx, getWeekdayText(userStore.weekdayPlaytime));
     renderText(ctx, getWeekendTimeText(userStore.weekendPlaytime));
+
+    const weaponTitleText = getWeaponTitleText();
+    renderText(ctx, weaponTitleText);
+
+    const weaponKeys = Object.keys(gameStore.weaponGearInfo ?? {}).filter(
+      (w) => gameStore.weaponGearInfo?.[w]?.isActivated,
+    );
+
+    const filteredWeapons = chunkArrayInGroups(
+      weaponKeys,
+      Math.floor(weaponKeys.length / 2),
+    );
+
+    await renderWeapons(
+      ctx,
+      filteredWeapons,
+      getWeaponTitleText().x,
+      getWeaponTitleText().y + 20,
+    );
 
     // Right Text Side
     renderText(ctx, getLevelTitleText());
@@ -332,8 +576,33 @@ export function ProfileCanvasRender({
     );
     renderText(ctx, salmonLevelText);
 
-    // Preview
+    if (gameStore.anarchyBattleRank?.grade === "S+") {
+      const rect = matchPointRect(ctx, regularLevelText);
+      renderMatchPoint(ctx, rect, gameStore.xMatchInfo);
+    }
+    const qrUrlRegex =
+      "https://lounge.nintendo.com/friendcode/\\d{4}-\\d{4}-\\d{4}/[A-Za-z0-9]{10}";
+    if (
+      userStore.switchInfo?.friendLink &&
+      userStore.switchInfo.friendLink.match(qrUrlRegex)
+    ) {
+      const qrCode = await QRCode.toCanvas(userStore.switchInfo.friendLink, {
+        margin: 1,
+        color: { light: "#dddddd" },
+      });
 
+      const size = 180;
+
+      ctx.drawImage(
+        qrCode,
+        canvasWidth - size,
+        canvasHeight - size,
+        size,
+        size,
+      );
+    }
+
+    // Preview
     setTimeout(() => {
       twitterPreviewRef.current
         ?.getContext("2d")
@@ -376,7 +645,8 @@ export function ProfileCanvasRender({
   };
 
   return (
-    <div>
+    <div className={"p-12 text-white"}>
+      <p>서버 저장용 이미지 </p>
       <canvas
         ref={canvasRef}
         width={canvasWidth}
@@ -388,7 +658,9 @@ export function ProfileCanvasRender({
         width={700}
         height={200}
       ></canvas>
+
       <div className={"p-8"}>
+        <p>트위터에서 실제 보여질 사이즈</p>
         <canvas
           ref={twitterPreviewRef}
           width={canvasWidth / 2}

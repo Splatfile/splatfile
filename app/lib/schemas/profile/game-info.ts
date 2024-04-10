@@ -106,15 +106,26 @@ export const PlayStyleObject = z
   })
   .optional();
 
+export const AnarchyBattleRankObject = z
+  .object({
+    grade: z.enum(anarchyBattleRanks),
+    point: z.number(),
+  })
+  .optional();
+
+export const XMatchInfoObject = z
+  .object({
+    area: z.string().optional(),
+    fish: z.string().optional(),
+    clam: z.string().optional(),
+    tower: z.string().optional(),
+  })
+  .optional();
+
 export const GameInfoObject = z.object({
   serverRegion: z.string().optional(),
   level: z.number().optional(),
-  anarchyBattleRank: z
-    .object({
-      grade: z.enum(anarchyBattleRanks),
-      point: z.number(),
-    })
-    .optional(),
+  anarchyBattleRank: AnarchyBattleRankObject,
   salmonRunRank: z
     .object({
       grade: z.enum(salmonRunRanks).optional(),
@@ -129,14 +140,7 @@ export const GameInfoObject = z.object({
     Shakeup: z.number(),
     Shakerail: z.number(),
   }),
-  xMatchInfo: z
-    .object({
-      area: z.string().optional(),
-      fish: z.string().optional(),
-      clam: z.string().optional(),
-      tower: z.string().optional(),
-    })
-    .optional(),
+  xMatchInfo: XMatchInfoObject,
   ruleFavor: RuleFavorObject,
   playStyle: PlayStyleObject,
   weaponGearInfo: z

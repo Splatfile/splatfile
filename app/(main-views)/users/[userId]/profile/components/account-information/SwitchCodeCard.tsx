@@ -21,18 +21,18 @@ export const SwitchCodeCard = () => {
     friendLink: "",
   };
 
-  const qrUrl =
-    "https://lounge.nintendo.com/friendcode/1298-1620-0718/DF9vt5MV1G";
-
   const qrUrlRegex =
     "https://lounge.nintendo.com/friendcode/\\d{4}-\\d{4}-\\d{4}/[A-Za-z0-9]{10}";
 
   useEffect(() => {
     (async () => {
-      if (!qrUrl.match(qrUrlRegex)) return;
-      setQrCode(await QRCode.toDataURL(qrUrl));
+      if (!switchInfo?.friendLink?.match(qrUrlRegex)) {
+        setQrCode("");
+        return;
+      }
+      setQrCode(await QRCode.toDataURL(switchInfo.friendLink));
     })();
-  }, []);
+  }, [switchInfo]);
 
   const onChange = (key: keyof SwitchInfo) => {
     return (value: string) => setSwitchInfo(key, value.trim());
@@ -52,12 +52,15 @@ export const SwitchCodeCard = () => {
         onChange={onChange("friendCode")}
       />
 
-      <div className={clsx("flex", qrCode && "hidden")}>
+      <div className={clsx("flex", qrCode || "hidden")}>
         <div
-          className={"hidden  h-20 w-full items-center justify-center md:flex"}
+          className={"hidden h-20 w-full items-center justify-center md:flex"}
         >
           <img
-            className={"m-auto hidden h-full w-20 object-cover md:block"}
+            className={clsx("m-auto h-full w-20 object-cover ", {
+              "md:hidden": !qrCode,
+              "md:block": qrCode,
+            })}
             src={qrCode}
             alt={"QR Code"}
           />
@@ -68,7 +71,7 @@ export const SwitchCodeCard = () => {
         className={clsx(
           "text-sm font-medium text-gray-400 md:hidden md:text-center",
           friendLink || "hidden",
-          qrUrl.match(qrUrlRegex) || "hidden",
+          friendLink?.match(qrUrlRegex) || "hidden",
         )}
         href={friendLink}
       >
