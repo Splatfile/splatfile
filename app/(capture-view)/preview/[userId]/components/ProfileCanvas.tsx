@@ -167,18 +167,18 @@ const getLevelTitleText = (): TextRender => {
 
   return {
     text: "레벨",
-    x: prevText.x + leftSideWidth,
+    x: prevText.x + leftSideWidth + leftPadding,
     y: prevText.y,
-    size: defaultFontSize,
+    size: defaultFontSize + 2,
     maxWidth: rightSideWidth,
   };
 };
 
 const getRegularLevelText = async (
   ctx: CanvasRenderingContext2D,
+  prevText: TextRender,
   text: string,
 ): Promise<TextRender> => {
-  const prevText = getLevelTitleText();
   const imageWidth = defaultFontSize;
   const imageHeight = defaultFontSize;
 
@@ -186,7 +186,7 @@ const getRegularLevelText = async (
   levelImage.src = regularImageUrl;
 
   const imageX = prevText.x;
-  const imageY = prevText.y + 20;
+  const imageY = prevText.y + 28;
 
   levelImage.onload = () => {
     ctx.drawImage(levelImage, imageX, imageY, imageWidth, imageHeight);
@@ -262,19 +262,38 @@ const matchPointRect = (
   ctx.strokeStyle = "#f67018";
   ctx.lineWidth = 3;
 
-  const x = prevText.x - 30;
-  const y = prevText.y + defaultFontSize + topPadding;
+  const x = prevText.x - 50;
+  const y = prevText.y + defaultFontSize;
 
-  const width = canvasWidth - prevText.x + 10;
+  // X 매치만 묵을 때 사용
+  // const rectY = y;
+  const rectY = 20;
+
+  const width = canvasWidth - prevText.x + 30;
   const height = 160;
 
-  drawRoundedRect(ctx, x, y, width, height, 12);
+  // X 매치만 묵을 때 사용
+  // const rectHeight = 160;
+  const rectHeight = 300;
+
+  const paddingX = 10;
+
+  drawRoundedRect(
+    ctx,
+    x - paddingX,
+    rectY,
+    width + paddingX,
+    rectHeight,
+    12,
+    "#bbbbbb",
+    0.2,
+  );
 
   return {
     x1: x,
-    y1: y,
+    y1: y - 10,
     x2: x + width,
-    y2: y + height,
+    y2: y + height - 20,
   };
 };
 
@@ -291,7 +310,8 @@ const renderMatchPoint = (
   point: z.infer<typeof XMatchInfoObject>,
 ) => {
   if (!point) return;
-  const { x1, y1, x2, y2 } = rect;
+  let { x1, y1, x2, y2 } = rect;
+
   ctx.font = `${defaultFontSize}px KERINm`;
   ctx.fillStyle = "#FFFFFF";
 
@@ -307,12 +327,12 @@ const renderMatchPoint = (
   const towerImage = new Image();
   towerImage.src = "/ingames/tower.webp";
 
-  const paddingX = 20;
+  const paddingX = 10;
   const paddingY = 20;
   const imageSize = 42;
 
-  const areaX = rect.x1 + paddingX;
-  const areaY = rect.y1 + paddingY;
+  const areaX = x1 + paddingX;
+  const areaY = y1 + paddingY;
 
   const clamX = x1 + (x2 - x1) / 2 + paddingX;
   const clamY = areaY;
@@ -384,28 +404,11 @@ const renderText = (ctx: CanvasRenderingContext2D, text: TextRender) => {
   ctx.fillText(text.text, text.x, text.y, text.maxWidth);
 };
 
-const endOfTextX = (text: TextRender) => text.x + text.maxWidth;
-
 type ProfileCanvasRenderProps = {
   tag: ReturnType<typeof useTagStore.getState>;
   userStore: ReturnType<typeof useUserStore>;
   gameStore: ReturnType<typeof useGameStore>;
   profileImageUrl: ReturnType<typeof useProfileImageUrl>;
-};
-
-const renderTower = async (
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-) => {
-  const towerImage = new Image();
-  towerImage.src = "/ingames/tower.webp";
-
-  towerImage.onload = () => {
-    ctx.drawImage(towerImage, x, y, width, height);
-  };
 };
 
 function drawRoundedRect(
@@ -415,6 +418,8 @@ function drawRoundedRect(
   width: number,
   height: number,
   radius: number,
+  fillColor?: string,
+  globalAlpha?: number,
 ) {
   ctx.beginPath();
   ctx.moveTo(x + radius, y);
@@ -423,6 +428,12 @@ function drawRoundedRect(
   ctx.arcTo(x, y + height, x, y, radius);
   ctx.arcTo(x, y, x + width, y, radius);
   ctx.closePath();
+  if (fillColor) {
+    globalAlpha && (ctx.globalAlpha = globalAlpha);
+    ctx.fillStyle = fillColor;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
   ctx.stroke();
 }
 
@@ -450,7 +461,16 @@ const renderWeapons = async (
       ctx.strokeStyle = "#bfec4b";
 
       ctx.lineWidth = 2;
-      drawRoundedRect(ctx, weaponX, weaponY, weaponSize, weaponSize, 12);
+      drawRoundedRect(
+        ctx,
+        weaponX,
+        weaponY,
+        weaponSize,
+        weaponSize,
+        12,
+        "#bbbbbb",
+        0.5,
+      );
 
       weaponImage.onload = () => {
         ctx.drawImage(weaponImage, weaponX, weaponY, weaponSize, weaponSize);
@@ -502,7 +522,11 @@ export function ProfileCanvasRender({
     });
   };
 
-  const renderCanvas = async () => {
+  const renderCanvas = async (
+    tag: ReturnType<typeof useTagStore.getState>,
+    userStore: ReturnType<typeof useUserStore>,
+    gameStore: ReturnType<typeof useGameStore>,
+  ) => {
     const canvas = canvasRef.current;
     const plate = plateRef.current;
     if (!canvas || !plate) return;
@@ -522,16 +546,34 @@ export function ProfileCanvasRender({
     ctx.drawImage(plate, ...plateRect);
 
     // Left Text Side
-    renderText(
-      ctx,
-      getNameText(
-        userStore.switchInfo?.name || userStore.twitterInfo?.name || "",
-      ),
+    const nameText = getNameText(
+      userStore.switchInfo?.name || userStore.twitterInfo?.name || "",
     );
+    const weekendText = getWeekendTimeText(userStore.weekendPlaytime);
+
+    // Left Text Side Rect
+    ctx.strokeStyle = "#dddddd";
+    ctx.lineWidth = 3;
+
+    // const y = nameText.y - topPadding / 2 - topPadding - defaultFontSize;
+    // drawRoundedRect(
+    //   ctx,
+    //   nameText.x - leftPadding / 2,
+    //   y,
+    //   leftSideWidth,
+    //   weekendText.y - y + defaultFontSize,
+    //   12,
+    //   "#bbbbbb",
+    //   0.5,
+    // );
+
+    // Left Text Side Render
+    renderText(ctx, nameText);
     renderText(ctx, getFriendCodeText(userStore.switchInfo?.friendCode || ""));
     renderText(ctx, getPlaytimeTitleText());
     renderText(ctx, getWeekdayText(userStore.weekdayPlaytime));
-    renderText(ctx, getWeekendTimeText(userStore.weekendPlaytime));
+
+    renderText(ctx, weekendText);
 
     const weaponTitleText = getWeaponTitleText();
     renderText(ctx, weaponTitleText);
@@ -553,10 +595,14 @@ export function ProfileCanvasRender({
     );
 
     // Right Text Side
-    renderText(ctx, getLevelTitleText());
+
+    const levelTitleText = getLevelTitleText();
+    renderText(ctx, levelTitleText);
+    // renderText(ctx, levelTitleText);
 
     const regularLevelText = await getRegularLevelText(
       ctx,
+      levelTitleText,
       `${gameStore?.level || ""}`,
     );
     renderText(ctx, regularLevelText);
@@ -609,13 +655,12 @@ export function ProfileCanvasRender({
         ?.drawImage(canvas, 0, 0, canvasWidth / 2, canvasHeight / 2);
     }, 500);
   };
-
   useEffect(() => {
     const plate = plateRef.current;
     const canvas = canvasRef.current;
     if (!plate || !canvas) return;
-    renderCanvas();
-  }, [tag, userStore]);
+    renderCanvas(tag, userStore, gameStore).then();
+  }, [gameStore, renderCanvas, tag, userStore]);
 
   useEffect(() => {
     const plate = plateRef.current;
@@ -625,12 +670,12 @@ export function ProfileCanvasRender({
     const interval = setInterval(async () => {
       const loaded = await loadFonts();
       await renderPlate(plate, tag);
-      await renderCanvas();
+      await renderCanvas(tag, userStore, gameStore);
       if (loaded) clearInterval(interval);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [userStore]);
+  }, [gameStore, renderCanvas, tag, userStore]);
 
   const downloadCanvas = () => {
     const canvas = canvasRef.current;
