@@ -10,13 +10,7 @@ import {
   getTitlePosition,
 } from "@/app/plate/lib/store/use-position";
 import { TagState } from "@/app/plate/lib/store/use-tag-store";
-import {
-  Canvas,
-  CanvasRenderingContext2D,
-  Image,
-  loadImage,
-  registerFont,
-} from "canvas";
+import { Canvas, CanvasRenderingContext2D, Image, loadImage } from "canvas";
 
 const bannerSrc = (file: string, custom = false) =>
   `public/assets/${custom ? "custom/" : ""}banners/${file}`;
@@ -46,28 +40,17 @@ const getBadgeImage = async (badge: string) => {
 };
 
 async function isFontLoaded() {
-  registerFont("public/assets/fonts/SplatoonTitle.otf", {
-    family: "Splat-title",
-    style: "normal",
-    weight: "normal",
-  });
-  registerFont("public/assets/fonts/SplatoonText.otf", {
-    family: "Splat-text",
-    style: "normal",
-    weight: "normal",
-  });
+  // registerFont("public/assets/fonts/SplatoonText.otf", {
+  //   family: "Splat-text",
+  //   style: "normal",
+  //   weight: "normal",
+  // });
 
-  registerFont("public/assets/fonts/KRko/AsiaKCUBE-R.otf", {
-    family: "KCUBEr",
-    style: "normal",
-    weight: "normal",
-  });
-
-  registerFont("public/assets/fonts/KRko/AsiaKERIN-M.otf", {
-    family: "KERINm",
-    style: "normal",
-    weight: "normal",
-  });
+  // registerFont("public/assets/fonts/KRko/AsiaKERIN-M.otf", {
+  //   family: "KERINm",
+  //   style: "normal",
+  //   weight: "normal",
+  // });
   return true;
 }
 

@@ -264,10 +264,8 @@ export const renderMatchPoint = async (
   ctx.font = `${defaultFontSize}px KERINm`;
   ctx.fillStyle = "#FFFFFF";
 
-  console.log("Load Area Image");
   const areaImage = await loadImage(baseUrl + "/ingames/area.png");
 
-  console.log("Load Clam Image");
   const clamImage = await loadImage(baseUrl + "/ingames/clam.png");
 
   const fishImage = await loadImage(baseUrl + "/ingames/fish.png");

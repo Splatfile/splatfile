@@ -1,7 +1,6 @@
 import { NextRequest } from "next/server";
-import { createSupabaseServerClient } from "@/app/lib/server/supabase-client";
 import { createCanvas, loadImage } from "canvas";
-import { createOrGetMyProfile, ROUTER } from "@/app/lib/supabase-client";
+import { getProfile, ROUTER } from "@/app/lib/supabase-client";
 import {
   canvasHeight,
   canvasWidth,
@@ -35,8 +34,11 @@ import QRCode from "qrcode";
 import { isUserInfo, UserInfoObject } from "@/app/lib/schemas/profile";
 import { renderServerPlate } from "@/app/lib/utils/server-render-plate";
 import { z } from "zod";
+import { createSupabaseServiceClient } from "@/app/lib/server/supabase-client";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+export const dynamic = "force-dynamic";
 
 export async function GET(
   req: NextRequest,
@@ -44,13 +46,11 @@ export async function GET(
     params,
   }: {
     params: {
-      userId: string;
+      userid: string;
     };
   },
 ) {
-  const supabaseClient = createSupabaseServerClient(ROUTER);
-  const user = await supabaseClient.auth.getUser();
-
+  console.log("params: ", params);
   const canvas = createCanvas(canvasWidth, canvasHeight);
   const plate = createCanvas(700, 200);
 
@@ -76,9 +76,12 @@ export async function GET(
     ctx.drawImage(image, ...profileImageRect);
   };
 
-  if (user.data.user) {
-    const profile = await createOrGetMyProfile(supabaseClient);
-    const { user_info, game_info, weapon_gear_infos, plate_info } = profile;
+  if (params.userid) {
+    console.log("In If Statement params:", params);
+    const adminClient = createSupabaseServiceClient(ROUTER);
+    const profile = await getProfile(adminClient, params.userid);
+    console.log("profile", profile);
+    const { user_info, game_info, plate_info } = profile;
 
     if (
       !isUserInfo(user_info) ||
