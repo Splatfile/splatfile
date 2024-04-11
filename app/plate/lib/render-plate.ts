@@ -1,5 +1,5 @@
 import lang from "../lang.json";
-import { base } from "./const";
+import { baseUrl } from "./const";
 import { scaleStepByGradientDirection } from "./types/gradient";
 import {
   getBadgesPosition,
@@ -12,7 +12,7 @@ import {
 import { TagState } from "@/app/plate/lib/store/use-tag-store";
 
 const bannerSrc = (file: string, custom = false) =>
-  `${base}/assets/${custom ? "custom/" : ""}banners/${file}`;
+  `${baseUrl}/assets/${custom ? "custom/" : ""}banners/${file}`;
 
 const language = "KRko";
 
@@ -39,7 +39,7 @@ const getBannerImage = async (banner: string) => {
 
 const getBadgeImage = async (badge: string) => {
   const image = new Image();
-  image.src = `${base}/assets/badges/${badge}`;
+  image.src = `${baseUrl}/assets/badges/${badge}`;
   await new Promise((r) => {
     image.onload = r;
   });

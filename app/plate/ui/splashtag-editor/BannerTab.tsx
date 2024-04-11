@@ -17,7 +17,7 @@ import {
 } from "../../lib/types/banner";
 import { defineBanners } from "../../lib/define-banner";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
-import { base } from "../../lib/const";
+import { baseUrl } from "../../lib/const";
 import { GradientRenderer } from "./banner-tab/GradientRenderer";
 
 export function BannerTab() {
@@ -121,7 +121,7 @@ const BannerRenderer = (props: BannerRendererProps) => {
                 setLayers(item.layers || 0);
               }}
               loading={"lazy"}
-              src={`${base}/assets/${custom ? "custom/" : ""}banners/${
+              src={`${baseUrl}/assets/${custom ? "custom/" : ""}banners/${
                 item.file
               }`}
               alt={item.colour}
