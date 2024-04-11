@@ -91,11 +91,15 @@ export const PlateInfoObject = z.object({
   ]),
 });
 
-export const isPlateInfo = (
+export function isPlateInfo(
   obj: unknown,
-): obj is z.infer<typeof PlateInfoObject> => {
-  return PlateInfoObject.safeParse(obj).success;
-};
+): obj is z.infer<typeof PlateInfoObject> {
+  const parsed = PlateInfoObject.safeParse(obj);
+  if (!parsed.success) {
+    throw parsed.error;
+  }
+  return parsed.success;
+}
 
 export const useTagStore = create<TagStore>((set) => ({
   ...initTagState,
