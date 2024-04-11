@@ -13,8 +13,7 @@ import {
   CanvasRenderingContext2D as NodeCanvasRenderingContext2D,
   loadImage,
 } from "canvas";
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+import { baseUrl } from "@/app/plate/lib/const";
 
 export type X = number;
 

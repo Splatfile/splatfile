@@ -35,8 +35,7 @@ import { isUserInfo, UserInfoObject } from "@/app/lib/schemas/profile";
 import { renderServerPlate } from "@/app/lib/utils/server-render-plate";
 import { z } from "zod";
 import { createSupabaseServiceClient } from "@/app/lib/server/supabase-client";
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+import { baseUrl } from "@/app/plate/lib/const";
 
 export const dynamic = "force-dynamic";
 

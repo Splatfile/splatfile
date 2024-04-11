@@ -1,5 +1,5 @@
 import lang from "@/app/plate/lang.json";
-import { base } from "@/app/plate/lib/const";
+import { baseUrl } from "@/app/plate/lib/const";
 import { scaleStepByGradientDirection } from "@/app/plate/lib/types/gradient";
 import {
   getBadgesPosition,
@@ -24,7 +24,7 @@ const getXScale = (width: number, max: number) => {
 const bannerImages: { [key: string]: Image } = {};
 const getBannerImage = async (banner: string) => {
   if (!bannerImages[banner]) {
-    const image = await loadImage(base + bannerSrc(banner));
+    const image = await loadImage(baseUrl + bannerSrc(banner));
 
     bannerImages[banner] = image;
 
@@ -36,7 +36,7 @@ const getBannerImage = async (banner: string) => {
 };
 
 const getBadgeImage = async (badge: string) => {
-  return await loadImage(`${base}/assets/badges/${badge}`);
+  return await loadImage(`${baseUrl}/assets/badges/${badge}`);
 };
 
 async function isFontLoaded() {
