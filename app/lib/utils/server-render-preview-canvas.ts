@@ -145,7 +145,7 @@ export const getRegularLevelText = async (
   const imageWidth = defaultFontSize;
   const imageHeight = defaultFontSize;
 
-  const levelImage = await loadImage(regularImageUrl);
+  const levelImage = await loadImage(baseUrl + regularImageUrl);
 
   const imageX = prevText.x;
   const imageY = prevText.y + 28;
@@ -191,7 +191,7 @@ export const renderSalmonLevelImageAndGetText = async (
   const imageWidth = defaultFontSize;
   const imageHeight = defaultFontSize;
 
-  const levelImage = await loadImage(salmonImageUrl);
+  const levelImage = await loadImage(baseUrl + salmonImageUrl);
 
   const imageX = leftText.x + 56;
   const imageY = leftText.y - defaultFontSize + 6;
@@ -264,8 +264,10 @@ export const renderMatchPoint = async (
   ctx.font = `${defaultFontSize}px KERINm`;
   ctx.fillStyle = "#FFFFFF";
 
+  console.log("Load Area Image");
   const areaImage = await loadImage(baseUrl + "/ingames/area.png");
 
+  console.log("Load Clam Image");
   const clamImage = await loadImage(baseUrl + "/ingames/clam.png");
 
   const fishImage = await loadImage(baseUrl + "/ingames/fish.png");

@@ -207,6 +207,8 @@ export async function GET(
         userStore.switchInfo?.friendLink &&
         userStore.switchInfo.friendLink.match(qrUrlRegex)
       ) {
+        console.log("Render QR");
+
         const qrCode = await QRCode.toBuffer(userStore.switchInfo.friendLink, {
           margin: 1,
           color: { light: "#dddddd" },
