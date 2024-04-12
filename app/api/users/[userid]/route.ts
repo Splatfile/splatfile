@@ -50,7 +50,12 @@ export async function GET(
   },
 ) {
   try {
-    return renderOgImage(params);
+    return new Response(await renderOgImage(params), {
+      status: 200,
+      headers: {
+        "Content-Type": "image/png",
+      },
+    });
   } catch (error) {
     console.error(error);
     return new Response("Internal Server Error:" + error, { status: 500 });
