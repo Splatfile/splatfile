@@ -49,6 +49,15 @@ export async function GET(
     };
   },
 ) {
+  try {
+    return renderOgImage(params);
+  } catch (error) {
+    console.error(error);
+    return new Response("Internal Server Error:" + error, { status: 500 });
+  }
+}
+
+const renderOgImage = async (params: { userid: string }) => {
   console.log("params: ", params);
   const canvas = createCanvas(canvasWidth, canvasHeight);
   const plate = createCanvas(700, 200);
@@ -230,10 +239,5 @@ export async function GET(
     };
     await renderCanvas(plate_info, user_info, game_info);
   }
-
-  return new Response(canvas.toBuffer(), {
-    headers: {
-      "Content-Type": "image/png",
-    },
-  });
-}
+  return canvas.toBuffer();
+};
