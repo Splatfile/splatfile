@@ -13,7 +13,7 @@ import { TagState } from "@/app/plate/lib/store/use-tag-store";
 import { Canvas, CanvasRenderingContext2D, Image, loadImage } from "canvas";
 
 const bannerSrc = (file: string, custom = false) =>
-  `/public/assets/${custom ? "custom/" : ""}banners/${file}`;
+  `/assets/${custom ? "custom/" : ""}banners/${file}`;
 
 const language = "KRko";
 
@@ -24,6 +24,7 @@ const getXScale = (width: number, max: number) => {
 const bannerImages: { [key: string]: Image } = {};
 const getBannerImage = async (banner: string) => {
   if (!bannerImages[banner]) {
+    console.log(baseUrl + bannerSrc(banner));
     const image = await loadImage(baseUrl + bannerSrc(banner));
 
     bannerImages[banner] = image;
@@ -165,8 +166,9 @@ export const renderServerPlate = async (
     isGradient,
     gradientDirection,
   } = tagState;
-
   const bannerImage = await getBannerImage(banner);
+  console.log("loaded");
+
   compositeCanvas.width = w;
   compositeCanvas.height = h;
   const compositeCtx = compositeCanvas.getContext("2d");

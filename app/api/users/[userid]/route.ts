@@ -95,11 +95,13 @@ export async function GET(
     ) => {
       if (!canvas || !plate) return;
 
+      console.info("Render Plate");
       await renderServerPlate(plate, tag);
 
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
       // Background
+      console.info("Render Background");
       await renderBackground();
       ctx.globalAlpha = 0.8;
       ctx.fillStyle = "#222222";
