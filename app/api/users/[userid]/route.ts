@@ -54,7 +54,6 @@ export async function GET(
   const plate = createCanvas(700, 200);
 
   const renderBackground = async () => {
-    console.log("Render Bakcground");
     const image = await loadImage(baseUrl + "/background/body.png", {});
 
     if (!canvas) return;
