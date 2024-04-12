@@ -54,7 +54,7 @@ export async function GET(
   const plate = createCanvas(700, 200);
 
   const renderBackground = async () => {
-    const image = await loadImage(baseUrl + "/background/body.png", {});
+    const image = await loadImage(baseUrl + "/background/body.png");
 
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -94,13 +94,13 @@ export async function GET(
     ) => {
       if (!canvas || !plate) return;
 
-      console.info("Render Plate");
+      console.log("Render Plate");
       await renderServerPlate(plate, tag);
 
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
       // Background
-      console.info("Render Background");
+      console.log("Render Background");
       await renderBackground();
       ctx.globalAlpha = 0.8;
       ctx.fillStyle = "#222222";

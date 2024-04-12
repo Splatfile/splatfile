@@ -13,7 +13,6 @@ import { TagState } from "@/app/plate/lib/store/use-tag-store";
 import {
   Canvas,
   CanvasRenderingContext2D,
-  deregisterAllFonts,
   Image,
   loadImage,
   registerFont,
@@ -47,8 +46,6 @@ const getBadgeImage = async (badge: string) => {
 };
 
 async function isFontLoaded() {
-  deregisterAllFonts();
-
   registerFont("public/assets/fonts/SplatoonTitle.otf", {
     family: "Splat-title",
     style: "normal",

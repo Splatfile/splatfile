@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "PORT=3101 next dev",
+    "start:local": "PORT=3101 next start",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -22,7 +23,7 @@
     "clsx": "^2.1.0",
     "crawlee": "^3.7.3",
     "date-fns": "^3.3.1",
-    "next": "^14.1.4",
+    "next": "^14.2.0",
     "qrcode": "^1.5.3",
     "react": "^18",
     "react-dom": "^18",
