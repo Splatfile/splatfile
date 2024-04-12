@@ -13,7 +13,7 @@ import { TagState } from "@/app/plate/lib/store/use-tag-store";
 import { Canvas, CanvasRenderingContext2D, Image, loadImage } from "canvas";
 
 const bannerSrc = (file: string, custom = false) =>
-  `public/assets/${custom ? "custom/" : ""}banners/${file}`;
+  `/public/assets/${custom ? "custom/" : ""}banners/${file}`;
 
 const language = "KRko";
 
