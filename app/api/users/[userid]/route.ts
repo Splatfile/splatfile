@@ -76,10 +76,8 @@ export async function GET(
   };
 
   if (params.userid) {
-    console.log("In If Statement params:", params);
     const adminClient = createSupabaseServiceClient(ROUTER);
     const profile = await getProfile(adminClient, params.userid);
-    console.log("profile", profile);
     const { user_info, game_info, plate_info } = profile;
 
     if (

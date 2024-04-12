@@ -9,6 +9,7 @@ import {
   createSupabaseClient,
 } from "@/app/lib/supabase-client";
 import { useEffect } from "react";
+import { baseUrl } from "@/app/plate/lib/const";
 import useUser = Auth.useUser;
 
 type LoginButtonProps = {};
@@ -24,9 +25,6 @@ export function LoginView(props: LoginButtonProps) {
     }
   }, [router, user]);
 
-  const baseURL =
-    process.env.NEXT_PUBLIC_BASE_URL || "https://splatfile.vercel.app";
-
   return (
     <div className={"flex w-full justify-center"}>
       <div className={"w-80"}>
@@ -34,7 +32,7 @@ export function LoginView(props: LoginButtonProps) {
           localization={{
             variables: ko,
           }}
-          redirectTo={baseURL + "/users/signin"}
+          redirectTo={baseUrl + "/users/signin"}
           providers={["twitter"]}
           supabaseClient={supabaseClient}
           appearance={{ theme: ThemeSupa }}
