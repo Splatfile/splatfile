@@ -13,6 +13,7 @@ import { TagState } from "@/app/plate/lib/store/use-tag-store";
 import {
   Canvas,
   CanvasRenderingContext2D,
+  deregisterAllFonts,
   Image,
   loadImage,
   registerFont,
@@ -46,6 +47,14 @@ const getBadgeImage = async (badge: string) => {
 };
 
 async function isFontLoaded() {
+  deregisterAllFonts();
+
+  registerFont("public/assets/fonts/SplatoonTitle.otf", {
+    family: "Splat-title",
+    style: "normal",
+    weight: "normal",
+  });
+
   registerFont("public/assets/fonts/SplatoonText.otf", {
     family: "Splat-text",
     style: "normal",
@@ -121,13 +130,13 @@ const initCanvases = () => {
   return { compositeCanvas, textCanvas, canvasLayer };
 };
 
-const textFont = `Splat-text${
-  lang[language].font ? "," + lang[language].font[0] : ""
-}`;
+const textFont = lang[language].font
+  ? `,"${lang[language].font[0]}"`
+  : "Splat-text";
 
-const titleFont = `Splat-title${
-  lang[language].font ? "," + lang[language].font[1] : ""
-}`;
+const titleFont = lang[language].font
+  ? `,"${lang[language].font[1]}"`
+  : "Splat-title";
 
 export const loadFonts = async () => {
   return await isFontLoaded();
@@ -258,7 +267,8 @@ export const renderServerPlate = async (
   const titlePosition = getTitlePosition();
   if (title) {
     textCtx.save();
-    textCtx.font = `${titlePosition.fontSize}px ${textFont}`;
+    textCtx.font = `${titlePosition.fontSize}px ${titleFont}`;
+    console.log("titleFont", titleFont);
     textCtx.letterSpacing = "-0.3px";
     const textWidth = textCtx.measureText(titleToString(title)).width;
     const xScale = getXScale(textWidth, w - 32);
@@ -278,6 +288,7 @@ export const renderServerPlate = async (
   const idPosition = getIdPosition();
   if (id.length) {
     textCtx.save();
+
     textCtx.font = `${idPosition.fontSize}px ${textFont}`;
     textCtx.letterSpacing = "0.2px";
 

@@ -231,5 +231,9 @@ export async function GET(
     await renderCanvas(plate_info, user_info, game_info);
   }
 
-  return new Response(canvas.toBuffer());
+  return new Response(canvas.toBuffer(), {
+    headers: {
+      "Content-Type": "image/png",
+    },
+  });
 }

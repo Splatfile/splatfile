@@ -347,7 +347,7 @@ export const renderMatchPoint = (
   };
 };
 export const renderText = (ctx: CanvasRenderingContext2D, text: TextRender) => {
-  ctx.font = `${text.size}px KERINm`;
+  ctx.font = `${text.size}px KCUBEr`;
   // ctx.font = `${text.size}px KCUBEr`;
   ctx.fillStyle = "#FFFFFF";
   ctx.fillText(text.text, text.x, text.y, text.maxWidth);
