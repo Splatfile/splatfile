@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { createCanvas, loadImage } from "canvas";
 import { getProfile, ROUTER } from "@/app/lib/supabase-client";
+
 import {
   canvasHeight,
   canvasWidth,
