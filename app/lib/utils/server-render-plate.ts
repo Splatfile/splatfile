@@ -48,7 +48,7 @@ const getBadgeImage = async (badge: string) => {
 
 const rootPath =
   process.env.NODE_ENV === "production"
-    ? __dirname + "/__files"
+    ? process.cwd() + "/__files"
     : "public/assets";
 
 async function isFontLoaded() {
