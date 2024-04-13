@@ -76,13 +76,13 @@ async function isFontLoaded() {
     weight: "normal",
   });
 
-  registerFont(join(rootPath, "/fonts/KRko/AsiaKERIN-M.otf"), {
+  registerFont(join(rootPath, "/fonts/AsiaKERIN-M.otf"), {
     family: "KERINm",
     style: "normal",
     weight: "normal",
   });
 
-  registerFont(join(rootPath, "/fonts/KRko/AsiaKERIN-M.otf"), {
+  registerFont(join(rootPath, "/fonts/AsiaKERIN-M.otf"), {
     family: "KCUBEr",
     style: "normal",
     weight: "normal",
