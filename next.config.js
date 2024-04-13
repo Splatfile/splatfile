@@ -6,6 +6,9 @@ const nextConfig = {
       use: [
         {
           loader: "file-loader",
+          options: {
+            name: "_next/static/fonts/[name].[ext]",
+          },
         },
       ],
     });
