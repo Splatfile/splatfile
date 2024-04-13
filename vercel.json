@@ -3,7 +3,7 @@
     "icn1"
   ],
   "functions": {
-    "api/users/[userid]/route.ts": {
+    "app/api/users/[userid]/route.ts": {
       "includeFiles": "__files/**"
     }
   }
