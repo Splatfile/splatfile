@@ -4,7 +4,7 @@
   ],
   "functions": {
     "app/api/users/[userid]/route.ts": {
-      "includeFiles": "__files/**"
+      "includeFiles": "__files/**/*"
     }
   }
 }

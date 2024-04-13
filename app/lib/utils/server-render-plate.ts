@@ -18,12 +18,12 @@ import {
   registerFont,
 } from "canvas";
 import { join } from "path";
-import "./__files/fonts/SplatoonTitle.otf";
-import "./__files/fonts/SplatoonText.otf";
-import "./__files/fonts/KRko/AsiaKERIN-M.otf";
-import "./__files/fonts/KRko/AsiaKCUBE-R.otf";
-import "./__files/fonts/JPja/Kurokane.otf";
-import "./__files/fonts/JPja/Rowdy.otf";
+import "@/app/api/users/[userid]/__files/fonts/SplatoonTitle.otf";
+import "@/app/api/users/[userid]/__files/fonts/SplatoonText.otf";
+import "@/app/api/users/[userid]/__files/fonts/KRko/AsiaKERIN-M.otf";
+import "@/app/api/users/[userid]/__files/fonts/KRko/AsiaKCUBE-R.otf";
+import "@/app/api/users/[userid]/__files/fonts/JPja/Kurokane.otf";
+import "@/app/api/users/[userid]/__files/fonts/JPja/Rowdy.otf";
 
 const bannerSrc = (file: string, custom = false) =>
   `/assets/${custom ? "custom/" : ""}banners/${file}`;
