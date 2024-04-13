@@ -58,6 +58,12 @@ const rootPath =
     : "public/assets";
 
 async function isFontLoaded() {
+  console.log(
+    "loading fonts:",
+    rootPath,
+    join(rootPath, "/fonts/SplatoonTitle.otf"),
+  );
+
   registerFont(join(rootPath, "/fonts/SplatoonTitle.otf"), {
     family: "Splat-title",
     style: "normal",
