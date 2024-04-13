@@ -36,6 +36,7 @@ import { renderServerPlate } from "@/app/lib/utils/server-render-plate";
 import { z } from "zod";
 import { createSupabaseServiceClient } from "@/app/lib/server/supabase-client";
 import { baseUrl } from "@/app/plate/lib/const";
+import directoryTree from "directory-tree";
 
 export const dynamic = "force-dynamic";
 
@@ -58,7 +59,14 @@ export async function GET(
     });
   } catch (error) {
     console.error(error);
-    return new Response("Internal Server Error:" + error, { status: 500 });
+    let tree = "";
+    directoryTree(process.cwd(), {}, (item, PATH) => {
+      tree += item.path + "\n";
+    });
+
+    return new Response("Internal Server Error: " + error + "\n" + tree, {
+      status: 500,
+    });
   }
 }
 

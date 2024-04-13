@@ -23,6 +23,7 @@
     "clsx": "^2.1.0",
     "crawlee": "^3.7.3",
     "date-fns": "^3.3.1",
+    "directory-tree": "^3.5.1",
     "next": "^14.2.0",
     "qrcode": "^1.5.3",
     "react": "^18",
