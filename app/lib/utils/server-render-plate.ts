@@ -17,6 +17,7 @@ import {
   loadImage,
   registerFont,
 } from "canvas";
+import { join } from "path";
 
 const bannerSrc = (file: string, custom = false) =>
   `/assets/${custom ? "custom/" : ""}banners/${file}`;
@@ -45,26 +46,31 @@ const getBadgeImage = async (badge: string) => {
   return await loadImage(`${baseUrl}/assets/badges/${badge}`);
 };
 
+const rootPath =
+  process.env.NODE_ENV === "production"
+    ? __dirname + "__files"
+    : "public/assets";
+
 async function isFontLoaded() {
-  registerFont("public/assets/fonts/SplatoonTitle.otf", {
+  registerFont(join(rootPath, "/fonts/SplatoonTitle.otf"), {
     family: "Splat-title",
     style: "normal",
     weight: "normal",
   });
 
-  registerFont("public/assets/fonts/SplatoonText.otf", {
+  registerFont(join(rootPath, "/fonts/SplatoonText.otf"), {
     family: "Splat-text",
     style: "normal",
     weight: "normal",
   });
 
-  registerFont("public/assets/fonts/KRko/AsiaKERIN-M.otf", {
+  registerFont(join(rootPath, "/fonts/KRko/AsiaKERIN-M.otf"), {
     family: "KERINm",
     style: "normal",
     weight: "normal",
   });
 
-  registerFont("public/assets/fonts/KRko/AsiaKERIN-M.otf", {
+  registerFont(join(rootPath, "/fonts/KRko/AsiaKERIN-M.otf"), {
     family: "KCUBEr",
     style: "normal",
     weight: "normal",

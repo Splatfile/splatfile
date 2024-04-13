@@ -1,5 +1,10 @@
 {
-    "regions": [
-        "icn1"
-    ]
+  "regions": [
+    "icn1"
+  ],
+  "functions": {
+    "api/users/[userid]/route.ts": {
+      "includeFiles": "__files/**"
+    }
+  }
 }
