@@ -55,11 +55,11 @@ function isFontLoaded(fontName: string, fontSize = "16px"): Promise<boolean> {
       // Font is not loaded, so listen for the load event
       document.fonts
         .load(fontSize + " " + fontName)
-        .then(() => {
+        .then((e) => {
           resolve(true);
         })
-        .catch(() => {
-          reject(false);
+        .catch((e) => {
+          reject(e);
         });
     }
   });

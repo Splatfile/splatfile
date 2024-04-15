@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/app/globals.css";
 import { Noto_Sans_KR } from "next/font/google";
 import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
 

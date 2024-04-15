@@ -5,14 +5,14 @@
 
 @font-face {
     font-family: "Splat-title";
-    src: url("./plate/assets/fonts/SplatoonTitle.otf");
+    src: url("/assets/fonts/SplatoonTitle.otf") format('opentype');
     font-style: normal;
     font-weight: normal;
 }
 
 @font-face {
     font-family: "Splat-text";
-    src: url("./plate/assets/fonts/SplatoonText.otf");
+    src: url("/assets/fonts/SplatoonText.otf") format('opentype');
     font-style: normal;
     font-weight: normal;
 }
@@ -21,14 +21,14 @@
 /* Korean */
 @font-face {
     font-family: "KCUBEr";
-    src: url("./plate/assets/fonts/KRko/AsiaKCUBE-R.otf");
+    src: url("/assets/fonts/KRko/AsiaKCUBE-R.otf") format('opentype');
     font-style: normal;
     font-weight: normal;
 }
 
 @font-face {
     font-family: "KERINm";
-    src: url("./plate/assets/fonts/KRko/AsiaKERIN-M.otf");
+    src: url("/assets/fonts/KRko/AsiaKERIN-M.otf") format('opentype');
     font-style: normal;
     font-weight: normal;
 }
