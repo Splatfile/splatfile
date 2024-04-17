@@ -48,7 +48,7 @@ const XMatchCardView = (props: XMatchCardViewProps) => {
           <Image
             width={24}
             height={24}
-            src="/ingames/clam.webp"
+            src="/ingames/area.webp"
             alt="Splatoon Level Icon"
           />
           <p>{area}</p>
@@ -138,7 +138,7 @@ const XMatchCardEdit = () => {
         <Image
           width={24}
           height={24}
-          src="/ingames/shell.webp"
+          src="/ingames/clam.webp"
           alt="Splatoon clam Icon"
         />
         <label htmlFor={"clam"} className={"hidden"}>

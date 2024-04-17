@@ -38,6 +38,7 @@ import { z } from "zod";
 import { createSupabaseServiceClient } from "@/app/lib/server/supabase-client";
 import { baseUrl } from "@/app/plate/lib/const";
 import directoryTree from "directory-tree";
+import { createR2Client, uploadFile } from "@/app/lib/server/cloudflare-r2";
 
 export const dynamic = "force-dynamic";
 
@@ -52,7 +53,21 @@ export async function GET(
   },
 ) {
   try {
-    return new Response(await renderOgImage(params), {
+    const imageBuffer = await renderOgImage(params);
+
+    if (!imageBuffer) {
+      return new Response("Image Buffer is not truthy" + imageBuffer, {
+        status: 500,
+      });
+    }
+    const r2Client = createR2Client();
+    const key = await uploadFile(
+      r2Client,
+      imageBuffer,
+      params.userid + "_og.png",
+    );
+
+    return new Response(imageBuffer, {
       status: 200,
       headers: {
         "Content-Type": "image/png",
@@ -253,5 +268,6 @@ const renderOgImage = async (params: { userid: string }) => {
     };
     await renderCanvas(plate_info, user_info, game_info);
   }
+
   return canvas.toBuffer();
 };

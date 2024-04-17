@@ -12,6 +12,7 @@ import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
 import { isUserInfo } from "@/app/lib/schemas/profile";
 import { DebounceEditing } from "@/app/(main-views)/users/[userId]/profile/components/DebounceEditing";
+import { baseUrl } from "@/app/plate/lib/const";
 
 type PageProps = {
   params: {
@@ -37,9 +38,21 @@ export const generateMetadata = async (props: PageProps) => {
     };
   }
 
+  const imageUrl = baseUrl + props.params.userId + "_og.png";
+
   return {
     title: "프로필",
     description: "스플래툰 프로필. 스플랫파일",
+    images: [
+      {
+        url: (imageUrl || "") as string,
+        width: 700,
+        height: 200,
+        alt: "초코야 플레이트!",
+      },
+    ],
+    locale: "ko_KR",
+    type: "website",
   };
 };
 
