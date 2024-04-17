@@ -18,18 +18,26 @@ export function PlateImage(props: PlateImageProps) {
   useEffect(() => {
     return useTagStore.subscribe((tag) => {
       if (!canvasRef.current) return;
-      renderPlate(canvasRef.current, tag).then(() => {
-        console.log("rendered");
-      });
+      renderPlate(canvasRef.current, tag)
+        .then(() => {
+          console.log("rendered");
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     });
   }, []);
 
   useEffect(() => {
     setTimeout(() => {
       if (!canvasRef.current) return;
-      renderPlate(canvasRef.current, useTagStore.getState()).then(() => {
-        console.log("rerendered");
-      });
+      renderPlate(canvasRef.current, useTagStore.getState())
+        .then(() => {
+          console.log("rerendered");
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     }, 1500);
   }, [fontLoaded]);
 
