@@ -7,7 +7,7 @@ import {
   useEditStore,
   useGameStore,
 } from "@/app/lib/hooks/use-profile-store";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { isKeyOfXmatch, XMatchInfo } from "@/app/lib/schemas/profile/game-info";
 
 type GameCardXMatchProps = {};
@@ -25,7 +25,11 @@ export function GameCardXMatch(props: GameCardXMatchProps) {
 
   return (
     <EditableInlineTextCard edit={edit} title={"X 매치"} setEdit={setEdit}>
-      {edit ? <XMatchCardEdit /> : <XMatchCardView xMatchInfo={xMatchInfo} />}
+      {edit ? (
+        <XMatchCardEdit setEdit={setEdit} />
+      ) : (
+        <XMatchCardView xMatchInfo={xMatchInfo} />
+      )}
     </EditableInlineTextCard>
   );
 }
@@ -91,9 +95,18 @@ const XMatchCardView = (props: XMatchCardViewProps) => {
   );
 };
 
-const XMatchCardEdit = () => {
+type XMatchCardEditProps = {
+  setEdit: (edit: boolean) => void;
+};
+
+const XMatchCardEdit = (props: XMatchCardEditProps) => {
   const { isMine } = useEditStore();
   const { xMatchInfo, anarchyBattleRank } = useGameStore();
+
+  const areaRef = useRef<HTMLInputElement>(null);
+  const clamRef = useRef<HTMLInputElement>(null);
+  const fishRef = useRef<HTMLInputElement>(null);
+  const towerRef = useRef<HTMLInputElement>(null);
 
   if (anarchyBattleRank?.grade !== "S+" || !isMine) {
     return null;
@@ -126,11 +139,17 @@ const XMatchCardEdit = () => {
           Area Level
         </label>
         <input
+          ref={areaRef}
           className={"w-24"}
           id={"area"}
           name={"area"}
           onChange={onChangePoint}
           placeholder={"2100+"}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              clamRef.current?.focus();
+            }
+          }}
           value={area}
         />
       </div>
@@ -145,12 +164,18 @@ const XMatchCardEdit = () => {
           Clam Level
         </label>
         <input
+          ref={clamRef}
           className={"w-24"}
           id={"clam"}
           name={"clam"}
           onChange={onChangePoint}
           placeholder={"2341"}
           value={clam}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              fishRef.current?.focus();
+            }
+          }}
         />
       </div>
       <div className={"flex gap-2"}>
@@ -164,12 +189,18 @@ const XMatchCardEdit = () => {
           Fish Level
         </label>
         <input
+          ref={fishRef}
           className={"w-24"}
           id={"fish"}
           name={"fish"}
           onChange={onChangePoint}
           placeholder={"20+"}
           value={fish}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              towerRef.current?.focus();
+            }
+          }}
         />
       </div>
       <div className={"flex gap-2"}>
@@ -183,10 +214,16 @@ const XMatchCardEdit = () => {
           Tower Level
         </label>
         <input
+          ref={towerRef}
           className={"w-24"}
           id={"tower"}
           name={"tower"}
           onChange={onChangePoint}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              props.setEdit(false);
+            }
+          }}
           placeholder={"X"}
           value={tower}
         />
