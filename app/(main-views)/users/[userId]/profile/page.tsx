@@ -65,7 +65,6 @@ export default async function ProfilePage(props: PageProps) {
 
   const supabaseClient = createSupabaseServerClient(SERVER_COMPONENT);
   const user = await supabaseClient.auth.getUser();
-  // await sleep(5000);
 
   if (user.data.user && user.data.user?.id === props.params.userId) {
     const profile = await createOrGetMyProfile(supabaseClient);

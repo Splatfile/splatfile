@@ -11,7 +11,7 @@ export default function Loading(props: LoadingProps) {
         {/* 유저 사진 및 프로필 */}
         <div
           className={
-            "animate-slide-right-full flex  h-full w-full items-center justify-center p-8 text-white md:w-1/3 md:items-stretch md:p-0 md:py-24"
+            "flex h-full  w-full animate-slide-right-full items-center justify-center p-8 text-white md:w-1/3 md:items-stretch md:p-0 md:py-24"
           }
         >
           <div
@@ -66,7 +66,7 @@ export default function Loading(props: LoadingProps) {
           </div>
         </div>
         {/* 인게임 정보 */}
-        <div className={"animate-slide-left-full w-full md:w-2/3"}>
+        <div className={"w-full animate-slide-left-full md:w-2/3"}>
           <div
             className={
               "flex w-full flex-col justify-center gap-2 py-6 pl-4 lg:px-8"
@@ -99,19 +99,21 @@ export default function Loading(props: LoadingProps) {
         >
           {/* 계정 정보*/}
           <div
-            className={"flex h-full w-full justify-center gap-4 bg-gray-800"}
+            className={"flex h-full w-full items-stretch justify-center gap-4"}
           >
             <InlineTextCardSkeleton />
             <InlineTextCardSkeleton />
             <InlineTextCardSkeleton />
             <InlineTextCardSkeleton />
           </div>
-          <div className={"mt-4 flex w-full justify-center gap-2 "}>
+          <div
+            className={"mt-4 flex w-full items-center justify-center gap-2 "}
+          >
             <InlineTextCardSkeleton />
             <InlineTextCardSkeleton />
           </div>
-          <div className={"mt-4 flex w-full"}>
-            <InlineTextCardSkeleton />
+          <div className={"mt-4 flex w-full items-stretch justify-center"}>
+            <InlineTextCardSkeleton wrapperClassName={"md:min-w-[40rem]"} />
           </div>
         </div>
       </div>
