@@ -6,6 +6,7 @@
     "dev": "PORT=3101 next dev",
     "start:local": "PORT=3101 next start",
     "build": "next build",
+    "vercel:build": "yum -y install zlib && next build",
     "start": "next start",
     "lint": "next lint",
     "supabase:generate": "supabase-js generate-types $SUPABASE_URL $SUPABASE_KEY --out-dir types/supabase"
