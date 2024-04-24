@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { EditableText } from "@/app/ui/components/EditableText";
@@ -34,6 +34,9 @@ export const SwitchCodeCard = () => {
     })();
   }, [switchInfo]);
 
+  const friendCodeRef = useRef<HTMLInputElement>(null);
+  const friendLinkRef = useRef<HTMLInputElement>(null);
+
   const onChange = (key: keyof SwitchInfo) => {
     return (value: string) => setSwitchInfo(key, value.trim());
   };
@@ -41,6 +44,7 @@ export const SwitchCodeCard = () => {
   return (
     <EditableInlineTextCard title={"친구 코드"} edit={edit} setEdit={setEdit}>
       <EditableText
+        ref={friendCodeRef}
         edit={edit}
         value={friendCode ?? ""}
         textClassName={clsx(friendCode || "hidden", "text-center")}
@@ -50,6 +54,11 @@ export const SwitchCodeCard = () => {
         pattern={"[0-9]{4}-[0-9]{4}-[0-9]{4}"}
         placeholder={"1234-5678-9012"}
         onChange={onChange("friendCode")}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            friendLinkRef.current?.focus();
+          }
+        }}
       />
 
       <div className={clsx("flex", qrCode || "hidden")}>
@@ -81,6 +90,7 @@ export const SwitchCodeCard = () => {
       {edit && (
         <div className={"flex gap-1"}>
           <input
+            ref={friendLinkRef}
             type="text"
             className={clsx(
               "w-full max-w-full px-1 underline underline-offset-2",
@@ -90,6 +100,11 @@ export const SwitchCodeCard = () => {
             value={friendLink}
             onChange={(e) => {
               onChange("friendLink")(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setEdit(false);
+              }
             }}
           />
         </div>

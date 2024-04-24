@@ -5,7 +5,7 @@ import {
   useEditStore,
   useSwitchInfo,
 } from "@/app/lib/hooks/use-profile-store";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SwitchInfo } from "@/app/lib/schemas/profile";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { clsx } from "clsx";
@@ -19,6 +19,9 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
   const { isMine } = useEditStore();
 
   const [edit, setEdit] = useState(false);
+
+  const nameRef = useRef<HTMLInputElement>(null);
+  const inGameNameRef = useRef<HTMLInputElement>(null);
 
   if (!isMine && !switchInfo) {
     return null;
@@ -40,6 +43,7 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
             <NintendoSwitchLogo className={"h-6 w-6"} />
           </div>
           <EditableText
+            ref={nameRef}
             edit={edit}
             value={switchInfo?.name ?? ""}
             placeholder={"스위치 닉네임"}
@@ -47,6 +51,11 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
               "w-full underline underline-offset-2 outline-none max-w-full"
             }
             onChange={(value) => onChange("name", value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                inGameNameRef.current?.focus();
+              }
+            }}
           />
         </div>
         <div
@@ -58,6 +67,7 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
             <SquidLogo className={"h-6 w-6"} />
           </div>
           <EditableText
+            ref={inGameNameRef}
             edit={edit}
             value={switchInfo?.inGameName ?? ""}
             placeholder={"스플래툰 닉네임"}
@@ -65,6 +75,11 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
               "w-full underline underline-offset-2 outline-none max-w-full"
             }
             onChange={(value) => onChange("inGameName", value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setEdit(false);
+              }
+            }}
           />
         </div>
       </div>
