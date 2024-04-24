@@ -49,7 +49,7 @@ export function EditableTextCard(props: EditableTextCardProps) {
   return (
     <div
       className={clsx(
-        "flex w-full flex-col items-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 drop-shadow-sm md:w-auto md:items-center md:justify-center md:px-4 md:py-12",
+        "flex w-full flex-col items-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md md:w-auto md:items-center md:justify-center md:px-4 md:py-12",
         props.wrapperClassName,
       )}
     >

@@ -1,3 +1,4 @@
+"use client";
 import { ReactNode } from "react";
 import { PencilIcon } from "@heroicons/react/20/solid";
 import { useEditStore } from "@/app/lib/hooks/use-profile-store";
@@ -12,7 +13,7 @@ export function InlineTextCard(props: InlineTextCardProps) {
   return (
     <div
       className={
-        "flex w-full items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 drop-shadow-sm md:w-auto md:flex-col md:items-center md:justify-center md:px-4 md:py-12"
+        "flex w-full items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md md:w-auto md:flex-col md:items-center md:justify-center md:px-4 md:py-12"
       }
     >
       <h3 className={"break-normal text-lg font-bold md:text-xl"}>
@@ -37,7 +38,7 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
   return (
     <div
       className={
-        "flex w-full items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 drop-shadow-sm md:w-auto md:flex-col md:items-center md:justify-center md:px-4 md:py-12"
+        "flex w-full items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md md:w-auto md:flex-col md:items-center md:justify-center md:px-4 md:py-12"
       }
     >
       <div
@@ -52,7 +53,7 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
         {props.edit ? (
           <button
             className={
-              "rounded-md bg-blue-600 px-2 py-0.5 text-sm text-neutral-200"
+              "rounded-md bg-blue-600 px-2 py-0.5 text-sm text-neutral-200 hover:bg-blue-700"
             }
             onClick={() => props.setEdit(false)}
           >

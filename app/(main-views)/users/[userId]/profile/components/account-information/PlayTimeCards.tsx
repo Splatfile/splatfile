@@ -69,7 +69,7 @@ export const EditPlayTimeCard = (props: EditPlayTimeCardProps) => {
   };
 
   return (
-    <div className={"px-4"}>
+    <div className={"px-4 "}>
       <div className={"flex justify-center gap-2"}>
         <div className={"flex gap-1"}>
           <p>시작 시간:</p>
