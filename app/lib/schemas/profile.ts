@@ -81,3 +81,7 @@ export const isUserInfo = (
 
 export const SUPPORT_LABEL_LANGUAGES = ["KRko", "JPja", "USen"] as const;
 export type LangCode = (typeof SUPPORT_LABEL_LANGUAGES)[number];
+
+export const CanvasInfoObject = z.object({
+  drawedImageUrl: z.string().optional(),
+});
