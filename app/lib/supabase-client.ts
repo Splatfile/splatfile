@@ -1,4 +1,4 @@
-import { UserInfoObject } from "@/app/lib/schemas/profile";
+import { CanvasInfoObject, UserInfoObject } from "@/app/lib/schemas/profile";
 import {
   GameInfoObject,
   WeaponGearInfo,
@@ -11,6 +11,7 @@ import {
   ProfileInsert,
   ProfileUpdate,
 } from "@/app/lib/types/supabase-alias";
+import lang from "@/app/plate/lang.json";
 import { PlateInfoObject, TagState } from "@/app/plate/lib/store/use-tag-store";
 import {
   createClientComponentClient,
@@ -18,7 +19,6 @@ import {
 } from "@supabase/auth-helpers-nextjs";
 import { notFound } from "next/navigation";
 import { z } from "zod";
-import lang from "@/app/plate/lang.json";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -101,6 +101,8 @@ export const createOrGetMyProfile = async (
       ...initTagState,
     };
 
+    const canvas_info: z.infer<typeof CanvasInfoObject> = {};
+
     const weapon_gear_infos: WeaponGearInfo[] = [];
 
     const userInfo = user.data.user;
@@ -115,6 +117,7 @@ export const createOrGetMyProfile = async (
 
     const insert: ProfileInsert = {
       user_id: user.data.user?.id,
+      canvas_info,
       game_info,
       user_info,
       plate_info,
