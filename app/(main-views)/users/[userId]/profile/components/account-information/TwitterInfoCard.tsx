@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   setTwitterInfo,
   useEditStore,
@@ -15,6 +15,8 @@ export const TwitterInfoCard = () => {
   const [edit, setEdit] = useState(false);
   const twitterInfo = useTwitterInfo();
   const { isMine } = useEditStore();
+  const xNicknameRef = useRef<HTMLInputElement>(null);
+  const handleRef = useRef<HTMLInputElement>(null);
 
   if (!twitterInfo && !isMine) return null;
 
@@ -33,6 +35,7 @@ export const TwitterInfoCard = () => {
       setEdit={setEdit}
     >
       <EditableText
+        ref={xNicknameRef}
         edit={edit}
         value={name ?? ""}
         placeholder={"트위터 닉네임"}
@@ -41,18 +44,29 @@ export const TwitterInfoCard = () => {
           "w-full underline underline-offset-2 outline-none max-w-full"
         }
         onChange={onChange("name")}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleRef.current?.focus();
+          }
+        }}
       />
 
       {edit ? (
         <div className={"flex gap-1"}>
           <span>@</span>
           <input
+            ref={handleRef}
             type="text"
             className={"w-full max-w-full underline underline-offset-2"}
             placeholder={"트위터 핸들"}
             value={id}
             onChange={(e) => {
               onChange("id")(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setEdit(false);
+              }
             }}
           />
         </div>

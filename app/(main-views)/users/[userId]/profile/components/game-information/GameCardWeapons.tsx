@@ -58,6 +58,7 @@ export type WeaponRendererProps = {
 
 export function WeaponRenderer({ weaponKey }: WeaponRendererProps) {
   const weaponGearInfo = useWeaponGearInfo();
+  const [open, setOpen] = useState(false);
 
   return (
     <div
@@ -68,6 +69,26 @@ export function WeaponRenderer({ weaponKey }: WeaponRendererProps) {
     >
       <img src={"/ingames/weapons/mains/" + weaponKey + ".webp"} alt="" />
     </div>
+  );
+}
+
+type WeaponDetailEditModalProps = {
+  weaponKey: string;
+  open: boolean;
+  onClose: (open: boolean) => void;
+};
+
+export function WeaponDetailEditModal({
+  weaponKey,
+  open,
+  onClose,
+}: WeaponDetailEditModalProps) {
+  return (
+    <DefaultModal title={"무기 상세 편집"} open={open} onClose={onClose}>
+      <div className={"h-[80vh] max-h-max overflow-scroll"}>
+        <p>{weaponKey}</p>
+      </div>
+    </DefaultModal>
   );
 }
 

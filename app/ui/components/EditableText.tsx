@@ -1,17 +1,16 @@
-import { HTMLInputTypeAttribute } from "react";
 import sanitizeHtml from "sanitize-html";
+import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 type EditableTextProps = {
   edit: boolean;
   value: string;
   onChange: (value: string) => void;
-  placeholder?: string;
-  type?: HTMLInputTypeAttribute;
   textClassName?: string;
   inputClassName?: string;
-  pattern?: string;
-  maxLength?: number;
-};
+} & Omit<
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+  "className" | "value" | "onChange"
+>;
 
 export function EditableText(props: EditableTextProps) {
   const {
@@ -24,6 +23,7 @@ export function EditableText(props: EditableTextProps) {
     placeholder,
     pattern,
     maxLength,
+    ...otherProps
   } = props;
 
   if (edit) {
@@ -36,6 +36,7 @@ export function EditableText(props: EditableTextProps) {
         pattern={pattern}
         maxLength={maxLength}
         onChange={(e) => onChange(e.target.value)}
+        {...otherProps}
       />
     );
   }

@@ -25,6 +25,11 @@ export const GenderCard = () => {
         textClassName={"text-center"}
         inputClassName={"w-full"}
         onChange={(value) => setGender(value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            setEdit(false);
+          }
+        }}
       />
     </EditableInlineTextCard>
   );
