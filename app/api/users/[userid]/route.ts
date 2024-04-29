@@ -50,7 +50,7 @@ import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(
+export async function POST(
   req: NextRequest,
   {
     params,

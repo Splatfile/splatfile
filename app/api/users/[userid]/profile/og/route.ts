@@ -2,17 +2,22 @@ import { NextRequest } from "next/server";
 import { createSupabaseServiceClient } from "@/app/lib/server/supabase-client";
 import { getProfile, ROUTER } from "@/app/lib/supabase-client";
 import { CanvasInfoObject } from "@/app/lib/schemas/profile";
+import { unstable_noStore } from "next/cache";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(
   _: NextRequest,
   ctx: {
     params: {
-      userId: string;
+      userid: string;
     };
   },
 ) {
+  unstable_noStore();
+
   const adminClient = createSupabaseServiceClient(ROUTER);
-  const profile = await getProfile(adminClient, ctx.params.userId);
+  const profile = await getProfile(adminClient, ctx.params.userid);
 
   const parsed = CanvasInfoObject.safeParse(profile.canvas_info);
 
@@ -22,7 +27,7 @@ export async function GET(
     });
   }
 
-  const imageUrl = parsed.data.ogImageUrl;
+  const imageUrl = parsed.data?.ogImageUrl;
   if (!imageUrl) {
     return new Response("Image URL is not valid" + imageUrl, {
       status: 500,

@@ -197,6 +197,23 @@ export const updateProfile = async (
       "Invalid user id " + profile.user_id + " " + user.data.user?.id,
     );
   }
+
+  const parsed = CanvasInfoObject.safeParse(profile.canvas_info);
+  if (!parsed.success) {
+    throw parsed.error;
+  }
+
+  const response = await fetch(`/api/users/${userId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to render og image");
+  }
+
   const { data, error } = await supabase
     .from("profiles")
     .update(profile)
