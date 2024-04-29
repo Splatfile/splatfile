@@ -19,6 +19,7 @@ import {
 } from "@supabase/auth-helpers-nextjs";
 import { notFound } from "next/navigation";
 import { z } from "zod";
+import { Database } from "@/app/lib/supabase";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -147,7 +148,10 @@ export const createOrGetMyProfile = async (
   return data;
 };
 
-export const getProfile = async (supabase: SupabaseClient, userId: string) => {
+export const getProfile = async (
+  supabase: SupabaseClient<Database>,
+  userId: string,
+) => {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
@@ -155,14 +159,33 @@ export const getProfile = async (supabase: SupabaseClient, userId: string) => {
     .maybeSingle();
 
   if (!data || error) {
+    console.error("Profile not found", userId, data, error);
     notFound();
   }
 
   return data;
 };
 
+export const updateProfileByAdmin = async (
+  supabase: SupabaseClient<Database>,
+  profile: ProfileUpdate,
+  userId: string,
+) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .update(profile)
+    .eq("user_id", userId)
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+};
+
 export const updateProfile = async (
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   profile: ProfileUpdate,
   userId: string,
 ) => {
@@ -188,7 +211,7 @@ export const updateProfile = async (
 };
 
 export const listCaptureRequest = async (
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   userId: string,
   filter: {
     isCompleted?: boolean;
@@ -228,7 +251,7 @@ export const listCaptureRequest = async (
 };
 
 export const createCaptureRequest = async (
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   userId: string,
 ) => {
   const insert: CaptureRequestInsert = { user_id: userId };
@@ -247,7 +270,7 @@ export const createCaptureRequest = async (
 };
 
 export const updateCaptureRequest = async (
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   captureRequestId: number,
   captureRequest: CaptureRequestUpdate,
 ) => {

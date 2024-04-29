@@ -10,7 +10,6 @@ import {
 import { ProfileWrapper } from "@/app/(main-views)/users/[userId]/profile/components/ProfileWrapper";
 import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
-import { isUserInfo } from "@/app/lib/schemas/profile";
 import { DebounceEditing } from "@/app/(main-views)/users/[userId]/profile/components/DebounceEditing";
 import { baseUrl } from "@/app/plate/lib/const";
 
@@ -24,21 +23,7 @@ type PageProps = {
 export const dynamic = "force-dynamic";
 
 export const generateMetadata = async (props: PageProps) => {
-  const adminClient = createSupabaseServiceClient(SERVER_COMPONENT);
-  const profile = await getProfile(adminClient, props.params.userId);
-
-  const userInfo = profile.user_info;
-
-  if (isUserInfo(userInfo)) {
-    const userName =
-      userInfo.switchInfo?.name || userInfo.twitterInfo?.name || "";
-    return {
-      title: userName + " 프로필",
-      description: userName + " 스플래툰 프로필. 스플랫파일",
-    };
-  }
-
-  const imageUrl = baseUrl + props.params.userId + "_og.png";
+  const imageUrl = `${baseUrl}/api/users/${props.params.userId}/profile/og`;
 
   return {
     title: "프로필",
