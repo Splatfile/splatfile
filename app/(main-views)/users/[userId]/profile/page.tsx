@@ -12,6 +12,8 @@ import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
 import { DebounceEditing } from "@/app/(main-views)/users/[userId]/profile/components/DebounceEditing";
 import { baseUrl } from "@/app/plate/lib/const";
+import type { Metadata } from "next";
+import { UserInfoObject } from "@/app/lib/schemas/profile";
 
 type PageProps = {
   params: {
@@ -22,22 +24,30 @@ type PageProps = {
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 export const dynamic = "force-dynamic";
 
-export const generateMetadata = async (props: PageProps) => {
+export const generateMetadata = async (props: PageProps): Promise<Metadata> => {
   const imageUrl = `${baseUrl}/api/users/${props.params.userId}/profile/og`;
 
+  const adminClient = createSupabaseServiceClient(SERVER_COMPONENT);
+  const profile = await getProfile(adminClient, props.params.userId);
+  let name = "";
+  const parsed = UserInfoObject.safeParse(profile.user_info);
+  if (parsed.success) {
+    name = parsed.data.twitterInfo?.name || parsed.data.switchInfo?.name || "";
+  }
+
   return {
-    title: "프로필",
-    description: "스플래툰 프로필. 스플랫파일",
-    images: [
-      {
-        url: (imageUrl || "") as string,
-        width: 700,
-        height: 200,
-        alt: "초코야 플레이트!",
-      },
-    ],
-    locale: "ko_KR",
-    type: "website",
+    title: name + "의 프로필",
+    description: name + "의 스플래툰 프로필. 스플랫파일",
+    openGraph: {
+      images: [
+        {
+          url: (imageUrl || "") as string,
+          width: 700,
+          height: 200,
+          alt: "초코야 플레이트!",
+        },
+      ],
+    },
   };
 };
 
