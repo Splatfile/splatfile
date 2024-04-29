@@ -1,6 +1,10 @@
 import { NextRequest } from "next/server";
 import { createCanvas, loadImage } from "canvas";
-import { getProfile, ROUTER } from "@/app/lib/supabase-client";
+import {
+  getProfile,
+  ROUTER,
+  updateProfileByAdmin,
+} from "@/app/lib/supabase-client";
 
 import {
   canvasHeight,
@@ -32,17 +36,21 @@ import {
   salmonRunRanksKo,
 } from "@/app/lib/schemas/profile/game-info";
 import QRCode from "qrcode";
-import { isUserInfo, UserInfoObject } from "@/app/lib/schemas/profile";
+import {
+  CanvasInfoObject,
+  isUserInfo,
+  UserInfoObject,
+} from "@/app/lib/schemas/profile";
 import { renderServerPlate } from "@/app/lib/utils/server-render-plate";
 import { z } from "zod";
 import { createSupabaseServiceClient } from "@/app/lib/server/supabase-client";
 import { baseUrl } from "@/app/plate/lib/const";
-import directoryTree from "directory-tree";
 import { createR2Client, uploadFile } from "@/app/lib/server/cloudflare-r2";
+import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(
+export async function POST(
   req: NextRequest,
   {
     params,
@@ -53,7 +61,8 @@ export async function GET(
   },
 ) {
   try {
-    const imageBuffer = await renderOgImage(params);
+    const supabaseClient = createSupabaseServiceClient(ROUTER);
+    const imageBuffer = await renderOgImage(supabaseClient, params.userid);
 
     if (!imageBuffer) {
       return new Response("Image Buffer is not truthy" + imageBuffer, {
@@ -67,6 +76,25 @@ export async function GET(
       params.userid + "_og.png",
     );
 
+    const profile = await getProfile(supabaseClient, params.userid);
+
+    console.log("profile: ", profile);
+    console.log("profile.canvas_info: ", typeof profile.canvas_info);
+    console.log("profile.plate_info: ", typeof profile.plate_info);
+    const parsed = CanvasInfoObject.safeParse(profile.canvas_info);
+    if (!parsed.success) {
+      return new Response("Canvas Info is not valid" + parsed.error, {
+        status: 500,
+      });
+    }
+
+    profile.canvas_info = {
+      ...parsed.data,
+      ogImageUrl: key,
+    };
+
+    await updateProfileByAdmin(supabaseClient, profile, params.userid);
+
     return new Response(imageBuffer, {
       status: 200,
       headers: {
@@ -75,19 +103,17 @@ export async function GET(
     });
   } catch (error) {
     console.error(error);
-    let tree = "";
-    directoryTree(process.cwd(), {}, (item, PATH) => {
-      tree += item.path + "\n";
-    });
 
-    return new Response("Internal Server Error: " + error + "\n" + tree, {
+    return new Response("Internal Server Error: " + error + "\n", {
       status: 500,
     });
   }
 }
 
-const renderOgImage = async (params: { userid: string }) => {
-  console.log("params: ", params);
+const renderOgImage = async (
+  supabaseClient: SupabaseClient,
+  userid: string,
+) => {
   const canvas = createCanvas(canvasWidth, canvasHeight);
   const plate = createCanvas(700, 200);
 
@@ -112,9 +138,8 @@ const renderOgImage = async (params: { userid: string }) => {
     ctx.drawImage(image, ...profileImageRect);
   };
 
-  if (params.userid) {
-    const adminClient = createSupabaseServiceClient(ROUTER);
-    const profile = await getProfile(adminClient, params.userid);
+  if (userid) {
+    const profile = await getProfile(supabaseClient, userid);
     const { user_info, game_info, plate_info } = profile;
 
     if (
