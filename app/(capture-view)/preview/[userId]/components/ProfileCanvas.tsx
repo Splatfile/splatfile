@@ -71,6 +71,10 @@ export function ProfileCanvasRender({
     if (!profileImageUrl) return;
     const image = new Image();
 
+    // 이미지 CORS를 활성화 함
+    // CORS 허용된 이미지만 사용하도록 제한하는 대신,
+    // canvas 다운로드 시 insecure에러가 발생하지 않음
+    image.crossOrigin = "anonymous";
     image.src = profileImageUrl;
 
     image.onload = () => {
@@ -307,3 +311,4 @@ export function ProfileCanvasRender({
     </div>
   );
 }
+
