@@ -1,8 +1,8 @@
-import { SERVER_COMPONENT } from "@/app/lib/supabase-client";
+import { SERVER_COMPONENT } from "@/app/lib/splatfile-client";
 import {
   SplatfileAdmin,
   SplatfileServer,
-} from "@/app/lib/server/supabase-client";
+} from "@/app/lib/server/splatfile-server";
 import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
 import { isUserInfo } from "@/app/lib/schemas/profile";

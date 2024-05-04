@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { Auth } from "@supabase/auth-ui-react";
-import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/supabase-client";
+import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
 import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { LoadingLogo } from "@/app/ui/components/LoadingLogo";
 import { useRouter } from "next/navigation";

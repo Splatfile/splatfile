@@ -2,7 +2,7 @@
 
 import { Auth } from "@supabase/auth-ui-react";
 import { ReactNode } from "react";
-import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/supabase-client";
+import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
 import UserContextProvider = Auth.UserContextProvider;
 
 type UserContextWrapperProps = {

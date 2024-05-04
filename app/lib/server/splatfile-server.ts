@@ -3,7 +3,7 @@ import {
   createServerComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { ContextType, SplatfileClient } from "@/app/lib/supabase-client";
+
 import { createClient } from "@supabase/supabase-js";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import {
@@ -12,6 +12,7 @@ import {
   CaptureRequestUpdate,
 } from "@/app/lib/types/supabase-alias";
 import { v1 as uuidVer1 } from "uuid";
+import { ContextType, SplatfileClient } from "@/app/lib/splatfile-client";
 
 const createSupabaseServerClient = (contextType: ContextType) => {
   switch (contextType) {
@@ -56,13 +57,13 @@ export class SplatfileServer extends SplatfileClient {
   // @ts-ignore Supabase Client 를 갈아끼우기 위해 임시 ignore 처리
   constructor(contextType: ContextType) {
     // @ts-ignore
-    this.supabase = createSupabaseServerClient(contextType);
+    this._supabase = createSupabaseServerClient(contextType);
   }
 
   createCaptureRequest = async (userId: string) => {
     const insert: CaptureRequestInsert = { user_id: userId };
 
-    const { data, error } = await this.supabase
+    const { data, error } = await this._supabase
       .from("capture_requests")
       .insert([insert])
       .select("*")
@@ -78,7 +79,7 @@ export class SplatfileServer extends SplatfileClient {
     captureRequestId: number,
     captureRequest: CaptureRequestUpdate,
   ) => {
-    const { data, error } = await this.supabase
+    const { data, error } = await this._supabase
       .from("capture_requests")
       .update(captureRequest)
       .eq("id", captureRequestId)
@@ -145,6 +146,6 @@ export class SplatfileAdmin extends SplatfileServer {
   // @ts-ignore Supabase Client 를 갈아끼우기 위해 임시 ignore 처리
   constructor(contextType: ContextType) {
     // @ts-ignore
-    this.supabase = createSupabaseServiceClient(contextType);
+    super._supabase = createSupabaseServiceClient(contextType);
   }
 }

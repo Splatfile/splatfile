@@ -1,8 +1,8 @@
-import { SERVER_COMPONENT, SplatfileClient } from "@/app/lib/supabase-client";
-import { SplatfileAdmin } from "@/app/lib/server/supabase-client";
 import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
 import { GameInfoWrapper } from "@/app/(capture-view)/game-info/[userId]/components/GameInfoWrapper";
+import { SERVER_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
+import { SplatfileAdmin } from "@/app/lib/server/splatfile-server";
 
 type PageProps = {
   params: {

@@ -4,7 +4,7 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { ko } from "@/app/lib/supabase-auth-ui-localization";
 import { useRouter } from "next/navigation";
-import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/supabase-client";
+import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
 import { useEffect } from "react";
 import { baseUrl } from "@/app/plate/lib/const";
 import useUser = Auth.useUser;

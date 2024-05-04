@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { createCanvas, loadImage } from "canvas";
-import { ROUTER, SplatfileClient } from "@/app/lib/supabase-client";
+import { ROUTER, SplatfileClient } from "@/app/lib/splatfile-client";
 
 import {
   canvasHeight,
@@ -40,7 +40,7 @@ import {
 import { renderServerPlate } from "@/app/lib/utils/server-render-plate";
 import { z } from "zod";
 import { baseUrl } from "@/app/plate/lib/const";
-import { SplatfileAdmin } from "@/app/lib/server/supabase-client";
+import { SplatfileAdmin } from "@/app/lib/server/splatfile-server";
 
 export const dynamic = "force-dynamic";
 

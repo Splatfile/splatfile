@@ -17,7 +17,7 @@ import {
   SalmonRunMapPoints,
   SalmonRunRankGrade,
 } from "@/app/lib/schemas/profile/game-info";
-import { SplatfileClient } from "@/app/lib/supabase-client";
+import { SplatfileClient } from "@/app/lib/splatfile-client";
 import { Profile } from "@/app/lib/types/supabase-alias";
 import { useEffect } from "react";
 import { z } from "zod";

@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { SplatfileServer } from "@/app/lib/server/supabase-client";
+import { SplatfileServer } from "@/app/lib/server/splatfile-server";
 
 export async function POST(request: NextRequest) {
   const client = new SplatfileServer("ROUTER");

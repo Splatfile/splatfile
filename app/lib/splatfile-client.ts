@@ -83,19 +83,23 @@ const createSupabaseClient = (context: ContextType) => {
 };
 
 export class SplatfileClient {
-  supabase: SupabaseClient<Database>;
+  protected _supabase: SupabaseClient<Database>;
 
   constructor(contextType: ContextType) {
-    this.supabase = createSupabaseClient(contextType);
+    this._supabase = createSupabaseClient(contextType);
+  }
+
+  get supabase() {
+    return this._supabase;
   }
 
   createOrGetMyProfile = async (): Promise<Profile> => {
-    const user = await this.supabase.auth.getUser();
+    const user = await this._supabase.auth.getUser();
     if (!user.data.user?.id) {
       notFound();
     }
 
-    const { data, error } = await this.supabase
+    const { data, error } = await this._supabase
       .from("profiles")
       .select("*")
       .eq("user_id", user.data.user?.id)
@@ -126,7 +130,7 @@ export class SplatfileClient {
         weapon_gear_infos,
       };
 
-      const { data, error } = await this.supabase
+      const { data, error } = await this._supabase
         .from("profiles")
         .insert([
           {
@@ -150,7 +154,7 @@ export class SplatfileClient {
   };
 
   getProfile = async (userId: string) => {
-    const { data, error } = await this.supabase
+    const { data, error } = await this._supabase
       .from("profiles")
       .select("*")
       .eq("user_id", userId)
@@ -165,7 +169,7 @@ export class SplatfileClient {
   };
 
   updateProfileByAdmin = async (profile: ProfileUpdate, userId: string) => {
-    const { data, error } = await this.supabase
+    const { data, error } = await this._supabase
       .from("profiles")
       .update(profile)
       .eq("user_id", userId)
@@ -179,7 +183,7 @@ export class SplatfileClient {
   };
 
   updateProfile = async (profile: ProfileUpdate, userId: string) => {
-    const user = await this.supabase.auth.getUser();
+    const user = await this._supabase.auth.getUser();
 
     if (user.data.user?.id !== userId) {
       console.error("Invalid user id", profile.user_id, user.data.user?.id);
@@ -204,7 +208,7 @@ export class SplatfileClient {
       throw new Error("Failed to render og image");
     }
 
-    const { data, error } = await this.supabase
+    const { data, error } = await this._supabase
       .from("profiles")
       .update(profile)
       .eq("user_id", user.data.user?.id)
@@ -230,7 +234,7 @@ export class SplatfileClient {
       offset: 0,
     },
   ) => {
-    let query = this.supabase
+    let query = this._supabase
       .from("capture_requests")
       .select("*")
       .eq("user_id", userId);

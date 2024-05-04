@@ -2,7 +2,7 @@ import {
   createApifyClient,
   requestCapturingProfile,
 } from "@/app/lib/server/apify-client";
-import { SplatfileServer } from "@/app/lib/server/supabase-client";
+import { SplatfileServer } from "@/app/lib/server/splatfile-server";
 import { type ActorRun } from "apify";
 import { NextRequest, NextResponse } from "next/server";
 
