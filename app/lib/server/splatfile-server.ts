@@ -148,4 +148,18 @@ export class SplatfileAdmin extends SplatfileServer {
     // @ts-ignore
     super._supabase = createSupabaseServiceClient(contextType);
   }
+
+  getRecentUpdatedUsers = async () => {
+    const { data, error } = await this.supabase
+      .from("profiles")
+      .select("*")
+      .order("updated_at", { ascending: false })
+      .limit(10);
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  };
 }
