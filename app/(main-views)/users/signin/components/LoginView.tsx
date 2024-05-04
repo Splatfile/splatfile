@@ -9,9 +9,9 @@ import { useEffect } from "react";
 import { baseUrl } from "@/app/plate/lib/const";
 import useUser = Auth.useUser;
 
-type LoginButtonProps = {};
+type LoginViewProps = {};
 
-export function LoginView(_: LoginButtonProps) {
+export function LoginView(_: LoginViewProps) {
   const client = new SplatfileClient(CLIENT_COMPONENT);
   const { user } = useUser();
   const router = useRouter();
