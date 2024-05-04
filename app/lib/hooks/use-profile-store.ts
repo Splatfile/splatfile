@@ -17,7 +17,7 @@ import {
   SalmonRunMapPoints,
   SalmonRunRankGrade,
 } from "@/app/lib/schemas/profile/game-info";
-import { createSupabaseClient, updateProfile } from "@/app/lib/supabase-client";
+import { SplatfileClient } from "@/app/lib/splatfile-client";
 import { Profile } from "@/app/lib/types/supabase-alias";
 import { useEffect } from "react";
 import { z } from "zod";
@@ -241,7 +241,7 @@ export const useDebounceEdit = (userId: string, isMine: boolean) => {
 
 export const subscribeEdit = (userId: string) => {
   let timeoutId: NodeJS.Timeout | string | number | undefined;
-  const supabase = createSupabaseClient("CLIENT_COMPONENT");
+  const client = new SplatfileClient("CLIENT_COMPONENT");
 
   // subscribe은 unsubscribe를 return 하여, useEffect의 cleanup 함수로 사용할 수 있습니다.
   return useProfileStore.subscribe((state, prevState) => {
@@ -255,13 +255,12 @@ export const subscribeEdit = (userId: string) => {
     clearTimeout(timeoutId);
 
     timeoutId = setTimeout(async () => {
-      const user = await supabase.auth.getUser();
+      const user = await client.supabase.auth.getUser();
       if (userId !== user.data.user?.id) {
         setLoading(false);
         return;
       }
-      await updateProfile(
-        supabase,
+      await client.updateProfile(
         {
           user_info: state.user,
           game_info: state.game,

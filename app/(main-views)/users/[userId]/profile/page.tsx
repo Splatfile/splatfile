@@ -1,12 +1,8 @@
+import { SERVER_COMPONENT } from "@/app/lib/splatfile-client";
 import {
-  createOrGetMyProfile,
-  getProfile,
-  SERVER_COMPONENT,
-} from "@/app/lib/supabase-client";
-import {
-  createSupabaseServerClient,
-  createSupabaseServiceClient,
-} from "@/app/lib/server/supabase-client";
+  SplatfileAdmin,
+  SplatfileServer,
+} from "@/app/lib/server/splatfile-server";
 import { ProfileWrapper } from "@/app/(main-views)/users/[userId]/profile/components/ProfileWrapper";
 import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
@@ -27,8 +23,8 @@ export const dynamic = "force-dynamic";
 export const generateMetadata = async (props: PageProps): Promise<Metadata> => {
   const imageUrl = `${baseUrl}/api/users/${props.params.userId}/profile/og`;
 
-  const adminClient = createSupabaseServiceClient(SERVER_COMPONENT);
-  const profile = await getProfile(adminClient, props.params.userId);
+  const admin = new SplatfileAdmin(SERVER_COMPONENT);
+  const profile = await admin.getProfile(props.params.userId);
   let name = "";
   const parsed = UserInfoObject.safeParse(profile.user_info);
   if (parsed.success) {
@@ -54,11 +50,11 @@ export const generateMetadata = async (props: PageProps): Promise<Metadata> => {
 export default async function ProfilePage(props: PageProps) {
   unstable_noStore();
 
-  const supabaseClient = createSupabaseServerClient(SERVER_COMPONENT);
-  const user = await supabaseClient.auth.getUser();
+  const client = new SplatfileServer(SERVER_COMPONENT);
+  const user = await client.supabase.auth.getUser();
 
   if (user.data.user && user.data.user?.id === props.params.userId) {
-    const profile = await createOrGetMyProfile(supabaseClient);
+    const profile = await client.createOrGetMyProfile();
     return (
       <>
         <DebounceEditing userId={props.params.userId} />
@@ -72,8 +68,8 @@ export default async function ProfilePage(props: PageProps) {
     );
   }
 
-  const adminClient = createSupabaseServiceClient(SERVER_COMPONENT);
-  const profile = await getProfile(adminClient, props.params.userId);
+  const admin = new SplatfileAdmin(SERVER_COMPONENT);
+  const profile = await admin.getProfile(props.params.userId);
 
   return (
     <>

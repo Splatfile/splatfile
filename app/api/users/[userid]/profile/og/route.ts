@@ -1,8 +1,9 @@
 import { NextRequest } from "next/server";
-import { createSupabaseServiceClient } from "@/app/lib/server/supabase-client";
-import { getProfile, ROUTER } from "@/app/lib/supabase-client";
+
+import { ROUTER } from "@/app/lib/splatfile-client";
 import { CanvasInfoObject } from "@/app/lib/schemas/profile";
 import { unstable_noStore } from "next/cache";
+import { SplatfileAdmin } from "@/app/lib/server/splatfile-server";
 
 export const dynamic = "force-dynamic";
 
@@ -16,8 +17,8 @@ export async function GET(
 ) {
   unstable_noStore();
 
-  const adminClient = createSupabaseServiceClient(ROUTER);
-  const profile = await getProfile(adminClient, ctx.params.userid);
+  const admin = new SplatfileAdmin(ROUTER);
+  const profile = await admin.getProfile(ctx.params.userid);
 
   const parsed = CanvasInfoObject.safeParse(profile.canvas_info);
 

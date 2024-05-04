@@ -2,10 +2,7 @@
 
 import { Auth } from "@supabase/auth-ui-react";
 import { ReactNode } from "react";
-import {
-  CLIENT_COMPONENT,
-  createSupabaseClient,
-} from "@/app/lib/supabase-client";
+import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
 import UserContextProvider = Auth.UserContextProvider;
 
 type UserContextWrapperProps = {
@@ -13,10 +10,10 @@ type UserContextWrapperProps = {
 };
 
 export function UserContextWrapper(props: UserContextWrapperProps) {
-  const supabaseClient = createSupabaseClient(CLIENT_COMPONENT);
-  
+  const client = new SplatfileClient(CLIENT_COMPONENT);
+
   return (
-    <UserContextProvider supabaseClient={supabaseClient}>
+    <UserContextProvider supabaseClient={client.supabase}>
       {props.children}
     </UserContextProvider>
   );

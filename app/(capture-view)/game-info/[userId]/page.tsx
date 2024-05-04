@@ -1,15 +1,8 @@
-import {
-  createOrGetMyProfile,
-  getProfile,
-  SERVER_COMPONENT,
-} from "@/app/lib/supabase-client";
-import {
-  createSupabaseServerClient,
-  createSupabaseServiceClient,
-} from "@/app/lib/server/supabase-client";
 import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
 import { GameInfoWrapper } from "@/app/(capture-view)/game-info/[userId]/components/GameInfoWrapper";
+import { SERVER_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
+import { SplatfileAdmin } from "@/app/lib/server/splatfile-server";
 
 type PageProps = {
   params: {
@@ -23,11 +16,11 @@ export const dynamic = "force-dynamic";
 export default async function ProfilePage(props: PageProps) {
   unstable_noStore();
 
-  const supabaseClient = createSupabaseServerClient(SERVER_COMPONENT);
-  const user = await supabaseClient.auth.getUser();
+  const client = new SplatfileClient(SERVER_COMPONENT);
+  const user = await client.supabase.auth.getUser();
 
   if (user.data.user && user.data.user?.id === props.params.userId) {
-    const profile = await createOrGetMyProfile(supabaseClient);
+    const profile = await client.createOrGetMyProfile();
     return (
       <>
         <StoreSetting
@@ -40,8 +33,8 @@ export default async function ProfilePage(props: PageProps) {
     );
   }
 
-  const adminClient = createSupabaseServiceClient(SERVER_COMPONENT);
-  const profile = await getProfile(adminClient, props.params.userId);
+  const admin = new SplatfileAdmin(SERVER_COMPONENT);
+  const profile = await admin.getProfile(props.params.userId);
 
   return (
     <>

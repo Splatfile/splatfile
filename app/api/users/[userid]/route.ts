@@ -1,10 +1,6 @@
 import { NextRequest } from "next/server";
 import { createCanvas, loadImage } from "canvas";
-import {
-  getProfile,
-  ROUTER,
-  updateProfileByAdmin,
-} from "@/app/lib/supabase-client";
+import { ROUTER, SplatfileClient } from "@/app/lib/splatfile-client";
 
 import {
   canvasHeight,
@@ -43,10 +39,8 @@ import {
 } from "@/app/lib/schemas/profile";
 import { renderServerPlate } from "@/app/lib/utils/server-render-plate";
 import { z } from "zod";
-import { createSupabaseServiceClient } from "@/app/lib/server/supabase-client";
 import { baseUrl } from "@/app/plate/lib/const";
-import { createR2Client, uploadFile } from "@/app/lib/server/cloudflare-r2";
-import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { SplatfileAdmin } from "@/app/lib/server/splatfile-server";
 
 export const dynamic = "force-dynamic";
 
@@ -61,22 +55,17 @@ export async function POST(
   },
 ) {
   try {
-    const supabaseClient = createSupabaseServiceClient(ROUTER);
-    const imageBuffer = await renderOgImage(supabaseClient, params.userid);
+    const admin = new SplatfileAdmin(ROUTER);
+    const imageBuffer = await renderOgImage(admin, params.userid);
 
     if (!imageBuffer) {
       return new Response("Image Buffer is not truthy" + imageBuffer, {
         status: 500,
       });
     }
-    const r2Client = createR2Client();
-    const key = await uploadFile(
-      r2Client,
-      imageBuffer,
-      params.userid + "_og.png",
-    );
+    const key = await admin.uploadFile(imageBuffer, params.userid + "_og.png");
 
-    const profile = await getProfile(supabaseClient, params.userid);
+    const profile = await admin.getProfile(params.userid);
 
     console.log("profile: ", profile);
     console.log("profile.canvas_info: ", typeof profile.canvas_info);
@@ -93,7 +82,7 @@ export async function POST(
       ogImageUrl: key,
     };
 
-    await updateProfileByAdmin(supabaseClient, profile, params.userid);
+    await admin.updateProfileByAdmin(profile, params.userid);
 
     return new Response(imageBuffer, {
       status: 200,
@@ -110,10 +99,7 @@ export async function POST(
   }
 }
 
-const renderOgImage = async (
-  supabaseClient: SupabaseClient,
-  userid: string,
-) => {
+const renderOgImage = async (client: SplatfileClient, userid: string) => {
   const canvas = createCanvas(canvasWidth, canvasHeight);
   const plate = createCanvas(700, 200);
 
@@ -139,7 +125,7 @@ const renderOgImage = async (
   };
 
   if (userid) {
-    const profile = await getProfile(supabaseClient, userid);
+    const profile = await client.getProfile(userid);
     const { user_info, game_info, plate_info } = profile;
 
     if (
