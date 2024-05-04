@@ -2,13 +2,7 @@ import {
   createApifyClient,
   requestCapturingProfile,
 } from "@/app/lib/server/apify-client";
-import { createR2Client, uploadFile } from "@/app/lib/server/cloudflare-r2";
-import { createSupabaseServerClient } from "@/app/lib/server/supabase-client";
-import {
-  createCaptureRequest,
-  listCaptureRequest,
-  updateCaptureRequest,
-} from "@/app/lib/supabase-client";
+import { SplatfileServer } from "@/app/lib/server/supabase-client";
 import { type ActorRun } from "apify";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -18,9 +12,9 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { userId: string } },
 ) {
-  const appClient = createSupabaseServerClient("ROUTER");
+  const client = new SplatfileServer("ROUTER");
 
-  const user = await appClient.auth.getUser();
+  const user = await client.supabase.auth.getUser();
   if (user.data.user?.id !== params.userId) {
     return NextResponse.json(
       {
@@ -35,8 +29,7 @@ export async function GET(
   const limit = parseInt(request.nextUrl.searchParams.get("limit") || "10");
   const offset = parseInt(request.nextUrl.searchParams.get("offset") || "0");
 
-  const captureRequests = await listCaptureRequest(
-    appClient,
+  const captureRequests = await client.listCaptureRequest(
     params.userId,
     {},
     { limit: limit, offset: offset },
@@ -45,13 +38,13 @@ export async function GET(
 }
 
 export async function POST(
-  request: NextRequest,
+  _: NextRequest,
   { params }: { params: { userId: string } },
 ) {
-  const appClient = createSupabaseServerClient("ROUTER");
+  const client = new SplatfileServer("ROUTER");
   const apifyClient = createApifyClient();
 
-  const user = await appClient.auth.getUser();
+  const user = await client.supabase.auth.getUser();
   if (user.data.user?.id !== params.userId) {
     return NextResponse.json(
       {
@@ -63,10 +56,8 @@ export async function POST(
     );
   }
 
-  const captureRequest = await createCaptureRequest(appClient, params.userId);
+  const captureRequest = await client.createCaptureRequest(params.userId);
   const captureCallback = async (result: ActorRun) => {
-    const r2Client = createR2Client();
-
     const keyValueStoreId = result.defaultKeyValueStoreId;
     const resultFileBinary = (
       await apifyClient.keyValueStore(keyValueStoreId).getRecord("result")
@@ -77,13 +68,12 @@ export async function POST(
       throw new Error("result file is not found");
     }
 
-    const result_img_url = await uploadFile(
-      r2Client,
+    const result_img_url = await client.uploadFile(
       resultFileBinary,
       "profile.png",
     );
 
-    await updateCaptureRequest(appClient, captureRequest.id, {
+    await client.updateCaptureRequest(captureRequest.id, {
       result_img_url: result_img_url,
       completed_at: new Date().toISOString(),
     });

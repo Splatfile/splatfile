@@ -1,15 +1,14 @@
-import { createSupabaseServerClient } from "@/app/lib/server/supabase-client";
 import { type NextRequest, NextResponse } from "next/server";
-import { createR2Client, uploadFile } from "@/app/lib/server/cloudflare-r2";
+import { SplatfileServer } from "@/app/lib/server/supabase-client";
 
 export async function POST(request: NextRequest) {
-  const appClient = createSupabaseServerClient("ROUTER");
+  const client = new SplatfileServer("ROUTER");
 
   const formData = await request.formData();
 
   const userId = formData.get("userId") as string;
 
-  const user = await appClient.auth.getUser();
+  const user = await client.supabase.auth.getUser();
   if (user.data.user?.id !== userId) {
     return NextResponse.json(
       {
@@ -36,12 +35,10 @@ export async function POST(request: NextRequest) {
       },
     );
   }
-  const client = createR2Client();
 
   const arrayBuffer = await (file as File).arrayBuffer();
 
-  const key = await uploadFile(
-    client,
+  const key = await client.uploadFile(
     Buffer.from(arrayBuffer),
     userId + ".png",
   );

@@ -1,10 +1,7 @@
 "use client";
 import Link from "next/link";
 import { Auth } from "@supabase/auth-ui-react";
-import {
-  CLIENT_COMPONENT,
-  createSupabaseClient,
-} from "@/app/lib/supabase-client";
+import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/supabase-client";
 import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { LoadingLogo } from "@/app/ui/components/LoadingLogo";
 import { useRouter } from "next/navigation";
@@ -92,7 +89,7 @@ export function Header() {
 
 export const SignInButton = () => {
   const { user } = useUser();
-  const supabaseClient = createSupabaseClient(CLIENT_COMPONENT);
+  const client = new SplatfileClient(CLIENT_COMPONENT);
   const router = useRouter();
   if (user) {
     return (
@@ -111,7 +108,7 @@ export const SignInButton = () => {
             "cursor-pointer rounded-md px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
           }
           onClick={async () => {
-            await supabaseClient.auth.signOut();
+            await client.supabase.auth.signOut();
             router.refresh();
           }}
         >

@@ -4,18 +4,15 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { ko } from "@/app/lib/supabase-auth-ui-localization";
 import { useRouter } from "next/navigation";
-import {
-  CLIENT_COMPONENT,
-  createSupabaseClient,
-} from "@/app/lib/supabase-client";
+import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/supabase-client";
 import { useEffect } from "react";
 import { baseUrl } from "@/app/plate/lib/const";
 import useUser = Auth.useUser;
 
 type LoginButtonProps = {};
 
-export function LoginView(props: LoginButtonProps) {
-  const supabaseClient = createSupabaseClient(CLIENT_COMPONENT);
+export function LoginView(_: LoginButtonProps) {
+  const client = new SplatfileClient(CLIENT_COMPONENT);
   const { user } = useUser();
   const router = useRouter();
 
@@ -34,7 +31,7 @@ export function LoginView(props: LoginButtonProps) {
           }}
           redirectTo={baseUrl + "/users/signin"}
           providers={["twitter"]}
-          supabaseClient={supabaseClient}
+          supabaseClient={client.supabase}
           appearance={{ theme: ThemeSupa }}
         />
       </div>

@@ -6,8 +6,8 @@ import { GradientDirection } from "../types/gradient";
 import { StateStorage } from "zustand/middleware";
 import { Profile } from "@/app/lib/types/supabase-alias";
 import { z } from "zod";
-import { createSupabaseClient, updateProfile } from "@/app/lib/supabase-client";
 import { useEffect } from "react";
+import { SplatfileClient } from "@/app/lib/splatfile-client";
 
 export type Gradients = [string, string, string, string];
 
@@ -229,7 +229,7 @@ export const setGradientDirection = (gradientDirection: GradientDirection) => {
 
 export const subscribeEdit = (userId: string) => {
   let timeoutId: NodeJS.Timeout | string | number | undefined;
-  const supabase = createSupabaseClient("CLIENT_COMPONENT");
+  const client = new SplatfileClient("CLIENT_COMPONENT");
 
   // subscribe은 unsubscribe를 return 하여, useEffect의 cleanup 함수로 사용할 수 있습니다.
   return useTagStore.subscribe((state, prevState) => {
@@ -243,13 +243,12 @@ export const subscribeEdit = (userId: string) => {
     clearTimeout(timeoutId);
 
     timeoutId = setTimeout(async () => {
-      const user = await supabase.auth.getUser();
+      const user = await client.supabase.auth.getUser();
       if (userId !== user.data.user?.id) {
         return;
       }
       const { set, ...plate_info } = state;
-      await updateProfile(
-        supabase,
+      await client.updateProfile(
         {
           plate_info,
         },
