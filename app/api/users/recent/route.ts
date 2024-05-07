@@ -11,6 +11,7 @@ export async function GET() {
   try {
     const admin = new SplatfileAdmin(ROUTER);
     const users = await admin.getRecentUpdatedUsers();
+    console.log("users:", users);
     const responseUsers: RecentUsers =
       users
         ?.map((profile) => ({
@@ -20,6 +21,7 @@ export async function GET() {
         }))
         .filter((user) => user.name !== "") ?? [];
 
+    console.log("responseUsers:", responseUsers);
     return NextResponse.json(responseUsers);
   } catch (error) {
     console.error(error);
@@ -43,7 +45,7 @@ type RecentUsers = {
 const extractUserName = (profile: Profile) => {
   let name = "";
   const user = profile.user_info;
-  if (isUserInfo(user)) {
+  if (!isUserInfo(user)) {
     return name;
   }
   const parsed = UserInfoObject.safeParse(user);

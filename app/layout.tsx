@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import { Noto_Sans_KR } from "next/font/google";
 import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
+import { QueryClientWrapper } from "@/app/lib/hooks/query-client-wrapper";
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
@@ -30,7 +31,9 @@ export default function RootLayout({
             "min-w-screen min-h-screen bg-black/50 backdrop-blur md:text-lg"
           }
         >
-          <UserContextWrapper>{children}</UserContextWrapper>
+          <QueryClientWrapper>
+            <UserContextWrapper>{children}</UserContextWrapper>
+          </QueryClientWrapper>
         </div>
       </body>
     </html>

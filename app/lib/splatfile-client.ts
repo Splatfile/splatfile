@@ -71,6 +71,12 @@ export type ContextType =
   | typeof CLIENT_COMPONENT
   | typeof ROUTER;
 
+type DummySupabaseClient = SupabaseClient<Database>;
+
+const createDummyClient = (): DummySupabaseClient => {
+  return {} as DummySupabaseClient;
+};
+
 const createSupabaseClient = (context: ContextType) => {
   switch (context) {
     case CLIENT_COMPONENT:
@@ -78,6 +84,9 @@ const createSupabaseClient = (context: ContextType) => {
         supabaseUrl,
         supabaseKey,
       });
+    case ROUTER:
+    case SERVER_COMPONENT:
+      return createDummyClient();
   }
   throw new Error("Invalid contextType");
 };
