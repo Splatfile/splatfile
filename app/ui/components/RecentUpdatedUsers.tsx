@@ -60,13 +60,22 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
 }
 
 export const RecentUpdatedUsersSkeleton = () => {
+  const temp = Array.from({ length: 5 }, (_, i) => i);
   return (
-    <div className={"w-72"}>
-      <h1>최근 갱신된 유저</h1>
-      <ul>
-        {[1, 2, 3].map((id) => (
-          <li key={id} className={"animate-pulse bg-gray-300"}>
-            Loading...
+    <div
+      className={
+        "flex w-full max-w-[28rem] flex-col justify-start gap-2 bg-gray-100 p-4 shadow"
+      }
+    >
+      <h1 className={"w-full text-center text-xl text-gray-800"}>
+        최근 갱신 유저
+      </h1>
+      <ul className={"flex flex-col gap-0.5 divide-y divide-gray-800"}>
+        {temp.map((i) => (
+          <li key={i} className={"flex justify-between px-1 py-2"}>
+            <div
+              className={`h-8 w-full animate-pulse rounded-md bg-gray-600 hover:text-blue-400 hover:underline`}
+            ></div>
           </li>
         ))}
       </ul>
