@@ -54,9 +54,8 @@ export class SplatfileServer extends SplatfileClient {
     return r2Client;
   }
 
-  // @ts-ignore Supabase Client 를 갈아끼우기 위해 임시 ignore 처리
   constructor(contextType: ContextType) {
-    // @ts-ignore
+    super(contextType);
     this._supabase = createSupabaseServerClient(contextType);
   }
 
@@ -143,9 +142,22 @@ const createR2Client = () => {
 };
 
 export class SplatfileAdmin extends SplatfileServer {
-  // @ts-ignore Supabase Client 를 갈아끼우기 위해 임시 ignore 처리
   constructor(contextType: ContextType) {
-    // @ts-ignore
-    super._supabase = createSupabaseServiceClient(contextType);
+    super(contextType);
+    this._supabase = createSupabaseServiceClient(contextType);
   }
+
+  getRecentUpdatedUsers = async () => {
+    const { data, error } = await this.supabase
+      .from("profiles")
+      .select("*")
+      .order("updated_at", { ascending: false })
+      .limit(10);
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  };
 }
