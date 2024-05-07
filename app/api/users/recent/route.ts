@@ -11,7 +11,6 @@ export async function GET() {
   try {
     const admin = new SplatfileAdmin(ROUTER);
     const users = await admin.getRecentUpdatedUsers();
-    console.log("users:", users);
     const responseUsers: RecentUsers =
       users
         ?.map((profile) => ({
@@ -21,7 +20,6 @@ export async function GET() {
         }))
         .filter((user) => user.name !== "") ?? [];
 
-    console.log("responseUsers:", responseUsers);
     return NextResponse.json(responseUsers);
   } catch (error) {
     console.error(error);
