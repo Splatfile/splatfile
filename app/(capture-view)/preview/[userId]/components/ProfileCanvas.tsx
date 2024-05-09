@@ -122,6 +122,7 @@ export function ProfileCanvasRender({
 
     useEffect(() => {
       const imageObj = new Image();
+      imageObj.crossOrigin = "anonymous";
 
       const interval = setInterval(async () => {
         if (!plateRef.current) return;
