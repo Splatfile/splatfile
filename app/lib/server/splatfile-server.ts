@@ -4,15 +4,10 @@ import {
 } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-import { createClient } from "@supabase/supabase-js";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import {
-  CaptureRequest,
-  CaptureRequestInsert,
-  CaptureRequestUpdate,
-} from "@/app/lib/types/supabase-alias";
-import { v1 as uuidVer1 } from "uuid";
 import { ContextType, SplatfileClient } from "@/app/lib/splatfile-client";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { createClient } from "@supabase/supabase-js";
+import { v1 as uuidVer1 } from "uuid";
 
 const createSupabaseServerClient = (contextType: ContextType) => {
   switch (contextType) {
@@ -59,37 +54,6 @@ export class SplatfileServer extends SplatfileClient {
     this._supabase = createSupabaseServerClient(contextType);
   }
 
-  createCaptureRequest = async (userId: string) => {
-    const insert: CaptureRequestInsert = { user_id: userId };
-
-    const { data, error } = await this._supabase
-      .from("capture_requests")
-      .insert([insert])
-      .select("*")
-      .single<CaptureRequest>();
-
-    if (error) {
-      throw error;
-    }
-
-    return data;
-  };
-  updateCaptureRequest = async (
-    captureRequestId: number,
-    captureRequest: CaptureRequestUpdate,
-  ) => {
-    const { data, error } = await this._supabase
-      .from("capture_requests")
-      .update(captureRequest)
-      .eq("id", captureRequestId)
-      .single<CaptureRequest>();
-
-    if (error) {
-      throw error;
-    }
-
-    return data;
-  };
   uploadFile = async (file: Buffer, filename: string) => {
     const CLOUDFLARE_R2_BUCKET = process.env.CLOUDFLARE_R2_BUCKET;
     const CLOUDFLARE_R2_PUBLIC_URL = process.env.CLOUDFLARE_R2_PUBLIC_URL;
