@@ -20,13 +20,9 @@ const w = 2;
 const h = 3;
 export const canvasWidth = 1024;
 export const canvasHeight = 536;
-export const profileImageRect: Rect = [20, 20, 267, 400];
-export const plateRect: Rect = [
-  profileImageRect[x],
-  profileImageRect[y] + profileImageRect[h],
-  profileImageRect[w],
-  200 * (profileImageRect[w] / 700),
-];
+export const profileImageRect: Rect = [50, 50, 267, 400];
+export const profileImageBorderRadius: number = 3;
+export const plateRect: Rect = [58, 402, 300, 86];
 type TextRender = {
   text: string;
   x: number;
@@ -34,7 +30,7 @@ type TextRender = {
   size: number;
   maxWidth: number;
 };
-const defaultFontSize = 34;
+const defaultFontSize = 24;
 const leftPadding = 20;
 const leftSideWidth = 350;
 const topPadding = 10;
