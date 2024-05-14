@@ -1,7 +1,7 @@
 import React from "react";
 
 const TermsOfService = () => (
-  <div>
+  <div className={"m-4 rounded-md bg-white"}>
     <div className="mx-auto max-w-4xl p-4">
       <h1 className="mb-4 text-2xl font-bold">Terms of Service</h1>
       <h2 className="mb-2 mt-4 text-xl font-semibold">
