@@ -205,6 +205,7 @@ const renderOgImage = async (client: SplatfileClient, userid: string) => {
         (w) => gameStore.weaponGearInfo?.[w]?.isActivated,
       );
 
+      console.log("After WeaponKeys");
       const filteredWeapons = chunkArrayInGroups(
         weaponKeys,
         Math.floor(weaponKeys.length / 2),
