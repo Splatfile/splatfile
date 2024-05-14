@@ -3,8 +3,8 @@ import {
   GameInfoObject,
   WeaponGearInfo,
 } from "@/app/lib/schemas/profile/game-info";
+import { Database } from "@/app/lib/supabase";
 import {
-  CaptureRequest,
   Profile,
   ProfileInsert,
   ProfileUpdate,
@@ -12,12 +12,11 @@ import {
 import lang from "@/app/plate/lang.json";
 import { TagState } from "@/app/plate/lib/store/use-tag-store";
 import {
-  createClientComponentClient,
   SupabaseClient,
+  createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import { notFound } from "next/navigation";
 import { z } from "zod";
-import { Database } from "@/app/lib/supabase";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -213,45 +212,6 @@ export class SplatfileClient {
       .update(profile)
       .eq("user_id", user.data.user?.id)
       .single();
-
-    if (error) {
-      throw error;
-    }
-
-    return data;
-  };
-
-  listCaptureRequest = async (
-    userId: string,
-    filter: {
-      isCompleted?: boolean;
-    } = {},
-    pagination: {
-      limit: number;
-      offset: number;
-    } = {
-      limit: 10,
-      offset: 0,
-    },
-  ) => {
-    let query = this._supabase
-      .from("capture_requests")
-      .select("*")
-      .eq("user_id", userId);
-
-    if (filter.isCompleted !== undefined) {
-      query = query.filter(
-        "completed_at",
-        filter.isCompleted ? "not.is" : "is",
-        null,
-      );
-    }
-
-    const { data, error } = await query
-      .order("created_at", { ascending: false })
-      .order("id", { ascending: false })
-      .range(pagination.offset, pagination.offset + pagination.limit - 1)
-      .returns<CaptureRequest[]>();
 
     if (error) {
       throw error;

@@ -38,11 +38,7 @@ next-env.d.ts
 # envs
 .env
 
-# Added by Apify CLI
 storage
-node_modules
-.venv
-
 
 # Splat-Plate for develop
 splat-plate/
