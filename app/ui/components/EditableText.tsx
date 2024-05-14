@@ -1,5 +1,5 @@
 import sanitizeHtml from "sanitize-html";
-import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import { DetailedHTMLProps, forwardRef, InputHTMLAttributes } from "react";
 
 type EditableTextProps = {
   edit: boolean;
@@ -9,40 +9,43 @@ type EditableTextProps = {
   inputClassName?: string;
 } & Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-  "className" | "value" | "onChange"
+  "ref" | "className" | "value" | "onChange"
 >;
 
-export function EditableText(props: EditableTextProps) {
-  const {
-    edit,
-    value,
-    type,
-    onChange,
-    textClassName,
-    inputClassName,
-    placeholder,
-    pattern,
-    maxLength,
-    ...otherProps
-  } = props;
+export const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
+  function EditableText(props, ref) {
+    const {
+      edit,
+      value,
+      type,
+      onChange,
+      textClassName,
+      inputClassName,
+      placeholder,
+      pattern,
+      maxLength,
+      ...otherProps
+    } = props;
 
-  if (edit) {
-    return (
-      <input
-        className={inputClassName}
-        type={type ?? "text"}
-        placeholder={placeholder}
-        value={value}
-        pattern={pattern}
-        maxLength={maxLength}
-        onChange={(e) => onChange(e.target.value)}
-        {...otherProps}
-      />
-    );
-  }
+    if (edit) {
+      return (
+        <input
+          ref={ref}
+          className={inputClassName}
+          type={type ?? "text"}
+          placeholder={placeholder}
+          value={value}
+          pattern={pattern}
+          maxLength={maxLength}
+          onChange={(e) => onChange(e.target.value)}
+          {...otherProps}
+        />
+      );
+    }
 
-  return <p className={textClassName}>{value}</p>;
-}
+    return <p className={textClassName}>{value}</p>;
+  },
+);
 
 type EditableParagraphProps = Omit<EditableTextProps, "inputClassName"> & {
   cols?: number;
