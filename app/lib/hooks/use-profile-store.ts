@@ -279,7 +279,7 @@ export const subscribeEdit = (
         userId,
       );
       setLoading(false);
-    }, 5 * 1000);
+    }, 3 * 1000);
   });
 };
 

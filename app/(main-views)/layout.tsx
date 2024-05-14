@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Header } from "@/app/(main-views)/users/[userId]/profile/components/Header";
+import { Header } from "@/app/(main-views)/users/[userid]/profile/components/Header";
 import { Footer } from "@/app/ui/components/Footer";
 
 export const metadata: Metadata = {};

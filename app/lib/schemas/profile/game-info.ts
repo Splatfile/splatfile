@@ -5,7 +5,7 @@ import {
   subsCodes,
 } from "@/app/lib/constants/weapons";
 import { gearPowerCodes } from "@/app/lib/constants/weapons/etc";
-import { GameCardXMatch } from "@/app/(main-views)/users/[userId]/profile/components/game-information/GameCardXMatch";
+import { GameCardXMatch } from "@/app/(main-views)/users/[userid]/profile/components/game-information/GameCardXMatch";
 import { isMatching, P } from "ts-pattern";
 import { z } from "zod";
 

@@ -2,6 +2,11 @@ import { Profile } from "@/app/lib/types/supabase-alias";
 import Link from "next/link";
 
 import { isPlateInfo, isUserInfo } from "@/app/lib/types/type-checker";
+import { clsx } from "clsx";
+import { NintendoSwitchLogo } from "@/app/ui/icons/NintendoSwitchLogo";
+import { SquidLogo } from "@/app/ui/icons/SquidLogo";
+import { ClipboardIcon } from "@heroicons/react/24/outline";
+import { XLogo } from "@/app/ui/icons/XLogo";
 
 type SearchResultProps = {
   query: string;
@@ -30,7 +35,7 @@ export function SearchResult(props: SearchResultProps) {
             <div
               key={p.id}
               className={
-                "h-32 w-64 rotate-1 rounded-md border shadow-sm transition-transform hover:-rotate-2 hover:shadow-xl"
+                "min-h-40 w-72 rotate-1 rounded-md border shadow-sm transition-transform hover:-rotate-2 hover:shadow-xl"
               }
             >
               <h2
@@ -41,13 +46,51 @@ export function SearchResult(props: SearchResultProps) {
                 {p.user_info.twitterInfo.name}
               </h2>
 
-              <div className={"flex flex-col px-2 py-1.5"}>
-                <p className={""}>{p.user_info.switchInfo.name}</p>
-                <p className={"text-sm font-semibold text-gray-700"}>
-                  @{p.user_info.twitterInfo.id}
+              <div className={"flex flex-col gap-0.5 px-4 py-3"}>
+                <p
+                  className={clsx(
+                    "flex items-center gap-0.5 pl-1 text-sm font-semibold text-gray-700",
+                    {
+                      hidden: !p.user_info.twitterInfo.id,
+                    },
+                  )}
+                >
+                  <span className={"h-4 w-4"}>
+                    <XLogo />
+                  </span>
+                  <span className={"pb-1"}>@{p.user_info.twitterInfo.id}</span>
                 </p>
-                <p className={"text-gray-700"}>{p.user_info.switchInfo.name}</p>
-                <p className={"text-gray-700"}>{p.plate_info.name}</p>
+                <p
+                  className={clsx("flex items-center gap-1", {
+                    hidden: !p.user_info.switchInfo.name,
+                  })}
+                >
+                  <span className={"h-6 w-6 fill-[#d42d22] text-[#d42d22]"}>
+                    <SquidLogo className={"h-6 w-6"} />
+                  </span>
+                  {p.user_info.switchInfo.name}
+                </p>
+
+                <p
+                  className={clsx("flex items-center gap-1 text-gray-700", {
+                    hidden: !p.user_info.switchInfo.name,
+                  })}
+                >
+                  <NintendoSwitchLogo
+                    className={"h-6 w-6 fill-[#d42d22] text-[#d42d22]"}
+                  />
+                  {p.user_info.switchInfo.name}
+                </p>
+                <p
+                  className={clsx("flex items-center gap-1 text-gray-700", {
+                    hidden: !p.plate_info.name,
+                  })}
+                >
+                  <span className={"h-6 w-6"}>
+                    <ClipboardIcon />
+                  </span>
+                  {p.plate_info.name}
+                </p>
               </div>
             </div>
           </Link>

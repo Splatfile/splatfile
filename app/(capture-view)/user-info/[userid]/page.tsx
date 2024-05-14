@@ -4,12 +4,12 @@ import {
   SplatfileServer,
 } from "@/app/lib/server/splatfile-server";
 import { unstable_noStore } from "next/cache";
-import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
-import { UserInfoWrapper } from "@/app/(capture-view)/user-info/[userId]/components/UserInfoWrapper";
+import { StoreSetting } from "@/app/(main-views)/users/[userid]/profile/components/StoreSetting";
+import { UserInfoWrapper } from "@/app/(capture-view)/user-info/[userid]/components/UserInfoWrapper";
 
 type PageProps = {
   params: {
-    userId: string;
+    userid: string;
   };
 };
 
@@ -22,13 +22,13 @@ export default async function ProfilePage(props: PageProps) {
   const client = new SplatfileServer(SERVER_COMPONENT);
   const user = await client.supabase.auth.getUser();
 
-  if (user.data.user && user.data.user?.id === props.params.userId) {
+  if (user.data.user && user.data.user?.id === props.params.userid) {
     const profile = await client.createOrGetMyProfile();
     return (
       <>
         <StoreSetting
           profile={profile}
-          userId={props.params.userId}
+          userId={props.params.userid}
           isMine={true}
         />
         <UserInfoWrapper />
@@ -37,13 +37,13 @@ export default async function ProfilePage(props: PageProps) {
   }
 
   const admin = new SplatfileAdmin(SERVER_COMPONENT);
-  const profile = await admin.getProfile(props.params.userId);
+  const profile = await admin.getProfile(props.params.userid);
 
   return (
     <>
       <StoreSetting
         profile={profile}
-        userId={props.params.userId}
+        userId={props.params.userid}
         isMine={true}
       />
       <UserInfoWrapper />

@@ -1,6 +1,6 @@
 import React from "react";
-import { ProfileImage } from "@/app/(main-views)/users/[userId]/profile/components/profile-card/ProfileCard";
-import { PlateImage } from "@/app/(main-views)/users/[userId]/profile/components/profile-card/PlateImage";
+import { ProfileImage } from "@/app/(main-views)/users/[userid]/profile/components/profile-card/ProfileCard";
+import { PlateImage } from "@/app/(main-views)/users/[userid]/profile/components/profile-card/PlateImage";
 import { ShareButtonSection } from "@/app/ui/components/ShareButtonSection";
 
 type ProfileCardProps = {};

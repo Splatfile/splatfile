@@ -1,9 +1,9 @@
-import { SwitchInfoCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/SwitchInfoCard";
-import { TwitterInfoCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/TwitterInfoCard";
-import { GenderCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/GenderCard";
-import { SwitchCodeCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/SwitchCodeCard";
-import { PlaytimeCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/PlayTimeCards";
-import { IntroductionCard } from "@/app/(main-views)/users/[userId]/profile/components/account-information/IntroductionCard";
+import { SwitchInfoCard } from "@/app/(main-views)/users/[userid]/profile/components/account-information/SwitchInfoCard";
+import { TwitterInfoCard } from "@/app/(main-views)/users/[userid]/profile/components/account-information/TwitterInfoCard";
+import { GenderCard } from "@/app/(main-views)/users/[userid]/profile/components/account-information/GenderCard";
+import { SwitchCodeCard } from "@/app/(main-views)/users/[userid]/profile/components/account-information/SwitchCodeCard";
+import { PlaytimeCard } from "@/app/(main-views)/users/[userid]/profile/components/account-information/PlayTimeCards";
+import { IntroductionCard } from "@/app/(main-views)/users/[userid]/profile/components/account-information/IntroductionCard";
 
 export function AccountCard() {
   return (

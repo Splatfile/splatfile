@@ -22,9 +22,9 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
 
   const resentUsers = RecentUserObject.array().safeParse(data);
 
-  if (!resentUsers.success)
+  if (!resentUsers.success) {
     return "An error has occurred: " + resentUsers.error.message;
-
+  }
   const users = resentUsers.data;
   console.log("users", users);
 
@@ -40,11 +40,11 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
       <ul className={"flex flex-col gap-0.5 divide-y divide-gray-800"}>
         {users.map((user: any) => (
           <li
-            key={user.id}
+            key={user.userId}
             className={"flex items-center justify-between px-1 py-2"}
           >
             <Link
-              href={`/users/${user.id}/profile`}
+              href={`/users/${user.userId}/profile`}
               className={`text-blue-600 hover:text-blue-400 hover:underline`}
             >
               {user.name}

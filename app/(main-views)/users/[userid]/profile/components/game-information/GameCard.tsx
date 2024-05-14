@@ -1,10 +1,10 @@
 "use client";
 
-import { GameCardCommon } from "@/app/(main-views)/users/[userId]/profile/components/game-information/GameCardCommon";
-import { GameCardXMatch } from "@/app/(main-views)/users/[userId]/profile/components/game-information/GameCardXMatch";
-import { GameCardSalmonRun } from "@/app/(main-views)/users/[userId]/profile/components/game-information/GameCardSalmonRun";
-import { GameCardWeapons } from "@/app/(main-views)/users/[userId]/profile/components/game-information/GameCardWeapons";
-import { GameCardPlayStyle } from "@/app/(main-views)/users/[userId]/profile/components/game-information/GameCardPlayStyle";
+import { GameCardCommon } from "@/app/(main-views)/users/[userid]/profile/components/game-information/GameCardCommon";
+import { GameCardXMatch } from "@/app/(main-views)/users/[userid]/profile/components/game-information/GameCardXMatch";
+import { GameCardSalmonRun } from "@/app/(main-views)/users/[userid]/profile/components/game-information/GameCardSalmonRun";
+import { GameCardWeapons } from "@/app/(main-views)/users/[userid]/profile/components/game-information/GameCardWeapons";
+import { GameCardPlayStyle } from "@/app/(main-views)/users/[userid]/profile/components/game-information/GameCardPlayStyle";
 
 export function GameCard() {
   return (

@@ -27,10 +27,17 @@ export function UserSearchBox(props: UserSearchBoxProps) {
         type="text"
         value={query}
         name={"q"}
+        onKeyDown={(e) => {
+          // Enter
+          if (e.key === "Enter") {
+            onSearch(query);
+          }
+        }}
         onChange={(e) => setQuery(e.target.value)}
       />
 
       <button
+        type={"submit"}
         className={"rounded-md border border-gray-400"}
         onClick={() => onSearch(query)}
       >
