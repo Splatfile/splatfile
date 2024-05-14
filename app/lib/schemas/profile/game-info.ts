@@ -160,15 +160,6 @@ export const GameInfoObject = z.object({
     )
     .optional(),
 });
-export const isGameInfo = (
-  data: unknown,
-): data is z.infer<typeof GameInfoObject> => {
-  const result = GameInfoObject.safeParse(data);
-  if (!result.success) {
-    console.error(result.error);
-  }
-  return result.success;
-};
 export const isKeyOfXmatch = (
   key: string,
 ): key is keyof typeof GameCardXMatch =>

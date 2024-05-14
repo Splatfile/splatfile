@@ -3,11 +3,11 @@ import { PuppeteerCrawler } from "crawlee";
 
 await Actor.init();
 
-type Input = {
+type ActorInput = {
   url: string;
 };
 
-const input = await Actor.getInput<Input>();
+const input = await Actor.getInput<ActorInput>();
 
 const crawler = new PuppeteerCrawler({
   async requestHandler({ page }) {
@@ -21,9 +21,7 @@ const crawler = new PuppeteerCrawler({
 
 if (!!input) {
   // Run the crawler
-  await crawler.run([
-    { url: input.url },
-  ]);
+  await crawler.run([{ url: input.url }]);
 }
 
 await Actor.exit();

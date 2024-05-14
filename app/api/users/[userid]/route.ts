@@ -28,19 +28,15 @@ import {
 import { chunkArrayInGroups } from "@/app/lib/utils/array";
 import {
   GameInfoObject,
-  isGameInfo,
   salmonRunRanksKo,
 } from "@/app/lib/schemas/profile/game-info";
 import QRCode from "qrcode";
-import {
-  CanvasInfoObject,
-  isUserInfo,
-  UserInfoObject,
-} from "@/app/lib/schemas/profile";
+import { CanvasInfoObject, UserInfoObject } from "@/app/lib/schemas/profile";
 import { renderServerPlate } from "@/app/lib/utils/server-render-plate";
 import { z } from "zod";
 import { baseUrl } from "@/app/plate/lib/const";
 import { SplatfileAdmin } from "@/app/lib/server/splatfile-server";
+import { isGameInfo, isUserInfo } from "@/app/lib/types/type-checker";
 
 export const dynamic = "force-dynamic";
 
@@ -67,9 +63,6 @@ export async function POST(
 
     const profile = await admin.getProfile(params.userid);
 
-    console.log("profile: ", profile);
-    console.log("profile.canvas_info: ", typeof profile.canvas_info);
-    console.log("profile.plate_info: ", typeof profile.plate_info);
     const parsed = CanvasInfoObject.safeParse(profile.canvas_info);
     if (!parsed.success) {
       return new Response("Canvas Info is not valid" + parsed.error, {
