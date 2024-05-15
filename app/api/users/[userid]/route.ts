@@ -67,9 +67,6 @@ export async function POST(
 
     const profile = await admin.getProfile(params.userid);
 
-    console.log("profile: ", profile);
-    console.log("profile.canvas_info: ", typeof profile.canvas_info);
-    console.log("profile.plate_info: ", typeof profile.plate_info);
     const parsed = CanvasInfoObject.safeParse(profile.canvas_info);
     if (!parsed.success) {
       return new Response("Canvas Info is not valid" + parsed.error, {
