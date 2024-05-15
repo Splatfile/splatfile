@@ -32,8 +32,8 @@ type ProfileStore = {
   set: (state: Partial<ProfileState>) => void;
 } & ProfileState;
 
-const useProfileStore = createWithEqualityFn<ProfileStore>(
-  (set, get) => ({
+const initState = (): ProfileState => {
+  return {
     user: {
       twitterInfo: {
         name: "",
@@ -62,6 +62,12 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
         dropIn: false,
       },
     },
+  };
+};
+
+const useProfileStore = createWithEqualityFn<ProfileStore>(
+  (set, get) => ({
+    ...initState(),
     set: (state: Partial<ProfileState>) => {
       set({ ...get(), ...state });
     },
@@ -247,6 +253,8 @@ export const useDebounceEdit = (userId: string, isMine: boolean) => {
   );
 };
 
+const initStateJson = JSON.stringify(initState());
+
 export const subscribeEdit = (
   userId: string,
   timeoutIdRef: React.MutableRefObject<
@@ -259,10 +267,6 @@ export const subscribeEdit = (
   return useProfileStore.subscribe((state, prevState) => {
     if (!prevState) return;
 
-    const currJson = JSON.stringify(state);
-    const prevJson = JSON.stringify(prevState);
-
-    if (currJson === prevJson) return;
     setLoading(true);
     clearTimeout(timeoutIdRef.current);
 
@@ -272,6 +276,16 @@ export const subscribeEdit = (
         setLoading(false);
         return;
       }
+
+      const currJson = JSON.stringify(state);
+      const prevJson = JSON.stringify(prevState);
+
+      if (!checkValidState(prevJson, currJson)) {
+        setLoading(false);
+        return;
+      }
+
+      console.log("updateProfile");
       await client.updateProfile(
         {
           user_info: state.user,
@@ -282,6 +296,14 @@ export const subscribeEdit = (
       setLoading(false);
     }, 3 * 1000);
   });
+};
+
+const checkValidState = (prevStateJson: string, currStateJson: string) => {
+  return (
+    currStateJson !== prevStateJson &&
+    currStateJson !== initStateJson &&
+    prevStateJson !== initStateJson
+  );
 };
 
 type EditStore = {
