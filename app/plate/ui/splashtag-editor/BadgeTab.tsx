@@ -5,6 +5,7 @@ import lang from "../../lang.json";
 import { setBadges, useBadges } from "../../lib/store/use-tag-store";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 import { baseUrl } from "../../lib/const";
+import Image from "next/image";
 
 const defineName = (name: string) => {
   const hashIndex = name.indexOf("#");
@@ -186,7 +187,7 @@ const BadgeItem = (props: BadgeItemProps) => {
                   badges.some((badge) => badge === b),
               })}
             >
-              <img
+              <Image
                 alt={b}
                 key={b}
                 onClick={() => props.onClickBadge(b)}

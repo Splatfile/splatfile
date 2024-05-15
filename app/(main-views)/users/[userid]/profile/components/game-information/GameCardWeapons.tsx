@@ -10,6 +10,7 @@ import { PencilIcon } from "@heroicons/react/20/solid";
 import { DefaultModal } from "@/app/ui/components/DefaultModal";
 import clsx from "clsx";
 import { chunkArrayInGroups } from "@/app/lib/utils/array";
+import Image from "next/image";
 
 type GameCardWeaponsProps = {};
 
@@ -67,7 +68,7 @@ export function WeaponRenderer({ weaponKey }: WeaponRendererProps) {
         weaponGearInfo?.[weaponKey]?.isActivated ? "opacity-100" : "opacity-65",
       )}
     >
-      <img src={"/ingames/weapons/mains/" + weaponKey + ".webp"} alt="" />
+      <Image src={"/ingames/weapons/mains/" + weaponKey + ".webp"} alt="" />
     </div>
   );
 }

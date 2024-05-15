@@ -3,7 +3,13 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { SplatPlateEditor } from "@/app/plate/ui/SplatPlateEditor";
 import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { clsx } from "clsx";
-import { Dialog, Transition } from "@headlessui/react";
+import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Transition,
+  TransitionChild,
+} from "@headlessui/react";
 import { loadFonts, renderPlate } from "@/app/plate/lib/render-plate";
 import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
 
@@ -104,9 +110,9 @@ export function PlateModal(props: PlateModalProps) {
   const { open, setOpen } = props;
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
-        <Transition.Child
+        <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
           enterFrom="opacity-0"
@@ -116,7 +122,7 @@ export function PlateModal(props: PlateModalProps) {
           leaveTo="opacity-0"
         >
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        </Transition.Child>
+        </TransitionChild>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex h-screen items-end justify-center text-center sm:items-center sm:p-0">
@@ -129,15 +135,15 @@ export function PlateModal(props: PlateModalProps) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="w-full transform overflow-hidden rounded-lg bg-gray-800 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-screen-lg sm:px-2">
+              <DialogPanel className="w-full transform overflow-hidden rounded-lg bg-gray-800 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-screen-lg sm:px-2">
                 <div className={""}>
                   <div className="mt-3 text-center sm:mt-5">
-                    <Dialog.Title
+                    <DialogTitle
                       as="h2"
                       className="mb-4 mt-8 text-xl font-semibold leading-6 text-white"
                     >
                       플레이트 꾸미기
-                    </Dialog.Title>
+                    </DialogTitle>
                     <SplatPlateEditor />
                     <button
                       type="button"
@@ -148,11 +154,11 @@ export function PlateModal(props: PlateModalProps) {
                     </button>
                   </div>
                 </div>
-              </Dialog.Panel>
+              </DialogPanel>
             </Transition.Child>
           </div>
         </div>
       </Dialog>
-    </Transition.Root>
+    </Transition>
   );
 }
