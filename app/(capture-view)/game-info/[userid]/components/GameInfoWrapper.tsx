@@ -1,5 +1,5 @@
-import { ProfileCard } from "@/app/(main-views)/users/[userId]/profile/components/ProfileCard";
-import { GameCard } from "@/app/(main-views)/users/[userId]/profile/components/game-information/GameCard";
+import { ProfileCard } from "@/app/(main-views)/users/[userid]/profile/components/ProfileCard";
+import { GameCard } from "@/app/(main-views)/users/[userid]/profile/components/game-information/GameCard";
 
 type GameInfoWrapperProps = {};
 

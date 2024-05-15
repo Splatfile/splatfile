@@ -1,8 +1,9 @@
 import { SplatfileAdmin } from "@/app/lib/server/splatfile-server";
 import { NextResponse } from "next/server";
 import { ROUTER } from "@/app/lib/splatfile-client";
-import { isUserInfo, UserInfoObject } from "@/app/lib/schemas/profile";
+import { UserInfoObject } from "@/app/lib/schemas/profile";
 import { Profile } from "@/app/lib/types/supabase-alias";
+import { isUserInfo } from "@/app/lib/types/type-checker";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 30;
@@ -13,12 +14,12 @@ export async function GET() {
     const users = await admin.getRecentUpdatedUsers();
     const responseUsers: RecentUsers =
       users
-        ?.map((profile) => ({
+        ?.map((profile: Profile) => ({
           userId: profile.user_id,
           name: extractUserName(profile),
           lastUpdated: profile.updated_at,
         }))
-        .filter((user) => user.name !== "") ?? [];
+        .filter((user: RecentUser) => user.name !== "") ?? [];
 
     return NextResponse.json(responseUsers);
   } catch (error) {
@@ -34,11 +35,13 @@ export async function GET() {
   }
 }
 
-type RecentUsers = {
+type RecentUser = {
   userId: string;
   name: string;
   lastUpdated: string;
-}[];
+};
+
+type RecentUsers = RecentUser[];
 
 const extractUserName = (profile: Profile) => {
   let name = "";

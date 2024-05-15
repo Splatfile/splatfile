@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
+import { UserSearchBox } from "@/app/ui/components/UserSearchBox";
 import useUser = Auth.useUser;
 
 export function Header() {
@@ -43,7 +44,9 @@ export function Header() {
           {/*</button>*/}
         </div>
         {/* 헤더 가운데 */}
-        <div className="hidden lg:flex lg:gap-x-12"></div>
+        <div className="hidden lg:flex lg:gap-x-12">
+          <UserSearchBox />
+        </div>
         {/* 헤더 오른쪽 */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <SignInButton />

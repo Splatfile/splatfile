@@ -17,15 +17,15 @@ import { z } from "zod";
 */
 
 export type TwitterInfo = {
-  name?: string;
-  id?: string;
+  name: string;
+  id: string;
 };
 
 export type SwitchInfo = {
-  name?: string;
-  inGameName?: string;
-  friendCode?: string;
-  friendLink?: string;
+  name: string;
+  inGameName: string;
+  friendCode: string;
+  friendLink: string;
 };
 
 export const PlayTimeObject = z
@@ -38,20 +38,16 @@ export const PlayTimeObject = z
 export const UserInfoObject = z.object({
   profileImageUrl: z.string().optional(),
   splatplateImageUrl: z.string().optional(),
-  twitterInfo: z
-    .object({
-      name: z.string().optional(),
-      id: z.string().optional(),
-    })
-    .optional(),
-  switchInfo: z
-    .object({
-      name: z.string().optional(),
-      inGameName: z.string().optional(),
-      friendCode: z.string().optional(),
-      friendLink: z.string().optional(),
-    })
-    .optional(),
+  twitterInfo: z.object({
+    name: z.string(),
+    id: z.string(),
+  }),
+  switchInfo: z.object({
+    name: z.string(),
+    inGameName: z.string(),
+    friendCode: z.string(),
+    friendLink: z.string().optional(),
+  }),
   salmonRunInfo: z
     .object({
       dent: z.number().int().min(0).max(999),
@@ -68,16 +64,6 @@ export const UserInfoObject = z.object({
   weekdayPlaytime: PlayTimeObject,
   weekendPlaytime: PlayTimeObject,
 });
-
-export const isUserInfo = (
-  data: unknown,
-): data is z.infer<typeof UserInfoObject> => {
-  const result = UserInfoObject.safeParse(data);
-  if (!result.success) {
-    throw result.error;
-  }
-  return result.success;
-};
 
 export const SUPPORT_LABEL_LANGUAGES = ["KRko", "JPja", "USen"] as const;
 export type LangCode = (typeof SUPPORT_LABEL_LANGUAGES)[number];

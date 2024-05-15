@@ -22,9 +22,9 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
 
   const resentUsers = RecentUserObject.array().safeParse(data);
 
-  if (!resentUsers.success)
+  if (!resentUsers.success) {
     return "An error has occurred: " + resentUsers.error.message;
-
+  }
   const users = resentUsers.data;
   console.log("users", users);
 
@@ -39,9 +39,12 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
       </h1>
       <ul className={"flex flex-col gap-0.5 divide-y divide-gray-800"}>
         {users.map((user: any) => (
-          <li key={user.id} className={"flex justify-between px-1 py-2"}>
+          <li
+            key={user.userId}
+            className={"flex items-center justify-between px-1 py-2"}
+          >
             <Link
-              href={`/users/${user.id}/profile`}
+              href={`/users/${user.userId}/profile`}
               className={`text-blue-600 hover:text-blue-400 hover:underline`}
             >
               {user.name}
@@ -64,7 +67,7 @@ export const RecentUpdatedUsersSkeleton = () => {
   return (
     <div
       className={
-        "flex w-full max-w-[28rem] flex-col justify-start gap-2 bg-gray-100 p-4 shadow"
+        "flex w-full max-w-[28rem] animate-slide-up flex-col justify-start gap-2 bg-gray-100 p-4 shadow"
       }
     >
       <h1 className={"w-full text-center text-xl text-gray-800"}>
@@ -74,7 +77,7 @@ export const RecentUpdatedUsersSkeleton = () => {
         {temp.map((i) => (
           <li key={i} className={"flex justify-between px-1 py-2"}>
             <div
-              className={`h-8 w-full animate-pulse rounded-md bg-gray-600 hover:text-blue-400 hover:underline`}
+              className={`h-8 w-full animate-pulse rounded-md bg-gray-600/50 hover:text-blue-400 hover:underline`}
             ></div>
           </li>
         ))}

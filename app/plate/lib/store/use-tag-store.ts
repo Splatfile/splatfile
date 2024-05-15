@@ -8,6 +8,8 @@ import { Profile } from "@/app/lib/types/supabase-alias";
 import { z } from "zod";
 import { useEffect } from "react";
 import { SplatfileClient } from "@/app/lib/splatfile-client";
+import { isPlateInfo } from "@/app/lib/types/type-checker";
+import { PlateInfoObject } from "@/app/plate/lib/types/plate-info";
 
 export type Gradients = [string, string, string, string];
 
@@ -62,44 +64,6 @@ export const initTagState: TagState = {
   isCustom: false,
   gradientDirection: "to bottom",
 };
-
-export const PlateInfoObject = z.object({
-  id: z.string(),
-  name: z.string(),
-  title: z.object({
-    first: z.number(),
-    last: z.number(),
-    string: z.string(),
-  }),
-  banner: z.string(),
-  badges: z.tuple([z.string(), z.string(), z.string()]),
-  color: z.string(),
-  bgColours: z.tuple([z.string(), z.string(), z.string(), z.string()]),
-  isCustom: z.boolean(),
-  isGradient: z.boolean(),
-  layers: z.number(),
-  gradientDirection: z.enum([
-    "to top",
-    "to bottom",
-    "to left",
-    "to right",
-    "to top left",
-    "to top right",
-    "to bottom left",
-    "to bottom right",
-    "to outside",
-  ]),
-});
-
-export function isPlateInfo(
-  obj: unknown,
-): obj is z.infer<typeof PlateInfoObject> {
-  const parsed = PlateInfoObject.safeParse(obj);
-  if (!parsed.success) {
-    throw parsed.error;
-  }
-  return parsed.success;
-}
 
 export const useTagStore = create<TagStore>((set) => ({
   ...initTagState,

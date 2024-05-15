@@ -1,6 +1,6 @@
-import { GameCard } from "@/app/(main-views)/users/[userId]/profile/components/game-information/GameCard";
-import { AccountCard } from "@/app/(main-views)/users/[userId]/profile/components/AccountCard";
-import { ProfileCard } from "@/app/(main-views)/users/[userId]/profile/components/ProfileCard";
+import { GameCard } from "@/app/(main-views)/users/[userid]/profile/components/game-information/GameCard";
+import { AccountCard } from "@/app/(main-views)/users/[userid]/profile/components/AccountCard";
+import { ProfileCard } from "@/app/(main-views)/users/[userid]/profile/components/ProfileCard";
 
 export function ProfileWrapper() {
   return (

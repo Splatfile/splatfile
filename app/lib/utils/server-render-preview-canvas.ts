@@ -144,7 +144,6 @@ export const getRegularLevelText = async (
   const imageWidth = defaultFontSize;
   const imageHeight = defaultFontSize;
 
-  console.info("Regular Image Url:", baseUrl + regularImageUrl);
   const levelImage = await loadImage(baseUrl + regularImageUrl);
 
   const imageX = prevText.x;
@@ -168,7 +167,6 @@ export const renderRankLevelImageAngGetText = async (
   const imageWidth = defaultFontSize;
   const imageHeight = defaultFontSize;
 
-  console.info("Rank Image Url:", baseUrl + rankImageUrl);
   const levelImage = await loadImage(baseUrl + rankImageUrl);
 
   const imageX = leftText.x + 56;
@@ -192,7 +190,6 @@ export const renderSalmonLevelImageAndGetText = async (
   const imageWidth = defaultFontSize;
   const imageHeight = defaultFontSize;
 
-  console.info("Salmon Image Url:", baseUrl + salmonImageUrl);
   const levelImage = await loadImage(baseUrl + salmonImageUrl);
 
   const imageX = leftText.x + 56;

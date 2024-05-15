@@ -1,5 +1,4 @@
 import {
-  isUserInfo,
   SwitchInfo,
   TwitterInfo,
   UserInfoObject,
@@ -7,7 +6,6 @@ import {
 import {
   AnarchyBattleRankGrade,
   GameInfoObject,
-  isGameInfo,
   PlayStyleEnumObject,
   PlayStyleKeysObject,
   RankRule,
@@ -19,10 +17,11 @@ import {
 } from "@/app/lib/schemas/profile/game-info";
 import { SplatfileClient } from "@/app/lib/splatfile-client";
 import { Profile } from "@/app/lib/types/supabase-alias";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { z } from "zod";
 import { shallow } from "zustand/shallow";
 import { createWithEqualityFn } from "zustand/traditional";
+import { isGameInfo, isUserInfo } from "@/app/lib/types/type-checker";
 
 type ProfileState = {
   user: z.infer<typeof UserInfoObject>;
@@ -36,10 +35,15 @@ type ProfileStore = {
 const useProfileStore = createWithEqualityFn<ProfileStore>(
   (set, get) => ({
     user: {
-      nickname: "",
       twitterInfo: {
         name: "",
         id: "",
+      },
+      switchInfo: {
+        name: "",
+        inGameName: "",
+        friendCode: "",
+        friendLink: "",
       },
     },
     game: {
@@ -91,7 +95,7 @@ export const useSwitchInfo = () =>
 
 export const useGameStore = () => useProfileStore((state) => state.game);
 
-const setUserInfo = (userInfo: z.infer<typeof UserInfoObject>) => {
+const setUserInfo = (userInfo: Partial<z.infer<typeof UserInfoObject>>) => {
   useProfileStore.setState((state) => ({
     ...state,
     user: { ...state.user, ...userInfo },
@@ -233,14 +237,21 @@ export const usePlaytime = (timeType: "weekdayPlaytime" | "weekendPlaytime") =>
 
 // State가 변경될 때마다, 2초 뒤에 supabase에 저장하는 로직을 실행합니다.
 export const useDebounceEdit = (userId: string, isMine: boolean) => {
+  const timeoutIdRef: React.MutableRefObject<
+    NodeJS.Timeout | string | number | undefined
+  > = useRef<NodeJS.Timeout | string | number | undefined>();
   useEffect(
-    () => (isMine ? subscribeEdit(userId) : undefined),
+    () => (isMine ? subscribeEdit(userId, timeoutIdRef) : undefined),
     [userId, isMine],
   );
 };
 
-export const subscribeEdit = (userId: string) => {
-  let timeoutId: NodeJS.Timeout | string | number | undefined;
+export const subscribeEdit = (
+  userId: string,
+  timeoutIdRef: React.MutableRefObject<
+    NodeJS.Timeout | string | number | undefined
+  >,
+) => {
   const client = new SplatfileClient("CLIENT_COMPONENT");
 
   // subscribe은 unsubscribe를 return 하여, useEffect의 cleanup 함수로 사용할 수 있습니다.
@@ -252,9 +263,9 @@ export const subscribeEdit = (userId: string) => {
 
     if (currJson === prevJson) return;
     setLoading(true);
-    clearTimeout(timeoutId);
+    clearTimeout(timeoutIdRef.current);
 
-    timeoutId = setTimeout(async () => {
+    timeoutIdRef.current = setTimeout(async () => {
       const user = await client.supabase.auth.getUser();
       if (userId !== user.data.user?.id) {
         setLoading(false);
@@ -268,7 +279,7 @@ export const subscribeEdit = (userId: string) => {
         userId,
       );
       setLoading(false);
-    }, 2 * 1000);
+    }, 3 * 1000);
   });
 };
 

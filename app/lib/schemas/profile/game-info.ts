@@ -5,7 +5,7 @@ import {
   subsCodes,
 } from "@/app/lib/constants/weapons";
 import { gearPowerCodes } from "@/app/lib/constants/weapons/etc";
-import { GameCardXMatch } from "@/app/(main-views)/users/[userId]/profile/components/game-information/GameCardXMatch";
+import { GameCardXMatch } from "@/app/(main-views)/users/[userid]/profile/components/game-information/GameCardXMatch";
 import { isMatching, P } from "ts-pattern";
 import { z } from "zod";
 
@@ -160,15 +160,6 @@ export const GameInfoObject = z.object({
     )
     .optional(),
 });
-export const isGameInfo = (
-  data: unknown,
-): data is z.infer<typeof GameInfoObject> => {
-  const result = GameInfoObject.safeParse(data);
-  if (!result.success) {
-    console.error(result.error);
-  }
-  return result.success;
-};
 export const isKeyOfXmatch = (
   key: string,
 ): key is keyof typeof GameCardXMatch =>

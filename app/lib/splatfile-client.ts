@@ -60,6 +60,11 @@ const initUserInfo: z.infer<typeof UserInfoObject> = {
     name: "",
     id: "",
   },
+  switchInfo: {
+    name: "",
+    inGameName: "",
+    friendCode: "",
+  },
 };
 
 export const ROUTER = "ROUTER" as const;
@@ -171,20 +176,6 @@ export class SplatfileClient {
     if (!data || error) {
       console.error("Profile not found", userId, data, error);
       notFound();
-    }
-
-    return data;
-  };
-
-  updateProfileByAdmin = async (profile: ProfileUpdate, userId: string) => {
-    const { data, error } = await this._supabase
-      .from("profiles")
-      .update(profile)
-      .eq("user_id", userId)
-      .single();
-
-    if (error) {
-      throw error;
     }
 
     return data;

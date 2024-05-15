@@ -4,13 +4,13 @@ import {
   SplatfileServer,
 } from "@/app/lib/server/splatfile-server";
 import { unstable_noStore } from "next/cache";
-import { StoreSetting } from "@/app/(main-views)/users/[userId]/profile/components/StoreSetting";
-import { isUserInfo } from "@/app/lib/schemas/profile";
-import { ProfileCanvas } from "@/app/(capture-view)/preview/[userId]/components/ProfileCanvas";
+import { StoreSetting } from "@/app/(main-views)/users/[userid]/profile/components/StoreSetting";
+import { ProfileCanvas } from "@/app/(capture-view)/preview/[userid]/components/ProfileCanvas";
+import { isUserInfo } from "@/app/lib/types/type-checker";
 
 type PageProps = {
   params: {
-    userId: string;
+    userid: string;
   };
 };
 
@@ -19,7 +19,7 @@ export const dynamic = "force-dynamic";
 
 export const generateMetadata = async (props: PageProps) => {
   const admin = new SplatfileAdmin(SERVER_COMPONENT);
-  const profile = await admin.getProfile(props.params.userId);
+  const profile = await admin.getProfile(props.params.userid);
 
   const userInfo = profile.user_info;
 
@@ -44,13 +44,13 @@ export default async function ProfilePage(props: PageProps) {
   const client = new SplatfileServer(SERVER_COMPONENT);
   const user = await client.supabase.auth.getUser();
 
-  if (user.data.user && user.data.user?.id === props.params.userId) {
+  if (user.data.user && user.data.user?.id === props.params.userid) {
     const profile = await client.createOrGetMyProfile();
     return (
       <>
         <StoreSetting
           profile={profile}
-          userId={props.params.userId}
+          userId={props.params.userid}
           isMine={true}
         />
         <ProfileCanvas />
@@ -59,13 +59,13 @@ export default async function ProfilePage(props: PageProps) {
   }
 
   const admin = new SplatfileAdmin(SERVER_COMPONENT);
-  const profile = await admin.getProfile(props.params.userId);
+  const profile = await admin.getProfile(props.params.userid);
 
   return (
     <>
       <StoreSetting
         profile={profile}
-        userId={props.params.userId}
+        userId={props.params.userid}
         isMine={true}
       />
       <ProfileCanvas />

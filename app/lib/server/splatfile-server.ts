@@ -6,6 +6,9 @@ import { cookies } from "next/headers";
 
 import { ContextType, SplatfileClient } from "@/app/lib/splatfile-client";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  ProfileUpdate,
+} from "@/app/lib/types/supabase-alias";
 import { createClient } from "@supabase/supabase-js";
 import { v1 as uuidVer1 } from "uuid";
 
@@ -117,6 +120,37 @@ export class SplatfileAdmin extends SplatfileServer {
       .select("*")
       .order("updated_at", { ascending: false })
       .limit(10);
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  };
+
+  searchProfiles = async (query: string) => {
+    const { data, error } = await this.supabase
+      .from("profiles")
+      .select("*")
+      .or(
+        `user_info->switchInfo->>name.ilike.%${query}%,user_info->switchInfo->>inGameName.ilike.%${query}%,user_info->twitterInfo->>id.ilike.%${query}%,user_info->twitterInfo->>name.ilike.%${query}%,plate_info->>name.ilike.%${query}%,user_info->switchInfo->>friendCode.ilike.${query}`,
+      )
+      .limit(20);
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    return data;
+  };
+
+  updateProfileByAdmin = async (profile: ProfileUpdate, userId: string) => {
+    const { data, error } = await this._supabase
+      .from("profiles")
+      .update(profile)
+      .eq("user_id", userId)
+      .single();
 
     if (error) {
       throw error;

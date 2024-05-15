@@ -1,4 +1,4 @@
-import { AccountCard } from "@/app/(main-views)/users/[userId]/profile/components/AccountCard";
+import { AccountCard } from "@/app/(main-views)/users/[userid]/profile/components/AccountCard";
 
 type UserInfoWrapperProps = {};
 
