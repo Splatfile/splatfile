@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import {
   setPlayStyle,
+  setPlayStyleDropIn,
   setRuleFavor,
   usePlayStyle,
   useRuleFavor,
@@ -21,6 +22,7 @@ import {
   ruleFavors,
 } from "@/app/lib/schemas/profile/game-info";
 import { z } from "zod";
+import { Checkbox } from "@headlessui/react";
 
 type GameCardPlayStyleProps = {};
 
@@ -62,6 +64,12 @@ function EditPlayCard() {
           <div>
             <p className={"text-center text-lg"}>레귤러</p>
             <EditPlayStyleItem playKey={"regular"} />
+          </div>
+          <div>
+            <p className={"text-center text-lg"}>난입</p>
+            <div className={" w-full justify-center"}>
+              <EditDropInItem />
+            </div>
           </div>
         </div>
       </div>
@@ -116,6 +124,12 @@ function ViewPlayStyleCard() {
             <h3 className={"text-center text-lg text-neutral-800"}>레귤러</h3>
             <PlayStyleItem playKey={"regular"} />
           </div>
+          <div className={"flex flex-col items-center justify-center"}>
+            <h3 className={"text-center text-lg text-neutral-800"}>난입</h3>
+            <div className={"flex justify-center"}>
+              <p>{getDropIn(usePlayStyle()?.dropIn)}</p>
+            </div>
+          </div>
         </div>
       </div>
       <div>
@@ -160,6 +174,38 @@ function EditPlayStyleItem({ playKey }: PlayStyleItemProps) {
         </option>
       ))}
     </select>
+  );
+}
+
+function EditDropInItem() {
+  const playStyle = usePlayStyle();
+  const [enabled, setEnabled] = useState(playStyle?.dropIn);
+
+  const checkDropIn = (e: boolean) => {
+    setPlayStyleDropIn(e);
+    setEnabled(e);
+  };
+
+  return (
+    <Checkbox
+      checked={enabled}
+      onChange={checkDropIn}
+      className="group mx-auto mt-1 block size-5 rounded border bg-white data-[checked]:bg-blue-500"
+    >
+      {/* Checkmark icon */}
+      <svg
+        className="stroke-white opacity-0 group-data-[checked]:opacity-100"
+        viewBox="0 0 14 14"
+        fill="none"
+      >
+        <path
+          d="M3 8L6 11L11 3.5"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </Checkbox>
   );
 }
 
@@ -238,6 +284,10 @@ const getRuleFavorEmoji = (favor: z.infer<typeof RuleFavorEnum>) => {
           : favor === "hate"
             ? "⚡"
             : "☀️";
+};
+
+const getDropIn = (dropIn?: boolean) => {
+  return dropIn ? "환영" : "X";
 };
 
 const getPlayStyle = (style: z.infer<typeof PlayStyleEnumObject>) => {

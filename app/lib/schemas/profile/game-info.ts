@@ -99,10 +99,13 @@ export const PlayStyleKeysObject = z.enum(playStyleKeys);
 export const playStyleEnum = [NEWBIE, GACHI, CASUAL] as const;
 export const PlayStyleEnumObject = z.enum(playStyleEnum).optional();
 
+export const DropInObject = z.boolean().optional();
+
 export const PlayStyleObject = z
   .object({
     open: PlayStyleEnumObject,
     regular: PlayStyleEnumObject,
+    dropIn: DropInObject,
   })
   .optional();
 
