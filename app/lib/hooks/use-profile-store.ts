@@ -59,6 +59,7 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
       playStyle: {
         open: "Newbie",
         regular: "Newbie",
+        dropIn: false,
       },
     },
     set: (state: Partial<ProfileState>) => {
@@ -386,6 +387,15 @@ export const setPlayStyle = (
     playStyle: {
       ...useProfileStore.getState().game.playStyle,
       [key]: value,
+    },
+  });
+};
+
+export const setPlayStyleDropIn = (value: boolean) => {
+  setGameInfo({
+    playStyle: {
+      ...useProfileStore.getState().game.playStyle,
+      dropIn: value,
     },
   });
 };
