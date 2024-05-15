@@ -4,7 +4,6 @@ import { clsx } from "clsx";
 import lang from "../../lang.json";
 import { setBadges, useBadges } from "../../lib/store/use-tag-store";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
-import { baseUrl } from "../../lib/const";
 import Image from "next/image";
 
 const defineName = (name: string) => {
@@ -188,12 +187,12 @@ const BadgeItem = (props: BadgeItemProps) => {
               })}
             >
               <Image
+                width={128}
+                height={128}
                 alt={b}
                 key={b}
                 onClick={() => props.onClickBadge(b)}
-                src={`${baseUrl}/assets/${
-                  isCustom ? "custom/" : ""
-                }badges/${b}`}
+                src={`/assets/${isCustom ? "custom/" : ""}badges/${b}`}
                 draggable="false"
               />
             </div>

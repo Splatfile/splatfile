@@ -5,15 +5,13 @@ import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
 import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { LoadingLogo } from "@/app/ui/components/LoadingLogo";
 import { useRouter } from "next/navigation";
-import { Dialog, DialogPanel } from "@headlessui/react";
+import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import { UserSearchBox } from "@/app/ui/components/UserSearchBox";
 import useUser = Auth.useUser;
 
-type HeaderProps = { q?: string };
-
-export function Header(props: HeaderProps) {
+export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const { isLoading } = useEditStore();
@@ -62,7 +60,7 @@ export function Header(props: HeaderProps) {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-10" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
           <div className="flex items-center justify-between">
             <button
               type="button"
@@ -86,7 +84,7 @@ export function Header(props: HeaderProps) {
               </div>
             </div>
           </div>
-        </DialogPanel>
+        </Dialog.Panel>
       </Dialog>
     </header>
   );

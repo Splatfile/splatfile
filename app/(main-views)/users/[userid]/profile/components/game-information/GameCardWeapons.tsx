@@ -68,7 +68,12 @@ export function WeaponRenderer({ weaponKey }: WeaponRendererProps) {
         weaponGearInfo?.[weaponKey]?.isActivated ? "opacity-100" : "opacity-65",
       )}
     >
-      <Image src={"/ingames/weapons/mains/" + weaponKey + ".webp"} alt="" />
+      <Image
+        width={40}
+        height={40}
+        src={"/ingames/weapons/mains/" + weaponKey + ".webp"}
+        alt=""
+      />
     </div>
   );
 }
