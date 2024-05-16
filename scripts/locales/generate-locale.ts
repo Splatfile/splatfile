@@ -16,7 +16,7 @@ const results: {
 
 fs.createReadStream(__dirname + "/locales.csv")
   .pipe(csv())
-  .on("data", (data) => {
+  .on("data", (data: LangData) => {
     const key = data["lang"];
     console.log("data:", data);
     results["ko"][key] = data["ko"] || "";
@@ -27,13 +27,31 @@ fs.createReadStream(__dirname + "/locales.csv")
     saveLangFiles(results);
   });
 
-function saveLangFiles(data) {
+function saveLangFiles(data: { [key: string]: LangData }) {
   if (!fs.existsSync(__dirname + "/dist")) {
     fs.mkdirSync(__dirname + "/dist");
   }
   Object.keys(data).forEach((lang) => {
     const filePath = path.join(__dirname, `/dist/${lang}.json`);
-    fs.writeFile(filePath, JSON.stringify(data[lang], null, 2), (err) => {
+    const obj = data[lang];
+
+    const separatedObj: {
+      [key: string]: LangData;
+    } = {};
+
+    const sepratedKeys = Object.keys(obj);
+
+    sepratedKeys.forEach((key) => {
+      const [key1, ...key2] = key.split("_");
+      if (!separatedObj[key1]) {
+        separatedObj[key1] = {};
+      }
+      separatedObj[key1][key2.join("_")] = obj[key];
+    });
+
+    console.log("separatedObj:", separatedObj);
+
+    fs.writeFile(filePath, JSON.stringify(separatedObj, null, 2), (err) => {
       if (err) {
         console.error(`Error writing ${lang}.json:`, err);
       } else {
