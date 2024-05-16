@@ -22,7 +22,6 @@ export default function Page() {
             프로필 사진 설정 랭크 및 무기 정보 수정, 플레이트 꾸미기 등 다양한
             기능을 제공합니다. 만드신 프로필은 이미지로 저장하여 공유하실 수
             있습니다.
-            <br />
           </p>
 
           <div className="mt-10 flex animate-slide-up items-center gap-x-6">

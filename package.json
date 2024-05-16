@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "PORT=3101 next dev",
     "start:local": "PORT=3101 next start",
+    "gen:locale": "tsc scripts/locales/generate-locale.ts --outFile scripts/locales/generate-locale.js && node scripts/locales/generate-locale.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -47,6 +48,7 @@
     "@types/sanitize-html": "^2.11.0",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.0.1",
+    "csv-parser": "^3.0.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "file-loader": "^6.2.0",
