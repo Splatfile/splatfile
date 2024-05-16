@@ -1,7 +1,7 @@
 "use client";
-import { GameInfoLayer } from "@/app/(capture-view)/preview/[userId]/components/GameInfoLayer";
-import { PlateAndProfileImageLayer } from "@/app/(capture-view)/preview/[userId]/components/PlateAndProfileImageLayer";
-import { UserInfoLayer } from "@/app/(capture-view)/preview/[userId]/components/UserInfoLayer";
+import { GameInfoLayer } from "./GameInfoLayer";
+import { PlateAndProfileImageLayer } from "./PlateAndProfileImageLayer";
+import { UserInfoLayer } from "./UserInfoLayer";
 import {
   useGameStore,
   useProfileImageUrl,
