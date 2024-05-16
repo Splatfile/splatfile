@@ -1,46 +1,21 @@
 "use client";
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
-import { loadFonts, renderPlate } from "@/app/plate/lib/render-plate";
-import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
-import QRCode from "qrcode";
-import Konva from "konva";
-import useImage from "use-image";
-import { Stage, Layer, Image as KonvaImage, Text, Rect } from "react-konva";
-
-
+import { GameInfoLayer } from "./GameInfoLayer";
+import { PlateAndProfileImageLayer } from "./PlateAndProfileImageLayer";
+import { UserInfoLayer } from "./UserInfoLayer";
 import {
   useGameStore,
   useProfileImageUrl,
   useUserStore,
 } from "@/app/lib/hooks/use-profile-store";
-import { salmonRunRanksKo } from "@/app/lib/schemas/profile/game-info";
-import { chunkArrayInGroups } from "@/app/lib/utils/array";
 import {
   canvasHeight,
-  canvasWidth,
-  getFriendCodeText,
-  getLevelTitleText,
-  getNameText,
-  getPlaytimeTitleText,
-  getRegularLevelText,
-  getWeaponTitleText,
-  getWeekdayText,
-  getWeekendTimeText,
-  matchPointRect,
-  plateRect,
-  profileImageRect,
-  profileImageBorderRadius as profileImageCornerRadius,
-  renderMatchPoint,
-  renderRankLevelImageAngGetText,
-  renderSalmonLevelImageAndGetText,
-  renderText,
-  renderWeapons
+  canvasWidth
 } from "@/app/lib/utils/render-preview-canvas";
-import {
-  rankImageUrl,
-  regularImageUrl,
-  salmonImageUrl,
-} from "@/app/lib/constants/image-urls";
+import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
+import Konva from "konva";
+import { useEffect, useRef } from "react";
+import { Image as KonvaImage, Layer, Stage } from "react-konva";
+import useImage from "use-image";
 
 export function ProfileCanvas() {
   const tag = useTagStore();
@@ -76,144 +51,43 @@ export function ProfileCanvasRender({
   const plateRef = useRef<HTMLCanvasElement>(null);
   const downloadRef = useRef<HTMLAnchorElement>(null);
 
-  const BackgroundImage = () => {
+  const ProfileBackgroundImage = () => {
     const [image] = useImage("/background/body.png");
+    const konvaImageRef = useRef<Konva.Image>(null);
+
+    useEffect(() => {
+      // 필터를 적용하기 위해서는, 이미지에 변화가 있을 때마다 매번 캐시를 업데이트 해주어야 한다.
+      if (!konvaImageRef.current) return;
+      konvaImageRef.current.cache();
+    }, [image]);
 
     return (
       <KonvaImage
+        ref={konvaImageRef}
         image={image}
         x={0}
         y={0}
         width={canvasWidth}
         height={canvasHeight}
-        crop={image && {
-          x: 0,
-          y: 0,
-          width: image.width,
-          height: image.width * (canvasHeight / canvasWidth),
-        }}
-        filters={[Konva.Filters.Blur, Konva.Filters.Brighten]}
+        crop={
+          image && {
+            x: 0,
+            y: 0,
+            width: image.width,
+            height: image.width * (canvasHeight / canvasWidth),
+          }
+        }
+        filters={[
+          Konva.Filters.Blur,
+          Konva.Filters.Contrast,
+          Konva.Filters.Brighten,
+        ]}
         blurRadius={2}
+        contrast={0.7}
         brightness={-0.7}
       />
-    )
-  }
-
-  const ProfileImage = () => {
-    const [image] = useImage(profileImageUrl ?? "", "anonymous");
-
-    return (
-      <KonvaImage
-        image={image}
-        x={profileImageRect[0]}
-        y={profileImageRect[1]}
-        width={profileImageRect[2]}
-        height={profileImageRect[3]}
-        stroke="white"
-        strokeWidth={4}
-        cornerRadius={profileImageCornerRadius}
-      />
-    )
-  }
-
-
-  const Plate = () => {
-    const [image, setImage] = useState<HTMLImageElement | undefined>(undefined);
-
-    useEffect(() => {
-      const imageObj = new Image();
-      imageObj.crossOrigin = "anonymous";
-
-      const interval = setInterval(async () => {
-        if (!plateRef.current) return;
-        const loaded = await loadFonts();
-        await renderPlate(plateRef.current, tag);
-
-        imageObj.src = plateRef.current.toDataURL();
-
-        if (loaded) clearInterval(interval);
-      }, 3000);
-
-      imageObj.onload = () => {
-        setImage(imageObj);
-      }
-
-      return () => clearInterval(interval);
-    }, [tag]);
-
-    return (
-      <KonvaImage
-        image={image}
-        x={plateRect[0]}
-        y={plateRect[1]}
-        width={plateRect[2]}
-        height={plateRect[3]}
-        stroke={"white"}
-        strokeWidth={4}
-      />
-    )
+    );
   };
-
-  const UserInfo = () => {
-    const FONT_SIZE = 24; // tmp
-    const FONT_FAMILY = "Splat-text";
-    return (
-      <>
-        <Text
-          x={358}
-          y={50}
-          text={`이름: ${userStore.switchInfo?.name || userStore.twitterInfo?.name || ""}`}
-          fill="white"
-          fontFamily={FONT_FAMILY}
-          fontSize={FONT_SIZE} />
-        {
-          userStore.switchInfo?.friendCode &&
-          <Text
-            x={662}
-            y={50}
-            text={`친구코드: ${userStore.switchInfo.friendCode}`}
-            fill="white"
-            fontFamily={FONT_FAMILY}
-            fontSize={FONT_SIZE} />
-        }
-
-        <Rect
-          x={385}
-          y={335}
-          width={615}
-          height={150}
-          cornerRadius={12}
-          fill="#737373"
-          opacity={0.9} />
-
-        <Text
-          x={400}
-          y={353}
-          width={585}
-          height={120}
-          text={userStore.introductionMessage || ""}
-          fill="white"
-          fontFamily={FONT_FAMILY}
-          fontSize={20}
-        />
-      </>
-    )
-  };
-
-  const GameInfo = () => {
-    return (
-      <>
-        <Rect
-          x={358}
-          y={160}
-          width={620}
-          height={90}
-          cornerRadius={12}
-          fill="#737373"
-          opacity={0.9} />
-      </>
-    )
-  }
 
   const downloadCanvas = () => {
     const stage = stageRef.current;
@@ -222,7 +96,7 @@ export function ProfileCanvasRender({
 
     // Canvas 내용을 이미지로 변환
     // 다운로드 링크 설정
-
+    link.download = "profile.png";
     link.href = stage.toDataURL({ mimeType: "image/png" });
     link.click();
   };
@@ -230,22 +104,23 @@ export function ProfileCanvasRender({
   return (
     <div className={"p-12 text-white"}>
       <p>저장용 이미지</p>
-      <canvas ref={plateRef} width={700} height={200} className={"hidden"}></canvas>
-      <Stage
-        ref={stageRef}
-        width={canvasWidth}
-        height={canvasHeight}>
+      <canvas
+        ref={plateRef}
+        width={700}
+        height={200}
+        className={"hidden"}
+      ></canvas>
+      <Stage ref={stageRef} width={canvasWidth} height={canvasHeight}>
         <Layer>
-          <BackgroundImage />
+          <ProfileBackgroundImage />
         </Layer>
-        <Layer>
-          <ProfileImage />
-          <Plate />
-        </Layer>
-        <Layer>
-          <UserInfo />
-          <GameInfo />
-        </Layer>
+        <PlateAndProfileImageLayer
+          tempCanvasRef={plateRef}
+          tag={tag}
+          profileImageUrl={profileImageUrl}
+        />
+        <UserInfoLayer userStore={userStore} />
+        <GameInfoLayer gameStore={gameStore} />
       </Stage>
 
       <div>
@@ -260,4 +135,3 @@ export function ProfileCanvasRender({
     </div>
   );
 }
-
