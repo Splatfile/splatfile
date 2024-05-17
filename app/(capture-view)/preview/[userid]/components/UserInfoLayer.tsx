@@ -38,11 +38,15 @@ export function UserInfoLayer({ userStore }: UserInfoLayerProps) {
       <Text
         x={358}
         y={50}
+        width={280}
+        height={50}
         text={`이름: ${userStore.switchInfo?.name || userStore.twitterInfo?.name || ""
           } `}
         fill="white"
         fontFamily={FONT_FAMILY}
         fontSize={FONT_SIZE}
+        ellipsis={true}
+        wrap="none"
       />
       {userStore.switchInfo?.friendCode && (
         <Text
