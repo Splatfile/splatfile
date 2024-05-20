@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "PORT=3101 next dev",
     "start:local": "PORT=3101 next start",
-    "gen:locale": "tsc scripts/locales/generate-locale.ts --outFile scripts/locales/generate-locale.js && node scripts/locales/generate-locale.js",
+    "gen:locale": "tsc scripts/locales/generate-locale.ts --outFile scripts/locales/generate-locale.js && node scripts/locales/generate-locale.js && cp -r scripts/locales/dist/* app/lib/locales",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.523.0",
+    "@formatjs/intl-localematcher": "^0.5.4",
     "@headlessui/react": "^2.0.3",
     "@heroicons/react": "^2.1.1",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
@@ -25,8 +26,10 @@
     "crawlee": "^3.7.3",
     "date-fns": "^3.6.0",
     "konva": "^9.3.6",
+    "negotiator": "^0.6.3",
     "next": "^14.2.3",
     "qrcode": "^1.5.3",
+    "quicktype-core": "^23.0.162",
     "react": "^18",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
@@ -41,6 +44,7 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
+    "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18",

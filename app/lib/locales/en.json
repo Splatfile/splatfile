@@ -1,0 +1,30 @@
+{
+  "main": {
+    "first_section_title": "Manage Splatoon Profiles <br /> with SplatFile",
+    "first_section_description": "Easily manage your Splatoon profile with SplatFile! <br /> Set profile pictures, edit rank and weapon information, customize plates, and more. Save and share your created profiles as images.",
+    "first_section_button": "Get Started"
+  },
+  "ui": {
+    "recent_users_title": "Recent Updated Users"
+  },
+  "ingame": {
+    "ui_information": "In-game Information",
+    "ui_summary": "Summary",
+    "ui_weapon": "Used Weapons",
+    "ui_play_style": "Play Style",
+    "ui_game_type": "By Game Type",
+    "ui_rule_preference": "Rule Preference",
+    "ui_x_match": "X Match",
+    "ui_salmon_run": "Salmon Run",
+    "ui_account_information": "Account Information",
+    "ui_nickname": "Nickname",
+    "ui_gender": "Gender",
+    "ui_friend_code": "Friend Code",
+    "ui_weekday_playtime": "Weekday Playtime",
+    "ui_add_button": "Add",
+    "ui_friend_code_link": "Friend Code Link"
+  },
+  "": {
+    "": ""
+  }
+}

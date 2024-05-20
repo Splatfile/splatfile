@@ -1,0 +1,30 @@
+{
+  "main": {
+    "first_section_title": "スプラトゥーンプロファイル管理 <br /> スプラットファイル",
+    "first_section_description": "スプラットファイルで簡単にスプラトゥーンプロファイルを管理しましょう！ <br /> プロフィール画像の設定、ランクや武器情報の編集、プレートのカスタマイズなど、多彩な機能を提供します。作成したプロフィールは画像として保存して共有できます。",
+    "first_section_button": "始める"
+  },
+  "ui": {
+    "recent_users_title": "最近更新されたユーザー"
+  },
+  "ingame": {
+    "ui_information": "ゲーム内情報",
+    "ui_summary": "総合",
+    "ui_weapon": "使用武器",
+    "ui_play_style": "プレイスタイル",
+    "ui_game_type": "ゲームタイプ別",
+    "ui_rule_preference": "ルールごとの好み",
+    "ui_x_match": "Xマッチ",
+    "ui_salmon_run": "サーモンラン",
+    "ui_account_information": "アカウント情報",
+    "ui_nickname": "ニックネーム",
+    "ui_gender": "性別",
+    "ui_friend_code": "フレンドコード",
+    "ui_weekday_playtime": "平日のプレイ時間",
+    "ui_add_button": "追加",
+    "ui_friend_code_link": "フレンドコードリンク"
+  },
+  "": {
+    "": ""
+  }
+}

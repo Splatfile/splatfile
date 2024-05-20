@@ -8,7 +8,9 @@ import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
 
-type RecentUpdatedUsersProps = {};
+type RecentUpdatedUsersProps = {
+  // ui: typeof getDictionary()
+};
 
 export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
   const { isPending, error, data } = useQuery({
