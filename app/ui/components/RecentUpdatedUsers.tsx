@@ -7,18 +7,20 @@ import {
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
+import { UI } from "@/app/lib/locales/locale";
 
 type RecentUpdatedUsersProps = {
-  // ui: typeof getDictionary()
+  ui: UI;
 };
 
 export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
+  const { ui } = props;
   const { isPending, error, data } = useQuery({
     queryKey: [getRecentUpdatedUsers()],
     queryFn: () => fetch(getRecentUpdatedUsers()).then((res) => res.json()),
   });
 
-  if (isPending) return <RecentUpdatedUsersSkeleton />;
+  if (isPending) return <RecentUpdatedUsersSkeleton ui={ui} />;
 
   if (error) return "An error has occurred: " + error.message;
 
@@ -37,7 +39,7 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
       }
     >
       <h1 className={"w-full text-center text-xl text-gray-800"}>
-        최근 갱신 유저
+        {ui.recent_users_title}
       </h1>
       <ul className={"flex flex-col gap-0.5 divide-y divide-gray-800"}>
         {users.map((user: any) => (
@@ -64,7 +66,8 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
   );
 }
 
-export const RecentUpdatedUsersSkeleton = () => {
+export const RecentUpdatedUsersSkeleton = (props: RecentUpdatedUsersProps) => {
+  const { ui } = props;
   const temp = Array.from({ length: 5 }, (_, i) => i);
   return (
     <div
@@ -73,7 +76,7 @@ export const RecentUpdatedUsersSkeleton = () => {
       }
     >
       <h1 className={"w-full text-center text-xl text-gray-800"}>
-        최근 갱신 유저
+        {ui.recent_users_title}
       </h1>
       <ul className={"flex flex-col gap-0.5 divide-y divide-gray-800"}>
         {temp.map((i) => (

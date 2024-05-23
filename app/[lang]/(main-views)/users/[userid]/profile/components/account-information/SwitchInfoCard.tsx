@@ -12,13 +12,13 @@ import { clsx } from "clsx";
 import { NintendoSwitchLogo } from "@/app/ui/icons/NintendoSwitchLogo";
 import { EditableText } from "@/app/ui/components/EditableText";
 import { SquidLogo } from "@/app/ui/icons/SquidLogo";
-import { Ingame } from "@/app/lib/locales/locale";
+import { Account } from "@/app/lib/locales/locale";
 
 type SwitchInfoCardProps = {
-  ingame: Ingame;
+  account: Account;
 };
 export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
-  const { ingame } = props;
+  const { account } = props;
   const switchInfo = useSwitchInfo();
   const { isMine } = useEditStore();
 
@@ -37,7 +37,7 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
 
   return (
     <EditableInlineTextCard
-      title={ingame.ui_nickname}
+      title={account.ui_nickname}
       edit={edit}
       setEdit={setEdit}
     >
@@ -54,7 +54,7 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
             ref={nameRef}
             edit={edit}
             value={switchInfo?.name ?? ""}
-            placeholder={ingame.ui_}
+            placeholder={account.ui_switch_nickname}
             inputClassName={
               "w-full underline underline-offset-2 outline-none max-w-full"
             }

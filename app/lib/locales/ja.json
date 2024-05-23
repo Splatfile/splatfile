@@ -17,14 +17,30 @@
     "ui_x_match": "Xマッチ",
     "ui_salmon_run": "サーモンラン",
     "ui_account_information": "アカウント情報",
-    "ui_nickname": "ニックネーム",
-    "ui_gender": "性別",
-    "ui_friend_code": "フレンドコード",
-    "ui_weekday_playtime": "平日のプレイ時間",
-    "ui_add_button": "追加",
-    "ui_friend_code_link": "フレンドコードリンク"
+    "ui_open": "オープン",
+    "ui_regular": "レギュラー",
+    "ui_drop_ins": "乱入",
+    "ui_drop_ins_welcome": "歓迎"
   },
   "": {
     "": ""
+  },
+  "account": {
+    "ui_switch_nickname": "スイッチニックネーム",
+    "ui_twitter_nickname": "ツイッターニックネーム",
+    "ui_twitter_handle": "ツイッターニックネーム",
+    "ui_information": "ユーザー情報",
+    "ui_friend_code": "フレンドコード",
+    "ui_weekday_playtime": "平日のプレイ時間",
+    "ui_weekend_playtime": "週末のプレイ時間",
+    "ui_nickname": "ニックネーム",
+    "ui_gender": "性別",
+    "ui_gender_placeholder": "性別を入力",
+    "ui_add_button": "追加",
+    "ui_friend_code_link": "フレンドコードリンク"
+  },
+  "profile": {
+    "ui_image_upload_button": "",
+    "ui_update_plate_button": ""
   }
 }

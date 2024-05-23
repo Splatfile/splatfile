@@ -10,13 +10,13 @@ import {
   useSwitchInfo,
 } from "@/app/lib/hooks/use-profile-store";
 import { clsx } from "clsx";
-import { Ingame } from "@/app/lib/locales/locale";
+import { Account } from "@/app/lib/locales/locale";
 
 type SwitchCodeCardProps = {
-  ingame: Ingame;
+  account: Account;
 };
 export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
-  const { ingame } = props;
+  const { account } = props;
   const [edit, setEdit] = useState(false);
   const [qrCode, setQrCode] = useState<string>("");
   const switchInfo = useSwitchInfo();
@@ -48,7 +48,7 @@ export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
 
   return (
     <EditableInlineTextCard
-      title={ingame.ui_friend_code}
+      title={account.ui_friend_code}
       edit={edit}
       setEdit={setEdit}
     >
@@ -93,7 +93,7 @@ export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
         )}
         href={friendLink}
       >
-        {ingame.ui_add_button}
+        {account.ui_add_button}
       </a>
 
       {edit && (
@@ -105,7 +105,7 @@ export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
               "w-full max-w-full px-1 underline underline-offset-2",
               friendLink || "text-center",
             )}
-            placeholder={ingame.ui_friend_code_link}
+            placeholder={account.ui_friend_code_link}
             value={friendLink}
             onChange={(e) => {
               onChange("friendLink")(e.target.value);

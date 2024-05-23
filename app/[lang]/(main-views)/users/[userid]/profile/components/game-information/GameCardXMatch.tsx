@@ -9,10 +9,14 @@ import {
 } from "@/app/lib/hooks/use-profile-store";
 import { ChangeEvent, useRef, useState } from "react";
 import { isKeyOfXmatch, XMatchInfo } from "@/app/lib/schemas/profile/game-info";
+import { Ingame } from "@/app/lib/locales/locale";
 
-type GameCardXMatchProps = {};
+type GameCardXMatchProps = {
+  ingame: Ingame;
+};
 
 export function GameCardXMatch(props: GameCardXMatchProps) {
+  const { ingame } = props;
   const { xMatchInfo, anarchyBattleRank } = useGameStore();
   const { isMine } = useEditStore();
   const [edit, setEdit] = useState(false);
@@ -24,7 +28,11 @@ export function GameCardXMatch(props: GameCardXMatchProps) {
   }
 
   return (
-    <EditableInlineTextCard edit={edit} title={"X 매치"} setEdit={setEdit}>
+    <EditableInlineTextCard
+      edit={edit}
+      title={ingame.ui_x_match}
+      setEdit={setEdit}
+    >
       {edit ? (
         <XMatchCardEdit setEdit={setEdit} />
       ) : (

@@ -11,10 +11,14 @@ import { DefaultModal } from "@/app/ui/components/DefaultModal";
 import clsx from "clsx";
 import { chunkArrayInGroups } from "@/app/lib/utils/array";
 import Image from "next/image";
+import { Ingame } from "@/app/lib/locales/locale";
 
-type GameCardWeaponsProps = {};
+type GameCardWeaponsProps = {
+  ingame: Ingame;
+};
 
 export function GameCardWeapons(props: GameCardWeaponsProps) {
+  const { ingame } = props;
   const weaponGearInfo = useWeaponGearInfo();
   const filteredWeapons = chunkArrayInGroups(
     Object.keys(weaponGearInfo ?? {}).filter(
@@ -29,7 +33,7 @@ export function GameCardWeapons(props: GameCardWeaponsProps) {
     <InlineTextCard
       title={
         <div className={"flex items-center justify-center gap-2"}>
-          <p>사용 무기</p>
+          <p>{ingame.ui_weapon}</p>
           {isMine && (
             <button
               className={"h-4 w-4 text-neutral-500"}

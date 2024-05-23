@@ -8,16 +8,22 @@ import {
   useSalmonRunRank,
 } from "@/app/lib/hooks/use-profile-store";
 import {
-  SalmonRunMapPoints,
   isKeyOfSalmonRunMapPoints,
   salmonrun_legend,
+  SalmonRunMapPoints,
 } from "@/app/lib/schemas/profile/game-info";
 import { EditableNumber } from "@/app/ui/components/EditableText";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import Image from "next/image";
 import { useState } from "react";
+import { Ingame } from "@/app/lib/locales/locale";
 
-export function GameCardSalmonRun() {
+type GameCardSalmonRunProps = {
+  ingame: Ingame;
+};
+
+export function GameCardSalmonRun(props: GameCardSalmonRunProps) {
+  const { ingame } = props;
   const salmonRunRank = useSalmonRunRank();
   const mapPoints = useSalmonRunMapPoints();
   const [edit, setEdit] = useState(false);
@@ -28,7 +34,11 @@ export function GameCardSalmonRun() {
   if (!isMine && !mapPoints) return null;
 
   return (
-    <EditableInlineTextCard title={"연어런"} edit={edit} setEdit={setEdit}>
+    <EditableInlineTextCard
+      title={ingame.ui_salmon_run}
+      edit={edit}
+      setEdit={setEdit}
+    >
       <SalmonRunView edit={edit} mapPoints={mapPoints} />
     </EditableInlineTextCard>
   );

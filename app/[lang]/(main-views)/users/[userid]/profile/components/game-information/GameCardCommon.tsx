@@ -22,12 +22,22 @@ import {
   regularImageUrl,
   salmonImageUrl,
 } from "@/app/lib/constants/image-urls";
+import { Ingame } from "@/app/lib/locales/locale";
 
-export function GameCardCommon() {
+type GameCardCommonProps = {
+  ingame: Ingame;
+};
+
+export function GameCardCommon(props: GameCardCommonProps) {
+  const { ingame } = props;
   const [edit, setEdit] = useState(false);
 
   return (
-    <EditableInlineTextCard title={"종합"} edit={edit} setEdit={setEdit}>
+    <EditableInlineTextCard
+      title={ingame.ui_summary}
+      edit={edit}
+      setEdit={setEdit}
+    >
       <LevelText edit={edit} />
       <RankText edit={edit} />
       <SalmonText edit={edit} />

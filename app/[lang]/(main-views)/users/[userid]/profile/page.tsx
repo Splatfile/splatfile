@@ -10,8 +10,10 @@ import { DebounceEditing } from "@/app/[lang]/(main-views)/users/[userid]/profil
 import { baseUrl } from "@/app/plate/lib/const";
 import type { Metadata } from "next";
 import { UserInfoObject } from "@/app/lib/schemas/profile";
+import { getDictionary } from "@/app/lib/dictionaries";
+import { PageProps } from "@/app/lib/types/component-props";
 
-type PageProps = {
+type ProfilePage = PageProps & {
   params: {
     userid: string;
   };
@@ -20,7 +22,9 @@ type PageProps = {
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 export const dynamic = "force-dynamic";
 
-export const generateMetadata = async (props: PageProps): Promise<Metadata> => {
+export const generateMetadata = async (
+  props: ProfilePage,
+): Promise<Metadata> => {
   const imageUrl = `${baseUrl}/api/users/${props.params.userid}/profile/og`;
 
   const admin = new SplatfileAdmin(SERVER_COMPONENT);
@@ -47,11 +51,12 @@ export const generateMetadata = async (props: PageProps): Promise<Metadata> => {
   };
 };
 
-export default async function ProfilePage(props: PageProps) {
+export default async function ProfilePage(props: ProfilePage) {
   unstable_noStore();
 
   const client = new SplatfileServer(SERVER_COMPONENT);
   const user = await client.supabase.auth.getUser();
+  const dictionary = await getDictionary(props.params.lang);
 
   if (user.data.user && user.data.user?.id === props.params.userid) {
     const profile = await client.createOrGetMyProfile();
@@ -63,7 +68,10 @@ export default async function ProfilePage(props: PageProps) {
           userId={props.params.userid}
           isMine={true}
         />
-        <ProfileWrapper />
+        <ProfileWrapper
+          account={dictionary.account}
+          ingame={dictionary.ingame}
+        />
       </>
     );
   }
@@ -78,7 +86,7 @@ export default async function ProfilePage(props: PageProps) {
         userId={props.params.userid}
         isMine={true}
       />
-      <ProfileWrapper />
+      <ProfileWrapper account={dictionary.account} ingame={dictionary.ingame} />
     </>
   );
 }

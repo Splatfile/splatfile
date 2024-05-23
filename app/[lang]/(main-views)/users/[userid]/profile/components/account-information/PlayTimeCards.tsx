@@ -9,8 +9,10 @@ import {
 } from "@/app/lib/hooks/use-profile-store";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
+import { Account } from "@/app/lib/locales/locale";
 
 type PlayTimeCardProps = {
+  account: Account;
   timeType: "weekdayPlaytime" | "weekendPlaytime";
 };
 export const PlaytimeCard = (props: PlayTimeCardProps) => {

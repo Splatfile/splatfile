@@ -10,14 +10,14 @@ import { TwitterInfo } from "@/app/lib/schemas/profile";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { XLogo } from "@/app/ui/icons/XLogo";
 import { EditableText } from "@/app/ui/components/EditableText";
-import { Ingame } from "@/app/lib/locales/locale";
+import { Account } from "@/app/lib/locales/locale";
 
 type TwitterInfoCardProps = {
-  ingame: Ingame;
+  account: Account;
 };
 
 export const TwitterInfoCard = (props: TwitterInfoCardProps) => {
-  const { ingame } = props;
+  const { account } = props;
   const [edit, setEdit] = useState(false);
   const twitterInfo = useTwitterInfo();
   const { isMine } = useEditStore();
@@ -44,7 +44,7 @@ export const TwitterInfoCard = (props: TwitterInfoCardProps) => {
         ref={xNicknameRef}
         edit={edit}
         value={name ?? ""}
-        placeholder={"트위터 닉네임"}
+        placeholder={account.ui_twitter_nickname}
         textClassName={"text-center"}
         inputClassName={
           "w-full underline underline-offset-2 outline-none max-w-full"
@@ -64,7 +64,7 @@ export const TwitterInfoCard = (props: TwitterInfoCardProps) => {
             ref={handleRef}
             type="text"
             className={"w-full max-w-full underline underline-offset-2"}
-            placeholder={"트위터 핸들"}
+            placeholder={account.ui_twitter_handle}
             value={id}
             onChange={(e) => {
               onChange("id")(e.target.value);

@@ -23,25 +23,35 @@ import {
 } from "@/app/lib/schemas/profile/game-info";
 import { z } from "zod";
 import { Checkbox } from "@headlessui/react";
+import { Ingame } from "@/app/lib/locales/locale";
 
-type GameCardPlayStyleProps = {};
+type GameCardPlayStyleProps = {
+  ingame: Ingame;
+};
 
 export function GameCardPlayStyle(props: GameCardPlayStyleProps) {
+  const { ingame } = props;
   const [edit, setEdit] = useState(false);
 
   return (
     <EditableInlineTextCard
-      title={"플레이 스타일"}
+      title={ingame.ui_play_style}
       edit={edit}
       setEdit={setEdit}
       childrenClassName={"justify-center w-full"}
     >
-      {edit ? <EditPlayCard /> : <ViewPlayStyleCard />}
+      {edit ? (
+        <EditPlayCard ingame={ingame} />
+      ) : (
+        <ViewPlayStyleCard ingame={ingame} />
+      )}
     </EditableInlineTextCard>
   );
 }
 
-function EditPlayCard() {
+function EditPlayCard(props: GameCardPlayStyleProps) {
+  const { ingame } = props;
+
   return (
     <div
       className={
@@ -58,15 +68,15 @@ function EditPlayCard() {
           }
         >
           <div>
-            <p className={"text-center text-lg"}>오픈</p>
+            <p className={"text-center text-lg"}>{ingame.ui_open}</p>
             <EditPlayStyleItem playKey={"open"} />
           </div>
           <div>
-            <p className={"text-center text-lg"}>레귤러</p>
+            <p className={"text-center text-lg"}>{ingame.ui_regular}</p>
             <EditPlayStyleItem playKey={"regular"} />
           </div>
           <div>
-            <p className={"text-center text-lg"}>난입</p>
+            <p className={"text-center text-lg"}>{ingame.ui_drop_ins}</p>
             <div className={" w-full justify-center"}>
               <EditDropInItem />
             </div>
@@ -104,7 +114,8 @@ function EditPlayCard() {
   );
 }
 
-function ViewPlayStyleCard() {
+function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
+  const { ingame } = props;
   return (
     <div className={"flex w-full justify-center gap-6"}>
       <div>
@@ -117,15 +128,21 @@ function ViewPlayStyleCard() {
           }
         >
           <div className={"flex flex-col items-center justify-center"}>
-            <h3 className={"text-center text-lg text-neutral-800"}>오픈</h3>
+            <h3 className={"text-center text-lg text-neutral-800"}>
+              {ingame.ui_open}
+            </h3>
             <PlayStyleItem playKey={"open"} />
           </div>
           <div className={"flex flex-col items-center justify-center"}>
-            <h3 className={"text-center text-lg text-neutral-800"}>레귤러</h3>
+            <h3 className={"text-center text-lg text-neutral-800"}>
+              {ingame.ui_regular}
+            </h3>
             <PlayStyleItem playKey={"regular"} />
           </div>
           <div className={"flex flex-col items-center justify-center"}>
-            <h3 className={"text-center text-lg text-neutral-800"}>난입</h3>
+            <h3 className={"text-center text-lg text-neutral-800"}>
+              {ingame.ui_drop_ins}
+            </h3>
             <div className={"flex justify-center"}>
               <p>{getDropIn(usePlayStyle()?.dropIn)}</p>
             </div>
@@ -134,7 +151,7 @@ function ViewPlayStyleCard() {
       </div>
       <div>
         <h3 className={"mb-4 text-center font-semibold text-gray-600"}>
-          룰 별 선호도
+          {ingame.ui_rule_preference}
         </h3>
         <div
           className={
