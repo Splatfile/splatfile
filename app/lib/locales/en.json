@@ -13,6 +13,9 @@
     "ui_weapon": "Used Weapons",
     "ui_play_style": "Play Style",
     "ui_game_type": "By Game Type",
+    "ui_game_play_style_newbie": "Newbie",
+    "ui_game_play_style_casual": "Casual",
+    "ui_game_play_style_hardcore": "Hardcore",
     "ui_rule_preference": "Rule Preference",
     "ui_x_match": "X Match",
     "ui_salmon_run": "Salmon Run",
@@ -51,6 +54,12 @@
     "ui_share_button": "Share",
     "ui_plate_modal_title": "Customize Plate",
     "ui_plate_modal_confirm_button": "Confirm"
+  },
+  "header": {
+    "ui_my_profile": "My Profile",
+    "ui_login": "Login",
+    "ui_logout": "Logout",
+    "ui_user_search_placeholder": "User Search"
   },
   "": {
     "": ""

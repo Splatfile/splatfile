@@ -4,15 +4,34 @@ import { Auth } from "@supabase/auth-ui-react";
 import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
 import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { LoadingLogo } from "@/app/ui/components/LoadingLogo";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserSearchBox } from "@/app/ui/components/UserSearchBox";
+import { Header as HeaderLocale } from "@/app/lib/locales/locale";
+import { header as en } from "@/app/lib/locales/en.json";
+import { header as ko } from "@/app/lib/locales/ko.json";
+import { header as ja } from "@/app/lib/locales/ja.json";
 import useUser = Auth.useUser;
 
-export function Header() {
+type HeaderProps = {};
+
+export function Header(props: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [headerLocale, setHeaderLocale] = useState<HeaderLocale>(en);
+
+  const searchParams = useSearchParams();
+  const lang = searchParams.get("lang") ?? "en";
+  useEffect(() => {
+    if (lang === "ko") {
+      setHeaderLocale(ko);
+    } else if (lang === "ja") {
+      setHeaderLocale(ja);
+    } else {
+      setHeaderLocale(en);
+    }
+  }, [lang]);
 
   const { isLoading } = useEditStore();
 
@@ -45,11 +64,11 @@ export function Header() {
         </div>
         {/* 헤더 가운데 */}
         <div className="hidden lg:flex lg:gap-x-12">
-          <UserSearchBox />
+          <UserSearchBox header={headerLocale} />
         </div>
         {/* 헤더 오른쪽 */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <SignInButton />
+          <SignInButton header={headerLocale} />
         </div>
       </nav>
       {/*메뉴가 늘어날 시 사용*/}
@@ -79,7 +98,7 @@ export function Header() {
                   href={"/login"}
                   className="-mx-3 block cursor-pointer rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800 "
                 >
-                  {"로그인"}
+                  {headerLocale.ui_login}
                 </Link>
               </div>
             </div>
@@ -90,7 +109,11 @@ export function Header() {
   );
 }
 
-export const SignInButton = () => {
+type SignInButtonProps = {
+  header: HeaderLocale;
+};
+export const SignInButton = (props: SignInButtonProps) => {
+  const { header } = props;
   const { user } = useUser();
   const client = new SplatfileClient(CLIENT_COMPONENT);
   const router = useRouter();
@@ -104,7 +127,7 @@ export const SignInButton = () => {
           href={`/users/${user.id}/profile`}
           prefetch={false}
         >
-          내 프로필
+          {header.ui_my_profile}
         </Link>
         <button
           className={
@@ -115,18 +138,18 @@ export const SignInButton = () => {
             router.refresh();
           }}
         >
-          {"로그아웃"}
+          {header.ui_logout}
         </button>
       </>
     );
   }
   return (
     <Link
-      key={"로그인"}
+      key={header.ui_login}
       href={"/users/signin"}
       className="-mx-3 block cursor-pointer rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
     >
-      <span>{"로그인"}</span>
+      <span>{header.ui_login}</span>
     </Link>
   );
 };

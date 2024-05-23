@@ -60,7 +60,7 @@ function EditPlayCard(props: GameCardPlayStyleProps) {
     >
       <div>
         <h3 className={"p-2 text-center font-semibold text-gray-600"}>
-          게임 유형 별
+          {ingame.ui_game_type}
         </h3>
         <div
           className={
@@ -69,11 +69,11 @@ function EditPlayCard(props: GameCardPlayStyleProps) {
         >
           <div>
             <p className={"text-center text-lg"}>{ingame.ui_open}</p>
-            <EditPlayStyleItem playKey={"open"} />
+            <EditPlayStyleItem ingame={ingame} playKey={"open"} />
           </div>
           <div>
             <p className={"text-center text-lg"}>{ingame.ui_regular}</p>
-            <EditPlayStyleItem playKey={"regular"} />
+            <EditPlayStyleItem ingame={ingame} playKey={"regular"} />
           </div>
           <div>
             <p className={"text-center text-lg"}>{ingame.ui_drop_ins}</p>
@@ -120,7 +120,7 @@ function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
     <div className={"flex w-full justify-center gap-6"}>
       <div>
         <h3 className={"mb-4 text-center font-semibold text-gray-600"}>
-          게임 유형 별
+          {ingame.ui_game_type}
         </h3>
         <div
           className={
@@ -131,20 +131,20 @@ function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
             <h3 className={"text-center text-lg text-neutral-800"}>
               {ingame.ui_open}
             </h3>
-            <PlayStyleItem playKey={"open"} />
+            <PlayStyleItem playKey={"open"} ingame={ingame} />
           </div>
           <div className={"flex flex-col items-center justify-center"}>
             <h3 className={"text-center text-lg text-neutral-800"}>
               {ingame.ui_regular}
             </h3>
-            <PlayStyleItem playKey={"regular"} />
+            <PlayStyleItem playKey={"regular"} ingame={ingame} />
           </div>
           <div className={"flex flex-col items-center justify-center"}>
             <h3 className={"text-center text-lg text-neutral-800"}>
               {ingame.ui_drop_ins}
             </h3>
             <div className={"flex justify-center"}>
-              <p>{getDropIn(usePlayStyle()?.dropIn)}</p>
+              <p>{getDropIn(ingame, usePlayStyle()?.dropIn)}</p>
             </div>
           </div>
         </div>
@@ -169,10 +169,11 @@ function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
 }
 
 type PlayStyleItemProps = {
+  ingame: Ingame;
   playKey: z.infer<typeof PlayStyleKeysObject>;
 };
 
-function EditPlayStyleItem({ playKey }: PlayStyleItemProps) {
+function EditPlayStyleItem({ playKey, ingame }: PlayStyleItemProps) {
   const playStyle = usePlayStyle();
   return (
     <select
@@ -187,7 +188,7 @@ function EditPlayStyleItem({ playKey }: PlayStyleItemProps) {
     >
       {playStyleEnum.map((playKey) => (
         <option key={playKey} value={playKey}>
-          {getPlayStyle(playKey)}
+          {getPlayStyle(playKey, ingame)}
         </option>
       ))}
     </select>
@@ -226,13 +227,13 @@ function EditDropInItem() {
   );
 }
 
-function PlayStyleItem({ playKey }: PlayStyleItemProps) {
+function PlayStyleItem({ playKey, ingame }: PlayStyleItemProps) {
   const playStyle = usePlayStyle();
   return (
     <div
       className={"flex w-full items-center justify-center gap-0.5 text-center"}
     >
-      <p className={"w-full"}>{getPlayStyle(playStyle?.[playKey])}</p>
+      <p className={"w-full"}>{getPlayStyle(playStyle?.[playKey], ingame)}</p>
     </div>
   );
 }
@@ -303,10 +304,17 @@ const getRuleFavorEmoji = (favor: z.infer<typeof RuleFavorEnum>) => {
             : "☀️";
 };
 
-const getDropIn = (dropIn?: boolean) => {
-  return dropIn ? "환영" : "X";
+const getDropIn = (ingame: Ingame, dropIn?: boolean) => {
+  return dropIn ? ingame.ui_drop_ins_welcome : "X";
 };
 
-const getPlayStyle = (style: z.infer<typeof PlayStyleEnumObject>) => {
-  return style === NEWBIE ? "뉴비" : style == CASUAL ? "캐주얼" : "빡겜";
+const getPlayStyle = (
+  style: z.infer<typeof PlayStyleEnumObject>,
+  ingame: Ingame,
+) => {
+  return style === NEWBIE
+    ? ingame.ui_game_play_style_newbie
+    : style == CASUAL
+      ? ingame.ui_game_play_style_casual
+      : ingame.ui_game_play_style_hardcore;
 };

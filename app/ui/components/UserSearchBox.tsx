@@ -3,10 +3,14 @@
 import { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
+import { Header } from "@/app/lib/locales/locale";
 
-type UserSearchBoxProps = {};
+type UserSearchBoxProps = {
+  header: Header;
+};
 
 export function UserSearchBox(props: UserSearchBoxProps) {
+  const { header } = props;
   const router = useRouter();
   const [query, setQuery] = useState("");
 
@@ -33,6 +37,7 @@ export function UserSearchBox(props: UserSearchBoxProps) {
       <input
         className={"h-12 w-64 rounded-md bg-gray-700 px-2 text-white"}
         type="text"
+        placeholder={header.ui_user_search_placeholder}
         value={query}
         name={"q"}
         onKeyDown={(e) => {

@@ -13,6 +13,9 @@
     "ui_weapon": "사용 무기",
     "ui_play_style": "플레이 스타일",
     "ui_game_type": "게임 유형 별",
+    "ui_game_play_style_newbie": "뉴비",
+    "ui_game_play_style_casual": "캐주얼",
+    "ui_game_play_style_hardcore": "빡겜",
     "ui_rule_preference": "룰 별 선호도",
     "ui_x_match": "X 매치",
     "ui_salmon_run": "연어런",
@@ -51,6 +54,12 @@
     "ui_share_button": "공유하기",
     "ui_plate_modal_title": "플레이트 꾸미기",
     "ui_plate_modal_confirm_button": "확인"
+  },
+  "header": {
+    "ui_my_profile": "내 프로필",
+    "ui_login": "로그인",
+    "ui_logout": "로그아웃",
+    "ui_user_search_placeholder": "유저 검색"
   },
   "": {
     "": ""

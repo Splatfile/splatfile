@@ -17,7 +17,9 @@ export function GameCard(props: GameCardProps) {
     <div
       className={"flex w-full flex-col justify-center gap-2 py-6 pl-4 lg:px-8"}
     >
-      <h2 className={"pb-2 pt-6 text-xl font-semibold"}>인게임 정보</h2>
+      <h2 className={"pb-2 pt-6 text-xl font-semibold"}>
+        {ingame.ui_information}
+      </h2>
 
       <div
         className={

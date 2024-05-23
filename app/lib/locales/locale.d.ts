@@ -13,6 +13,7 @@ export interface Locale {
     ingame:  Ingame;
     account: Account;
     profile: Profile;
+    header:  Header;
     "":      Empty;
 }
 
@@ -38,20 +39,30 @@ export interface Account {
     ui_additional_information: string;
 }
 
+export interface Header {
+    ui_my_profile:              string;
+    ui_login:                   string;
+    ui_logout:                  string;
+    ui_user_search_placeholder: string;
+}
+
 export interface Ingame {
-    ui_information:         string;
-    ui_summary:             string;
-    ui_weapon:              string;
-    ui_play_style:          string;
-    ui_game_type:           string;
-    ui_rule_preference:     string;
-    ui_x_match:             string;
-    ui_salmon_run:          string;
-    ui_account_information: string;
-    ui_open:                string;
-    ui_regular:             string;
-    ui_drop_ins:            string;
-    ui_drop_ins_welcome:    string;
+    ui_information:              string;
+    ui_summary:                  string;
+    ui_weapon:                   string;
+    ui_play_style:               string;
+    ui_game_type:                string;
+    ui_game_play_style_newbie:   string;
+    ui_game_play_style_casual:   string;
+    ui_game_play_style_hardcore: string;
+    ui_rule_preference:          string;
+    ui_x_match:                  string;
+    ui_salmon_run:               string;
+    ui_account_information:      string;
+    ui_open:                     string;
+    ui_regular:                  string;
+    ui_drop_ins:                 string;
+    ui_drop_ins_welcome:         string;
 }
 
 export interface Main {
@@ -249,6 +260,7 @@ const typeMap: any = {
         { json: "ingame", js: "ingame", typ: r("Ingame") },
         { json: "account", js: "account", typ: r("Account") },
         { json: "profile", js: "profile", typ: r("Profile") },
+        { json: "header", js: "header", typ: r("Header") },
         { json: "", js: "", typ: r("Empty") },
     ], false),
     "Empty": o([
@@ -271,12 +283,21 @@ const typeMap: any = {
         { json: "ui_friend_code_link", js: "ui_friend_code_link", typ: "" },
         { json: "ui_additional_information", js: "ui_additional_information", typ: "" },
     ], false),
+    "Header": o([
+        { json: "ui_my_profile", js: "ui_my_profile", typ: "" },
+        { json: "ui_login", js: "ui_login", typ: "" },
+        { json: "ui_logout", js: "ui_logout", typ: "" },
+        { json: "ui_user_search_placeholder", js: "ui_user_search_placeholder", typ: "" },
+    ], false),
     "Ingame": o([
         { json: "ui_information", js: "ui_information", typ: "" },
         { json: "ui_summary", js: "ui_summary", typ: "" },
         { json: "ui_weapon", js: "ui_weapon", typ: "" },
         { json: "ui_play_style", js: "ui_play_style", typ: "" },
         { json: "ui_game_type", js: "ui_game_type", typ: "" },
+        { json: "ui_game_play_style_newbie", js: "ui_game_play_style_newbie", typ: "" },
+        { json: "ui_game_play_style_casual", js: "ui_game_play_style_casual", typ: "" },
+        { json: "ui_game_play_style_hardcore", js: "ui_game_play_style_hardcore", typ: "" },
         { json: "ui_rule_preference", js: "ui_rule_preference", typ: "" },
         { json: "ui_x_match", js: "ui_x_match", typ: "" },
         { json: "ui_salmon_run", js: "ui_salmon_run", typ: "" },

@@ -4,7 +4,7 @@ import { InlineTextCardSkeleton } from "@/app/ui/components/server/TextCardSkele
 
 type LoadingProps = {};
 
-export default function Loading(props: LoadingProps) {
+export default async function Loading(props: LoadingProps) {
   return (
     <div className={"flex flex-col items-stretch overflow-hidden"}>
       <div className={"flex h-full flex-col md:flex-row md:items-stretch"}>
@@ -35,11 +35,7 @@ export default function Loading(props: LoadingProps) {
                   className={clsx(
                     "absolute inset-0 z-10  h-full w-full bg-black opacity-0 group-hover:flex",
                   )}
-                >
-                  <p className={"m-auto w-full text-white"}>
-                    클릭해서 이미지 업로드
-                  </p>
-                </div>
+                ></div>
               </div>
             </div>
             <button
@@ -72,8 +68,7 @@ export default function Loading(props: LoadingProps) {
               "flex w-full flex-col justify-center gap-2 py-6 pl-4 lg:px-8"
             }
           >
-            <h2 className={"pb-2 pt-6 text-xl font-semibold"}>인게임 정보</h2>
-
+            <h2 className={"w-40 rounded-md bg-gray-300 pb-2 pt-6"}></h2>
             <div
               className={
                 "align-center grid w-full justify-stretch gap-6 md:grid-cols-2 md:items-stretch md:justify-center"

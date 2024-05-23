@@ -13,6 +13,9 @@
     "ui_weapon": "ingame_ui_weapon",
     "ui_play_style": "ingame_ui_play_style",
     "ui_game_type": "ingame_ui_game_type",
+    "ui_game_play_style_newbie": "ingame_ui_game_play_style_newbie",
+    "ui_game_play_style_casual": "ingame_ui_game_play_style_casual",
+    "ui_game_play_style_hardcore": "ingame_ui_game_play_style_hardcore",
     "ui_rule_preference": "ingame_ui_rule_preference",
     "ui_x_match": "ingame_ui_x_match",
     "ui_salmon_run": "ingame_ui_salmon_run",
@@ -51,6 +54,12 @@
     "ui_share_button": "profile_ui_share_button",
     "ui_plate_modal_title": "profile_ui_plate_modal_title",
     "ui_plate_modal_confirm_button": "profile_ui_plate_modal_confirm_button"
+  },
+  "header": {
+    "ui_my_profile": "header_ui_my_profile",
+    "ui_login": "header_ui_login",
+    "ui_logout": "header_ui_logout",
+    "ui_user_search_placeholder": "header_ui_user_search_placeholder"
   },
   "": {
     "": ""

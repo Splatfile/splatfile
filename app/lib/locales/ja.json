@@ -13,6 +13,9 @@
     "ui_weapon": "使用武器",
     "ui_play_style": "プレイスタイル",
     "ui_game_type": "ゲームタイプ別",
+    "ui_game_play_style_newbie": "ニュービー",
+    "ui_game_play_style_casual": "カジュアル",
+    "ui_game_play_style_hardcore": "ハードコア",
     "ui_rule_preference": "ルールごとの好み",
     "ui_x_match": "Xマッチ",
     "ui_salmon_run": "サーモンラン",
@@ -51,6 +54,12 @@
     "ui_share_button": "共有",
     "ui_plate_modal_title": "プレートカスタマイズ",
     "ui_plate_modal_confirm_button": "確認"
+  },
+  "header": {
+    "ui_my_profile": "私のプロフィール",
+    "ui_login": "ログイン",
+    "ui_logout": "ログアウト",
+    "ui_user_search_placeholder": "ユーザー検索"
   },
   "": {
     "": ""

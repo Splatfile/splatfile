@@ -8,6 +8,9 @@ ingame_ui_summary,종합,Summary,総合
 ingame_ui_weapon,사용 무기,Used Weapons,使用武器
 ingame_ui_play_style,플레이 스타일,Play Style,プレイスタイル
 ingame_ui_game_type,게임 유형 별,By Game Type,ゲームタイプ別
+ingame_ui_game_play_style_newbie,뉴비,Newbie,ニュービー
+ingame_ui_game_play_style_casual,캐주얼,Casual,カジュアル
+ingame_ui_game_play_style_hardcore,빡겜,Hardcore,ハードコア
 ingame_ui_rule_preference,룰 별 선호도,Rule Preference,ルールごとの好み
 ingame_ui_x_match,X 매치,X Match,Xマッチ
 ingame_ui_salmon_run,연어런,Salmon Run,サーモンラン
@@ -42,6 +45,10 @@ profile_ui_update_plate_button,클릭해서 플레이트 꾸미기,Click to Cust
 profile_ui_share_button,공유하기,Share,共有
 profile_ui_plate_modal_title,플레이트 꾸미기,Customize Plate,プレートカスタマイズ
 profile_ui_plate_modal_confirm_button,확인,Confirm,確認
+header_ui_my_profile,내 프로필,My Profile,私のプロフィール
+header_ui_login,로그인,Login,ログイン
+header_ui_logout,로그아웃,Logout,ログアウト
+header_ui_user_search_placeholder,유저 검색,User Search,ユーザー検索
 ,,,
 ,,,
 ,,,
