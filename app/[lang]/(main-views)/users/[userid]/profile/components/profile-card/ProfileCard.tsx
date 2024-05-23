@@ -7,8 +7,14 @@ import {
 import clsx from "clsx";
 
 import { ProfileModal } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/profile-card/ProfileModal";
+import { Profile } from "@/app/lib/locales/locale";
 
-export function ProfileImage() {
+type ProfileImageProps = {
+  profile: Profile;
+};
+
+export function ProfileImage(props: ProfileImageProps) {
+  const { profile } = props;
   const [open, setOpen] = useState(false);
   const profileImageUrl = useProfileImageUrl();
   const { isMine } = useEditStore();
@@ -45,7 +51,9 @@ export function ProfileImage() {
             isMine ? "flex group-hover:opacity-50" : "hidden",
           )}
         >
-          <p className={"m-auto w-full text-white"}>클릭해서 이미지 업로드</p>
+          <p className={"m-auto w-full text-white"}>
+            {profile.ui_image_upload_button}
+          </p>
         </div>
       </div>
     </button>
