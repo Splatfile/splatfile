@@ -4,7 +4,7 @@ import { Auth } from "@supabase/auth-ui-react";
 import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
 import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { LoadingLogo } from "@/app/ui/components/LoadingLogo";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
@@ -21,9 +21,10 @@ export function Header(props: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [headerLocale, setHeaderLocale] = useState<HeaderLocale>(en);
 
-  const searchParams = useSearchParams();
-  const lang = searchParams.get("lang") ?? "en";
+  const params = useParams();
   useEffect(() => {
+    const lang = params["lang"] ?? "en";
+    console.log(lang);
     if (lang === "ko") {
       setHeaderLocale(ko);
     } else if (lang === "ja") {
@@ -31,7 +32,7 @@ export function Header(props: HeaderProps) {
     } else {
       setHeaderLocale(en);
     }
-  }, [lang]);
+  }, [params]);
 
   const { isLoading } = useEditStore();
 
