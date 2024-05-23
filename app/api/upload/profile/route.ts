@@ -2,14 +2,17 @@ import { type NextRequest, NextResponse } from "next/server";
 import { SplatfileServer } from "@/app/lib/server/splatfile-server";
 
 export async function POST(request: NextRequest) {
+  console.log("POST");
   const client = new SplatfileServer("ROUTER");
-
   const formData = await request.formData();
 
-  const userId = formData.get("userId") as string;
+  const userId = formData.get("userid") as string;
 
   const user = await client.supabase.auth.getUser();
+  console.log("user", user.data.user?.id, userId, formData);
   if (user.data.user?.id !== userId) {
+    console.log("User is not the same as the logged in user");
+
     return NextResponse.json(
       {
         error: "User is not the same as the logged in user",

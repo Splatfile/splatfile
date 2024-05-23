@@ -24,7 +24,7 @@ export const createImage = (url: string): Promise<HTMLImageElement> =>
     resolve(image);
   });
 export const ProfileModal = (props: ProfileModalProps) => {
-  const params = useParams<{ userId: string }>();
+  const params = useParams<{ userid: string }>();
 
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -70,7 +70,7 @@ export const ProfileModal = (props: ProfileModalProps) => {
     canvas.toBlob(function (blob) {
       if (!blob) return;
       const formData = new FormData();
-      formData.append("userId", params.userId);
+      formData.append("userid", params.userid);
       formData.append("file", blob, "image.png");
 
       fetch("/api/upload/profile", {
