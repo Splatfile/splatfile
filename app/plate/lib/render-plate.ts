@@ -46,7 +46,10 @@ const getBadgeImage = async (badge: string) => {
   return image;
 };
 
-function isFontLoaded(fontName: string, fontSize = "16px"): Promise<boolean> {
+export function isFontLoaded(
+  fontName: string,
+  fontSize = "16px",
+): Promise<boolean> {
   return new Promise((resolve, reject) => {
     // Check if the font is already loaded
     if (document.fonts.check(fontSize + " " + fontName)) {

@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { GameInfoLayer } from "./GameInfoLayer";
 import { PlateAndProfileImageLayer } from "./PlateAndProfileImageLayer";
 import { UserInfoLayer } from "./UserInfoLayer";
@@ -9,27 +10,64 @@ import {
 } from "@/app/lib/hooks/use-profile-store";
 import {
   canvasHeight,
-  canvasWidth
+  canvasWidth,
 } from "@/app/lib/utils/render-preview-canvas";
 import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
 import Konva from "konva";
 import { useEffect, useRef } from "react";
 import { Image as KonvaImage, Layer, Stage } from "react-konva";
 import useImage from "use-image";
+import {
+  loadFonts as loadFontsForPlate,
+  isFontLoaded,
+} from "@/app/plate/lib/render-plate";
+import { jua } from "@/app/fonts";
 
-export function ProfileCanvas() {
+async function loadFonts() {
+  var loaded = await loadFontsForPlate();
+
+  for (const font of jua.style.fontFamily.split(", ")) {
+    if (!(await isFontLoaded(font))) {
+      loaded = false;
+      break;
+    }
+  }
+
+  return loaded;
+}
+
+type ProfileCanvasProps = {
+  dataUrlCallback?: (dataUrl: string) => void;
+  isLoading?: boolean;
+};
+
+export function ProfileCanvas({
+  dataUrlCallback,
+  isLoading,
+}: ProfileCanvasProps) {
   const tag = useTagStore();
   const gameStore = useGameStore();
   const userStore = useUserStore();
   const profileImageUrl = useProfileImageUrl();
+  dataUrlCallback = dataUrlCallback || ((dataUrl) => {});
+  isLoading = isLoading || false;
+
   return (
     <div>
-      <ProfileCanvasRender
-        tag={tag}
-        gameStore={gameStore}
-        userStore={userStore}
-        profileImageUrl={profileImageUrl}
-      />
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="z-10 h-16 w-16 animate-spin rounded-full border-t-8 border-white"></div>
+        </div>
+      )}
+      <div className={isLoading ? "blur-sm" : ""}>
+        <ProfileCanvasRender
+          tag={tag}
+          gameStore={gameStore}
+          userStore={userStore}
+          profileImageUrl={profileImageUrl}
+          dataUrlCallback={dataUrlCallback}
+        />
+      </div>
     </div>
   );
 }
@@ -39,6 +77,7 @@ type ProfileCanvasRenderProps = {
   userStore: ReturnType<typeof useUserStore>;
   gameStore: ReturnType<typeof useGameStore>;
   profileImageUrl: ReturnType<typeof useProfileImageUrl>;
+  dataUrlCallback: (dataUrl: string) => void;
 };
 
 export function ProfileCanvasRender({
@@ -46,10 +85,11 @@ export function ProfileCanvasRender({
   userStore,
   gameStore,
   profileImageUrl,
+  dataUrlCallback,
 }: ProfileCanvasRenderProps) {
   const stageRef = useRef<Konva.Stage>(null);
   const plateRef = useRef<HTMLCanvasElement>(null);
-  const downloadRef = useRef<HTMLAnchorElement>(null);
+  const [fontLoaded, setFontLoaded] = useState(false);
 
   const ProfileBackgroundImage = () => {
     const [image] = useImage("/background/body.png");
@@ -89,21 +129,32 @@ export function ProfileCanvasRender({
     );
   };
 
-  const downloadCanvas = () => {
-    const stage = stageRef.current;
-    const link = downloadRef.current;
-    if (!stage || !link) return;
+  useEffect(() => {
+    const timeout = setInterval(async () => {
+      const fontLoaded = await loadFonts();
+      setFontLoaded(fontLoaded);
 
-    // Canvas 내용을 이미지로 변환
-    // 다운로드 링크 설정
-    link.download = "profile.png";
-    link.href = stage.toDataURL({ mimeType: "image/png" });
-    link.click();
-  };
+      if (fontLoaded) {
+        clearInterval(timeout);
+      }
+    }, 1500);
+
+    return () => {
+      clearInterval(timeout);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!stageRef.current) return;
+    if (!fontLoaded) return;
+
+    // 폰트 로딩 확인 후 다시 render
+    stageRef.current.batchDraw();
+    dataUrlCallback(stageRef.current.toDataURL({ mimeType: "image/png" }));
+  }, [fontLoaded, dataUrlCallback]);
 
   return (
-    <div className={"p-12 text-white"}>
-      <p>저장용 이미지</p>
+    <div className={"w-full"}>
       <canvas
         ref={plateRef}
         width={700}
@@ -122,16 +173,6 @@ export function ProfileCanvasRender({
         <UserInfoLayer userStore={userStore} />
         <GameInfoLayer gameStore={gameStore} />
       </Stage>
-
-      <div>
-        <a
-          ref={downloadRef}
-          className={"cursor-pointer p-4 text-white"}
-          onClick={downloadCanvas}
-        >
-          다운로드
-        </a>
-      </div>
     </div>
   );
 }
