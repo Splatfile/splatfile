@@ -61,11 +61,17 @@ export interface Main {
 }
 
 export interface Profile {
-    ui_image_upload_button:        string;
-    ui_update_plate_button:        string;
-    ui_share_button:               string;
-    ui_plate_modal_title:          string;
-    ui_plate_modal_confirm_button: string;
+    ui_upload_image_title:                                  string;
+    ui_image_upload_button:                                 string;
+    ui_image_upload_cancel_button:                          string;
+    ui_image_upload_modal_drag_to_here:                     string;
+    ui_image_upload_modal_drag_to_here_or_click:            string;
+    ui_image_upload_modal_zoom_is_available_by_mouse_wheel: string;
+    ui_image_upload_modal_zoom_is_available_by_pinch:       string;
+    ui_update_plate_button:                                 string;
+    ui_share_button:                                        string;
+    ui_plate_modal_title:                                   string;
+    ui_plate_modal_confirm_button:                          string;
 }
 
 export interface UI {
@@ -286,7 +292,13 @@ const typeMap: any = {
         { json: "first_section_button", js: "first_section_button", typ: "" },
     ], false),
     "Profile": o([
+        { json: "ui_upload_image_title", js: "ui_upload_image_title", typ: "" },
         { json: "ui_image_upload_button", js: "ui_image_upload_button", typ: "" },
+        { json: "ui_image_upload_cancel_button", js: "ui_image_upload_cancel_button", typ: "" },
+        { json: "ui_image_upload_modal_drag_to_here", js: "ui_image_upload_modal_drag_to_here", typ: "" },
+        { json: "ui_image_upload_modal_drag_to_here_or_click", js: "ui_image_upload_modal_drag_to_here_or_click", typ: "" },
+        { json: "ui_image_upload_modal_zoom_is_available_by_mouse_wheel", js: "ui_image_upload_modal_zoom_is_available_by_mouse_wheel", typ: "" },
+        { json: "ui_image_upload_modal_zoom_is_available_by_pinch", js: "ui_image_upload_modal_zoom_is_available_by_pinch", typ: "" },
         { json: "ui_update_plate_button", js: "ui_update_plate_button", typ: "" },
         { json: "ui_share_button", js: "ui_share_button", typ: "" },
         { json: "ui_plate_modal_title", js: "ui_plate_modal_title", typ: "" },

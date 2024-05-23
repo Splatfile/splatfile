@@ -40,7 +40,13 @@
     "ui_additional_information": "하고 싶은 말"
   },
   "profile": {
+    "ui_upload_image_title": "프로필 이미지 업로드",
     "ui_image_upload_button": "클릭해서 이미지 업로드",
+    "ui_image_upload_cancel_button": "취소",
+    "ui_image_upload_modal_drag_to_here": "이곳에 이미지를 드래그하세요",
+    "ui_image_upload_modal_drag_to_here_or_click": "이곳에 이미지를 드래그하거나 클릭하세요",
+    "ui_image_upload_modal_zoom_is_available_by_mouse_wheel": "마우스 휠로 줌 가능",
+    "ui_image_upload_modal_zoom_is_available_by_pinch": "핀치로 줌 가능",
     "ui_update_plate_button": "클릭해서 플레이트 꾸미기",
     "ui_share_button": "공유하기",
     "ui_plate_modal_title": "플레이트 꾸미기",

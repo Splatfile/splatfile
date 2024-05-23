@@ -4,8 +4,10 @@ import { DefaultModal } from "@/app/ui/components/DefaultModal";
 import Cropper from "react-easy-crop";
 import { useParams } from "next/navigation";
 import { setProfileImageUrl } from "@/app/lib/hooks/use-profile-store";
+import { Profile } from "@/app/lib/locales/locale";
 
 type ProfileModalProps = {
+  profile: Profile;
   open: boolean;
   setOpen: (open: boolean) => void;
 };
@@ -24,6 +26,7 @@ export const createImage = (url: string): Promise<HTMLImageElement> =>
     resolve(image);
   });
 export const ProfileModal = (props: ProfileModalProps) => {
+  const { profile } = props;
   const params = useParams<{ userid: string }>();
 
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -108,9 +111,9 @@ export const ProfileModal = (props: ProfileModalProps) => {
 
   return (
     <DefaultModal
-      title={"사진 업로드"}
+      title={profile.ui_upload_image_title}
       open={props.open}
-      closeButtonText={file ? "" : "취소"}
+      closeButtonText={file ? "" : profile.ui_image_upload_cancel_button}
       onClose={() => props.setOpen(false)}
     >
       <div
@@ -127,10 +130,12 @@ export const ProfileModal = (props: ProfileModalProps) => {
           >
             <input {...getInputProps()} accept={"image/*"} />
             {isDragActive ? (
-              <p className={"cursor-pointer"}>파일을 여기에 드래그 해주세요.</p>
+              <p className={"cursor-pointer"}>
+                {profile.ui_image_upload_modal_drag_to_here}
+              </p>
             ) : (
               <p className={"cursor-pointer"}>
-                파일을 드래그 하거나 클릭하여 선택해 주세요.
+                {profile.ui_image_upload_modal_drag_to_here_or_click}
               </p>
             )}
           </div>
@@ -138,10 +143,10 @@ export const ProfileModal = (props: ProfileModalProps) => {
         {file && (
           <div className={"max-h-screen"}>
             <p className={"mb-6 hidden text-gray-600 lg:block"}>
-              스크롤을 통해 확대 축소가 가능합니다
+              {profile.ui_image_upload_modal_zoom_is_available_by_mouse_wheel}
             </p>
             <p className={"mb-6 block text-gray-600 lg:hidden"}>
-              두 손가락 터치로 크기조절 가능합니다.
+              {profile.ui_image_upload_modal_zoom_is_available_by_pinch}
             </p>
             <div className={"aspect-video w-full"}>
               <div

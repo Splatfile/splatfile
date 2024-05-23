@@ -28,7 +28,7 @@ export function ProfileImage(props: ProfileImageProps) {
         isMine ? "cursor-pointer" : "cursor-default",
       )}
     >
-      <ProfileModal open={open} setOpen={setOpen} />
+      <ProfileModal profile={profile} open={open} setOpen={setOpen} />
       <div className={clsx("relative h-full w-full", isMine && "group")}>
         {profileImageUrl ? (
           <img

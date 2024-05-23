@@ -40,7 +40,13 @@
     "ui_additional_information": "追加情報"
   },
   "profile": {
+    "ui_upload_image_title": "プロフィール画像をアップロード",
     "ui_image_upload_button": "画像をアップロードするにはクリック",
+    "ui_image_upload_cancel_button": "キャンセル",
+    "ui_image_upload_modal_drag_to_here": "ここに画像をドラッグしてください",
+    "ui_image_upload_modal_drag_to_here_or_click": "ここに画像をドラッグするかクリックしてください",
+    "ui_image_upload_modal_zoom_is_available_by_mouse_wheel": "マウスホイールでズーム可能",
+    "ui_image_upload_modal_zoom_is_available_by_pinch": "ピンチでズーム可能",
     "ui_update_plate_button": "プレートをカスタマイズするにはクリック",
     "ui_share_button": "共有",
     "ui_plate_modal_title": "プレートカスタマイズ",

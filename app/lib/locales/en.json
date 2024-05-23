@@ -40,7 +40,13 @@
     "ui_additional_information": "Additional Information"
   },
   "profile": {
+    "ui_upload_image_title": "Upload Profile Image",
     "ui_image_upload_button": "Click to Upload Image",
+    "ui_image_upload_cancel_button": "Cancel",
+    "ui_image_upload_modal_drag_to_here": "Drag an image here",
+    "ui_image_upload_modal_drag_to_here_or_click": "Drag an image here or click",
+    "ui_image_upload_modal_zoom_is_available_by_mouse_wheel": "Zoom is available by mouse wheel",
+    "ui_image_upload_modal_zoom_is_available_by_pinch": "Zoom is available by pinch",
     "ui_update_plate_button": "Click to Customize Plate",
     "ui_share_button": "Share",
     "ui_plate_modal_title": "Customize Plate",
