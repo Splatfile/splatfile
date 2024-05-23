@@ -71,6 +71,7 @@ export default async function ProfilePage(props: ProfilePage) {
         <ProfileWrapper
           account={dictionary.account}
           ingame={dictionary.ingame}
+          profile={dictionary.profile}
         />
       </>
     );
@@ -86,7 +87,11 @@ export default async function ProfilePage(props: ProfilePage) {
         userId={props.params.userid}
         isMine={true}
       />
-      <ProfileWrapper account={dictionary.account} ingame={dictionary.ingame} />
+      <ProfileWrapper
+        account={dictionary.account}
+        ingame={dictionary.ingame}
+        profile={dictionary.profile}
+      />
     </>
   );
 }

@@ -41,7 +41,7 @@ export function AccountCard(props: AccountCardProps) {
           </div>
         </div>
         <div className={"mx-2 p-2"}>
-          <IntroductionCard />
+          <IntroductionCard account={account} />
         </div>
       </div>
     </div>

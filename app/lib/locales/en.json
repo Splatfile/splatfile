@@ -22,9 +22,6 @@
     "ui_drop_ins": "Drop-ins",
     "ui_drop_ins_welcome": "Welcome"
   },
-  "": {
-    "": ""
-  },
   "account": {
     "ui_switch_nickname": "Switch Nickname",
     "ui_twitter_nickname": "Twitter Nickname",
@@ -33,14 +30,23 @@
     "ui_friend_code": "Friend Code",
     "ui_weekday_playtime": "Weekday Playtime",
     "ui_weekend_playtime": "Weekend Playtime",
+    "ui_start_time": "Start Time",
+    "ui_end_time": "End Time",
     "ui_nickname": "Nickname",
     "ui_gender": "Gender",
     "ui_gender_placeholder": "Enter Gender",
     "ui_add_button": "Add",
-    "ui_friend_code_link": "Friend Code Link"
+    "ui_friend_code_link": "Friend Code Link",
+    "ui_additional_information": "Additional Information"
   },
   "profile": {
-    "ui_image_upload_button": "",
-    "ui_update_plate_button": ""
+    "ui_image_upload_button": "Click to Upload Image",
+    "ui_update_plate_button": "Click to Customize Plate",
+    "ui_share_button": "Share",
+    "ui_plate_modal_title": "Customize Plate",
+    "ui_plate_modal_confirm_button": "Confirm"
+  },
+  "": {
+    "": ""
   }
 }

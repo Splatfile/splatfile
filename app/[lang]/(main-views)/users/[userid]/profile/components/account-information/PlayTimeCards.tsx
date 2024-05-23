@@ -16,7 +16,7 @@ type PlayTimeCardProps = {
   timeType: "weekdayPlaytime" | "weekendPlaytime";
 };
 export const PlaytimeCard = (props: PlayTimeCardProps) => {
-  const { timeType } = props;
+  const { timeType, account } = props;
   const [edit, setEdit] = useState(false);
   const playtime = usePlaytime(timeType);
   const isMine = useMine();
@@ -35,13 +35,19 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
   return (
     <EditableTextCard
       title={
-        timeType === "weekdayPlaytime" ? "평일 접속 시간" : "주말 접속 시간"
+        timeType === "weekdayPlaytime"
+          ? account.ui_weekday_playtime
+          : account.ui_weekend_playtime
       }
       edit={edit}
       setEdit={setEdit}
     >
       {edit ? (
-        <EditPlayTimeCard timeType={timeType} playtime={playtime} />
+        <EditPlayTimeCard
+          timeType={timeType}
+          playtime={playtime}
+          account={account}
+        />
       ) : (
         playtime?.start &&
         playtime?.end && (
@@ -55,12 +61,13 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
 };
 
 type EditPlayTimeCardProps = {
+  account: Account;
   timeType: "weekdayPlaytime" | "weekendPlaytime";
   playtime?: { start: number; end: number };
 };
 
 export const EditPlayTimeCard = (props: EditPlayTimeCardProps) => {
-  const { timeType, playtime } = props;
+  const { account, timeType, playtime } = props;
 
   const onChange = (key: "start" | "end", value: string) => {
     const otherKey = key === "start" ? "end" : "start";
@@ -74,7 +81,7 @@ export const EditPlayTimeCard = (props: EditPlayTimeCardProps) => {
     <div className={"px-4 "}>
       <div className={"flex justify-center gap-2"}>
         <div className={"flex gap-1"}>
-          <p>시작 시간:</p>
+          <p>{account.ui_start_time}</p>
           <input
             type="number"
             min={0}
@@ -86,7 +93,7 @@ export const EditPlayTimeCard = (props: EditPlayTimeCardProps) => {
           />
         </div>
         <div className={"flex gap-1"}>
-          <p>종료 시간:</p>
+          <p>{account.ui_end_time}</p>
           <input
             type="number"
             min={0}

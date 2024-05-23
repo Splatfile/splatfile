@@ -16,17 +16,6 @@ ingame_ui_open,오픈,Open,オープン,
 ingame_ui_regular,레귤러,Regular,レギュラー,
 ingame_ui_drop_ins,난입,Drop-ins,乱入,
 ingame_ui_drop_ins_welcome,환영,Welcome,歓迎,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
 account_ui_switch_nickname,스위치 닉네임,Switch Nickname,スイッチニックネーム,
 account_ui_twitter_nickname,트위터 닉네임,Twitter Nickname,ツイッターニックネーム,
 account_ui_twitter_handle,트위터 핸들,Twitter Handle,ツイッターニックネーム,
@@ -34,11 +23,19 @@ account_ui_information,유저 정보,User Information,ユーザー情報,
 account_ui_friend_code,친구 코드,Friend Code,フレンドコード
 account_ui_weekday_playtime,"평일 접속 시간","Weekday Playtime","平日のプレイ時間"
 account_ui_weekend_playtime,주말 접속 시간,Weekend Playtime,週末のプレイ時間
+account_ui_start_time,시작 시간,Start Time,開始時間
+account_ui_end_time,종료 시간,End Time,終了時間
 account_ui_nickname,닉네임,Nickname,ニックネーム
 account_ui_gender,성별,Gender,性別
 account_ui_gender_placeholder,성별 입력,Enter Gender,性別を入力,
 account_ui_add_button,추가,Add,追加
 account_ui_friend_code_link,친구 코드 링크,Friend Code Link,フレンドコードリンク
+account_ui_additional_information,하고 싶은 말,Additional Information,追加情報
+profile_ui_image_upload_button,클릭해서 이미지 업로드,Click to Upload Image,画像をアップロードするにはクリック
+profile_ui_update_plate_button,클릭해서 플레이트 꾸미기,Click to Customize Plate,プレートをカスタマイズするにはクリック
+profile_ui_share_button,공유하기,Share,共有
+profile_ui_plate_modal_title,플레이트 꾸미기,Customize Plate,プレートカスタマイズ
+profile_ui_plate_modal_confirm_button,확인,Confirm,確認
 ,,,
 ,,,
 ,,,
@@ -46,9 +43,6 @@ account_ui_friend_code_link,친구 코드 링크,Friend Code Link,フレンド�
 ,,,
 ,,,
 ,,,
-,,,
-profile_ui_image_upload_button,클릭해서 이미지 업로드,,
-profile_ui_update_plate_button,클릭해서 플레이트 꾸미기,,
 ,,,
 ,,,
 ,,,

@@ -12,10 +12,14 @@ import {
 } from "@headlessui/react";
 import { loadFonts, renderPlate } from "@/app/plate/lib/render-plate";
 import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
+import { Profile } from "@/app/lib/locales/locale";
 
-type PlateImageProps = {};
+type PlateImageProps = {
+  profile: Profile;
+};
 
 export function PlateImage(props: PlateImageProps) {
+  const { profile } = props;
   const [open, setOpen] = useState(false);
   const [fontLoaded, setFontLoaded] = useState(false);
   const { isMine } = useEditStore();
@@ -73,7 +77,7 @@ export function PlateImage(props: PlateImageProps) {
         isMine && "cursor-pointer hover:opacity-80",
       )}
     >
-      <PlateModal open={open} setOpen={setOpen} />
+      <PlateModal open={open} setOpen={setOpen} profile={profile} />
 
       <canvas
         className={"max-w-full"}
@@ -94,7 +98,7 @@ export function PlateImage(props: PlateImageProps) {
         )}
       >
         <p className={isMine ? "text-white" : "hidden"}>
-          클릭해서 플레이트 꾸미기
+          {profile.ui_update_plate_button}
         </p>
       </div>
     </button>
@@ -104,10 +108,11 @@ export function PlateImage(props: PlateImageProps) {
 type PlateModalProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
+  profile: Profile;
 };
 
 export function PlateModal(props: PlateModalProps) {
-  const { open, setOpen } = props;
+  const { open, setOpen, profile } = props;
 
   return (
     <Transition show={open} as={Fragment}>
@@ -142,7 +147,7 @@ export function PlateModal(props: PlateModalProps) {
                       as="h2"
                       className="mb-4 mt-8 text-xl font-semibold leading-6 text-white"
                     >
-                      플레이트 꾸미기
+                      {profile.ui_plate_modal_title}
                     </DialogTitle>
                     <SplatPlateEditor />
                     <button
@@ -150,7 +155,7 @@ export function PlateModal(props: PlateModalProps) {
                       className="inline-flex w-40 justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                       onClick={() => setOpen(false)}
                     >
-                      결정
+                      {profile.ui_plate_modal_confirm_button}
                     </button>
                   </div>
                 </div>

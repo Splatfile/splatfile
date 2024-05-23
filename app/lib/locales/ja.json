@@ -22,9 +22,6 @@
     "ui_drop_ins": "乱入",
     "ui_drop_ins_welcome": "歓迎"
   },
-  "": {
-    "": ""
-  },
   "account": {
     "ui_switch_nickname": "スイッチニックネーム",
     "ui_twitter_nickname": "ツイッターニックネーム",
@@ -33,14 +30,23 @@
     "ui_friend_code": "フレンドコード",
     "ui_weekday_playtime": "平日のプレイ時間",
     "ui_weekend_playtime": "週末のプレイ時間",
+    "ui_start_time": "開始時間",
+    "ui_end_time": "終了時間",
     "ui_nickname": "ニックネーム",
     "ui_gender": "性別",
     "ui_gender_placeholder": "性別を入力",
     "ui_add_button": "追加",
-    "ui_friend_code_link": "フレンドコードリンク"
+    "ui_friend_code_link": "フレンドコードリンク",
+    "ui_additional_information": "追加情報"
   },
   "profile": {
-    "ui_image_upload_button": "",
-    "ui_update_plate_button": ""
+    "ui_image_upload_button": "画像をアップロードするにはクリック",
+    "ui_update_plate_button": "プレートをカスタマイズするにはクリック",
+    "ui_share_button": "共有",
+    "ui_plate_modal_title": "プレートカスタマイズ",
+    "ui_plate_modal_confirm_button": "確認"
+  },
+  "": {
+    "": ""
   }
 }

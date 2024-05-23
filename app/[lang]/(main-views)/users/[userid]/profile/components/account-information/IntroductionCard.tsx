@@ -7,10 +7,14 @@ import {
   setIntroductionMessage,
   useIntroductionMessage,
 } from "@/app/lib/hooks/use-profile-store";
+import { Account } from "@/app/lib/locales/locale";
 
-type AboutMeProps = {};
+type AboutMeProps = {
+  account: Account;
+};
 
 export function IntroductionCard(props: AboutMeProps) {
+  const { account } = props;
   const [edit, setEdit] = useState(false);
   const message = useIntroductionMessage();
 
@@ -19,7 +23,11 @@ export function IntroductionCard(props: AboutMeProps) {
   };
 
   return (
-    <EditableTextCard title={"하고 싶은 말"} edit={edit} setEdit={setEdit}>
+    <EditableTextCard
+      title={account.ui_additional_information}
+      edit={edit}
+      setEdit={setEdit}
+    >
       <EditableParagraph
         edit={edit}
         onChange={onChange}
