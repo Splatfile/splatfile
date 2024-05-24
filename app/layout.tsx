@@ -1,13 +1,9 @@
-import type { Metadata } from "next";
+import { notoSansKR } from "@/app/fonts";
 import "@/app/globals.css";
-import { Noto_Sans_KR } from "next/font/google";
-import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
 import { QueryClientWrapper } from "@/app/lib/hooks/query-client-wrapper";
+import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
+import type { Metadata } from "next";
 
-const notoSansKR = Noto_Sans_KR({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
 
 export const metadata: Metadata = {};
 
