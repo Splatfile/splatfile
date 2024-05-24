@@ -4,9 +4,9 @@ import {
   SplatfileServer,
 } from "@/app/lib/server/splatfile-server";
 import { unstable_noStore } from "next/cache";
-import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting";
-import { ProfileCanvas } from "@/app/[lang]/(capture-view)/preview/[userid]/components/ProfileCanvas";
 import { isUserInfo } from "@/app/lib/types/type-checker";
+import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting";
+import { ProfileCanvas } from "@/app/konva/components/ProfileCanvas";
 
 type PageProps = {
   params: {
