@@ -62,13 +62,17 @@ export default async function ProfilePage(props: ProfilePage) {
     const profile = await client.createOrGetMyProfile();
     return (
       <>
-        <DebounceEditing userId={props.params.userid} />
+        <DebounceEditing
+          userId={props.params.userid}
+          lang={props.params.lang}
+        />
         <StoreSetting
           profile={profile}
           userId={props.params.userid}
           isMine={true}
         />
         <ProfileWrapper
+          lang={props.params.lang}
           account={dictionary.account}
           ingame={dictionary.ingame}
           profile={dictionary.profile}
@@ -88,6 +92,7 @@ export default async function ProfilePage(props: ProfilePage) {
         isMine={true}
       />
       <ProfileWrapper
+        lang={props.params.lang}
         account={dictionary.account}
         ingame={dictionary.ingame}
         profile={dictionary.profile}

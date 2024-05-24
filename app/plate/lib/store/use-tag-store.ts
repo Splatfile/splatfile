@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { SplatfileClient } from "@/app/lib/splatfile-client";
 import { isPlateInfo } from "@/app/lib/types/type-checker";
 import { PlateInfoObject } from "@/app/plate/lib/types/plate-info";
+import { Lang } from "@/app/lib/types/component-props";
 
 export type Gradients = [string, string, string, string];
 
@@ -51,7 +52,7 @@ const initTitle = {
   },
 };
 
-export const initTagState: TagState = {
+export const initTagState = (): TagState => ({
   name: "Player",
   title: { ...initTitle.title },
   banner: "Npl_Tutorial00.png",
@@ -63,10 +64,21 @@ export const initTagState: TagState = {
   isGradient: false,
   isCustom: false,
   gradientDirection: "to bottom",
+});
+
+type LoadingStore = {
+  isLoading: boolean;
+  setLoading: (isLoading: boolean) => void;
 };
 
+export const useTagLoadingStore = create<LoadingStore>((set) => ({
+  isLoading: false,
+  setLoading: (isLoading: boolean) => set({ isLoading }),
+}));
+
 export const useTagStore = create<TagStore>((set) => ({
-  ...initTagState,
+  ...initTagState(),
+
   set: (tag: TagState) =>
     set((state) => ({
       ...state,
@@ -191,18 +203,27 @@ export const setGradientDirection = (gradientDirection: GradientDirection) => {
   }));
 };
 
-export const subscribeEdit = (userId: string) => {
+export const setTagLoading = (isLoading: boolean) => {
+  useTagLoadingStore.setState({
+    isLoading,
+  });
+};
+
+export const subscribeEdit = (userId: string, lang: Lang) => {
   let timeoutId: NodeJS.Timeout | string | number | undefined;
   const client = new SplatfileClient("CLIENT_COMPONENT");
 
   // subscribe은 unsubscribe를 return 하여, useEffect의 cleanup 함수로 사용할 수 있습니다.
   return useTagStore.subscribe((state, prevState) => {
     if (!prevState) return;
-
+    setTagLoading(true);
     const currJson = JSON.stringify(state);
     const prevJson = JSON.stringify(prevState);
 
-    if (currJson === prevJson) return;
+    if (!checkValidState(prevJson, currJson)) {
+      setTagLoading(false);
+      return;
+    }
 
     clearTimeout(timeoutId);
 
@@ -217,11 +238,30 @@ export const subscribeEdit = (userId: string) => {
           plate_info,
         },
         userId,
+        lang,
       );
+      setTagLoading(false);
     }, 2 * 1000);
   });
 };
 
-export const useDebounceTagEdit = (userId: string) => {
-  useEffect(() => (userId ? subscribeEdit(userId) : undefined), [userId]);
+const initStateJson = JSON.stringify(initTagState());
+
+const checkValidState = (prevStateJson: string, currStateJson: string) => {
+  return (
+    currStateJson !== prevStateJson &&
+    currStateJson !== initStateJson &&
+    prevStateJson !== initStateJson
+  );
+};
+
+export const useDebounceTagEdit = (
+  userId: string,
+  isMine: boolean,
+  lang: Lang,
+) => {
+  useEffect(
+    () => (userId ? subscribeEdit(userId, lang) : undefined),
+    [userId, isMine, lang],
+  );
 };

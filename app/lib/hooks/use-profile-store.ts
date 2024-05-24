@@ -22,6 +22,7 @@ import { z } from "zod";
 import { shallow } from "zustand/shallow";
 import { createWithEqualityFn } from "zustand/traditional";
 import { isGameInfo, isUserInfo } from "@/app/lib/types/type-checker";
+import { Lang } from "../types/component-props";
 
 type ProfileState = {
   user: z.infer<typeof UserInfoObject>;
@@ -243,13 +244,17 @@ export const usePlaytime = (timeType: "weekdayPlaytime" | "weekendPlaytime") =>
   useProfileStore((state) => state.user[timeType]);
 
 // State가 변경될 때마다, 2초 뒤에 supabase에 저장하는 로직을 실행합니다.
-export const useDebounceEdit = (userId: string, isMine: boolean) => {
+export const useDebounceEdit = (
+  userId: string,
+  isMine: boolean,
+  lang: Lang,
+) => {
   const timeoutIdRef: React.MutableRefObject<
     NodeJS.Timeout | string | number | undefined
   > = useRef<NodeJS.Timeout | string | number | undefined>();
   useEffect(
-    () => (isMine ? subscribeEdit(userId, timeoutIdRef) : undefined),
-    [userId, isMine],
+    () => (isMine ? subscribeEdit(userId, timeoutIdRef, lang) : undefined),
+    [userId, isMine, lang],
   );
 };
 
@@ -260,6 +265,7 @@ export const subscribeEdit = (
   timeoutIdRef: React.MutableRefObject<
     NodeJS.Timeout | string | number | undefined
   >,
+  lang: Lang,
 ) => {
   const client = new SplatfileClient("CLIENT_COMPONENT");
 
@@ -285,13 +291,13 @@ export const subscribeEdit = (
         return;
       }
 
-      console.log("updateProfile");
       await client.updateProfile(
         {
           user_info: state.user,
           game_info: state.game,
         },
         userId,
+        lang,
       );
       setLoading(false);
     }, 3 * 1000);

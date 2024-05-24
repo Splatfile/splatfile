@@ -12,11 +12,12 @@ import {
 import lang from "@/app/plate/lang.json";
 import { TagState } from "@/app/plate/lib/store/use-tag-store";
 import {
-  SupabaseClient,
   createClientComponentClient,
+  SupabaseClient,
 } from "@supabase/auth-helpers-nextjs";
 import { notFound } from "next/navigation";
 import { z } from "zod";
+import { Lang } from "@/app/lib/types/component-props";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -181,7 +182,11 @@ export class SplatfileClient {
     return data;
   };
 
-  updateProfile = async (profile: ProfileUpdate, userId: string) => {
+  updateProfile = async (
+    profile: ProfileUpdate,
+    userId: string,
+    lang: Lang,
+  ) => {
     const user = await this._supabase.auth.getUser();
 
     if (user.data.user?.id !== userId) {
@@ -196,11 +201,15 @@ export class SplatfileClient {
       throw parsed.error;
     }
 
+    console.log("lang", lang);
     const response = await fetch(`/api/users/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        lang,
+      }),
     });
 
     if (!response.ok) {

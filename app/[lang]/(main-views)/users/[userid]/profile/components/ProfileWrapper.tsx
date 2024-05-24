@@ -2,15 +2,17 @@ import { GameCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/compo
 import { AccountCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/AccountCard";
 import { ProfileCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileCard";
 import { Account, Ingame, Profile } from "@/app/lib/locales/locale";
+import { Lang } from "@/app/lib/types/component-props";
 
 type ProfileWrapperProps = {
   account: Account;
   profile: Profile;
   ingame: Ingame;
+  lang: Lang;
 };
 
 export function ProfileWrapper(props: ProfileWrapperProps) {
-  const { account, ingame, profile } = props;
+  const { account, ingame, profile, lang } = props;
   return (
     <div className={"flex flex-col items-stretch"}>
       <div className={"flex h-full flex-col md:flex-row md:items-stretch"}>
@@ -24,7 +26,7 @@ export function ProfileWrapper(props: ProfileWrapperProps) {
         </div>
         {/* 인게임 정보 */}
         <div className={"w-full md:w-2/3"}>
-          <GameCard ingame={ingame} />
+          <GameCard ingame={ingame} lang={lang} />
         </div>
       </div>
       <div>

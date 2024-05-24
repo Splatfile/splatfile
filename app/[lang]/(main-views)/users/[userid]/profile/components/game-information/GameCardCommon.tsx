@@ -12,10 +12,10 @@ import {
 import { EditableNumber } from "@/app/ui/components/EditableText";
 import {
   anarchyBattleRanks,
+  getSalmonRunRank,
   isAnarchyBattleRank,
   isSalmonRunRank,
   salmonRunRanks,
-  salmonRunRanksKo,
 } from "@/app/lib/schemas/profile/game-info";
 import {
   rankImageUrl,
@@ -23,13 +23,15 @@ import {
   salmonImageUrl,
 } from "@/app/lib/constants/image-urls";
 import { Ingame } from "@/app/lib/locales/locale";
+import { Lang } from "@/app/lib/types/component-props";
 
 type GameCardCommonProps = {
+  lang: Lang;
   ingame: Ingame;
 };
 
 export function GameCardCommon(props: GameCardCommonProps) {
-  const { ingame } = props;
+  const { ingame, lang } = props;
   const [edit, setEdit] = useState(false);
 
   return (
@@ -40,7 +42,7 @@ export function GameCardCommon(props: GameCardCommonProps) {
     >
       <LevelText edit={edit} />
       <RankText edit={edit} />
-      <SalmonText edit={edit} />
+      <SalmonText lang={lang} edit={edit} />
     </EditableInlineTextCard>
   );
 }
@@ -153,6 +155,7 @@ export const RankText = (props: RankTextProps) => {
 };
 
 export type SalmonTextProps = {
+  lang: Lang;
   edit: boolean;
 };
 export const SalmonText = (props: SalmonTextProps) => {
@@ -184,13 +187,16 @@ export const SalmonText = (props: SalmonTextProps) => {
           <select onChange={onChangeGrade} defaultValue={salmonRunRank?.grade}>
             {salmonRunRanks.map((rank) => (
               <option key={rank} value={rank}>
-                {salmonRunRanksKo[rank]}
+                {getSalmonRunRank(props.lang, rank)}
               </option>
             ))}
           </select>
         </div>
       ) : (
-        <p>{salmonRunRank?.grade && salmonRunRanksKo[salmonRunRank.grade]}</p>
+        <p>
+          {salmonRunRank?.grade &&
+            getSalmonRunRank(props.lang, salmonRunRank.grade)}
+        </p>
       )}
     </div>
   );

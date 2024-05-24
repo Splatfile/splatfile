@@ -13,18 +13,18 @@ import { Header as HeaderLocale } from "@/app/lib/locales/locale";
 import { header as en } from "@/app/lib/locales/en.json";
 import { header as ko } from "@/app/lib/locales/ko.json";
 import { header as ja } from "@/app/lib/locales/ja.json";
+import { useTagLoadingStore } from "@/app/plate/lib/store/use-tag-store";
 import useUser = Auth.useUser;
 
 type HeaderProps = {};
 
-export function Header(props: HeaderProps) {
+export function Header(_: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [headerLocale, setHeaderLocale] = useState<HeaderLocale>(en);
 
   const params = useParams();
   useEffect(() => {
     const lang = params["lang"] ?? "en";
-    console.log(lang);
     if (lang === "ko") {
       setHeaderLocale(ko);
     } else if (lang === "ja") {
@@ -35,6 +35,7 @@ export function Header(props: HeaderProps) {
   }, [params]);
 
   const { isLoading } = useEditStore();
+  const { isLoading: isTagLoading } = useTagLoadingStore();
 
   return (
     <header className="bg-gray-900">
@@ -45,7 +46,7 @@ export function Header(props: HeaderProps) {
         {/* 헤더 왼쪽 */}
         <div className="flex text-white lg:flex-1">
           <a href={"/"}>Splatfile</a>
-          {isLoading && (
+          {(isLoading || isTagLoading) && (
             <div className={"mx-4 flex items-center justify-center"}>
               <LoadingLogo />
             </div>
