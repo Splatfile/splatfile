@@ -1,0 +1,176 @@
+import { mainsCodes } from "@/app/lib/constants/weapons";
+import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
+import { useState } from "react";
+import {
+  setWeaponGearInfo,
+  useEditStore,
+  useWeaponGearInfo,
+} from "@/app/lib/hooks/use-profile-store";
+import { PencilIcon } from "@heroicons/react/20/solid";
+import { DefaultModal } from "@/app/ui/components/DefaultModal";
+import clsx from "clsx";
+import { chunkArrayInGroups } from "@/app/lib/utils/array";
+import Image from "next/image";
+import { Ingame } from "@/app/lib/locales/locale";
+
+type GameCardWeaponsProps = {
+  ingame: Ingame;
+};
+
+export function GameCardWeapons(props: GameCardWeaponsProps) {
+  const { ingame } = props;
+  const weaponGearInfo = useWeaponGearInfo();
+  const filteredWeapons = chunkArrayInGroups(
+    Object.keys(weaponGearInfo ?? {}).filter(
+      (w) => weaponGearInfo?.[w]?.isActivated,
+    ),
+    4,
+  );
+  const [open, setOpen] = useState(false);
+  const { isMine } = useEditStore();
+
+  return (
+    <InlineTextCard
+      title={
+        <div className={"flex items-center justify-center gap-2"}>
+          <p>{ingame.ui_weapon}</p>
+          {isMine && (
+            <button
+              className={"h-4 w-4 text-neutral-500"}
+              onClick={() => setOpen(true)}
+            >
+              <PencilIcon />
+            </button>
+          )}
+        </div>
+      }
+    >
+      {filteredWeapons.map((weapons, i) => (
+        <div key={i} className={"flex items-center justify-center gap-4 py-2"}>
+          {weapons.map((w) => (
+            <WeaponRenderer key={w} weaponKey={w} />
+          ))}
+        </div>
+      ))}
+      <WeaponEditModal open={open} onClose={() => setOpen(false)} />
+    </InlineTextCard>
+  );
+}
+
+export type WeaponRendererProps = {
+  weaponKey: string;
+};
+
+export function WeaponRenderer({ weaponKey }: WeaponRendererProps) {
+  const weaponGearInfo = useWeaponGearInfo();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      className={clsx(
+        "h-10 w-10 cursor-pointer rounded-full outline outline-gray-300 hover:outline-gray-500",
+        weaponGearInfo?.[weaponKey]?.isActivated ? "opacity-100" : "opacity-65",
+      )}
+    >
+      <Image
+        width={40}
+        height={40}
+        src={"/ingames/weapons/mains/" + weaponKey + ".webp"}
+        alt=""
+      />
+    </div>
+  );
+}
+
+type WeaponDetailEditModalProps = {
+  weaponKey: string;
+  open: boolean;
+  onClose: (open: boolean) => void;
+};
+
+export function WeaponDetailEditModal({
+  weaponKey,
+  open,
+  onClose,
+}: WeaponDetailEditModalProps) {
+  return (
+    <DefaultModal title={"무기 상세 편집"} open={open} onClose={onClose}>
+      <div className={"h-[80vh] max-h-max overflow-scroll"}>
+        <p>{weaponKey}</p>
+      </div>
+    </DefaultModal>
+  );
+}
+
+type WeaponEditModalProps = {
+  open: boolean;
+  onClose: (open: boolean) => void;
+};
+
+function WeaponEditModal(props: WeaponEditModalProps) {
+  const weapons = chunkArrayInGroups<string>([...mainsCodes], 8);
+  const weaponGearInfo = useWeaponGearInfo();
+
+  const onActivate = (weaponKey: string) => {
+    const gearInfo = { ...weaponGearInfo };
+    const activatedCount = Object.keys(gearInfo).filter(
+      (w) => gearInfo[w].isActivated,
+    ).length;
+
+    if (activatedCount >= 15) {
+      return;
+    }
+
+    if (!gearInfo[weaponKey]) {
+      setWeaponGearInfo({
+        ...gearInfo,
+        [weaponKey]: {
+          isActivated: true,
+          gearPowers: {
+            head: ["", "", "", ""],
+            body: ["", "", "", ""],
+            shoes: ["", "", "", ""],
+          },
+          mainWeapon: "",
+          rules: [],
+          specialWeapon: "",
+          subWeapon: "",
+        },
+      });
+    } else {
+      setWeaponGearInfo({
+        ...gearInfo,
+        [weaponKey]: {
+          ...gearInfo[weaponKey],
+          isActivated: !gearInfo[weaponKey].isActivated,
+        },
+      });
+    }
+  };
+
+  return (
+    <DefaultModal title={"무기 선택"} open={props.open} onClose={props.onClose}>
+      <div className={"h-[80vh] max-h-max overflow-scroll"}>
+        {weapons.map((line: string[], i) => (
+          <div
+            key={i}
+            className={"flex items-center justify-center gap-4 py-2"}
+          >
+            {line.map((w) => (
+              <button
+                key={w}
+                onClick={() => onActivate(w)}
+                className={clsx(
+                  "rounded-full",
+                  weaponGearInfo?.[w]?.isActivated ? "" : "bg-gray-300",
+                )}
+              >
+                <WeaponRenderer key={w} weaponKey={w} />
+              </button>
+            ))}
+          </div>
+        ))}
+      </div>
+    </DefaultModal>
+  );
+}

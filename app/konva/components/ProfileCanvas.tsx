@@ -1,5 +1,11 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useRef, useState } from "react";
+import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
+import Konva from "konva";
+import useImage from "use-image";
+import { Image as KonvaImage, Layer, Stage } from "react-konva";
+
 import { GameInfoLayer } from "./GameInfoLayer";
 import { PlateAndProfileImageLayer } from "./PlateAndProfileImageLayer";
 import { UserInfoLayer } from "./UserInfoLayer";
@@ -12,14 +18,9 @@ import {
   canvasHeight,
   canvasWidth,
 } from "@/app/lib/utils/render-preview-canvas";
-import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
-import Konva from "konva";
-import { useEffect, useRef } from "react";
-import { Image as KonvaImage, Layer, Stage } from "react-konva";
-import useImage from "use-image";
 import {
-  loadFonts as loadFontsForPlate,
   isFontLoaded,
+  loadFonts as loadFontsForPlate,
 } from "@/app/plate/lib/render-plate";
 import { jua } from "@/app/fonts";
 

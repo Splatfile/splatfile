@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "PORT=3101 next dev",
     "start:local": "PORT=3101 next start",
+    "gen:locale": "tsc scripts/locales/generate-locale.ts --outFile scripts/locales/generate-locale.js && node scripts/locales/generate-locale.js && cp -r scripts/locales/dist/* app/lib/locales",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,6 +13,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.523.0",
+    "@formatjs/intl-localematcher": "^0.5.4",
     "@headlessui/react": "^2.0.3",
     "@heroicons/react": "^2.1.1",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
@@ -24,8 +26,10 @@
     "crawlee": "^3.7.3",
     "date-fns": "^3.6.0",
     "konva": "^9.3.6",
+    "negotiator": "^0.6.3",
     "next": "^14.2.3",
     "qrcode": "^1.5.3",
+    "quicktype-core": "^23.0.162",
     "react": "^18",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
@@ -40,6 +44,7 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
+    "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18",
@@ -47,6 +52,7 @@
     "@types/sanitize-html": "^2.11.0",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.0.1",
+    "csv-parser": "^3.0.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "file-loader": "^6.2.0",
@@ -56,5 +62,6 @@
     "supabase": "^1.153.4",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@8.6.1+sha512.3f9e23f20bdbf7a27b87b804383f1dafdb5cb35cdc40fce590aff2215255446ff595878ee4f33429e6a0e7c3882b1ae926514f6fea6a5ba75e52f87bfc2592e7"
 }

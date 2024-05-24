@@ -1,0 +1,67 @@
+{
+  "main": {
+    "first_section_title": "Manage Splatoon Profiles <br /> with SplatFile",
+    "first_section_description": "Easily manage your Splatoon profile with SplatFile! <br /> Set profile pictures, edit rank and weapon information, customize plates, and more. Save and share your created profiles as images.",
+    "first_section_button": "Get Started"
+  },
+  "ui": {
+    "recent_users_title": "Recent Updated Users"
+  },
+  "ingame": {
+    "ui_information": "In-game Information",
+    "ui_summary": "Summary",
+    "ui_weapon": "Used Weapons",
+    "ui_play_style": "Play Style",
+    "ui_game_type": "By Game Type",
+    "ui_game_play_style_newbie": "Newbie",
+    "ui_game_play_style_casual": "Casual",
+    "ui_game_play_style_hardcore": "Hardcore",
+    "ui_rule_preference": "Rule Preference",
+    "ui_x_match": "X Match",
+    "ui_salmon_run": "Salmon Run",
+    "ui_account_information": "Account Information",
+    "ui_open": "Open",
+    "ui_regular": "Regular",
+    "ui_drop_ins": "Drop-ins",
+    "ui_drop_ins_welcome": "Welcome"
+  },
+  "account": {
+    "ui_switch_nickname": "Switch Nickname",
+    "ui_twitter_nickname": "Twitter Nickname",
+    "ui_twitter_handle": "Twitter Handle",
+    "ui_information": "User Information",
+    "ui_friend_code": "Friend Code",
+    "ui_weekday_playtime": "Weekday Playtime",
+    "ui_weekend_playtime": "Weekend Playtime",
+    "ui_start_time": "Start Time",
+    "ui_end_time": "End Time",
+    "ui_nickname": "Nickname",
+    "ui_gender": "Gender",
+    "ui_gender_placeholder": "Enter Gender",
+    "ui_add_button": "Add",
+    "ui_friend_code_link": "Friend Code Link",
+    "ui_additional_information": "Additional Information"
+  },
+  "profile": {
+    "ui_upload_image_title": "Upload Profile Image",
+    "ui_image_upload_button": "Click to Upload Image",
+    "ui_image_upload_cancel_button": "Cancel",
+    "ui_image_upload_modal_drag_to_here": "Drag an image here",
+    "ui_image_upload_modal_drag_to_here_or_click": "Drag an image here or click",
+    "ui_image_upload_modal_zoom_is_available_by_mouse_wheel": "Zoom is available by mouse wheel",
+    "ui_image_upload_modal_zoom_is_available_by_pinch": "Zoom is available by pinch",
+    "ui_update_plate_button": "Click to Customize Plate",
+    "ui_share_button": "Share",
+    "ui_plate_modal_title": "Customize Plate",
+    "ui_plate_modal_confirm_button": "Confirm"
+  },
+  "header": {
+    "ui_my_profile": "My Profile",
+    "ui_login": "Login",
+    "ui_logout": "Logout",
+    "ui_user_search_placeholder": "User Search"
+  },
+  "": {
+    "": ""
+  }
+}

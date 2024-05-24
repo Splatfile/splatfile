@@ -28,7 +28,7 @@ import {
 import { chunkArrayInGroups } from "@/app/lib/utils/array";
 import {
   GameInfoObject,
-  salmonRunRanksKo,
+  getSalmonRunRank,
 } from "@/app/lib/schemas/profile/game-info";
 import QRCode from "qrcode";
 import { CanvasInfoObject, UserInfoObject } from "@/app/lib/schemas/profile";
@@ -37,6 +37,7 @@ import { z } from "zod";
 import { baseUrl } from "@/app/plate/lib/const";
 import { SplatfileAdmin } from "@/app/lib/server/splatfile-server";
 import { isGameInfo, isUserInfo } from "@/app/lib/types/type-checker";
+import { Lang } from "@/app/lib/types/component-props";
 
 export const dynamic = "force-dynamic";
 
@@ -52,7 +53,8 @@ export async function POST(
 ) {
   try {
     const admin = new SplatfileAdmin(ROUTER);
-    const imageBuffer = await renderOgImage(admin, params.userid);
+    const body = await req.json();
+    const imageBuffer = await renderOgImage(admin, params.userid, body.lang);
 
     if (!imageBuffer) {
       return new Response("Image Buffer is not truthy" + imageBuffer, {
@@ -92,7 +94,11 @@ export async function POST(
   }
 }
 
-const renderOgImage = async (client: SplatfileClient, userid: string) => {
+const renderOgImage = async (
+  client: SplatfileClient,
+  userid: string,
+  lang: Lang,
+) => {
   const canvas = createCanvas(canvasWidth, canvasHeight);
   const plate = createCanvas(700, 200);
 
@@ -236,7 +242,7 @@ const renderOgImage = async (client: SplatfileClient, userid: string) => {
       const salmonLevelText = await renderSalmonLevelImageAndGetText(
         ctx,
         rankLevelText,
-        `${salmonGrade ? salmonRunRanksKo[salmonGrade] : ""}`,
+        `${salmonGrade ? getSalmonRunRank(lang ?? "en", salmonGrade) : ""}`,
       );
       renderText(ctx, salmonLevelText);
 

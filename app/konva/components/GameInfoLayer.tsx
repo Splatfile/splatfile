@@ -4,7 +4,7 @@ import useImage from "use-image";
 
 import { jua } from "@/app/fonts";
 import { useGameStore } from "@/app/lib/hooks/use-profile-store";
-import { salmonRunRanksKo } from "@/app/lib/schemas/profile/game-info";
+import { getSalmonRunRank } from "@/app/lib/schemas/profile/game-info";
 
 type TextWithIconProps = {
   x: number;
@@ -94,7 +94,7 @@ function SummaryRect({ gameStore }: SummaryRectProps) {
         iconType="salmon"
         text={
           gameStore.salmonRunRank?.grade
-            ? salmonRunRanksKo[gameStore.salmonRunRank.grade]
+            ? getSalmonRunRank("ko", gameStore.salmonRunRank.grade)
             : "-"
         }
       />

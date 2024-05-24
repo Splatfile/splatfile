@@ -47,3 +47,47 @@ export const ko: I18nVariables = {
     confirmation_text: "비밀번호가 업데이트 되었습니다.",
   },
 };
+
+export const ja: I18nVariables = {
+  sign_up: {
+    email_label: "電子メールアドレス",
+    password_label: "パスワードを作成",
+    email_input_placeholder: "あなたのメールアドレス",
+    password_input_placeholder: "あなたのパスワード",
+    button_label: "サインアップ",
+    loading_button_label: "サインアップ中 ...",
+    social_provider_text: "{{provider}} に登録する",
+    link_text: "アカウントをお持ちではありませんか？サインアップ",
+  },
+  sign_in: {
+    email_label: "電子メールアドレス",
+    password_label: "あなたのパスワード",
+    email_input_placeholder: "あなたのメールアドレス",
+    password_input_placeholder: "あなたのパスワード",
+    button_label: "サインイン",
+    loading_button_label: "サインイン中 ...",
+    social_provider_text: "{{provider}} に登録する",
+    link_text: "アカウントをお持ちですか？サインイン",
+  },
+  magic_link: {
+    email_input_label: "メールアドレス",
+    email_input_placeholder: "あなたのメールアドレス",
+    button_label: "マジックリンクを送信",
+    loading_button_label: "マジックリンクを送信中 ...",
+    link_text: "マジックリンクをメールで送信",
+  },
+  forgotten_password: {
+    email_label: "メールアドレス",
+    password_label: "あなたのパスワード",
+    email_input_placeholder: "あなたのメールアドレス",
+    button_label: "パスワード再設定の手順を送信",
+    loading_button_label: "再設定の手順を送信中 ...",
+    link_text: "パスワードをお忘れの方",
+  },
+  update_password: {
+    password_label: "新しいパスワード",
+    password_input_placeholder: "新しいパスワード",
+    button_label: "パスワードを更新",
+    loading_button_label: "パスワードを更新中 ...",
+  },
+};

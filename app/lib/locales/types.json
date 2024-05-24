@@ -1,0 +1,67 @@
+{
+  "main": {
+    "first_section_title": "main_first_section_title",
+    "first_section_description": "main_first_section_description",
+    "first_section_button": "main_first_section_button"
+  },
+  "ui": {
+    "recent_users_title": "ui_recent_users_title"
+  },
+  "ingame": {
+    "ui_information": "ingame_ui_information",
+    "ui_summary": "ingame_ui_summary",
+    "ui_weapon": "ingame_ui_weapon",
+    "ui_play_style": "ingame_ui_play_style",
+    "ui_game_type": "ingame_ui_game_type",
+    "ui_game_play_style_newbie": "ingame_ui_game_play_style_newbie",
+    "ui_game_play_style_casual": "ingame_ui_game_play_style_casual",
+    "ui_game_play_style_hardcore": "ingame_ui_game_play_style_hardcore",
+    "ui_rule_preference": "ingame_ui_rule_preference",
+    "ui_x_match": "ingame_ui_x_match",
+    "ui_salmon_run": "ingame_ui_salmon_run",
+    "ui_account_information": "ingame_ui_account_information",
+    "ui_open": "ingame_ui_open",
+    "ui_regular": "ingame_ui_regular",
+    "ui_drop_ins": "ingame_ui_drop_ins",
+    "ui_drop_ins_welcome": "ingame_ui_drop_ins_welcome"
+  },
+  "account": {
+    "ui_switch_nickname": "account_ui_switch_nickname",
+    "ui_twitter_nickname": "account_ui_twitter_nickname",
+    "ui_twitter_handle": "account_ui_twitter_handle",
+    "ui_information": "account_ui_information",
+    "ui_friend_code": "account_ui_friend_code",
+    "ui_weekday_playtime": "account_ui_weekday_playtime",
+    "ui_weekend_playtime": "account_ui_weekend_playtime",
+    "ui_start_time": "account_ui_start_time",
+    "ui_end_time": "account_ui_end_time",
+    "ui_nickname": "account_ui_nickname",
+    "ui_gender": "account_ui_gender",
+    "ui_gender_placeholder": "account_ui_gender_placeholder",
+    "ui_add_button": "account_ui_add_button",
+    "ui_friend_code_link": "account_ui_friend_code_link",
+    "ui_additional_information": "account_ui_additional_information"
+  },
+  "profile": {
+    "ui_upload_image_title": "profile_ui_upload_image_title",
+    "ui_image_upload_button": "profile_ui_image_upload_button",
+    "ui_image_upload_cancel_button": "profile_ui_image_upload_cancel_button",
+    "ui_image_upload_modal_drag_to_here": "profile_ui_image_upload_modal_drag_to_here",
+    "ui_image_upload_modal_drag_to_here_or_click": "profile_ui_image_upload_modal_drag_to_here_or_click",
+    "ui_image_upload_modal_zoom_is_available_by_mouse_wheel": "profile_ui_image_upload_modal_zoom_is_available_by_mouse_wheel",
+    "ui_image_upload_modal_zoom_is_available_by_pinch": "profile_ui_image_upload_modal_zoom_is_available_by_pinch",
+    "ui_update_plate_button": "profile_ui_update_plate_button",
+    "ui_share_button": "profile_ui_share_button",
+    "ui_plate_modal_title": "profile_ui_plate_modal_title",
+    "ui_plate_modal_confirm_button": "profile_ui_plate_modal_confirm_button"
+  },
+  "header": {
+    "ui_my_profile": "header_ui_my_profile",
+    "ui_login": "header_ui_login",
+    "ui_logout": "header_ui_logout",
+    "ui_user_search_placeholder": "header_ui_user_search_placeholder"
+  },
+  "": {
+    "": ""
+  }
+}

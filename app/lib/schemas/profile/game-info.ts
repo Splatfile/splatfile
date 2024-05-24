@@ -5,9 +5,10 @@ import {
   subsCodes,
 } from "@/app/lib/constants/weapons";
 import { gearPowerCodes } from "@/app/lib/constants/weapons/etc";
-import { GameCardXMatch } from "@/app/(main-views)/users/[userid]/profile/components/game-information/GameCardXMatch";
+import { GameCardXMatch } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCardXMatch";
 import { isMatching, P } from "ts-pattern";
 import { z } from "zod";
+import { Lang } from "@/app/lib/types/component-props";
 
 type ServerRegion = "KR/HK" | "JP" | "EU" | "NA/SA/AT/NC";
 export type RankRule = "Area" | "Fish" | "Clam" | "Tower";
@@ -186,7 +187,7 @@ export type SalmonRunRankGrade = (typeof salmonRunRanks)[number];
 export const isSalmonRunRank = (rank: string): rank is SalmonRunRankGrade =>
   salmonRunRanks.includes(rank as SalmonRunRankGrade);
 // 임시로 만든 코드 추후 제대로 언어 객체 만들어서 사용 예정
-export const salmonRunRanksKo: Record<SalmonRunRankGrade, string> = {
+const salmonRunRanksKo: Record<SalmonRunRankGrade, string> = {
   Grade_00: "\ucd08\ubcf4",
   Grade_01: "\uacac\uc2b5",
   Grade_02: "\uc77c\ubc18",
@@ -197,6 +198,43 @@ export const salmonRunRanksKo: Record<SalmonRunRankGrade, string> = {
   Grade_07: "\ub2ec\uc778 +3",
   Grade_08: "\uc804\uc124",
 };
+
+const salmonRunRanksEn: Record<SalmonRunRankGrade, string> = {
+  Grade_00: "Apprentice",
+  Grade_01: "Part-Timer",
+  Grade_02: "Go-Getter",
+  Grade_03: "Overachiever",
+  Grade_04: "Profreshional",
+  Grade_05: "Profreshional +1",
+  Grade_06: "Profreshional +2",
+  Grade_07: "Profreshional +3",
+  Grade_08: "Eggsecutive VP",
+};
+const salmonRunRanksJa: Record<SalmonRunRankGrade, string> = {
+  Grade_00: "\u304b\u3051\u3060\u3057",
+  Grade_01: "\u306f\u3093\u306b\u3093\u307e\u3048",
+  Grade_02: "\u3044\u3061\u306b\u3093\u307e\u3048",
+  Grade_03: "\u3058\u3085\u304f\u308c\u3093",
+  Grade_04: "\u305f\u3064\u3058\u3093",
+  Grade_05: "\u305f\u3064\u3058\u3093\uff0b\uff11",
+  Grade_06: "\u305f\u3064\u3058\u3093\uff0b\uff12",
+  Grade_07: "\u305f\u3064\u3058\u3093\uff0b\uff13",
+  Grade_08: "\u3067\u3093\u305b\u3064",
+};
+
+export const getSalmonRunRank = (lang: Lang, rank: SalmonRunRankGrade) => {
+  switch (lang) {
+    case "ko":
+      return salmonRunRanksKo[rank];
+    case "en":
+      return salmonRunRanksEn[rank];
+    case "ja":
+      return salmonRunRanksJa[rank];
+    default:
+      return salmonRunRanksEn[rank];
+  }
+};
+
 export const salmonrun_legend = "Grade_08";
 type BattleMapCode = (typeof battleCodes)[number];
 type SalmonRunMapCode = (typeof salmonrunCodes)[number];

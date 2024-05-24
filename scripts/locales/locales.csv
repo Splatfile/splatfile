@@ -1,0 +1,98 @@
+lang,ko,en,ja
+main_first_section_title,스플래툰 프로필 관리 <br /> 스플랫파일,Manage Splatoon Profiles <br /> with SplatFile,スプラトゥーンプロファイル管理 <br /> スプラットファイル
+main_first_section_description,"스플랫파일을 통해 손 쉽게 스플래툰 프로필을 관리해 보세요! <br /> 프로필 사진 설정 랭크 및 무기 정보 수정, 플레이트 꾸미기 등 다양한 기능을 제공합니다. 만드신 프로필은 이미지로 저장하여 공유하실 수 있습니다.","Easily manage your Splatoon profile with SplatFile! <br /> Set profile pictures, edit rank and weapon information, customize plates, and more. Save and share your created profiles as images.","スプラットファイルで簡単にスプラトゥーンプロファイルを管理しましょう！ <br /> プロフィール画像の設定、ランクや武器情報の編集、プレートのカスタマイズなど、多彩な機能を提供します。作成したプロフィールは画像として保存して共有できます。"
+main_first_section_button,시작하기,Get Started,始める
+ui_recent_users_title,최근 갱신 유저,Recent Updated Users,最近更新されたユーザー
+ingame_ui_information,인게임 정보,In-game Information,ゲーム内情報
+ingame_ui_summary,종합,Summary,総合
+ingame_ui_weapon,사용 무기,Used Weapons,使用武器
+ingame_ui_play_style,플레이 스타일,Play Style,プレイスタイル
+ingame_ui_game_type,게임 유형 별,By Game Type,ゲームタイプ別
+ingame_ui_game_play_style_newbie,뉴비,Newbie,ニュービー
+ingame_ui_game_play_style_casual,캐주얼,Casual,カジュアル
+ingame_ui_game_play_style_hardcore,빡겜,Hardcore,ハードコア
+ingame_ui_rule_preference,룰 별 선호도,Rule Preference,ルールごとの好み
+ingame_ui_x_match,X 매치,X Match,Xマッチ
+ingame_ui_salmon_run,연어런,Salmon Run,サーモンラン
+ingame_ui_account_information,계정 정보,Account Information,アカウント情報
+ingame_ui_open,오픈,Open,オープン,
+ingame_ui_regular,레귤러,Regular,レギュラー,
+ingame_ui_drop_ins,난입,Drop-ins,乱入,
+ingame_ui_drop_ins_welcome,환영,Welcome,歓迎,
+account_ui_switch_nickname,스위치 닉네임,Switch Nickname,スイッチニックネーム,
+account_ui_twitter_nickname,트위터 닉네임,Twitter Nickname,ツイッターニックネーム,
+account_ui_twitter_handle,트위터 핸들,Twitter Handle,ツイッターニックネーム,
+account_ui_information,유저 정보,User Information,ユーザー情報,
+account_ui_friend_code,친구 코드,Friend Code,フレンドコード
+account_ui_weekday_playtime,"평일 접속 시간","Weekday Playtime","平日のプレイ時間"
+account_ui_weekend_playtime,주말 접속 시간,Weekend Playtime,週末のプレイ時間
+account_ui_start_time,시작 시간,Start Time,開始時間
+account_ui_end_time,종료 시간,End Time,終了時間
+account_ui_nickname,닉네임,Nickname,ニックネーム
+account_ui_gender,성별,Gender,性別
+account_ui_gender_placeholder,성별 입력,Enter Gender,性別を入力,
+account_ui_add_button,추가,Add,追加
+account_ui_friend_code_link,친구 코드 링크,Friend Code Link,フレンドコードリンク
+account_ui_additional_information,하고 싶은 말,Additional Information,追加情報
+profile_ui_upload_image_title,프로필 이미지 업로드,Upload Profile Image,プロフィール画像をアップロード
+profile_ui_image_upload_button,클릭해서 이미지 업로드,Click to Upload Image,画像をアップロードするにはクリック
+profile_ui_image_upload_cancel_button,취소,Cancel,キャンセル
+profile_ui_image_upload_modal_drag_to_here,이곳에 이미지를 드래그하세요,Drag an image here,ここに画像をドラッグしてください
+profile_ui_image_upload_modal_drag_to_here_or_click,이곳에 이미지를 드래그하거나 클릭하세요,Drag an image here or click,ここに画像をドラッグするかクリックしてください
+profile_ui_image_upload_modal_zoom_is_available_by_mouse_wheel,마우스 휠로 줌 가능,Zoom is available by mouse wheel,マウスホイールでズーム可能
+profile_ui_image_upload_modal_zoom_is_available_by_pinch,핀치로 줌 가능,Zoom is available by pinch,ピンチでズーム可能
+profile_ui_update_plate_button,클릭해서 플레이트 꾸미기,Click to Customize Plate,プレートをカスタマイズするにはクリック
+profile_ui_share_button,공유하기,Share,共有
+profile_ui_plate_modal_title,플레이트 꾸미기,Customize Plate,プレートカスタマイズ
+profile_ui_plate_modal_confirm_button,확인,Confirm,確認
+header_ui_my_profile,내 프로필,My Profile,私のプロフィール
+header_ui_login,로그인,Login,ログイン
+header_ui_logout,로그아웃,Logout,ログアウト
+header_ui_user_search_placeholder,유저 검색,User Search,ユーザー検索
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,

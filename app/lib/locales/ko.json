@@ -1,0 +1,67 @@
+{
+  "main": {
+    "first_section_title": "스플래툰 프로필 관리 <br /> 스플랫파일",
+    "first_section_description": "스플랫파일을 통해 손 쉽게 스플래툰 프로필을 관리해 보세요! <br /> 프로필 사진 설정 랭크 및 무기 정보 수정, 플레이트 꾸미기 등 다양한 기능을 제공합니다. 만드신 프로필은 이미지로 저장하여 공유하실 수 있습니다.",
+    "first_section_button": "시작하기"
+  },
+  "ui": {
+    "recent_users_title": "최근 갱신 유저"
+  },
+  "ingame": {
+    "ui_information": "인게임 정보",
+    "ui_summary": "종합",
+    "ui_weapon": "사용 무기",
+    "ui_play_style": "플레이 스타일",
+    "ui_game_type": "게임 유형 별",
+    "ui_game_play_style_newbie": "뉴비",
+    "ui_game_play_style_casual": "캐주얼",
+    "ui_game_play_style_hardcore": "빡겜",
+    "ui_rule_preference": "룰 별 선호도",
+    "ui_x_match": "X 매치",
+    "ui_salmon_run": "연어런",
+    "ui_account_information": "계정 정보",
+    "ui_open": "오픈",
+    "ui_regular": "레귤러",
+    "ui_drop_ins": "난입",
+    "ui_drop_ins_welcome": "환영"
+  },
+  "account": {
+    "ui_switch_nickname": "스위치 닉네임",
+    "ui_twitter_nickname": "트위터 닉네임",
+    "ui_twitter_handle": "트위터 핸들",
+    "ui_information": "유저 정보",
+    "ui_friend_code": "친구 코드",
+    "ui_weekday_playtime": "평일 접속 시간",
+    "ui_weekend_playtime": "주말 접속 시간",
+    "ui_start_time": "시작 시간",
+    "ui_end_time": "종료 시간",
+    "ui_nickname": "닉네임",
+    "ui_gender": "성별",
+    "ui_gender_placeholder": "성별 입력",
+    "ui_add_button": "추가",
+    "ui_friend_code_link": "친구 코드 링크",
+    "ui_additional_information": "하고 싶은 말"
+  },
+  "profile": {
+    "ui_upload_image_title": "프로필 이미지 업로드",
+    "ui_image_upload_button": "클릭해서 이미지 업로드",
+    "ui_image_upload_cancel_button": "취소",
+    "ui_image_upload_modal_drag_to_here": "이곳에 이미지를 드래그하세요",
+    "ui_image_upload_modal_drag_to_here_or_click": "이곳에 이미지를 드래그하거나 클릭하세요",
+    "ui_image_upload_modal_zoom_is_available_by_mouse_wheel": "마우스 휠로 줌 가능",
+    "ui_image_upload_modal_zoom_is_available_by_pinch": "핀치로 줌 가능",
+    "ui_update_plate_button": "클릭해서 플레이트 꾸미기",
+    "ui_share_button": "공유하기",
+    "ui_plate_modal_title": "플레이트 꾸미기",
+    "ui_plate_modal_confirm_button": "확인"
+  },
+  "header": {
+    "ui_my_profile": "내 프로필",
+    "ui_login": "로그인",
+    "ui_logout": "로그아웃",
+    "ui_user_search_placeholder": "유저 검색"
+  },
+  "": {
+    "": ""
+  }
+}
