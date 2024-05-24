@@ -49,8 +49,5 @@ let defaultLocale = "ko";
 function getLocale(request: NextRequest) {
   // @ts-ignore
   const negotiator = new Negotiator(request);
-
-  console.log("languages", negotiator.languages(locales));
-
   return match(negotiator.languages(locales), locales, defaultLocale);
 }
