@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { getDefinedBadges } from "../../lib/define-badges";
 import { clsx } from "clsx";
-import lang from "../../lang.json";
 import { setBadges, useBadges } from "../../lib/store/use-tag-store";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
+import { Lang } from "@/app/lib/types/component-props";
+import langs from "@/app/plate/lang.json";
+import { getLanguage } from "@/app/plate/ui/SplatPlateEditor";
 
 const defineName = (name: string) => {
   const hashIndex = name.indexOf("#");
@@ -13,7 +15,25 @@ const defineName = (name: string) => {
 
 type Badges = [string, string, string];
 
-export function BadgeTab() {
+type BadgeTabProps = {
+  lang: Lang;
+};
+
+const getClearButtonLocale = (lang: Lang) => {
+  switch (lang) {
+    case "en":
+      return "Clear";
+    case "ko":
+      return "비우기";
+    case "ja":
+      return "クリア";
+    default:
+      return "Clear";
+  }
+};
+
+export function BadgeTab(props: BadgeTabProps) {
+  const { lang } = props;
   const [selectedSlot, setSelectedSlot] = useState(0);
   const currentBadges = useBadges();
   const badges = getDefinedBadges();
@@ -64,7 +84,7 @@ export function BadgeTab() {
               onChange={() => setSelectedSlot(0)}
               checked={selectedSlot === 0}
             />
-            <span id="textSlot1">슬롯 1</span>
+            <span id="textSlot1">{langs[getLanguage(lang)].ui.textSlot1}</span>
           </label>
           <button
             className={
@@ -74,7 +94,7 @@ export function BadgeTab() {
               setBadges(["", currentBadges[1], currentBadges[2]]);
             }}
           >
-            비우기
+            {getClearButtonLocale(lang)}
           </button>
         </div>
         -{" "}
@@ -88,7 +108,7 @@ export function BadgeTab() {
               onChange={() => setSelectedSlot(1)}
               checked={selectedSlot === 1}
             />
-            <span id="textSlot2">슬롯 2</span>
+            <span id="textSlot2">{langs[getLanguage(lang)].ui.textSlot2}</span>
           </label>
           <button
             className={
@@ -98,7 +118,7 @@ export function BadgeTab() {
               setBadges([currentBadges[0], "", currentBadges[2]]);
             }}
           >
-            비우기
+            {getClearButtonLocale(lang)}
           </button>
         </div>
         -
@@ -112,7 +132,7 @@ export function BadgeTab() {
               onChange={() => setSelectedSlot(2)}
               checked={selectedSlot === 2}
             />
-            <span id="textSlot3">슬롯 3</span>
+            <span id="textSlot3">{langs[getLanguage(lang)].ui.textSlot3}</span>
           </label>
           <button
             className={
@@ -122,7 +142,7 @@ export function BadgeTab() {
               setBadges([currentBadges[0], currentBadges[1], ""]);
             }}
           >
-            비우기
+            {getClearButtonLocale(lang)}
           </button>
         </div>
       </div>
@@ -135,6 +155,7 @@ export function BadgeTab() {
               name={b[0]}
               items={b[1]}
               onClickBadge={onClickBadge}
+              lang={lang}
             />
           );
         })}
@@ -147,11 +168,12 @@ type BadgeItemProps = {
   name: string;
   items: string[];
   onClickBadge: (badge: string) => void;
+  lang: Lang;
 };
 
-type SectionKeys = keyof (typeof lang)["KRko"]["sections"];
+type SectionKeys = keyof (typeof langs)["KRko"]["sections"];
 const BadgeItem = (props: BadgeItemProps) => {
-  const { name, items } = props;
+  const { name, items, lang } = props;
   const [collapsed, setCollapsed] = useState(name.includes("custom"));
   const isCustom = name.includes("custom");
   const badges = useBadges();
@@ -163,7 +185,9 @@ const BadgeItem = (props: BadgeItemProps) => {
   return (
     <div className={clsx("category", collapsed ? "mb-2" : "mb-8")}>
       <div className={"flex cursor-pointer"} onClick={onCollapse}>
-        <span id="textBadges">{lang.KRko.sections[defineName(name)]}</span>
+        <span id="textBadges">
+          {langs[getLanguage(lang)].sections[defineName(name)]}
+        </span>
         <div className={"ml-1 h-6 w-6 pt-0.5 text-white"}>
           {collapsed ? <EyeSlashIcon /> : <EyeIcon />}
         </div>

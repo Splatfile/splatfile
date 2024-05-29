@@ -9,23 +9,53 @@ import {
   useName,
   useTitle,
 } from "../../lib/store/use-tag-store";
-import lang from "../../lang.json";
+import { Lang } from "@/app/lib/types/component-props";
+import { getLanguage } from "../SplatPlateEditor";
+import langs from "../../lang.json";
 
-const langs = lang["KRko"];
+type TextTabProps = {
+  lang: Lang;
+  setLang: (lang: Lang) => void;
+};
 
-export function TextTab() {
+const getLanguageText = (lang: Lang) => {
+  switch (lang) {
+    case "en":
+      return "English";
+    case "ko":
+      return "한국어";
+    case "ja":
+      return "日本語";
+  }
+  return "";
+};
+
+const getLanguageLocale = (lang: Lang) => {
+  switch (lang) {
+    case "en":
+      return "Language";
+    case "ko":
+      return "언어";
+    case "ja":
+      return "言語";
+  }
+  return "";
+};
+
+export function TextTab(props: TextTabProps) {
+  const { lang, setLang } = props;
   const [customTitle, setCustomTitle] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { first, last, string } = useTitle();
+  const { firstString, lastString, string } = useTitle();
   const name = useName();
   const color = useColor();
   const id = useId();
 
   useEffect(() => {
-    langs.titles.first.sort();
-    langs.titles.last.sort();
+    langs[getLanguage(lang)].titles.first.sort();
+    langs[getLanguage(lang)].titles.last.sort();
     setLoading(false);
-  }, []);
+  }, [lang]);
 
   const onCustomTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle({
@@ -33,16 +63,16 @@ export function TextTab() {
     });
   };
 
-  const setFirst = (index: number) => {
+  const setFirst = (firstTitle: string) => {
     setTitle({
-      first: index,
+      firstString: firstTitle,
       string: "",
     });
   };
 
-  const setLast = (index: number) => {
+  const setLast = (lastTitle: string) => {
     setTitle({
-      last: index,
+      lastString: lastTitle,
       string: "",
     });
   };
@@ -55,8 +85,22 @@ export function TextTab() {
     >
       <div className="flex max-h-[calc(100vh-120px)]  w-full flex-col justify-start overflow-y-scroll md:gap-4">
         <div>
+          <div className={"flex items-center justify-start gap-2"}>
+            <p className={"my-2"}>{getLanguageLocale(lang)}:</p>
+            <select
+              value={lang}
+              onChange={({ target: { value } }) => setLang(value as Lang)}
+              className={"h-7 rounded-md px-2 text-black"}
+            >
+              {["en", "ko", "ja"].map((l, i) => (
+                <option key={i} value={l}>
+                  {getLanguageText(l as Lang)}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="w-full text-start">
-            <p className="my-2">{langs.ui.textName}: </p>
+            <p className="my-2">{langs[getLanguage(lang)].ui.textName}: </p>
           </div>
           <div className="flex flex-col items-start gap-2 md:flex-row">
             {/* change to react style*/}
@@ -109,7 +153,7 @@ export function TextTab() {
         </div>
         <div className={"py-2"}>
           <div className={"flex items-center gap-3"}>
-            <p className={"my-2"}>별명: </p>
+            <p className={"my-2"}>{langs[getLanguage(lang)].ui.textTitles}: </p>
             <label>
               <small className={"flex items-center gap-2 pt-2"}>
                 <span id="textCustom">Custom</span>{" "}
@@ -140,26 +184,26 @@ export function TextTab() {
               <>
                 <select
                   className="rounded-md px-2 text-black"
-                  value={first}
-                  onChange={({ target: { selectedIndex } }) => {
-                    setFirst(selectedIndex);
+                  value={firstString}
+                  onChange={({ target: { value } }) => {
+                    setFirst(value);
                   }}
                 >
-                  {langs.titles.first.map((title, i) => (
-                    <option key={i} value={i}>
+                  {langs[getLanguage(lang)].titles.first.map((title, i) => (
+                    <option key={i} value={title}>
                       {title}
                     </option>
                   ))}
                 </select>
                 <select
                   className="rounded-md px-2 text-black"
-                  value={last}
-                  onChange={({ target: { selectedIndex } }) => {
-                    setLast(selectedIndex);
+                  value={lastString}
+                  onChange={({ target: { value } }) => {
+                    setLast(value);
                   }}
                 >
-                  {langs.titles.last.map((title, i) => (
-                    <option key={i} value={i}>
+                  {langs[getLanguage(lang)].titles.last.map((title, i) => (
+                    <option key={i} value={title}>
                       {title}
                     </option>
                   ))}

@@ -1,5 +1,5 @@
 import assets from "../../assets.json";
-import lang from "../../lang.json";
+import langs from "../../lang.json";
 import { useState } from "react";
 import {
   setBanner,
@@ -19,8 +19,15 @@ import { defineBanners } from "../../lib/define-banner";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 import { baseUrl } from "../../lib/const";
 import { GradientRenderer } from "./banner-tab/GradientRenderer";
+import { Lang } from "@/app/lib/types/component-props";
+import { getLanguage } from "@/app/plate/ui/SplatPlateEditor";
 
-export function BannerTab() {
+type BannerTabProps = {
+  lang: Lang;
+};
+
+export function BannerTab(props: BannerTabProps) {
+  const { lang } = props;
   const { banners } = assets;
 
   const castedBanners = banners as Banner[];
@@ -51,7 +58,9 @@ export function BannerTab() {
             if (!isBannerItems(b[1])) {
               return null;
             }
-            return <BannerRenderer key={b[0]} name={b[0]} items={b[1]} />;
+            return (
+              <BannerRenderer key={b[0]} name={b[0]} items={b[1]} lang={lang} />
+            );
           })}
           {/*{Object.entries(definedCustomBanner).map((b) => {*/}
           {/*  if (!isSectionType(b[0])) {*/}
@@ -75,10 +84,11 @@ type BannerRendererProps = {
   name: SectionType;
   custom?: boolean;
   items: BannerItem[];
+  lang: Lang;
 };
 
 const BannerRenderer = (props: BannerRendererProps) => {
-  const { name, items, custom } = props;
+  const { name, items, custom, lang } = props;
 
   const banner = useBanner();
 
@@ -95,7 +105,7 @@ const BannerRenderer = (props: BannerRendererProps) => {
           collapsed: collapsed,
         })}
       >
-        {lang.KRko.sections[name]}
+        {langs[getLanguage(lang)].sections[name]}
         <div className={"h-6 w-6 pt-0.5 text-white"}>
           {collapsed ? <EyeSlashIcon /> : <EyeIcon />}
         </div>

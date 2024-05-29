@@ -61,6 +61,9 @@
     "ui_logout": "ログアウト",
     "ui_user_search_placeholder": "ユーザー検索"
   },
+  "plate": {
+    "ui_clear_button": "リセット"
+  },
   "": {
     "": ""
   }

@@ -89,10 +89,8 @@ const titleToString = (title: TagState["title"]) => {
   const chosentitles = [];
   if (title.string) chosentitles.push(title.string);
   else {
-    if (title.first !== -1)
-      chosentitles.push(lang[language].titles.first[title.first]);
-    if (title.last !== -1)
-      chosentitles.push(lang[language].titles.last[title.last]);
+    if (title.firstString !== "") chosentitles.push(title.firstString);
+    if (title.lastString !== "") chosentitles.push(title.lastString);
   }
   if (chosentitles[0])
     return chosentitles.join(

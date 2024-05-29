@@ -5,7 +5,9 @@ export const PlateInfoObject = z.object({
   name: z.string(),
   title: z.object({
     first: z.number(),
+    firstString: z.string().optional(),
     last: z.number(),
+    lastString: z.string().optional(),
     string: z.string(),
   }),
   banner: z.string(),
