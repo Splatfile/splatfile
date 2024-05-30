@@ -52,6 +52,10 @@
     "ui_image_upload_modal_zoom_is_available_by_pinch": "profile_ui_image_upload_modal_zoom_is_available_by_pinch",
     "ui_update_plate_button": "profile_ui_update_plate_button",
     "ui_share_button": "profile_ui_share_button",
+    "ui_export_button": "profile_ui_export_button",
+    "ui_export_modal_title": "profile_ui_export_modal_title",
+    "ui_export_modal_download_button": "profile_ui_export_modal_download_button",
+    "ui_export_modal_download_button_rendering_wait": "profile_ui_export_modal_download_button_rendering_wait",
     "ui_plate_modal_title": "profile_ui_plate_modal_title",
     "ui_plate_modal_confirm_button": "profile_ui_plate_modal_confirm_button"
   },

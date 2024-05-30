@@ -52,6 +52,10 @@
     "ui_image_upload_modal_zoom_is_available_by_pinch": "Zoom is available by pinch",
     "ui_update_plate_button": "Click to Customize Plate",
     "ui_share_button": "Share",
+    "ui_export_button": "Export as Image",
+    "ui_export_modal_title": "Export as Image",
+    "ui_export_modal_download_button": "Download",
+    "ui_export_modal_download_button_rendering_wait": "Rendering, please wait...",
     "ui_plate_modal_title": "Customize Plate",
     "ui_plate_modal_confirm_button": "Confirm"
   },
