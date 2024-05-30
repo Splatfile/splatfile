@@ -202,7 +202,6 @@ export const renderServerPlate = async (
     gradientDirection,
   } = tagState;
   const bannerImage = await getBannerImage(banner);
-  console.log("loaded");
 
   compositeCanvas.width = w;
   compositeCanvas.height = h;
