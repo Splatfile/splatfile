@@ -105,27 +105,33 @@ export const EditPlayTimeCard = (props: EditPlayTimeCardProps) => {
       <div className={"flex justify-center gap-2"}>
         <div className={"flex gap-1"}>
           <p>{account.ui_start_time}</p>
-          <input
-            type="number"
-            min={0}
-            max={23}
+          <select
             value={playtime?.start ?? 0}
             onChange={(e) => {
               onChange("start", e.target.value);
             }}
-          />
+          >
+            {Array.from({ length: 24 }, (_, i) => (
+              <option key={i} value={i}>
+                {i}
+              </option>
+            ))}
+          </select>
         </div>
         <div className={"flex gap-1"}>
           <p>{account.ui_end_time}</p>
-          <input
-            type="number"
-            min={0}
-            max={23}
+          <select
             value={playtime?.end ?? 0}
             onChange={(e) => {
               onChange("end", e.target.value);
             }}
-          />
+          >
+            {Array.from({ length: 24 }, (_, i) => (
+              <option key={i} value={i}>
+                {i}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
       <p className={"px-2 pt-4 text-center text-sm text-gray-400"}>
