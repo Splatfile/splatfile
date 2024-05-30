@@ -129,7 +129,7 @@ export const EditPlayTimeCard = (props: EditPlayTimeCardProps) => {
         </div>
       </div>
       <p className={"px-2 pt-4 text-center text-sm text-gray-400"}>
-        00~23시 사이의 숫자를 입력해주세요.
+        {account.ui_edit_playtime_description}
       </p>
     </div>
   );

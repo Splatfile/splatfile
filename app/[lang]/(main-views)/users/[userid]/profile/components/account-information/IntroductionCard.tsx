@@ -35,7 +35,7 @@ export function IntroductionCard(props: AboutMeProps) {
           "w-full text-left text-lg text-neutral-500 max-w-full lg:max-w-xl text-left"
         }
         textareaClassName={
-          "text-left text-sm text-neutral-500 w-full text-left text-lg text-neutral-500 min-h-40 box-border resize-none p-2"
+          "text-left text-sm text-neutral-500 w-full text-left text-lg text-neutral-500 min-h-40 box-border resize-none p-2 shadow-md"
         }
         value={message ?? ""}
         cols={80}
