@@ -21,7 +21,7 @@ const h = 3;
 export const canvasWidth = 1024;
 export const canvasHeight = 536;
 export const profileImageRect: Rect = [50, 50, 267, 400];
-export const profileImageBorderRadius: number = 3;
+export const profileImageCornerRadius: number = 3;
 export const plateRect: Rect = [58, 402, 300, 86];
 type TextRender = {
   text: string;
