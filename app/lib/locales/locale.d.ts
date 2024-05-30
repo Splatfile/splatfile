@@ -14,6 +14,7 @@ export interface Locale {
     account: Account;
     profile: Profile;
     header:  Header;
+    plate:   Plate;
     "":      Empty;
 }
 
@@ -69,6 +70,10 @@ export interface Main {
     first_section_title:       string;
     first_section_description: string;
     first_section_button:      string;
+}
+
+export interface Plate {
+    ui_clear_button: string;
 }
 
 export interface Profile {
@@ -265,6 +270,7 @@ const typeMap: any = {
         { json: "account", js: "account", typ: r("Account") },
         { json: "profile", js: "profile", typ: r("Profile") },
         { json: "header", js: "header", typ: r("Header") },
+        { json: "plate", js: "plate", typ: r("Plate") },
         { json: "", js: "", typ: r("Empty") },
     ], false),
     "Empty": o([
@@ -315,6 +321,9 @@ const typeMap: any = {
         { json: "first_section_title", js: "first_section_title", typ: "" },
         { json: "first_section_description", js: "first_section_description", typ: "" },
         { json: "first_section_button", js: "first_section_button", typ: "" },
+    ], false),
+    "Plate": o([
+        { json: "ui_clear_button", js: "ui_clear_button", typ: "" },
     ], false),
     "Profile": o([
         { json: "ui_upload_image_title", js: "ui_upload_image_title", typ: "" },

@@ -65,6 +65,9 @@
     "ui_logout": "로그아웃",
     "ui_user_search_placeholder": "유저 검색"
   },
+  "plate": {
+    "ui_clear_button": "비우기"
+  },
   "": {
     "": ""
   }

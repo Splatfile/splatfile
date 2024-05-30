@@ -40,14 +40,18 @@ type TagStore = z.infer<typeof PlateInfoObject> & {
 
 type Title = {
   first: number;
+  firstString?: string;
   last: number;
+  lastString?: string;
   string: string;
 };
 
 const initTitle = {
   title: {
     first: 0,
+    firstString: "100%",
     last: 0,
+    lastString: ".52 갤런 유저",
     string: "100% .52 갤런 유저",
   },
 };

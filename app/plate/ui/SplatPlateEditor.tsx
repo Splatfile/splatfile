@@ -9,13 +9,31 @@ import { renderPlate } from "../lib/render-plate";
 import { clsx } from "clsx";
 import { useTagPosition } from "../lib/store/use-position";
 import "../index.css";
+import { Lang } from "@/app/lib/types/component-props";
+import { useParams } from "next/navigation";
 
-const language = "KRko";
+type PlateLang = "KRko" | "USen" | "JPja";
+
+export const getLanguage: (key: Lang) => PlateLang = (key: Lang) => {
+  switch (key) {
+    case "en":
+      return "USen";
+    case "ko":
+      return "KRko";
+    case "ja":
+      return "JPja";
+    default:
+      return "USen";
+  }
+};
 
 export function SplatPlateEditor() {
+  const [language, setLanguage] = useState<Lang>("en");
+
   const [tab, setTab] = useState(0);
   const tag = useTagStore();
   const positions = useTagPosition();
+  const params = useParams();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -29,6 +47,11 @@ export function SplatPlateEditor() {
 
     return () => clearTimeout(timeout);
   }, [tag, positions]);
+
+  useEffect(() => {
+    const lang = (params["lang"] as Lang) ?? "en";
+    setLanguage(lang);
+  }, [params]);
 
   return (
     <div className="p-2 sm:p-8">
@@ -73,7 +96,7 @@ export function SplatPlateEditor() {
                       )}
                       name="tabText"
                     >
-                      {lang[language].ui.tabText}
+                      {lang[getLanguage(language)].ui.tabText}
                     </button>
                     <button
                       onClick={() => setTab(1)}
@@ -86,7 +109,7 @@ export function SplatPlateEditor() {
                       type="button"
                       name="tabBanners"
                     >
-                      {lang[language].ui.tabBanners}
+                      {lang[getLanguage(language)].ui.tabBanners}
                     </button>
                     <button
                       onClick={() => setTab(2)}
@@ -99,7 +122,7 @@ export function SplatPlateEditor() {
                       type="button"
                       name="tabBadges"
                     >
-                      {lang[language].ui.tabBadges}
+                      {lang[getLanguage(language)].ui.tabBadges}
                     </button>
                   </ul>
                 </nav>
@@ -108,9 +131,14 @@ export function SplatPlateEditor() {
           </div>
           <div className="h-full w-full  px-2 text-white backdrop-contrast-125">
             {/*Text --- Name, Tag, Titles*/}
-            {tab === 0 && <TextTab />}
-            {tab === 1 && <BannerTab />}
-            {tab === 2 && <BadgeTab />}
+            {tab === 0 && (
+              <TextTab
+                setLang={(lang: Lang) => setLanguage(lang)}
+                lang={language}
+              />
+            )}
+            {tab === 1 && <BannerTab lang={language} />}
+            {tab === 2 && <BadgeTab lang={language} />}
           </div>
         </div>
       </div>

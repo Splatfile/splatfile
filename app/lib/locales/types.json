@@ -65,6 +65,9 @@
     "ui_logout": "header_ui_logout",
     "ui_user_search_placeholder": "header_ui_user_search_placeholder"
   },
+  "plate": {
+    "ui_clear_button": "plate_ui_clear_button"
+  },
   "": {
     "": ""
   }
