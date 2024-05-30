@@ -12,9 +12,9 @@ import "../index.css";
 import { Lang } from "@/app/lib/types/component-props";
 import { useParams } from "next/navigation";
 
-const language = "KRko";
+type PlateLang = "KRko" | "USen" | "JPja";
 
-export const getLanguage = (key: Lang) => {
+export const getLanguage: (key: Lang) => PlateLang = (key: Lang) => {
   switch (key) {
     case "en":
       return "USen";

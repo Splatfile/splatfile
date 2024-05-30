@@ -92,18 +92,15 @@ const json = fs.readFileSync(path.join(cloneDirectoryPath, "/lang.json"));
 const lang = JSON.parse(json);
 
 // save lang only KRko
-const langKR = lang["KRko"];
-const krLang = {
-  KRko: langKR,
-};
+
 fs.writeFileSync(
   path.join(rootPath, "public/lang.json"),
-  JSON.stringify(krLang),
+  JSON.stringify(lang),
   { encoding: "utf8", flag: "w" },
 );
 fs.writeFileSync(
   path.join(rootPath, "app/plate/lang.json"),
-  JSON.stringify(krLang),
+  JSON.stringify(lang),
   {
     encoding: "utf8",
     flag: "w",
