@@ -1,7 +1,7 @@
 {
   "main": {
-    "first_section_title": "スプラトゥーンプロファイル管理 <br /> スプラットファイル",
-    "first_section_description": "スプラットファイルで簡単にスプラトゥーンプロファイルを管理しましょう！ <br /> プロフィール画像の設定、ランクや武器情報の編集、プレートのカスタマイズなど、多彩な機能を提供します。作成したプロフィールは画像として保存して共有できます。",
+    "first_section_title": "スプラトゥーン自己紹介プロフィール管理 <br /> スプラフィール",
+    "first_section_description": "スプラフィールで簡単にスプラトゥーンプロフィールを管理しましょう！ <br /> プロフィールイメージの設定、ランクや武器情報の編集、プレートのカスタマイズなど、多彩な機能を提供します。作成したプロフィールはイメージとして保存して共有できます。",
     "first_section_button": "始める"
   },
   "ui": {
@@ -15,8 +15,8 @@
     "ui_game_type": "ゲームタイプ別",
     "ui_game_play_style_newbie": "ニュービー",
     "ui_game_play_style_casual": "カジュアル",
-    "ui_game_play_style_hardcore": "ハードコア",
-    "ui_rule_preference": "ルールごとの好み",
+    "ui_game_play_style_hardcore": "ガチ",
+    "ui_rule_preference": "ルールの好き嫌い",
     "ui_x_match": "Xマッチ",
     "ui_salmon_run": "サーモンラン",
     "ui_account_information": "アカウント情報",
@@ -52,11 +52,15 @@
     "ui_image_upload_modal_zoom_is_available_by_pinch": "ピンチでズーム可能",
     "ui_update_plate_button": "プレートをカスタマイズするにはクリック",
     "ui_share_button": "共有",
+    "ui_export_button": "イメージをエクスポート",
+    "ui_export_modal_title": "イメージをエクスポート",
+    "ui_export_modal_download_button": "ダウンロード",
+    "ui_export_modal_download_button_rendering_wait": "レンダリング中",
     "ui_plate_modal_title": "プレートカスタマイズ",
     "ui_plate_modal_confirm_button": "確認"
   },
   "header": {
-    "ui_my_profile": "私のプロフィール",
+    "ui_my_profile": "マイプロフィール",
     "ui_login": "ログイン",
     "ui_logout": "ログアウト",
     "ui_user_search_placeholder": "ユーザー検索"

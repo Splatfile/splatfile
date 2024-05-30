@@ -4,15 +4,18 @@ import { DefaultModal } from "@/app/ui/components/DefaultModal";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useState } from "react";
+import { Profile } from "@/app/lib/locales/locale";
 
 type ExportProfileImageModalProps = {
   open: boolean;
   onClose: () => void;
+  profile: Profile;
 };
 
 function ExportProfileImageModal({
   open,
   onClose,
+  profile,
 }: ExportProfileImageModalProps) {
   const [canvasDataUrl, setCanvasDataUrl] = useState<string | null>(null);
 
@@ -48,7 +51,11 @@ function ExportProfileImageModal({
   };
 
   return (
-    <DefaultModal open={open} onClose={onClose} title={"이미지로 내보내기"}>
+    <DefaultModal
+      open={open}
+      onClose={onClose}
+      title={profile.ui_export_modal_title}
+    >
       <div className={"block flex flex-col gap-4"}>
         <ProfilePreview dataUrl={canvasDataUrl} />
         <ProfileCanvas
@@ -61,14 +68,22 @@ function ExportProfileImageModal({
           }
           onClick={downloadImage}
         >
-          {canvasDataUrl === null ? "렌더링 중..." : "다운로드"}
+          {canvasDataUrl === null
+            ? profile.ui_export_modal_download_button_rendering_wait
+            : profile.ui_export_modal_download_button}
         </button>
       </div>
     </DefaultModal>
   );
 }
 
-export function ExportProfileImageButton() {
+type ExportProfileImageButtonProps = {
+  profile: Profile;
+};
+
+export function ExportProfileImageButton({
+  profile,
+}: ExportProfileImageButtonProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -76,7 +91,7 @@ export function ExportProfileImageButton() {
       <button onClick={() => setOpen(true)}>
         <PhotoIcon className="mr-2 mt-1 h-6 w-6 text-gray-800" />
       </button>
-      <ExportProfileImageModal open={open} onClose={() => setOpen(false)} />
+      <ExportProfileImageModal open={open} onClose={() => setOpen(false)} profile={profile}/>
     </>
   );
 }

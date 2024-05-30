@@ -81,6 +81,10 @@ export interface Profile {
     ui_image_upload_modal_zoom_is_available_by_pinch:       string;
     ui_update_plate_button:                                 string;
     ui_share_button:                                        string;
+    ui_export_button:                                       string;
+    ui_export_modal_title:                                  string;
+    ui_export_modal_download_button_rendering_wait:         string;
+    ui_export_modal_download_button:                        string;
     ui_plate_modal_title:                                   string;
     ui_plate_modal_confirm_button:                          string;
 }

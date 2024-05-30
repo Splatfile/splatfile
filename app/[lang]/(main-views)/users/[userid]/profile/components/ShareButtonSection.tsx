@@ -33,9 +33,9 @@ export function ShareButtonSection(props: ShareButtonSectionProps) {
         }
       >
         <h2 className={"text-xl font-semibold text-neutral-700"}>
-          이미지로 내보내기
+          {profile.ui_export_button}
         </h2>
-        <ExportProfileImageButton />
+        <ExportProfileImageButton profile={profile}/>
       </div>
     </div>
   );
