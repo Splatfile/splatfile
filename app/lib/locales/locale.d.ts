@@ -85,6 +85,9 @@ export interface Profile {
     ui_plate_modal_title:                                   string;
     ui_plate_modal_confirm_button:                          string;
     ui_export_button:                                       string;
+    ui_export_modal_title:                                  string;
+    ui_export_modal_download_button_rendering_wait:         string;
+    ui_export_modal_download_button:                        string;
 }
 
 export interface UI {
@@ -328,6 +331,9 @@ const typeMap: any = {
         { json: "ui_plate_modal_title", js: "ui_plate_modal_title", typ: "" },
         { json: "ui_plate_modal_confirm_button", js: "ui_plate_modal_confirm_button", typ: "" },
         { json: "ui_export_button", js: "ui_export_button", typ: "" },
+        { json: "ui_export_modal_title", js: "ui_export_modal_title", typ: "" },
+        { json: "ui_export_modal_download_button_rendering_wait", js: "ui_export_modal_download_button_rendering_wait", typ: "" },
+        { json: "ui_export_modal_download_button", js: "ui_export_modal_download_button", typ: "" },
     ], false),
     "UI": o([
         { json: "recent_users_title", js: "recent_users_title", typ: "" },

@@ -47,6 +47,9 @@ profile_ui_share_button,공유하기,Share,共有
 profile_ui_plate_modal_title,플레이트 꾸미기,Customize Plate,プレートカスタマイズ
 profile_ui_plate_modal_confirm_button,확인,Confirm,確認
 profile_ui_export_button,이미지로 내보내기,Export as Image,画像として保存
+profile_ui_export_modal_title,이미지로 내보내기,Export as Image,画像として保存
+profile_ui_export_modal_download_button_rendering_wait,렌더링 중,Rendering,レンダリング中
+profile_ui_export_modal_download_button,다운로드,Download,ダウンロード
 header_ui_my_profile,내 프로필,My Profile,私のプロフィール
 header_ui_login,로그인,Login,ログイン
 header_ui_logout,로그아웃,Logout,ログアウト

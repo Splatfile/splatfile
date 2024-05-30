@@ -55,7 +55,10 @@
     "ui_share_button": "Share",
     "ui_plate_modal_title": "Customize Plate",
     "ui_plate_modal_confirm_button": "Confirm",
-    "ui_export_button": "Export as Image"
+    "ui_export_button": "Export as Image",
+    "ui_export_modal_title": "Export as Image",
+    "ui_export_modal_download_button_rendering_wait": "Rendering",
+    "ui_export_modal_download_button": "Download"
   },
   "header": {
     "ui_my_profile": "My Profile",

@@ -55,7 +55,10 @@
     "ui_share_button": "profile_ui_share_button",
     "ui_plate_modal_title": "profile_ui_plate_modal_title",
     "ui_plate_modal_confirm_button": "profile_ui_plate_modal_confirm_button",
-    "ui_export_button": "profile_ui_export_button"
+    "ui_export_button": "profile_ui_export_button",
+    "ui_export_modal_title": "profile_ui_export_modal_title",
+    "ui_export_modal_download_button_rendering_wait": "profile_ui_export_modal_download_button_rendering_wait",
+    "ui_export_modal_download_button": "profile_ui_export_modal_download_button"
   },
   "header": {
     "ui_my_profile": "header_ui_my_profile",

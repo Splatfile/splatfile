@@ -55,7 +55,10 @@
     "ui_share_button": "공유하기",
     "ui_plate_modal_title": "플레이트 꾸미기",
     "ui_plate_modal_confirm_button": "확인",
-    "ui_export_button": "이미지로 내보내기"
+    "ui_export_button": "이미지로 내보내기",
+    "ui_export_modal_title": "이미지로 내보내기",
+    "ui_export_modal_download_button_rendering_wait": "렌더링 중",
+    "ui_export_modal_download_button": "다운로드"
   },
   "header": {
     "ui_my_profile": "내 프로필",
