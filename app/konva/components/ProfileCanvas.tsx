@@ -1,14 +1,5 @@
 "use client";
-
-import { useEffect, useRef, useState } from "react";
-import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
-import Konva from "konva";
-import useImage from "use-image";
-import { Image as KonvaImage, Layer, Stage } from "react-konva";
-
-import { GameInfoLayer } from "./GameInfoLayer";
-import { PlateAndProfileImageLayer } from "./PlateAndProfileImageLayer";
-import { UserInfoLayer } from "./UserInfoLayer";
+import { jua } from "@/app/fonts";
 import {
   useGameStore,
   useProfileImageUrl,
@@ -22,7 +13,16 @@ import {
   isFontLoaded,
   loadFonts as loadFontsForPlate,
 } from "@/app/plate/lib/render-plate";
-import { jua } from "@/app/fonts";
+import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
+import Konva from "konva";
+import { useEffect, useRef } from "react";
+import { Image as KonvaImage, Layer, Stage } from "react-konva";
+import useImage from "use-image";
+import { GameInfoLayer } from "./GameInfoLayer";
+import { PlateAndProfileImageLayer } from "./PlateAndProfileImageLayer";
+import { UserInfoLayer } from "./UserInfoLayer";
+
+import { useKonvaRenderStore } from "@/app/lib/hooks/use-konva-render-store";
 
 async function loadFonts() {
   var loaded = await loadFontsForPlate();
@@ -37,38 +37,74 @@ async function loadFonts() {
   return loaded;
 }
 
+function ProfileBackgroundImage() {
+  const [image, status] = useImage("/background/body.png");
+  const konvaImageRef = useRef<Konva.Image>(null);
+  const setLoadingTask = useKonvaRenderStore((state) => state.setLoadingTask);
+
+  useEffect(() => {
+    setLoadingTask("background", status === "loaded");
+  }, [status, setLoadingTask]);
+
+  useEffect(() => {
+    // 필터를 적용하기 위해서는, 이미지에 변화가 있을 때마다 매번 캐시를 업데이트 해주어야 한다.
+    if (!konvaImageRef.current) return;
+    konvaImageRef.current.cache();
+  }, [image]);
+
+  return (
+    <KonvaImage
+      ref={konvaImageRef}
+      image={image}
+      x={0}
+      y={0}
+      width={canvasWidth}
+      height={canvasHeight}
+      crop={
+        image && {
+          x: 0,
+          y: 0,
+          width: image.width,
+          height: image.width * (canvasHeight / canvasWidth),
+        }
+      }
+      filters={[
+        Konva.Filters.Blur,
+        Konva.Filters.Contrast,
+        Konva.Filters.Brighten,
+      ]}
+      blurRadius={2}
+      contrast={0.7}
+      brightness={-0.7}
+    />
+  );
+}
+
 type ProfileCanvasProps = {
-  dataUrlCallback?: (dataUrl: string) => void;
-  isLoading?: boolean;
+  onRenderComplete?: (resultDataUrl: string) => void;
+  hidden?: boolean;
 };
 
 export function ProfileCanvas({
-  dataUrlCallback,
-  isLoading,
+  onRenderComplete,
+  hidden,
 }: ProfileCanvasProps) {
   const tag = useTagStore();
   const gameStore = useGameStore();
   const userStore = useUserStore();
   const profileImageUrl = useProfileImageUrl();
-  dataUrlCallback = dataUrlCallback || ((dataUrl) => {});
-  isLoading = isLoading || false;
+  hidden = hidden || false;
+  onRenderComplete = onRenderComplete || ((resultDataUrl) => {});
 
   return (
-    <div>
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="z-10 h-16 w-16 animate-spin rounded-full border-t-8 border-white"></div>
-        </div>
-      )}
-      <div className={isLoading ? "blur-sm" : ""}>
-        <ProfileCanvasRender
-          tag={tag}
-          gameStore={gameStore}
-          userStore={userStore}
-          profileImageUrl={profileImageUrl}
-          dataUrlCallback={dataUrlCallback}
-        />
-      </div>
+    <div className={hidden ? "hidden" : ""}>
+      <ProfileCanvasRender
+        tag={tag}
+        gameStore={gameStore}
+        userStore={userStore}
+        profileImageUrl={profileImageUrl}
+        onRenderComplete={onRenderComplete}
+      />
     </div>
   );
 }
@@ -78,7 +114,7 @@ type ProfileCanvasRenderProps = {
   userStore: ReturnType<typeof useUserStore>;
   gameStore: ReturnType<typeof useGameStore>;
   profileImageUrl: ReturnType<typeof useProfileImageUrl>;
-  dataUrlCallback: (dataUrl: string) => void;
+  onRenderComplete: (resultDataUrl: string) => void;
 };
 
 export function ProfileCanvasRender({
@@ -86,88 +122,67 @@ export function ProfileCanvasRender({
   userStore,
   gameStore,
   profileImageUrl,
-  dataUrlCallback,
+  onRenderComplete,
 }: ProfileCanvasRenderProps) {
   const stageRef = useRef<Konva.Stage>(null);
-  const plateRef = useRef<HTMLCanvasElement>(null);
-  const [fontLoaded, setFontLoaded] = useState(false);
+  const [getFullyLoaded, setLoadingTask] = useKonvaRenderStore((state) => [
+    state.getFullyLoaded,
+    state.setLoadingTask,
+  ]);
 
-  const ProfileBackgroundImage = () => {
-    const [image] = useImage("/background/body.png");
-    const konvaImageRef = useRef<Konva.Image>(null);
-
-    useEffect(() => {
-      // 필터를 적용하기 위해서는, 이미지에 변화가 있을 때마다 매번 캐시를 업데이트 해주어야 한다.
-      if (!konvaImageRef.current) return;
-      konvaImageRef.current.cache();
-    }, [image]);
-
-    return (
-      <KonvaImage
-        ref={konvaImageRef}
-        image={image}
-        x={0}
-        y={0}
-        width={canvasWidth}
-        height={canvasHeight}
-        crop={
-          image && {
-            x: 0,
-            y: 0,
-            width: image.width,
-            height: image.width * (canvasHeight / canvasWidth),
-          }
-        }
-        filters={[
-          Konva.Filters.Blur,
-          Konva.Filters.Contrast,
-          Konva.Filters.Brighten,
-        ]}
-        blurRadius={2}
-        contrast={0.7}
-        brightness={-0.7}
-      />
-    );
-  };
-
+  // 폰트 로딩 체크
   useEffect(() => {
     const timeout = setInterval(async () => {
       const fontLoaded = await loadFonts();
-      setFontLoaded(fontLoaded);
+      if (fontLoaded && stageRef.current) {
+        // 폰트 로딩 확인 후 다시 draw 요청
+        stageRef.current.batchDraw();
+        setLoadingTask("font", fontLoaded);
 
-      if (fontLoaded) {
         clearInterval(timeout);
       }
-    }, 1500);
+    }, 500);
 
     return () => {
       clearInterval(timeout);
     };
-  }, []);
+  }, [setLoadingTask]);
 
+  // 렌더링 완료 체크
   useEffect(() => {
-    if (!stageRef.current) return;
-    if (!fontLoaded) return;
+    const timeout = setInterval(() => {
+      if (!stageRef.current) {
+        return;
+      }
 
-    // 폰트 로딩 확인 후 다시 render
-    stageRef.current.batchDraw();
-    dataUrlCallback(stageRef.current.toDataURL({ mimeType: "image/png" }));
-  }, [fontLoaded, dataUrlCallback]);
+      if (getFullyLoaded()) {
+        stageRef.current.batchDraw();
+
+        setTimeout(() => {
+          if (!stageRef.current) {
+            return;
+          }
+
+          const dataUrl = stageRef.current.toDataURL();
+          onRenderComplete(dataUrl);
+        }, 500);
+
+        clearInterval(timeout);
+      }
+    }, 200);
+
+    return () => {
+      clearInterval(timeout);
+    };
+  }, [getFullyLoaded, onRenderComplete]);
 
   return (
     <div className={"w-full"}>
-      <canvas
-        ref={plateRef}
-        width={700}
-        height={200}
-        className={"hidden"}
-      ></canvas>
       <Stage ref={stageRef} width={canvasWidth} height={canvasHeight}>
         <Layer>
           <ProfileBackgroundImage />
         </Layer>
         <PlateAndProfileImageLayer
-          tempCanvasRef={plateRef}
           tag={tag}
           profileImageUrl={profileImageUrl}
         />

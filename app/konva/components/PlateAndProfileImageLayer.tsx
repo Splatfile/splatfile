@@ -1,28 +1,29 @@
 "use client";
-import {
-  useProfileImageUrl
-} from "@/app/lib/hooks/use-profile-store";
+import { useProfileImageUrl } from "@/app/lib/hooks/use-profile-store";
 import {
   plateRect,
-  profileImageBorderRadius as profileImageCornerRadius,
-  profileImageRect
+  profileImageCornerRadius,
+  profileImageRect,
 } from "@/app/lib/utils/render-preview-canvas";
 import { loadFonts, renderPlate } from "@/app/plate/lib/render-plate";
 import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
-import {
-  RefObject,
-  useEffect,
-  useState
-} from "react";
+import { RefObject, useEffect, useState, useRef } from "react";
 import { Image as KonvaImage, Layer, Rect } from "react-konva";
 import useImage from "use-image";
+import { useKonvaRenderStore } from "@/app/lib/hooks/use-konva-render-store";
+import Konva from "konva";
 
 type ProfileImageProps = {
   profileImageUrl: ReturnType<typeof useProfileImageUrl>;
 };
 
 function ProfileImage({ profileImageUrl }: ProfileImageProps) {
-  const [image] = useImage(profileImageUrl ?? "", "anonymous");
+  const [image, status] = useImage(profileImageUrl ?? "", "anonymous");
+
+  useEffect(() => {
+    if (status !== "loaded") return;
+    useKonvaRenderStore.getState().setLoadingTask("profileImage", true);
+  }, [status]);
 
   return (
     <KonvaImage
@@ -39,55 +40,67 @@ function ProfileImage({ profileImageUrl }: ProfileImageProps) {
 }
 
 type PlateProps = {
-  tempCanvasRef: RefObject<HTMLCanvasElement>;
   tag: ReturnType<typeof useTagStore.getState>;
 };
 
-function Plate({ tempCanvasRef, tag }: PlateProps) {
+function Plate({ tag }: PlateProps) {
   const [image, setImage] = useState<HTMLImageElement | undefined>(undefined);
+
+  const [setLoadingTask] = useKonvaRenderStore((state) => [
+    state.setLoadingTask,
+  ]);
+  const konvaImageRef = useRef<Konva.Image>(null);
 
   useEffect(() => {
     const imageObj = new Image();
     imageObj.crossOrigin = "anonymous";
 
-    const interval = setInterval(async () => {
-      if (!tempCanvasRef.current) return;
-      const loaded = await loadFonts();
-      await renderPlate(tempCanvasRef.current, tag);
-
-      imageObj.src = tempCanvasRef.current.toDataURL();
-
-      if (loaded) clearInterval(interval);
-    }, 3000);
-
     imageObj.onload = () => {
       setImage(imageObj);
     };
 
+    const interval = setInterval(async () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 700;
+      canvas.height = 200;
+
+      const loaded = await loadFonts();
+      await renderPlate(canvas, tag);
+
+      imageObj.src = canvas.toDataURL();
+
+      if (loaded) clearInterval(interval);
+    }, 1500);
+
     return () => clearInterval(interval);
-  }, [tempCanvasRef, tag]);
+  }, [tag]);
+
+  useEffect(() => {
+    if (!konvaImageRef.current) return;
+    if (!image) return;
+
+    setLoadingTask("plateRendering", true);
+  }, [image, setLoadingTask]);
 
   return (
     <KonvaImage
+      ref={konvaImageRef}
       image={image}
       x={plateRect[0]}
       y={plateRect[1]}
       width={plateRect[2]}
       height={plateRect[3]}
       strokeWidth={4}
-      draggable={true}
     />
   );
 }
 
 type PlateAndProfileImageLayerProps = {
-  tempCanvasRef: RefObject<HTMLCanvasElement>;
   tag: ReturnType<typeof useTagStore.getState>;
   profileImageUrl: ReturnType<typeof useProfileImageUrl>;
 };
 
 export function PlateAndProfileImageLayer({
-  tempCanvasRef,
   tag,
   profileImageUrl,
 }: PlateAndProfileImageLayerProps) {
@@ -114,7 +127,7 @@ export function PlateAndProfileImageLayer({
         strokeWidth={1}
       />
       <ProfileImage profileImageUrl={profileImageUrl} />
-      <Plate tempCanvasRef={tempCanvasRef} tag={tag} />
+      <Plate tag={tag} />
     </Layer>
   );
 }
