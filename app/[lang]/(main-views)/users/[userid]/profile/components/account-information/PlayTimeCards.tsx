@@ -8,29 +8,51 @@ import {
   usePlaytime,
 } from "@/app/lib/hooks/use-profile-store";
 import { format } from "date-fns";
-import { ko } from "date-fns/locale";
+import { enUS, ja, ko } from "date-fns/locale";
 import { Account } from "@/app/lib/locales/locale";
+import { useParams } from "next/navigation";
+import { Lang } from "@/app/lib/types/component-props";
 
 type PlayTimeCardProps = {
   account: Account;
   timeType: "weekdayPlaytime" | "weekendPlaytime";
 };
+
+const getDateFnsLocale = (lang: Lang) => {
+  switch (lang) {
+    case "ko":
+      return ko;
+    case "en":
+      return enUS;
+    case "ja":
+      return ja;
+    default:
+      return enUS;
+  }
+};
+
 export const PlaytimeCard = (props: PlayTimeCardProps) => {
   const { timeType, account } = props;
   const [edit, setEdit] = useState(false);
   const playtime = usePlaytime(timeType);
   const isMine = useMine();
+  const params = useParams();
+  const lang = params.lang as Lang;
 
   if (!playtime && !isMine) return null;
   if (!isMine && (!playtime?.start || !playtime?.end)) return null;
 
   const start = new Date(2020, 0, 1, playtime?.start ?? 0); // 날짜는 임의로 설정
   // AM/PM 형태로 포매팅
-  const formattedStart = format(start, "a hh시", { locale: ko });
+  const formattedStart = start
+    ? format(start, "a hh", { locale: getDateFnsLocale(lang) })
+    : "";
 
   const end = new Date(2020, 0, 1, playtime?.end ?? 0); // 날짜는 임의로 설정
   // AM/PM 형태로 포매팅
-  const formattedEnd = format(end, "a hh시", { locale: ko });
+  const formattedEnd = end
+    ? format(end, "a hh", { locale: getDateFnsLocale(lang) })
+    : "";
 
   return (
     <EditableTextCard
@@ -49,8 +71,8 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
           account={account}
         />
       ) : (
-        playtime?.start &&
-        playtime?.end && (
+        !!playtime?.start &&
+        !!playtime?.end && (
           <p className={"text-md text-neutral-500 md:w-72 md:text-center"}>
             {formattedStart} ~ {formattedEnd}
           </p>
@@ -70,6 +92,7 @@ export const EditPlayTimeCard = (props: EditPlayTimeCardProps) => {
   const { account, timeType, playtime } = props;
 
   const onChange = (key: "start" | "end", value: string) => {
+    if (!value) return;
     const otherKey = key === "start" ? "end" : "start";
     setPlaytime(timeType, {
       [key]: parseInt(value),

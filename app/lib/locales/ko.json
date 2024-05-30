@@ -40,6 +40,7 @@
     "ui_gender_placeholder": "성별 입력",
     "ui_add_button": "추가",
     "ui_friend_code_link": "친구 코드 링크",
+    "ui_edit_playtime_description": "00~23시 사이의 숫자를 입력해주세요.",
     "ui_additional_information": "하고 싶은 말"
   },
   "profile": {
@@ -52,10 +53,6 @@
     "ui_image_upload_modal_zoom_is_available_by_pinch": "핀치로 줌 가능",
     "ui_update_plate_button": "클릭해서 플레이트 꾸미기",
     "ui_share_button": "공유하기",
-    "ui_export_button": "이미지로 내보내기",
-    "ui_export_modal_title": "이미지로 내보내기",
-    "ui_export_modal_download_button": "다운로드",
-    "ui_export_modal_download_button_rendering_wait": "렌더링 중",
     "ui_plate_modal_title": "플레이트 꾸미기",
     "ui_plate_modal_confirm_button": "확인"
   },
@@ -64,9 +61,6 @@
     "ui_login": "로그인",
     "ui_logout": "로그아웃",
     "ui_user_search_placeholder": "유저 검색"
-  },
-  "plate": {
-    "ui_clear_button": "비우기"
   },
   "": {
     "": ""

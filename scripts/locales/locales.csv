@@ -33,6 +33,7 @@ account_ui_gender,성별,Gender,性別
 account_ui_gender_placeholder,성별 입력,Enter Gender,性別を入力,
 account_ui_add_button,추가,Add,追加
 account_ui_friend_code_link,친구 코드 링크,Friend Code Link,フレンドコードリンク
+account_ui_edit_playtime_description,00~23시 사이의 숫자를 입력해주세요.,Please enter a number between 00 and 23.,00から23の間の数字を入力してください。
 account_ui_additional_information,하고 싶은 말,Additional Information,追加情報
 profile_ui_upload_image_title,프로필 이미지 업로드,Upload Profile Image,プロフィール画像をアップロード
 profile_ui_image_upload_button,클릭해서 이미지 업로드,Click to Upload Image,画像をアップロードするにはクリック

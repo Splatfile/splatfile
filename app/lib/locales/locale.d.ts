@@ -14,7 +14,6 @@ export interface Locale {
     account: Account;
     profile: Profile;
     header:  Header;
-    plate:   Plate;
     "":      Empty;
 }
 
@@ -23,21 +22,22 @@ export interface Empty {
 }
 
 export interface Account {
-    ui_switch_nickname:        string;
-    ui_twitter_nickname:       string;
-    ui_twitter_handle:         string;
-    ui_information:            string;
-    ui_friend_code:            string;
-    ui_weekday_playtime:       string;
-    ui_weekend_playtime:       string;
-    ui_start_time:             string;
-    ui_end_time:               string;
-    ui_nickname:               string;
-    ui_gender:                 string;
-    ui_gender_placeholder:     string;
-    ui_add_button:             string;
-    ui_friend_code_link:       string;
-    ui_additional_information: string;
+    ui_switch_nickname:           string;
+    ui_twitter_nickname:          string;
+    ui_twitter_handle:            string;
+    ui_information:               string;
+    ui_friend_code:               string;
+    ui_weekday_playtime:          string;
+    ui_weekend_playtime:          string;
+    ui_start_time:                string;
+    ui_end_time:                  string;
+    ui_nickname:                  string;
+    ui_gender:                    string;
+    ui_gender_placeholder:        string;
+    ui_add_button:                string;
+    ui_friend_code_link:          string;
+    ui_edit_playtime_description: string;
+    ui_additional_information:    string;
 }
 
 export interface Header {
@@ -72,10 +72,6 @@ export interface Main {
     first_section_button:      string;
 }
 
-export interface Plate {
-    ui_clear_button: string;
-}
-
 export interface Profile {
     ui_upload_image_title:                                  string;
     ui_image_upload_button:                                 string;
@@ -86,10 +82,6 @@ export interface Profile {
     ui_image_upload_modal_zoom_is_available_by_pinch:       string;
     ui_update_plate_button:                                 string;
     ui_share_button:                                        string;
-    ui_export_button:                                       string;
-    ui_export_modal_title:                                  string;
-    ui_export_modal_download_button_rendering_wait:         string;
-    ui_export_modal_download_button:                        string;
     ui_plate_modal_title:                                   string;
     ui_plate_modal_confirm_button:                          string;
 }
@@ -270,7 +262,6 @@ const typeMap: any = {
         { json: "account", js: "account", typ: r("Account") },
         { json: "profile", js: "profile", typ: r("Profile") },
         { json: "header", js: "header", typ: r("Header") },
-        { json: "plate", js: "plate", typ: r("Plate") },
         { json: "", js: "", typ: r("Empty") },
     ], false),
     "Empty": o([
@@ -291,6 +282,7 @@ const typeMap: any = {
         { json: "ui_gender_placeholder", js: "ui_gender_placeholder", typ: "" },
         { json: "ui_add_button", js: "ui_add_button", typ: "" },
         { json: "ui_friend_code_link", js: "ui_friend_code_link", typ: "" },
+        { json: "ui_edit_playtime_description", js: "ui_edit_playtime_description", typ: "" },
         { json: "ui_additional_information", js: "ui_additional_information", typ: "" },
     ], false),
     "Header": o([
@@ -321,9 +313,6 @@ const typeMap: any = {
         { json: "first_section_title", js: "first_section_title", typ: "" },
         { json: "first_section_description", js: "first_section_description", typ: "" },
         { json: "first_section_button", js: "first_section_button", typ: "" },
-    ], false),
-    "Plate": o([
-        { json: "ui_clear_button", js: "ui_clear_button", typ: "" },
     ], false),
     "Profile": o([
         { json: "ui_upload_image_title", js: "ui_upload_image_title", typ: "" },

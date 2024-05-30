@@ -40,6 +40,7 @@
     "ui_gender_placeholder": "Enter Gender",
     "ui_add_button": "Add",
     "ui_friend_code_link": "Friend Code Link",
+    "ui_edit_playtime_description": "Please enter a number between 00 and 23.",
     "ui_additional_information": "Additional Information"
   },
   "profile": {
@@ -52,10 +53,6 @@
     "ui_image_upload_modal_zoom_is_available_by_pinch": "Zoom is available by pinch",
     "ui_update_plate_button": "Click to Customize Plate",
     "ui_share_button": "Share",
-    "ui_export_button": "Export as Image",
-    "ui_export_modal_title": "Export as Image",
-    "ui_export_modal_download_button": "Download",
-    "ui_export_modal_download_button_rendering_wait": "Rendering, please wait...",
     "ui_plate_modal_title": "Customize Plate",
     "ui_plate_modal_confirm_button": "Confirm"
   },
@@ -64,9 +61,6 @@
     "ui_login": "Login",
     "ui_logout": "Logout",
     "ui_user_search_placeholder": "User Search"
-  },
-  "plate": {
-    "ui_clear_button": "Clear"
   },
   "": {
     "": ""
