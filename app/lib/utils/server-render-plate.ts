@@ -26,7 +26,7 @@ import "@/app/api/users/[userid]/__files/fonts/JPja/Kurokane.otf";
 import "@/app/api/users/[userid]/__files/fonts/JPja/Rowdy.otf";
 
 const bannerSrc = (file: string, custom = false) =>
-  `/assets/${custom ? "custom/" : ""}banners/${file}`;
+  `/assets/${custom ? "custom/" : ""}banners/${file}.png`;
 
 const language = "KRko";
 
@@ -49,7 +49,11 @@ const getBannerImage = async (banner: string) => {
 };
 
 const getBadgeImage = async (badge: string) => {
-  return await loadImage(`${baseUrl}/assets/badges/${badge}`);
+  const pngIndex = badge.indexOf(".png");
+  if (pngIndex !== -1) {
+    badge = badge.substring(0, pngIndex);
+  }
+  return await loadImage(`${baseUrl}/assets/badges/${badge}.png`);
 };
 
 const rootPath =

@@ -216,7 +216,7 @@ const BadgeItem = (props: BadgeItemProps) => {
                 alt={b}
                 key={b}
                 onClick={() => props.onClickBadge(b)}
-                src={`/assets/${isCustom ? "custom/" : ""}badges/${b}`}
+                src={`/assets/${isCustom ? "custom/" : ""}badges/${b}.webp`}
                 draggable="false"
               />
             </div>

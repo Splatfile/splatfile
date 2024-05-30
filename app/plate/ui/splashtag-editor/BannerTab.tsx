@@ -133,7 +133,7 @@ const BannerRenderer = (props: BannerRendererProps) => {
               loading={"lazy"}
               src={`${baseUrl}/assets/${custom ? "custom/" : ""}banners/${
                 item.file
-              }`}
+              }.webp`}
               alt={item.colour}
               data-colour={item.colour}
               data-name={item.file}

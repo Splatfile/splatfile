@@ -103,6 +103,13 @@ export const initializeTagStore = (profile: Profile) => {
   useTagStore.setState({
     ...initTagState,
     ...plate_info,
+    badges: plate_info.badges.map((p) => {
+      const pngIndex = p.indexOf(".png");
+      if (pngIndex === -1) {
+        return p;
+      }
+      return p.substring(0, pngIndex);
+    }) as [string, string, string],
   });
 };
 
