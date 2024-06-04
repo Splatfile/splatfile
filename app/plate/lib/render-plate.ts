@@ -12,7 +12,7 @@ import {
 import { TagState } from "@/app/plate/lib/store/use-tag-store";
 
 const bannerSrc = (file: string, custom = false) =>
-  `${baseUrl}/assets/${custom ? "custom/" : ""}banners/${file}.webp`;
+  `${baseUrl}/assets/${custom ? "custom/" : ""}banners/${file}`;
 
 const language = "KRko";
 
@@ -24,12 +24,13 @@ const bannerImages: { [key: string]: HTMLImageElement } = {};
 const getBannerImage = async (banner: string) => {
   if (!bannerImages[banner]) {
     const image = new Image();
-    image.src = bannerSrc(banner);
     bannerImages[banner] = image;
 
     // create image onload promise
-    await new Promise((r) => {
-      image.onload = r;
+    await new Promise((resolve, reject) => {
+      [];
+      image.onload = resolve;
+      image.src = bannerSrc(banner);
     });
     // resolve promise
     return image;
@@ -39,9 +40,9 @@ const getBannerImage = async (banner: string) => {
 
 const getBadgeImage = async (badge: string) => {
   const image = new Image();
-  image.src = `${baseUrl}/assets/badges/${badge}.png`;
   await new Promise((r) => {
     image.onload = r;
+    image.src = `${baseUrl}/assets/badges/${badge}`;
   });
   return image;
 };

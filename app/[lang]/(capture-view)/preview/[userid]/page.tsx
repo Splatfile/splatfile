@@ -11,8 +11,9 @@ import {
 } from "@/app/lib/types/type-checker";
 import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting";
 import { ProfileCanvas } from "@/app/konva/components/ProfileCanvas";
-import { renderOgProfileImage } from "@/app/konva/lib/og";
+import { renderOgProfileImage } from "@/app/konva/lib/render/og";
 import Image from "next/image";
+import { Og } from "@/app/konva/components/Og";
 
 type PageProps = {
   params: {
@@ -69,15 +70,6 @@ export default async function ProfilePage(props: PageProps) {
 
   const { user_info, game_info, plate_info } = profile;
 
-  var ogImage = "";
-  if (
-    isUserInfo(user_info) &&
-    isGameInfo(game_info) &&
-    isPlateInfo(plate_info)
-  ) {
-    ogImage = await renderOgProfileImage(user_info, game_info, plate_info);
-  }
-
   return (
     <>
       <StoreSetting
@@ -87,14 +79,9 @@ export default async function ProfilePage(props: PageProps) {
       />
       <div className={"flex flex-col text-white"}>
         <p>내보내기 이미지</p>
-        <ProfileCanvas />
+        {/* <ProfileCanvas /> */}
         <p>og 이미지</p>
-        <Image
-          src={ogImage}
-          width={600}
-          height={315}
-          alt={"og-image test preview"}
-        />
+        <Og userInfo={user_info} gameInfo={game_info} plateInfo={plate_info} />
       </div>
     </>
   );
