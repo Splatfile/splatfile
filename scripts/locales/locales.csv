@@ -54,6 +54,12 @@ header_ui_my_profile,내 프로필,My Profile,私のプロフィール
 header_ui_login,로그인,Login,ログイン
 header_ui_logout,로그아웃,Logout,ログアウト
 header_ui_user_search_placeholder,유저 검색,User Search,ユーザー検索
+preview_playtime_title,접속 시간대,Playtime,プレイ時間
+preview_nickname,이름,Nickname,ニックネーム
+preview_playtime_weekday,주중,Weekday,平日
+preview_playtime_weekend,주말,Weekend,週末
+preview_used_weapons_title,사용 무기,Used Weapons,使用武器
+preview_friend_code,친구 코드,Friend Code,フレンドコ
 ,,,
 ,,,
 ,,,

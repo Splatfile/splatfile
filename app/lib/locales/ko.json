@@ -66,6 +66,14 @@
     "ui_logout": "로그아웃",
     "ui_user_search_placeholder": "유저 검색"
   },
+  "preview": {
+    "playtime_title": "접속 시간대",
+    "nickname": "이름",
+    "playtime_weekday": "주중",
+    "playtime_weekend": "주말",
+    "used_weapons_title": "사용 무기",
+    "friend_code": "친구 코드"
+  },
   "": {
     "": ""
   }

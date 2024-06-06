@@ -14,6 +14,7 @@ export interface Locale {
     account: Account;
     profile: Profile;
     header:  Header;
+    preview: Preview;
     "":      Empty;
 }
 
@@ -70,6 +71,15 @@ export interface Main {
     first_section_title:       string;
     first_section_description: string;
     first_section_button:      string;
+}
+
+export interface Preview {
+    playtime_title:     string;
+    nickname:           string;
+    playtime_weekday:   string;
+    playtime_weekend:   string;
+    used_weapons_title: string;
+    friend_code:        string;
 }
 
 export interface Profile {
@@ -266,6 +276,7 @@ const typeMap: any = {
         { json: "account", js: "account", typ: r("Account") },
         { json: "profile", js: "profile", typ: r("Profile") },
         { json: "header", js: "header", typ: r("Header") },
+        { json: "preview", js: "preview", typ: r("Preview") },
         { json: "", js: "", typ: r("Empty") },
     ], false),
     "Empty": o([
@@ -317,6 +328,14 @@ const typeMap: any = {
         { json: "first_section_title", js: "first_section_title", typ: "" },
         { json: "first_section_description", js: "first_section_description", typ: "" },
         { json: "first_section_button", js: "first_section_button", typ: "" },
+    ], false),
+    "Preview": o([
+        { json: "playtime_title", js: "playtime_title", typ: "" },
+        { json: "nickname", js: "nickname", typ: "" },
+        { json: "playtime_weekday", js: "playtime_weekday", typ: "" },
+        { json: "playtime_weekend", js: "playtime_weekend", typ: "" },
+        { json: "used_weapons_title", js: "used_weapons_title", typ: "" },
+        { json: "friend_code", js: "friend_code", typ: "" },
     ], false),
     "Profile": o([
         { json: "ui_upload_image_title", js: "ui_upload_image_title", typ: "" },

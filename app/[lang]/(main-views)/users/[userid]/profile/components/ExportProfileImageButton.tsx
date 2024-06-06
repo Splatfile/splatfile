@@ -56,7 +56,7 @@ function ExportProfileImageModal({
       onClose={onClose}
       title={profile.ui_export_modal_title}
     >
-      <div className={"block flex flex-col gap-4"}>
+      <div className={"flex flex-col gap-4"}>
         <ProfilePreview dataUrl={canvasDataUrl} />
         <ProfileCanvas
           onRenderComplete={(dataUrl) => setCanvasDataUrl(dataUrl)}
@@ -91,7 +91,11 @@ export function ExportProfileImageButton({
       <button onClick={() => setOpen(true)}>
         <PhotoIcon className="mr-2 mt-1 h-6 w-6 text-gray-800" />
       </button>
-      <ExportProfileImageModal open={open} onClose={() => setOpen(false)} profile={profile}/>
+      <ExportProfileImageModal
+        open={open}
+        onClose={() => setOpen(false)}
+        profile={profile}
+      />
     </>
   );
 }

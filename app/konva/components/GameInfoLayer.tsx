@@ -5,6 +5,9 @@ import useImage from "use-image";
 import { jua } from "@/app/fonts";
 import { useGameStore } from "@/app/lib/hooks/use-profile-store";
 import { getSalmonRunRank } from "@/app/lib/schemas/profile/game-info";
+import { Locale } from "@/app/lib/locales/locale";
+import { useParams } from "next/navigation";
+import { Lang } from "@/app/lib/types/component-props";
 
 type TextWithIconProps = {
   x: number;
@@ -65,6 +68,8 @@ type SummaryRectProps = {
 };
 
 function SummaryRect({ gameStore }: SummaryRectProps) {
+  const params = useParams();
+  const lang: Lang = (params.lang as Lang) || "en";
   return (
     <>
       <Rect
@@ -94,7 +99,7 @@ function SummaryRect({ gameStore }: SummaryRectProps) {
         iconType="salmon"
         text={
           gameStore.salmonRunRank?.grade
-            ? getSalmonRunRank("ko", gameStore.salmonRunRank.grade)
+            ? getSalmonRunRank(lang, gameStore.salmonRunRank.grade)
             : "-"
         }
       />
@@ -127,10 +132,11 @@ function SummaryRect({ gameStore }: SummaryRectProps) {
 }
 
 type WeaponInfoProps = {
+  locale: Locale;
   gameStore: ReturnType<typeof useGameStore>;
 };
 
-function WeaponInfo({ gameStore }: WeaponInfoProps) {
+function WeaponInfo({ gameStore, locale }: WeaponInfoProps) {
   const weaponKeys = Object.keys(gameStore.weaponGearInfo ?? {}).filter(
     (w) => gameStore.weaponGearInfo?.[w]?.isActivated,
   );
@@ -167,8 +173,11 @@ function WeaponInfo({ gameStore }: WeaponInfoProps) {
     <>
       <Text
         x={355}
-        y={270}
-        text="사용 무기:"
+        y={252}
+        width={120}
+        height={56}
+        verticalAlign="middle"
+        text={locale.preview.used_weapons_title + ":"}
         fill="white"
         fontFamily={jua.style.fontFamily}
         fontSize={28}
@@ -187,6 +196,7 @@ function WeaponInfo({ gameStore }: WeaponInfoProps) {
         <Text
           x={475 + 8 * 60}
           y={270}
+          verticalAlign="middle"
           text={`+${weaponKeys.length - 8}`}
           fill="#737373"
           fontFamily={jua.style.fontFamily}
@@ -198,14 +208,15 @@ function WeaponInfo({ gameStore }: WeaponInfoProps) {
 }
 
 type GameInfoLayerProps = {
+  locale: Locale;
   gameStore: ReturnType<typeof useGameStore>;
 };
 
-export function GameInfoLayer({ gameStore }: GameInfoLayerProps) {
+export function GameInfoLayer({ gameStore, locale }: GameInfoLayerProps) {
   return (
     <Layer>
       <SummaryRect gameStore={gameStore} />
-      <WeaponInfo gameStore={gameStore} />
+      <WeaponInfo locale={locale} gameStore={gameStore} />
     </Layer>
   );
 }

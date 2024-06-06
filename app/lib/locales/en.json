@@ -66,6 +66,14 @@
     "ui_logout": "Logout",
     "ui_user_search_placeholder": "User Search"
   },
+  "preview": {
+    "playtime_title": "Playtime",
+    "nickname": "Nickname",
+    "playtime_weekday": "Weekday",
+    "playtime_weekend": "Weekend",
+    "used_weapons_title": "Used Weapons",
+    "friend_code": "Friend Code"
+  },
   "": {
     "": ""
   }

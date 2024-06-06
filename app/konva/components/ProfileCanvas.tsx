@@ -23,6 +23,7 @@ import { PlateAndProfileImageLayer } from "./PlateAndProfileImageLayer";
 import { UserInfoLayer } from "./UserInfoLayer";
 
 import { useKonvaRenderStore } from "@/app/lib/hooks/use-konva-render-store";
+import { useLocale } from "@/app/lib/use-locale";
 
 async function loadFonts() {
   var loaded = await loadFontsForPlate();
@@ -125,6 +126,7 @@ export function ProfileCanvasRender({
   onRenderComplete,
 }: ProfileCanvasRenderProps) {
   const stageRef = useRef<Konva.Stage>(null);
+  const locale = useLocale();
   const [getFullyLoaded, setLoadingTask] = useKonvaRenderStore((state) => [
     state.getFullyLoaded,
     state.setLoadingTask,
@@ -186,8 +188,8 @@ export function ProfileCanvasRender({
           tag={tag}
           profileImageUrl={profileImageUrl}
         />
-        <UserInfoLayer userStore={userStore} />
-        <GameInfoLayer gameStore={gameStore} />
+        <UserInfoLayer locale={locale} userStore={userStore} />
+        <GameInfoLayer locale={locale} gameStore={gameStore} />
       </Stage>
     </div>
   );

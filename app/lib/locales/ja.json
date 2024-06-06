@@ -66,6 +66,14 @@
     "ui_logout": "ログアウト",
     "ui_user_search_placeholder": "ユーザー検索"
   },
+  "preview": {
+    "playtime_title": "プレイ時間",
+    "nickname": "ニックネーム",
+    "playtime_weekday": "平日",
+    "playtime_weekend": "週末",
+    "used_weapons_title": "使用武器",
+    "friend_code": "フレンドコ"
+  },
   "": {
     "": ""
   }
