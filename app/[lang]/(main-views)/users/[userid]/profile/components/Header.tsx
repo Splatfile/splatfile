@@ -14,6 +14,7 @@ import { header as en } from "@/app/lib/locales/en.json";
 import { header as ko } from "@/app/lib/locales/ko.json";
 import { header as ja } from "@/app/lib/locales/ja.json";
 import { useTagLoadingStore } from "@/app/plate/lib/store/use-tag-store";
+import Image from "next/image";
 import useUser = Auth.useUser;
 
 type HeaderProps = {};
@@ -40,12 +41,22 @@ export function Header(_: HeaderProps) {
   return (
     <header className="bg-gray-900">
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 py-0 lg:px-8"
         aria-label="Global"
       >
         {/* 헤더 왼쪽 */}
         <div className="flex text-white lg:flex-1">
-          <a href={"/"}>Splatfile</a>
+          <a href={"/"}>
+            <div className={"my-2 h-20"}>
+              <Image
+                className={"h-full w-full object-contain"}
+                width={660}
+                height={529}
+                src={"/logo.png"}
+                alt={"Splatfile's Logo"}
+              />
+            </div>
+          </a>
           {(isLoading || isTagLoading) && (
             <div className={"mx-4 flex items-center justify-center"}>
               <LoadingLogo />
