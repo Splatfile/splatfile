@@ -12,7 +12,7 @@ import {
 import { TagState } from "@/app/plate/lib/store/use-tag-store";
 
 const bannerSrc = (file: string, custom = false) =>
-  `${baseUrl}/assets/${custom ? "custom/" : ""}banners/${file}.webp`;
+  `${baseUrl}/assets/${custom ? "custom/" : ""}banners/${removeImageExtension(file)}.webp`;
 
 const language = "KRko";
 
@@ -37,9 +37,13 @@ const getBannerImage = async (banner: string) => {
   return bannerImages[banner];
 };
 
+const removeImageExtension = (file: string) => {
+  return file.replace(".png", "").replace(".webp", "");
+};
+
 const getBadgeImage = async (badge: string) => {
   const image = new Image();
-  image.src = `${baseUrl}/assets/badges/${badge}.png`;
+  image.src = `${baseUrl}/assets/badges/${removeImageExtension(badge)}.png`;
   await new Promise((r) => {
     image.onload = r;
   });

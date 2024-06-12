@@ -42,4 +42,7 @@ storage
 
 # Splat-Plate for develop
 splat-plate/
+
+# only get the splashtags data
 scripts/genPlateData/splashtags
+scripts/genPlateData/splashtags/**

@@ -64,7 +64,8 @@
     "ui_my_profile": "header_ui_my_profile",
     "ui_login": "header_ui_login",
     "ui_logout": "header_ui_logout",
-    "ui_user_search_placeholder": "header_ui_user_search_placeholder"
+    "ui_user_search_placeholder": "header_ui_user_search_placeholder",
+    "ui_language_setting": "header_ui_language_setting"
   },
   "preview": {
     "playtime_title": "preview_playtime_title",

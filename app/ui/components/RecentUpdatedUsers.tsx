@@ -8,6 +8,7 @@ import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
 import { UI } from "@/app/lib/locales/locale";
+import { profileUrl } from "@/app/plate/lib/const";
 
 type RecentUpdatedUsersProps = {
   ui: UI;
@@ -48,7 +49,7 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
             className={"flex items-center justify-between px-1 py-2"}
           >
             <Link
-              href={`/users/${user.userId}/profile`}
+              href={profileUrl(user.userId)}
               className={`text-blue-600 hover:text-blue-400 hover:underline`}
             >
               {user.name}

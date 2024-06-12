@@ -64,7 +64,8 @@
     "ui_my_profile": "My Profile",
     "ui_login": "Login",
     "ui_logout": "Logout",
-    "ui_user_search_placeholder": "User Search"
+    "ui_user_search_placeholder": "User Search",
+    "ui_language_setting": "Language"
   },
   "preview": {
     "playtime_title": "Playtime",

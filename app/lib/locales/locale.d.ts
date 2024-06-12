@@ -46,6 +46,7 @@ export interface Header {
     ui_login:                   string;
     ui_logout:                  string;
     ui_user_search_placeholder: string;
+    ui_language_setting:        string;
 }
 
 export interface Ingame {
@@ -305,6 +306,7 @@ const typeMap: any = {
         { json: "ui_login", js: "ui_login", typ: "" },
         { json: "ui_logout", js: "ui_logout", typ: "" },
         { json: "ui_user_search_placeholder", js: "ui_user_search_placeholder", typ: "" },
+        { json: "ui_language_setting", js: "ui_language_setting", typ: "" },
     ], false),
     "Ingame": o([
         { json: "ui_information", js: "ui_information", typ: "" },

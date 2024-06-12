@@ -64,7 +64,8 @@
     "ui_my_profile": "내 프로필",
     "ui_login": "로그인",
     "ui_logout": "로그아웃",
-    "ui_user_search_placeholder": "유저 검색"
+    "ui_user_search_placeholder": "유저 검색",
+    "ui_language_setting": "언어 설정"
   },
   "preview": {
     "playtime_title": "접속 시간대",

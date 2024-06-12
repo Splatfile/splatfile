@@ -3,6 +3,7 @@ import Image from "next/image";
 import { RecentUpdatedUsers } from "@/app/ui/components/RecentUpdatedUsers";
 import { PageProps } from "@/app/lib/types/component-props";
 import { getDictionary, getHtml } from "@/app/lib/dictionaries";
+import { signinUrl } from "@/app/plate/lib/const";
 
 export default async function Page(props: PageProps) {
   const dictionary = await getDictionary(props.params.lang);
@@ -23,7 +24,7 @@ export default async function Page(props: PageProps) {
           />
           <div className="mt-10 flex animate-slide-up items-center gap-x-6">
             <a
-              href="/users/signin"
+              href={signinUrl}
               className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               {...getHtml(main.first_section_button)}
             />

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { ja, ko } from "@/app/lib/supabase-auth-ui-localization";
 import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
 import { useEffect } from "react";
-import { baseUrl } from "@/app/plate/lib/const";
+import { baseUrl, profileUrl, signinUrl } from "@/app/plate/lib/const";
 import { Lang } from "@/app/lib/types/component-props";
 import useUser = Auth.useUser;
 
@@ -35,7 +35,7 @@ export function LoginView(props: LoginViewProps) {
 
   useEffect(() => {
     if (user) {
-      router.replace(`/users/${user.id}/profile`);
+      router.replace(profileUrl(user.id));
     }
   }, [router, user]);
 
@@ -46,7 +46,7 @@ export function LoginView(props: LoginViewProps) {
           localization={{
             variables: getLocalization(lang),
           }}
-          redirectTo={baseUrl + "/users/signin"}
+          redirectTo={baseUrl + signinUrl}
           providers={["twitter"]}
           supabaseClient={client.supabase}
           appearance={{ theme: ThemeSupa }}
