@@ -24,6 +24,7 @@ import Image from "next/image";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { profileUrl, signinUrl } from "@/app/plate/lib/const";
 import { Lang } from "@/app/lib/types/component-props";
+import { LocaleSetter } from "@/app/ui/components/LocaleSetter";
 import useUser = Auth.useUser;
 
 type HeaderProps = {};
@@ -49,6 +50,7 @@ export function Header(_: HeaderProps) {
 
   return (
     <header className="bg-gray-900">
+      <LocaleSetter />
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-6 py-0 lg:px-8"
         aria-label="Global"
@@ -186,17 +188,17 @@ const LanguageSetting = (props: LanguageSettingProps) => {
       return;
     }
     if (!currentLang) {
-      router.push(`/${lang}`);
+      router.replace(`/${lang}`);
       return;
     }
-    router.push(currentPath.replace(currentLang, lang));
+    router.replace(currentPath.replace(currentLang, lang));
   };
 
   return (
     <Menu>
       <MenuButton
         className={
-          "cursor-pointer rounded-md px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
+          "cursor-pointer rounded-md px-3 py-2 text-left text-base font-semibold leading-7 text-white hover:bg-gray-800"
         }
       >
         {header.ui_language_setting}
@@ -204,7 +206,7 @@ const LanguageSetting = (props: LanguageSettingProps) => {
       <MenuItems
         anchor="bottom"
         className={
-          "flex w-full flex-col gap-3 rounded-md bg-gray-900 px-2 py-2 text-lg text-white sm:w-32"
+          "z-20 flex w-full flex-col gap-3 rounded-md bg-gray-900 px-2 py-2 text-lg text-white sm:w-32"
         }
       >
         <MenuItem>
