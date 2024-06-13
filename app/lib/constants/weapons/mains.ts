@@ -8,6 +8,7 @@ export const mainsCodes = [
   "Blaster_Light_00", // 래피드 블래스터
   "Blaster_Light_01", // 래피드 블래스터 데코
   "Blaster_Long_00", // 롱 블래스터
+  "Blaster_Long_01", // 커스텀 롱 블래스터
   "Blaster_Middle_00", // 핫 블래스터
   "Blaster_Middle_01", // 커스텀 핫 블래스터
   "Blaster_Precision_00", // S-BLAST92
@@ -25,6 +26,7 @@ export const mainsCodes = [
   "Charger_Keeper_00", // 소이 튜버
   "Charger_Keeper_01", // 커스텀 소이 튜버
   "Charger_Light_00", // 14식 대나무 총 갑
+  "Charger_Light_01", // 14식 대나무 총 을
   "Charger_LongScope_00", // 4K 스코프
   "Charger_LongScope_01", // 커스텀 4K 스코프
   "Charger_Long_00", // 리터 4K
@@ -43,6 +45,7 @@ export const mainsCodes = [
   "Maneuver_Gallon_00", // 켈빈 525
   "Maneuver_Gallon_01", // 켈빈 525 데코
   "Maneuver_Long_00", // 소방 FF
+  "Maneuver_Long_01", // 커스텀 소방 FF
   "Maneuver_Normal_00", // 스플랫 머누버
   "Maneuver_Normal_01", // 스플랫 머누버 컬래버
   "Maneuver_Normal_O", // 오더 머누버 레플리카
@@ -61,6 +64,8 @@ export const mainsCodes = [
   "Roller_Normal_O", // 오더 롤러 레플리카
   "Roller_Wide_00", // 와이드 롤러
   "Roller_Wide_01", // 와이드 롤러 컬래버
+  "Saber_Heavy_00", // 민트 덴탈 와이퍼
+  "Saber_Heavy_01", // 잉크 덴탈 와이퍼
   "Saber_Lite_00", // 드라이브 와이퍼
   "Saber_Lite_01", // 드라이브 와이퍼 데코
   "Saber_Normal_00", // 사무 와이퍼
@@ -69,6 +74,7 @@ export const mainsCodes = [
   "Shelter_Compact_00", // 스파이 가젯
   "Shelter_Compact_01", // 스파이 가젯 소렐라
   "Shelter_Focus_00", // 24식 도돌이 우산 갑
+  "Shelter_Focus_01", // 24식 도돌이 우산 을
   "Shelter_Normal_00", // 파라 셸터
   "Shelter_Normal_01", // 파라 셸터 소렐라
   "Shelter_Normal_O", // 오더 셸터 레플리카
@@ -121,7 +127,9 @@ export const mainsCodes = [
   "Spinner_Downpour_00", // 쿠겔 슈라이버
   "Spinner_Downpour_01", // 쿠겔 슈라이버 휴
   "Spinner_HyperShort_00", // 이그재미너
+  "Spinner_HyperShort_01", // 이그재미너 휴
   "Spinner_Hyper_00", // 하이드런트
+  "Spinner_Hyper_01", // 커스텀 하이드런트
   "Spinner_Quick_00", // 스플랫 스피너
   "Spinner_Quick_01", // 스플랫 스피너 컬래버
   "Spinner_Serein_00", // 노틸러스 47
@@ -129,6 +137,8 @@ export const mainsCodes = [
   "Spinner_Standard_00", // 배럴 스피너
   "Spinner_Standard_01", // 배럴 스피너 데코
   "Spinner_Standard_O", // 오더 스피너 레플리카
+  "Stringer_Explosion_00", // 플루이드 V
+  "Stringer_Explosion_01", // 커스텀 플루이드 V
   "Stringer_Normal_00", // 트라이 스트링거
   "Stringer_Normal_01", // 트라이 스트링거 컬래버
   "Stringer_Normal_O", // 오더 스트링거 레플리카
@@ -147,7 +157,7 @@ export const mainsCodeToData = {
     "innerId": 250,
     "subWeapon": "PoisonMist",
     "specialWeapon": "SpBlower",
-    "remoteImgIdent": "Path_Wst_Blaster_LightLong_00.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_LightLong_00.png",
   },
   "Blaster_LightLong_01": {
     "code": "Blaster_LightLong_01",
@@ -159,7 +169,7 @@ export const mainsCodeToData = {
     "innerId": 251,
     "subWeapon": "LineMarker",
     "specialWeapon": "SpMicroLaser",
-    "remoteImgIdent": "Path_Wst_Blaster_LightLong_01.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_LightLong_01.png",
   },
   "Blaster_LightShort_00": {
     "code": "Blaster_LightShort_00",
@@ -171,7 +181,7 @@ export const mainsCodeToData = {
     "innerId": 230,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpUltraShot",
-    "remoteImgIdent": "Path_Wst_Blaster_LightShort_00.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_LightShort_00.png",
   },
   "Blaster_LightShort_01": {
     "code": "Blaster_LightShort_01",
@@ -183,7 +193,7 @@ export const mainsCodeToData = {
     "innerId": 231,
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpFirework",
-    "remoteImgIdent": "Path_Wst_Blaster_LightShort_01.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_LightShort_01.png",
   },
   "Blaster_Light_00": {
     "code": "Blaster_Light_00",
@@ -195,7 +205,7 @@ export const mainsCodeToData = {
     "innerId": 240,
     "subWeapon": "Trap",
     "specialWeapon": "SpTripleTornado",
-    "remoteImgIdent": "Path_Wst_Blaster_Light_00.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_Light_00.png",
   },
   "Blaster_Light_01": {
     "code": "Blaster_Light_01",
@@ -207,7 +217,7 @@ export const mainsCodeToData = {
     "innerId": 241,
     "subWeapon": "Bomb_Torpedo",
     "specialWeapon": "SpJetpack",
-    "remoteImgIdent": "Path_Wst_Blaster_Light_01.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_Light_01.png",
   },
   "Blaster_Long_00": {
     "code": "Blaster_Long_00",
@@ -219,7 +229,19 @@ export const mainsCodeToData = {
     "innerId": 220,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpShockSonar",
-    "remoteImgIdent": "Path_Wst_Blaster_Long_00.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_Long_00.png",
+  },
+  "Blaster_Long_01": {
+    "code": "Blaster_Long_01",
+    "labels": {
+      "KRko": "커스텀 롱 블래스터",
+      "JPja": "ロングブラスターカスタム",
+      "USen": "Custom Range Blaster",
+    },
+    "innerId": 221,
+    "subWeapon": "Bomb_Splash",
+    "specialWeapon": "SpCastle",
+    "remoteImgIdent": "Path_Wst_Blaster_Long_01.png",
   },
   "Blaster_Middle_00": {
     "code": "Blaster_Middle_00",
@@ -231,7 +253,7 @@ export const mainsCodeToData = {
     "innerId": 210,
     "subWeapon": "Bomb_Robot",
     "specialWeapon": "SpGreatBarrier",
-    "remoteImgIdent": "Path_Wst_Blaster_Middle_00.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_Middle_00.png",
   },
   "Blaster_Middle_01": {
     "code": "Blaster_Middle_01",
@@ -243,7 +265,7 @@ export const mainsCodeToData = {
     "innerId": 211,
     "subWeapon": "PointSensor",
     "specialWeapon": "SpPogo",
-    "remoteImgIdent": "Path_Wst_Blaster_Middle_01.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_Middle_01.png",
   },
   "Blaster_Precision_00": {
     "code": "Blaster_Precision_00",
@@ -255,7 +277,7 @@ export const mainsCodeToData = {
     "innerId": 260,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpSkewer",
-    "remoteImgIdent": "Path_Wst_Blaster_Precision_00.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_Precision_00.png",
   },
   "Blaster_Precision_01": {
     "code": "Blaster_Precision_01",
@@ -267,7 +289,7 @@ export const mainsCodeToData = {
     "innerId": 261,
     "subWeapon": "Bomb_Quick",
     "specialWeapon": "SpNiceBall",
-    "remoteImgIdent": "Path_Wst_Blaster_Precision_01.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_Precision_01.png",
   },
   "Blaster_Short_00": {
     "code": "Blaster_Short_00",
@@ -279,7 +301,7 @@ export const mainsCodeToData = {
     "innerId": 200,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpSuperHook",
-    "remoteImgIdent": "Path_Wst_Blaster_Short_00.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_Short_00.png",
   },
   "Blaster_Short_01": {
     "code": "Blaster_Short_01",
@@ -291,7 +313,7 @@ export const mainsCodeToData = {
     "innerId": 201,
     "subWeapon": "Bomb_Fizzy",
     "specialWeapon": "SpUltraStamp",
-    "remoteImgIdent": "Path_Wst_Blaster_Short_01.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_Short_01.png",
   },
   "Blaster_Short_O": {
     "code": "Blaster_Short_O",
@@ -303,7 +325,7 @@ export const mainsCodeToData = {
     "innerId": 205,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpSuperHook",
-    "remoteImgIdent": "Path_Wst_Blaster_Short_O.webp",
+    "remoteImgIdent": "Path_Wst_Blaster_Short_O.png",
   },
   "Brush_Heavy_00": {
     "code": "Brush_Heavy_00",
@@ -311,7 +333,7 @@ export const mainsCodeToData = {
     "innerId": 1120,
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpShockSonar",
-    "remoteImgIdent": "Path_Wst_Brush_Heavy_00.webp",
+    "remoteImgIdent": "Path_Wst_Brush_Heavy_00.png",
   },
   "Brush_Heavy_01": {
     "code": "Brush_Heavy_01",
@@ -323,7 +345,7 @@ export const mainsCodeToData = {
     "innerId": 1121,
     "subWeapon": "PointSensor",
     "specialWeapon": "SpMultiMissile",
-    "remoteImgIdent": "Path_Wst_Brush_Heavy_01.webp",
+    "remoteImgIdent": "Path_Wst_Brush_Heavy_01.png",
   },
   "Brush_Mini_00": {
     "code": "Brush_Mini_00",
@@ -331,7 +353,7 @@ export const mainsCodeToData = {
     "innerId": 1100,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpMicroLaser",
-    "remoteImgIdent": "Path_Wst_Brush_Mini_00.webp",
+    "remoteImgIdent": "Path_Wst_Brush_Mini_00.png",
   },
   "Brush_Mini_01": {
     "code": "Brush_Mini_01",
@@ -343,7 +365,7 @@ export const mainsCodeToData = {
     "innerId": 1101,
     "subWeapon": "Trap",
     "specialWeapon": "SpUltraStamp",
-    "remoteImgIdent": "Path_Wst_Brush_Mini_01.webp",
+    "remoteImgIdent": "Path_Wst_Brush_Mini_01.png",
   },
   "Brush_Normal_00": {
     "code": "Brush_Normal_00",
@@ -351,7 +373,7 @@ export const mainsCodeToData = {
     "innerId": 1110,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpSuperHook",
-    "remoteImgIdent": "Path_Wst_Brush_Normal_00.webp",
+    "remoteImgIdent": "Path_Wst_Brush_Normal_00.png",
   },
   "Brush_Normal_01": {
     "code": "Brush_Normal_01",
@@ -363,7 +385,7 @@ export const mainsCodeToData = {
     "innerId": 1111,
     "subWeapon": "Beacon",
     "specialWeapon": "SpInkStorm",
-    "remoteImgIdent": "Path_Wst_Brush_Normal_01.webp",
+    "remoteImgIdent": "Path_Wst_Brush_Normal_01.png",
   },
   "Brush_Normal_O": {
     "code": "Brush_Normal_O",
@@ -375,7 +397,7 @@ export const mainsCodeToData = {
     "innerId": 1115,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpSuperHook",
-    "remoteImgIdent": "Path_Wst_Brush_Normal_O.webp",
+    "remoteImgIdent": "Path_Wst_Brush_Normal_O.png",
   },
   "Charger_Keeper_00": {
     "code": "Charger_Keeper_00",
@@ -387,7 +409,7 @@ export const mainsCodeToData = {
     "innerId": 2060,
     "subWeapon": "Bomb_Torpedo",
     "specialWeapon": "SpMultiMissile",
-    "remoteImgIdent": "Path_Wst_Charger_Keeper_00.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Keeper_00.png",
   },
   "Charger_Keeper_01": {
     "code": "Charger_Keeper_01",
@@ -399,7 +421,7 @@ export const mainsCodeToData = {
     "innerId": 2061,
     "subWeapon": "Bomb_Fizzy",
     "specialWeapon": "SpUltraStamp",
-    "remoteImgIdent": "Path_Wst_Charger_Keeper_01.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Keeper_01.png",
   },
   "Charger_Light_00": {
     "code": "Charger_Light_00",
@@ -411,7 +433,19 @@ export const mainsCodeToData = {
     "innerId": 2050,
     "subWeapon": "Bomb_Robot",
     "specialWeapon": "SpMicroLaser",
-    "remoteImgIdent": "Path_Wst_Charger_Light_00.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Light_00.png",
+  },
+  "Charger_Light_01": {
+    "code": "Charger_Light_01",
+    "labels": {
+      "KRko": "14식 대나무 총 을",
+      "JPja": "14式竹筒銃・乙",
+      "USen": "Bamboozler 14 Mk II",
+    },
+    "innerId": 2051,
+    "subWeapon": "Bomb_Fizzy",
+    "specialWeapon": "SpFirework",
+    "remoteImgIdent": "Path_Wst_Charger_Light_01.png",
   },
   "Charger_LongScope_00": {
     "code": "Charger_LongScope_00",
@@ -423,7 +457,7 @@ export const mainsCodeToData = {
     "innerId": 2040,
     "subWeapon": "Trap",
     "specialWeapon": "SpShockSonar",
-    "remoteImgIdent": "Path_Wst_Charger_LongScope_00.webp",
+    "remoteImgIdent": "Path_Wst_Charger_LongScope_00.png",
   },
   "Charger_LongScope_01": {
     "code": "Charger_LongScope_01",
@@ -435,7 +469,7 @@ export const mainsCodeToData = {
     "innerId": 2041,
     "subWeapon": "Beacon",
     "specialWeapon": "SpCastle",
-    "remoteImgIdent": "Path_Wst_Charger_LongScope_01.webp",
+    "remoteImgIdent": "Path_Wst_Charger_LongScope_01.png",
   },
   "Charger_Long_00": {
     "code": "Charger_Long_00",
@@ -443,7 +477,7 @@ export const mainsCodeToData = {
     "innerId": 2030,
     "subWeapon": "Trap",
     "specialWeapon": "SpShockSonar",
-    "remoteImgIdent": "Path_Wst_Charger_Long_00.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Long_00.png",
   },
   "Charger_Long_01": {
     "code": "Charger_Long_01",
@@ -455,7 +489,7 @@ export const mainsCodeToData = {
     "innerId": 2031,
     "subWeapon": "Beacon",
     "specialWeapon": "SpCastle",
-    "remoteImgIdent": "Path_Wst_Charger_Long_01.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Long_01.png",
   },
   "Charger_NormalScope_00": {
     "code": "Charger_NormalScope_00",
@@ -467,7 +501,7 @@ export const mainsCodeToData = {
     "innerId": 2020,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpBlower",
-    "remoteImgIdent": "Path_Wst_Charger_NormalScope_00.webp",
+    "remoteImgIdent": "Path_Wst_Charger_NormalScope_00.png",
   },
   "Charger_NormalScope_01": {
     "code": "Charger_NormalScope_01",
@@ -479,7 +513,7 @@ export const mainsCodeToData = {
     "innerId": 2021,
     "subWeapon": "Shield",
     "specialWeapon": "SpTripleTornado",
-    "remoteImgIdent": "Path_Wst_Charger_NormalScope_01.webp",
+    "remoteImgIdent": "Path_Wst_Charger_NormalScope_01.png",
   },
   "Charger_Normal_00": {
     "code": "Charger_Normal_00",
@@ -491,7 +525,7 @@ export const mainsCodeToData = {
     "innerId": 2010,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpBlower",
-    "remoteImgIdent": "Path_Wst_Charger_Normal_00.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Normal_00.png",
   },
   "Charger_Normal_01": {
     "code": "Charger_Normal_01",
@@ -503,7 +537,7 @@ export const mainsCodeToData = {
     "innerId": 2011,
     "subWeapon": "Shield",
     "specialWeapon": "SpTripleTornado",
-    "remoteImgIdent": "Path_Wst_Charger_Normal_01.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Normal_01.png",
   },
   "Charger_Normal_O": {
     "code": "Charger_Normal_O",
@@ -515,7 +549,7 @@ export const mainsCodeToData = {
     "innerId": 2015,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpBlower",
-    "remoteImgIdent": "Path_Wst_Charger_Normal_O.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Normal_O.png",
   },
   "Charger_Pencil_00": {
     "code": "Charger_Pencil_00",
@@ -527,7 +561,7 @@ export const mainsCodeToData = {
     "innerId": 2070,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpEnergyStand",
-    "remoteImgIdent": "Path_Wst_Charger_Pencil_00.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Pencil_00.png",
   },
   "Charger_Pencil_01": {
     "code": "Charger_Pencil_01",
@@ -539,7 +573,7 @@ export const mainsCodeToData = {
     "innerId": 2071,
     "subWeapon": "Shield",
     "specialWeapon": "SpInkStorm",
-    "remoteImgIdent": "Path_Wst_Charger_Pencil_01.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Pencil_01.png",
   },
   "Charger_Quick_00": {
     "code": "Charger_Quick_00",
@@ -551,7 +585,7 @@ export const mainsCodeToData = {
     "innerId": 2000,
     "subWeapon": "PointSensor",
     "specialWeapon": "SpGreatBarrier",
-    "remoteImgIdent": "Path_Wst_Charger_Quick_00.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Quick_00.png",
   },
   "Charger_Quick_01": {
     "code": "Charger_Quick_01",
@@ -563,7 +597,7 @@ export const mainsCodeToData = {
     "innerId": 2001,
     "subWeapon": "Bomb_Robot",
     "specialWeapon": "SpSuperHook",
-    "remoteImgIdent": "Path_Wst_Charger_Quick_01.webp",
+    "remoteImgIdent": "Path_Wst_Charger_Quick_01.png",
   },
   "Maneuver_Dual_00": {
     "code": "Maneuver_Dual_00",
@@ -575,7 +609,7 @@ export const mainsCodeToData = {
     "innerId": 5030,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpShockSonar",
-    "remoteImgIdent": "Path_Wst_Maneuver_Dual_00.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Dual_00.png",
   },
   "Maneuver_Dual_01": {
     "code": "Maneuver_Dual_01",
@@ -587,7 +621,7 @@ export const mainsCodeToData = {
     "innerId": 5031,
     "subWeapon": "Beacon",
     "specialWeapon": "SpFirework",
-    "remoteImgIdent": "Path_Wst_Maneuver_Dual_01.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Dual_01.png",
   },
   "Maneuver_Gallon_00": {
     "code": "Maneuver_Gallon_00",
@@ -599,7 +633,7 @@ export const mainsCodeToData = {
     "innerId": 5020,
     "subWeapon": "Shield",
     "specialWeapon": "SpNiceBall",
-    "remoteImgIdent": "Path_Wst_Maneuver_Gallon_00.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Gallon_00.png",
   },
   "Maneuver_Gallon_01": {
     "code": "Maneuver_Gallon_01",
@@ -611,7 +645,7 @@ export const mainsCodeToData = {
     "innerId": 5021,
     "subWeapon": "PointSensor",
     "specialWeapon": "SpUltraShot",
-    "remoteImgIdent": "Path_Wst_Maneuver_Gallon_01.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Gallon_01.png",
   },
   "Maneuver_Long_00": {
     "code": "Maneuver_Long_00",
@@ -623,7 +657,19 @@ export const mainsCodeToData = {
     "innerId": 5050,
     "subWeapon": "Trap",
     "specialWeapon": "SpMicroLaser",
-    "remoteImgIdent": "Path_Wst_Maneuver_Long_00.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Long_00.png",
+  },
+  "Maneuver_Long_01": {
+    "code": "Maneuver_Long_01",
+    "labels": {
+      "KRko": "커스텀 소방 FF",
+      "JPja": "ガエンFFカスタム",
+      "USen": "Custom Douser Dualies FF",
+    },
+    "innerId": 5051,
+    "subWeapon": "Bomb_Quick",
+    "specialWeapon": "SpTripleTornado",
+    "remoteImgIdent": "Path_Wst_Maneuver_Long_01.png",
   },
   "Maneuver_Normal_00": {
     "code": "Maneuver_Normal_00",
@@ -635,7 +681,7 @@ export const mainsCodeToData = {
     "innerId": 5010,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpChariot",
-    "remoteImgIdent": "Path_Wst_Maneuver_Normal_00.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Normal_00.png",
   },
   "Maneuver_Normal_01": {
     "code": "Maneuver_Normal_01",
@@ -647,7 +693,7 @@ export const mainsCodeToData = {
     "innerId": 5011,
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpPogo",
-    "remoteImgIdent": "Path_Wst_Maneuver_Normal_01.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Normal_01.png",
   },
   "Maneuver_Normal_O": {
     "code": "Maneuver_Normal_O",
@@ -659,7 +705,7 @@ export const mainsCodeToData = {
     "innerId": 5015,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpChariot",
-    "remoteImgIdent": "Path_Wst_Maneuver_Normal_O.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Normal_O.png",
   },
   "Maneuver_Short_00": {
     "code": "Maneuver_Short_00",
@@ -671,7 +717,7 @@ export const mainsCodeToData = {
     "innerId": 5000,
     "subWeapon": "Beacon",
     "specialWeapon": "SpEnergyStand",
-    "remoteImgIdent": "Path_Wst_Maneuver_Short_00.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Short_00.png",
   },
   "Maneuver_Short_01": {
     "code": "Maneuver_Short_01",
@@ -683,7 +729,7 @@ export const mainsCodeToData = {
     "innerId": 5001,
     "subWeapon": "Bomb_Torpedo",
     "specialWeapon": "SpSkewer",
-    "remoteImgIdent": "Path_Wst_Maneuver_Short_01.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Short_01.png",
   },
   "Maneuver_Stepper_00": {
     "code": "Maneuver_Stepper_00",
@@ -695,7 +741,7 @@ export const mainsCodeToData = {
     "innerId": 5040,
     "subWeapon": "Bomb_Robot",
     "specialWeapon": "SpSkewer",
-    "remoteImgIdent": "Path_Wst_Maneuver_Stepper_00.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Stepper_00.png",
   },
   "Maneuver_Stepper_01": {
     "code": "Maneuver_Stepper_01",
@@ -707,7 +753,7 @@ export const mainsCodeToData = {
     "innerId": 5041,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpSuperHook",
-    "remoteImgIdent": "Path_Wst_Maneuver_Stepper_01.webp",
+    "remoteImgIdent": "Path_Wst_Maneuver_Stepper_01.png",
   },
   "Roller_Compact_00": {
     "code": "Roller_Compact_00",
@@ -719,7 +765,7 @@ export const mainsCodeToData = {
     "innerId": 1000,
     "subWeapon": "Bomb_Robot",
     "specialWeapon": "SpSuperHook",
-    "remoteImgIdent": "Path_Wst_Roller_Compact_00.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Compact_00.png",
   },
   "Roller_Compact_01": {
     "code": "Roller_Compact_01",
@@ -731,7 +777,7 @@ export const mainsCodeToData = {
     "innerId": 1001,
     "subWeapon": "Bomb_Quick",
     "specialWeapon": "SpUltraShot",
-    "remoteImgIdent": "Path_Wst_Roller_Compact_01.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Compact_01.png",
   },
   "Roller_Heavy_00": {
     "code": "Roller_Heavy_00",
@@ -743,7 +789,7 @@ export const mainsCodeToData = {
     "innerId": 1020,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpEnergyStand",
-    "remoteImgIdent": "Path_Wst_Roller_Heavy_00.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Heavy_00.png",
   },
   "Roller_Heavy_01": {
     "code": "Roller_Heavy_01",
@@ -755,7 +801,7 @@ export const mainsCodeToData = {
     "innerId": 1021,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpFirework",
-    "remoteImgIdent": "Path_Wst_Roller_Heavy_01.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Heavy_01.png",
   },
   "Roller_Hunter_00": {
     "code": "Roller_Hunter_00",
@@ -767,7 +813,7 @@ export const mainsCodeToData = {
     "innerId": 1030,
     "subWeapon": "Trap",
     "specialWeapon": "SpMultiMissile",
-    "remoteImgIdent": "Path_Wst_Roller_Hunter_00.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Hunter_00.png",
   },
   "Roller_Hunter_01": {
     "code": "Roller_Hunter_01",
@@ -779,7 +825,7 @@ export const mainsCodeToData = {
     "innerId": 1031,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpChimney",
-    "remoteImgIdent": "Path_Wst_Roller_Hunter_01.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Hunter_01.png",
   },
   "Roller_Normal_00": {
     "code": "Roller_Normal_00",
@@ -791,7 +837,7 @@ export const mainsCodeToData = {
     "innerId": 1010,
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpGreatBarrier",
-    "remoteImgIdent": "Path_Wst_Roller_Normal_00.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Normal_00.png",
   },
   "Roller_Normal_01": {
     "code": "Roller_Normal_01",
@@ -803,7 +849,7 @@ export const mainsCodeToData = {
     "innerId": 1011,
     "subWeapon": "Beacon",
     "specialWeapon": "SpCastle",
-    "remoteImgIdent": "Path_Wst_Roller_Normal_01.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Normal_01.png",
   },
   "Roller_Normal_O": {
     "code": "Roller_Normal_O",
@@ -815,7 +861,7 @@ export const mainsCodeToData = {
     "innerId": 1015,
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpGreatBarrier",
-    "remoteImgIdent": "Path_Wst_Roller_Normal_O.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Normal_O.png",
   },
   "Roller_Wide_00": {
     "code": "Roller_Wide_00",
@@ -827,7 +873,7 @@ export const mainsCodeToData = {
     "innerId": 1040,
     "subWeapon": "Shield",
     "specialWeapon": "SpBlower",
-    "remoteImgIdent": "Path_Wst_Roller_Wide_00.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Wide_00.png",
   },
   "Roller_Wide_01": {
     "code": "Roller_Wide_01",
@@ -839,7 +885,31 @@ export const mainsCodeToData = {
     "innerId": 1041,
     "subWeapon": "LineMarker",
     "specialWeapon": "SpInkStorm",
-    "remoteImgIdent": "Path_Wst_Roller_Wide_01.webp",
+    "remoteImgIdent": "Path_Wst_Roller_Wide_01.png",
+  },
+  "Saber_Heavy_00": {
+    "code": "Saber_Heavy_00",
+    "labels": {
+      "KRko": "민트 덴탈 와이퍼",
+      "JPja": "デンタルワイパーミント",
+      "USen": "Mint Decavitator",
+    },
+    "innerId": 8020,
+    "subWeapon": "Bomb_Suction",
+    "specialWeapon": "SpGreatBarrier",
+    "remoteImgIdent": "Path_Wst_Saber_Heavy_00.png",
+  },
+  "Saber_Heavy_01": {
+    "code": "Saber_Heavy_01",
+    "labels": {
+      "KRko": "잉크 덴탈 와이퍼",
+      "JPja": "デンタルワイパースミ",
+      "USen": "Charcoal Decavitator",
+    },
+    "innerId": 8021,
+    "subWeapon": "Shield",
+    "specialWeapon": "SpJetpack",
+    "remoteImgIdent": "Path_Wst_Saber_Heavy_01.png",
   },
   "Saber_Lite_00": {
     "code": "Saber_Lite_00",
@@ -851,7 +921,7 @@ export const mainsCodeToData = {
     "innerId": 8010,
     "subWeapon": "Bomb_Torpedo",
     "specialWeapon": "SpUltraStamp",
-    "remoteImgIdent": "Path_Wst_Saber_Lite_00.webp",
+    "remoteImgIdent": "Path_Wst_Saber_Lite_00.png",
   },
   "Saber_Lite_01": {
     "code": "Saber_Lite_01",
@@ -863,7 +933,7 @@ export const mainsCodeToData = {
     "innerId": 8011,
     "subWeapon": "Beacon",
     "specialWeapon": "SpMultiMissile",
-    "remoteImgIdent": "Path_Wst_Saber_Lite_01.webp",
+    "remoteImgIdent": "Path_Wst_Saber_Lite_01.png",
   },
   "Saber_Normal_00": {
     "code": "Saber_Normal_00",
@@ -875,7 +945,7 @@ export const mainsCodeToData = {
     "innerId": 8000,
     "subWeapon": "Bomb_Quick",
     "specialWeapon": "SpSuperHook",
-    "remoteImgIdent": "Path_Wst_Saber_Normal_00.webp",
+    "remoteImgIdent": "Path_Wst_Saber_Normal_00.png",
   },
   "Saber_Normal_01": {
     "code": "Saber_Normal_01",
@@ -887,7 +957,7 @@ export const mainsCodeToData = {
     "innerId": 8001,
     "subWeapon": "PoisonMist",
     "specialWeapon": "SpChariot",
-    "remoteImgIdent": "Path_Wst_Saber_Normal_01.webp",
+    "remoteImgIdent": "Path_Wst_Saber_Normal_01.png",
   },
   "Saber_Normal_O": {
     "code": "Saber_Normal_O",
@@ -899,7 +969,7 @@ export const mainsCodeToData = {
     "innerId": 8005,
     "subWeapon": "Bomb_Quick",
     "specialWeapon": "SpSuperHook",
-    "remoteImgIdent": "Path_Wst_Saber_Normal_O.webp",
+    "remoteImgIdent": "Path_Wst_Saber_Normal_O.png",
   },
   "Shelter_Compact_00": {
     "code": "Shelter_Compact_00",
@@ -911,7 +981,7 @@ export const mainsCodeToData = {
     "innerId": 6020,
     "subWeapon": "Trap",
     "specialWeapon": "SpSkewer",
-    "remoteImgIdent": "Path_Wst_Shelter_Compact_00.webp",
+    "remoteImgIdent": "Path_Wst_Shelter_Compact_00.png",
   },
   "Shelter_Compact_01": {
     "code": "Shelter_Compact_01",
@@ -923,7 +993,7 @@ export const mainsCodeToData = {
     "innerId": 6021,
     "subWeapon": "Bomb_Torpedo",
     "specialWeapon": "SpChimney",
-    "remoteImgIdent": "Path_Wst_Shelter_Compact_01.webp",
+    "remoteImgIdent": "Path_Wst_Shelter_Compact_01.png",
   },
   "Shelter_Focus_00": {
     "code": "Shelter_Focus_00",
@@ -935,7 +1005,19 @@ export const mainsCodeToData = {
     "innerId": 6030,
     "subWeapon": "LineMarker",
     "specialWeapon": "SpGreatBarrier",
-    "remoteImgIdent": "Path_Wst_Shelter_Focus_00.webp",
+    "remoteImgIdent": "Path_Wst_Shelter_Focus_00.png",
+  },
+  "Shelter_Focus_01": {
+    "code": "Shelter_Focus_01",
+    "labels": {
+      "KRko": "24식 도돌이 우산 을",
+      "JPja": "24式張替傘・乙",
+      "USen": "Recycled Brella 24 Mk II",
+    },
+    "innerId": 6031,
+    "subWeapon": "PoisonMist",
+    "specialWeapon": "SpPogo",
+    "remoteImgIdent": "Path_Wst_Shelter_Focus_01.png",
   },
   "Shelter_Normal_00": {
     "code": "Shelter_Normal_00",
@@ -947,7 +1029,7 @@ export const mainsCodeToData = {
     "innerId": 6000,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpTripleTornado",
-    "remoteImgIdent": "Path_Wst_Shelter_Normal_00.webp",
+    "remoteImgIdent": "Path_Wst_Shelter_Normal_00.png",
   },
   "Shelter_Normal_01": {
     "code": "Shelter_Normal_01",
@@ -959,7 +1041,7 @@ export const mainsCodeToData = {
     "innerId": 6001,
     "subWeapon": "Bomb_Robot",
     "specialWeapon": "SpJetpack",
-    "remoteImgIdent": "Path_Wst_Shelter_Normal_01.webp",
+    "remoteImgIdent": "Path_Wst_Shelter_Normal_01.png",
   },
   "Shelter_Normal_O": {
     "code": "Shelter_Normal_O",
@@ -971,7 +1053,7 @@ export const mainsCodeToData = {
     "innerId": 6005,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpTripleTornado",
-    "remoteImgIdent": "Path_Wst_Shelter_Normal_O.webp",
+    "remoteImgIdent": "Path_Wst_Shelter_Normal_O.png",
   },
   "Shelter_Wide_00": {
     "code": "Shelter_Wide_00",
@@ -983,7 +1065,7 @@ export const mainsCodeToData = {
     "innerId": 6010,
     "subWeapon": "Beacon",
     "specialWeapon": "SpBlower",
-    "remoteImgIdent": "Path_Wst_Shelter_Wide_00.webp",
+    "remoteImgIdent": "Path_Wst_Shelter_Wide_00.png",
   },
   "Shelter_Wide_01": {
     "code": "Shelter_Wide_01",
@@ -995,7 +1077,7 @@ export const mainsCodeToData = {
     "innerId": 6011,
     "subWeapon": "Trap",
     "specialWeapon": "SpUltraShot",
-    "remoteImgIdent": "Path_Wst_Shelter_Wide_01.webp",
+    "remoteImgIdent": "Path_Wst_Shelter_Wide_01.png",
   },
   "Shooter_Blaze_00": {
     "code": "Shooter_Blaze_00",
@@ -1007,7 +1089,7 @@ export const mainsCodeToData = {
     "innerId": 30,
     "subWeapon": "Bomb_Fizzy",
     "specialWeapon": "SpSkewer",
-    "remoteImgIdent": "Path_Wst_Shooter_Blaze_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Blaze_00.png",
   },
   "Shooter_Blaze_01": {
     "code": "Shooter_Blaze_01",
@@ -1019,7 +1101,7 @@ export const mainsCodeToData = {
     "innerId": 31,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpNiceBall",
-    "remoteImgIdent": "Path_Wst_Shooter_Blaze_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Blaze_01.png",
   },
   "Shooter_Expert_00": {
     "code": "Shooter_Expert_00",
@@ -1031,7 +1113,7 @@ export const mainsCodeToData = {
     "innerId": 70,
     "subWeapon": "LineMarker",
     "specialWeapon": "SpChariot",
-    "remoteImgIdent": "Path_Wst_Shooter_Expert_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Expert_00.png",
   },
   "Shooter_Expert_01": {
     "code": "Shooter_Expert_01",
@@ -1043,7 +1125,7 @@ export const mainsCodeToData = {
     "innerId": 71,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpNiceBall",
-    "remoteImgIdent": "Path_Wst_Shooter_Expert_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Expert_01.png",
   },
   "Shooter_First_00": {
     "code": "Shooter_First_00",
@@ -1055,7 +1137,7 @@ export const mainsCodeToData = {
     "innerId": 10,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpGreatBarrier",
-    "remoteImgIdent": "Path_Wst_Shooter_First_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_First_00.png",
   },
   "Shooter_First_01": {
     "code": "Shooter_First_01",
@@ -1067,7 +1149,7 @@ export const mainsCodeToData = {
     "innerId": 11,
     "subWeapon": "Bomb_Torpedo",
     "specialWeapon": "SpShockSonar",
-    "remoteImgIdent": "Path_Wst_Shooter_First_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_First_01.png",
   },
   "Shooter_Flash_00": {
     "code": "Shooter_Flash_00",
@@ -1079,7 +1161,7 @@ export const mainsCodeToData = {
     "innerId": 400,
     "subWeapon": "Shield",
     "specialWeapon": "SpUltraShot",
-    "remoteImgIdent": "Path_Wst_Shooter_Flash_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Flash_00.png",
   },
   "Shooter_Flash_01": {
     "code": "Shooter_Flash_01",
@@ -1091,7 +1173,7 @@ export const mainsCodeToData = {
     "innerId": 401,
     "subWeapon": "Bomb_Robot",
     "specialWeapon": "SpChimney",
-    "remoteImgIdent": "Path_Wst_Shooter_Flash_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Flash_01.png",
   },
   "Shooter_Gravity_00": {
     "code": "Shooter_Gravity_00",
@@ -1099,7 +1181,7 @@ export const mainsCodeToData = {
     "innerId": 50,
     "subWeapon": "Shield",
     "specialWeapon": "SpMicroLaser",
-    "remoteImgIdent": "Path_Wst_Shooter_Gravity_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Gravity_00.png",
   },
   "Shooter_Gravity_01": {
     "code": "Shooter_Gravity_01",
@@ -1111,7 +1193,7 @@ export const mainsCodeToData = {
     "innerId": 51,
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpChimney",
-    "remoteImgIdent": "Path_Wst_Shooter_Gravity_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Gravity_01.png",
   },
   "Shooter_Heavy_00": {
     "code": "Shooter_Heavy_00",
@@ -1119,7 +1201,7 @@ export const mainsCodeToData = {
     "innerId": 80,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpBlower",
-    "remoteImgIdent": "Path_Wst_Shooter_Heavy_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Heavy_00.png",
   },
   "Shooter_Heavy_01": {
     "code": "Shooter_Heavy_01",
@@ -1131,7 +1213,7 @@ export const mainsCodeToData = {
     "innerId": 81,
     "subWeapon": "Shield",
     "specialWeapon": "SpCastle",
-    "remoteImgIdent": "Path_Wst_Shooter_Heavy_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Heavy_01.png",
   },
   "Shooter_Long_00": {
     "code": "Shooter_Long_00",
@@ -1143,7 +1225,7 @@ export const mainsCodeToData = {
     "innerId": 90,
     "subWeapon": "LineMarker",
     "specialWeapon": "SpBlower",
-    "remoteImgIdent": "Path_Wst_Shooter_Long_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Long_00.png",
   },
   "Shooter_Long_01": {
     "code": "Shooter_Long_01",
@@ -1155,7 +1237,7 @@ export const mainsCodeToData = {
     "innerId": 91,
     "subWeapon": "PoisonMist",
     "specialWeapon": "SpInkStorm",
-    "remoteImgIdent": "Path_Wst_Shooter_Long_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Long_01.png",
   },
   "Shooter_Normal_00": {
     "code": "Shooter_Normal_00",
@@ -1167,7 +1249,7 @@ export const mainsCodeToData = {
     "innerId": 40,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpUltraShot",
-    "remoteImgIdent": "Path_Wst_Shooter_Normal_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Normal_00.png",
   },
   "Shooter_Normal_01": {
     "code": "Shooter_Normal_01",
@@ -1179,7 +1261,7 @@ export const mainsCodeToData = {
     "innerId": 41,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpTripleTornado",
-    "remoteImgIdent": "Path_Wst_Shooter_Normal_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Normal_01.png",
   },
   "Shooter_Normal_H": {
     "code": "Shooter_Normal_H",
@@ -1191,7 +1273,7 @@ export const mainsCodeToData = {
     "innerId": 45,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpUltraShot",
-    "remoteImgIdent": "Path_Wst_Shooter_Normal_H.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Normal_H.png",
   },
   "Shooter_Normal_O": {
     "code": "Shooter_Normal_O",
@@ -1203,7 +1285,7 @@ export const mainsCodeToData = {
     "innerId": 47,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpUltraShot",
-    "remoteImgIdent": "Path_Wst_Shooter_Normal_O.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Normal_O.png",
   },
   "Shooter_Normal_Oct": {
     "code": "Shooter_Normal_Oct",
@@ -1215,7 +1297,7 @@ export const mainsCodeToData = {
     "innerId": 46,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpTripleTornado",
-    "remoteImgIdent": "Path_Wst_Shooter_Normal_Oct.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Normal_Oct.png",
   },
   "Shooter_Precision_00": {
     "code": "Shooter_Precision_00",
@@ -1227,7 +1309,7 @@ export const mainsCodeToData = {
     "innerId": 20,
     "subWeapon": "Bomb_Quick",
     "specialWeapon": "SpChariot",
-    "remoteImgIdent": "Path_Wst_Shooter_Precision_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Precision_00.png",
   },
   "Shooter_Precision_01": {
     "code": "Shooter_Precision_01",
@@ -1239,7 +1321,7 @@ export const mainsCodeToData = {
     "innerId": 21,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpTripleTornado",
-    "remoteImgIdent": "Path_Wst_Shooter_Precision_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Precision_01.png",
   },
   "Shooter_QuickLong_00": {
     "code": "Shooter_QuickLong_00",
@@ -1251,7 +1333,7 @@ export const mainsCodeToData = {
     "innerId": 100,
     "subWeapon": "PointSensor",
     "specialWeapon": "SpMicroLaser",
-    "remoteImgIdent": "Path_Wst_Shooter_QuickLong_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_QuickLong_00.png",
   },
   "Shooter_QuickLong_01": {
     "code": "Shooter_QuickLong_01",
@@ -1263,7 +1345,7 @@ export const mainsCodeToData = {
     "innerId": 101,
     "subWeapon": "Trap",
     "specialWeapon": "SpJetpack",
-    "remoteImgIdent": "Path_Wst_Shooter_QuickLong_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_QuickLong_01.png",
   },
   "Shooter_QuickMiddle_00": {
     "code": "Shooter_QuickMiddle_00",
@@ -1271,7 +1353,7 @@ export const mainsCodeToData = {
     "innerId": 60,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpEnergyStand",
-    "remoteImgIdent": "Path_Wst_Shooter_QuickMiddle_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_QuickMiddle_00.png",
   },
   "Shooter_QuickMiddle_01": {
     "code": "Shooter_QuickMiddle_01",
@@ -1279,7 +1361,7 @@ export const mainsCodeToData = {
     "innerId": 61,
     "subWeapon": "Bomb_Robot",
     "specialWeapon": "SpFirework",
-    "remoteImgIdent": "Path_Wst_Shooter_QuickMiddle_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_QuickMiddle_01.png",
   },
   "Shooter_Short_00": {
     "code": "Shooter_Short_00",
@@ -1291,7 +1373,7 @@ export const mainsCodeToData = {
     "innerId": 0,
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpUltraStamp",
-    "remoteImgIdent": "Path_Wst_Shooter_Short_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Short_00.png",
   },
   "Shooter_Short_01": {
     "code": "Shooter_Short_01",
@@ -1303,7 +1385,7 @@ export const mainsCodeToData = {
     "innerId": 1,
     "subWeapon": "Beacon",
     "specialWeapon": "SpMicroLaser",
-    "remoteImgIdent": "Path_Wst_Shooter_Short_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_Short_01.png",
   },
   "Shooter_TripleMiddle_00": {
     "code": "Shooter_TripleMiddle_00",
@@ -1315,7 +1397,7 @@ export const mainsCodeToData = {
     "innerId": 310,
     "subWeapon": "PointSensor",
     "specialWeapon": "SpEnergyStand",
-    "remoteImgIdent": "Path_Wst_Shooter_TripleMiddle_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_TripleMiddle_00.png",
   },
   "Shooter_TripleMiddle_01": {
     "code": "Shooter_TripleMiddle_01",
@@ -1327,7 +1409,7 @@ export const mainsCodeToData = {
     "innerId": 311,
     "subWeapon": "Shield",
     "specialWeapon": "SpGreatBarrier",
-    "remoteImgIdent": "Path_Wst_Shooter_TripleMiddle_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_TripleMiddle_01.png",
   },
   "Shooter_TripleQuick_00": {
     "code": "Shooter_TripleQuick_00",
@@ -1339,7 +1421,7 @@ export const mainsCodeToData = {
     "innerId": 300,
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpChariot",
-    "remoteImgIdent": "Path_Wst_Shooter_TripleQuick_00.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_TripleQuick_00.png",
   },
   "Shooter_TripleQuick_01": {
     "code": "Shooter_TripleQuick_01",
@@ -1351,7 +1433,7 @@ export const mainsCodeToData = {
     "innerId": 301,
     "subWeapon": "Bomb_Quick",
     "specialWeapon": "SpUltraStamp",
-    "remoteImgIdent": "Path_Wst_Shooter_TripleQuick_01.webp",
+    "remoteImgIdent": "Path_Wst_Shooter_TripleQuick_01.png",
   },
   "Slosher_Bathtub_00": {
     "code": "Slosher_Bathtub_00",
@@ -1363,7 +1445,7 @@ export const mainsCodeToData = {
     "innerId": 3030,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpInkStorm",
-    "remoteImgIdent": "Path_Wst_Slosher_Bathtub_00.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Bathtub_00.png",
   },
   "Slosher_Bathtub_01": {
     "code": "Slosher_Bathtub_01",
@@ -1375,7 +1457,7 @@ export const mainsCodeToData = {
     "innerId": 3031,
     "subWeapon": "LineMarker",
     "specialWeapon": "SpCastle",
-    "remoteImgIdent": "Path_Wst_Slosher_Bathtub_01.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Bathtub_01.png",
   },
   "Slosher_Diffusion_00": {
     "code": "Slosher_Diffusion_00",
@@ -1383,7 +1465,7 @@ export const mainsCodeToData = {
     "innerId": 3010,
     "subWeapon": "PoisonMist",
     "specialWeapon": "SpJetpack",
-    "remoteImgIdent": "Path_Wst_Slosher_Diffusion_00.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Diffusion_00.png",
   },
   "Slosher_Diffusion_01": {
     "code": "Slosher_Diffusion_01",
@@ -1395,7 +1477,7 @@ export const mainsCodeToData = {
     "innerId": 3011,
     "subWeapon": "Bomb_Fizzy",
     "specialWeapon": "SpEnergyStand",
-    "remoteImgIdent": "Path_Wst_Slosher_Diffusion_01.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Diffusion_01.png",
   },
   "Slosher_Double_00": {
     "code": "Slosher_Double_00",
@@ -1407,7 +1489,7 @@ export const mainsCodeToData = {
     "innerId": 3050,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpSkewer",
-    "remoteImgIdent": "Path_Wst_Slosher_Double_00.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Double_00.png",
   },
   "Slosher_Double_01": {
     "code": "Slosher_Double_01",
@@ -1419,7 +1501,7 @@ export const mainsCodeToData = {
     "innerId": 3051,
     "subWeapon": "Beacon",
     "specialWeapon": "SpShockSonar",
-    "remoteImgIdent": "Path_Wst_Slosher_Double_01.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Double_01.png",
   },
   "Slosher_Launcher_00": {
     "code": "Slosher_Launcher_00",
@@ -1431,7 +1513,7 @@ export const mainsCodeToData = {
     "innerId": 3020,
     "subWeapon": "Bomb_Fizzy",
     "specialWeapon": "SpNiceBall",
-    "remoteImgIdent": "Path_Wst_Slosher_Launcher_00.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Launcher_00.png",
   },
   "Slosher_Launcher_01": {
     "code": "Slosher_Launcher_01",
@@ -1443,7 +1525,7 @@ export const mainsCodeToData = {
     "innerId": 3021,
     "subWeapon": "PointSensor",
     "specialWeapon": "SpUltraShot",
-    "remoteImgIdent": "Path_Wst_Slosher_Launcher_01.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Launcher_01.png",
   },
   "Slosher_Strong_00": {
     "code": "Slosher_Strong_00",
@@ -1455,7 +1537,7 @@ export const mainsCodeToData = {
     "innerId": 3000,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpTripleTornado",
-    "remoteImgIdent": "Path_Wst_Slosher_Strong_00.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Strong_00.png",
   },
   "Slosher_Strong_01": {
     "code": "Slosher_Strong_01",
@@ -1467,7 +1549,7 @@ export const mainsCodeToData = {
     "innerId": 3001,
     "subWeapon": "LineMarker",
     "specialWeapon": "SpSuperHook",
-    "remoteImgIdent": "Path_Wst_Slosher_Strong_01.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Strong_01.png",
   },
   "Slosher_Strong_O": {
     "code": "Slosher_Strong_O",
@@ -1479,7 +1561,7 @@ export const mainsCodeToData = {
     "innerId": 3005,
     "subWeapon": "Bomb_Splash",
     "specialWeapon": "SpTripleTornado",
-    "remoteImgIdent": "Path_Wst_Slosher_Strong_O.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Strong_O.png",
   },
   "Slosher_Washtub_00": {
     "code": "Slosher_Washtub_00",
@@ -1491,7 +1573,7 @@ export const mainsCodeToData = {
     "innerId": 3040,
     "subWeapon": "PointSensor",
     "specialWeapon": "SpInkStorm",
-    "remoteImgIdent": "Path_Wst_Slosher_Washtub_00.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Washtub_00.png",
   },
   "Slosher_Washtub_01": {
     "code": "Slosher_Washtub_01",
@@ -1503,7 +1585,7 @@ export const mainsCodeToData = {
     "innerId": 3041,
     "subWeapon": "Shield",
     "specialWeapon": "SpPogo",
-    "remoteImgIdent": "Path_Wst_Slosher_Washtub_01.webp",
+    "remoteImgIdent": "Path_Wst_Slosher_Washtub_01.png",
   },
   "Spinner_Downpour_00": {
     "code": "Spinner_Downpour_00",
@@ -1515,7 +1597,7 @@ export const mainsCodeToData = {
     "innerId": 4030,
     "subWeapon": "Bomb_Fizzy",
     "specialWeapon": "SpJetpack",
-    "remoteImgIdent": "Path_Wst_Spinner_Downpour_00.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_Downpour_00.png",
   },
   "Spinner_Downpour_01": {
     "code": "Spinner_Downpour_01",
@@ -1527,7 +1609,7 @@ export const mainsCodeToData = {
     "innerId": 4031,
     "subWeapon": "Trap",
     "specialWeapon": "SpBlower",
-    "remoteImgIdent": "Path_Wst_Spinner_Downpour_01.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_Downpour_01.png",
   },
   "Spinner_HyperShort_00": {
     "code": "Spinner_HyperShort_00",
@@ -1539,7 +1621,19 @@ export const mainsCodeToData = {
     "innerId": 4050,
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpEnergyStand",
-    "remoteImgIdent": "Path_Wst_Spinner_HyperShort_00.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_HyperShort_00.png",
+  },
+  "Spinner_HyperShort_01": {
+    "code": "Spinner_HyperShort_01",
+    "labels": {
+      "KRko": "이그재미너 휴",
+      "JPja": "イグザミナー・ヒュー",
+      "USen": "Heavy Edit Splatling Nouveau",
+    },
+    "innerId": 4051,
+    "subWeapon": "Bomb_Splash",
+    "specialWeapon": "SpChariot",
+    "remoteImgIdent": "Path_Wst_Spinner_HyperShort_01.png",
   },
   "Spinner_Hyper_00": {
     "code": "Spinner_Hyper_00",
@@ -1551,7 +1645,19 @@ export const mainsCodeToData = {
     "innerId": 4020,
     "subWeapon": "Bomb_Robot",
     "specialWeapon": "SpNiceBall",
-    "remoteImgIdent": "Path_Wst_Spinner_Hyper_00.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_Hyper_00.png",
+  },
+  "Spinner_Hyper_01": {
+    "code": "Spinner_Hyper_01",
+    "labels": {
+      "KRko": "커스텀 하이드런트",
+      "JPja": "ハイドラントカスタム",
+      "USen": "Custom Hydra Splatling",
+    },
+    "innerId": 4021,
+    "subWeapon": "Trap",
+    "specialWeapon": "SpChimney",
+    "remoteImgIdent": "Path_Wst_Spinner_Hyper_01.png",
   },
   "Spinner_Quick_00": {
     "code": "Spinner_Quick_00",
@@ -1563,7 +1669,7 @@ export const mainsCodeToData = {
     "innerId": 4000,
     "subWeapon": "Bomb_Quick",
     "specialWeapon": "SpUltraStamp",
-    "remoteImgIdent": "Path_Wst_Spinner_Quick_00.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_Quick_00.png",
   },
   "Spinner_Quick_01": {
     "code": "Spinner_Quick_01",
@@ -1575,7 +1681,7 @@ export const mainsCodeToData = {
     "innerId": 4001,
     "subWeapon": "PoisonMist",
     "specialWeapon": "SpGreatBarrier",
-    "remoteImgIdent": "Path_Wst_Spinner_Quick_01.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_Quick_01.png",
   },
   "Spinner_Serein_00": {
     "code": "Spinner_Serein_00",
@@ -1587,7 +1693,7 @@ export const mainsCodeToData = {
     "innerId": 4040,
     "subWeapon": "PointSensor",
     "specialWeapon": "SpInkStorm",
-    "remoteImgIdent": "Path_Wst_Spinner_Serein_00.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_Serein_00.png",
   },
   "Spinner_Serein_01": {
     "code": "Spinner_Serein_01",
@@ -1599,7 +1705,7 @@ export const mainsCodeToData = {
     "innerId": 4041,
     "subWeapon": "Bomb_Suction",
     "specialWeapon": "SpPogo",
-    "remoteImgIdent": "Path_Wst_Spinner_Serein_01.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_Serein_01.png",
   },
   "Spinner_Standard_00": {
     "code": "Spinner_Standard_00",
@@ -1611,7 +1717,7 @@ export const mainsCodeToData = {
     "innerId": 4010,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpShockSonar",
-    "remoteImgIdent": "Path_Wst_Spinner_Standard_00.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_Standard_00.png",
   },
   "Spinner_Standard_01": {
     "code": "Spinner_Standard_01",
@@ -1623,7 +1729,7 @@ export const mainsCodeToData = {
     "innerId": 4011,
     "subWeapon": "PointSensor",
     "specialWeapon": "SpCastle",
-    "remoteImgIdent": "Path_Wst_Spinner_Standard_01.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_Standard_01.png",
   },
   "Spinner_Standard_O": {
     "code": "Spinner_Standard_O",
@@ -1635,7 +1741,31 @@ export const mainsCodeToData = {
     "innerId": 4015,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpShockSonar",
-    "remoteImgIdent": "Path_Wst_Spinner_Standard_O.webp",
+    "remoteImgIdent": "Path_Wst_Spinner_Standard_O.png",
+  },
+  "Stringer_Explosion_00": {
+    "code": "Stringer_Explosion_00",
+    "labels": {
+      "KRko": "플루이드 V",
+      "JPja": "フルイドV",
+      "USen": "Wellstring V",
+    },
+    "innerId": 7030,
+    "subWeapon": "Bomb_Robot",
+    "specialWeapon": "SpUltraStamp",
+    "remoteImgIdent": "Path_Wst_Stringer_Explosion_00.png",
+  },
+  "Stringer_Explosion_01": {
+    "code": "Stringer_Explosion_01",
+    "labels": {
+      "KRko": "커스텀 플루이드 V",
+      "JPja": "フルイドVカスタム",
+      "USen": "Custom Wellstring V",
+    },
+    "innerId": 7031,
+    "subWeapon": "PointSensor",
+    "specialWeapon": "SpShockSonar",
+    "remoteImgIdent": "Path_Wst_Stringer_Explosion_01.png",
   },
   "Stringer_Normal_00": {
     "code": "Stringer_Normal_00",
@@ -1647,7 +1777,7 @@ export const mainsCodeToData = {
     "innerId": 7010,
     "subWeapon": "PoisonMist",
     "specialWeapon": "SpMicroLaser",
-    "remoteImgIdent": "Path_Wst_Stringer_Normal_00.webp",
+    "remoteImgIdent": "Path_Wst_Stringer_Normal_00.png",
   },
   "Stringer_Normal_01": {
     "code": "Stringer_Normal_01",
@@ -1659,7 +1789,7 @@ export const mainsCodeToData = {
     "innerId": 7011,
     "subWeapon": "Sprinkler",
     "specialWeapon": "SpFirework",
-    "remoteImgIdent": "Path_Wst_Stringer_Normal_01.webp",
+    "remoteImgIdent": "Path_Wst_Stringer_Normal_01.png",
   },
   "Stringer_Normal_O": {
     "code": "Stringer_Normal_O",
@@ -1671,7 +1801,7 @@ export const mainsCodeToData = {
     "innerId": 7015,
     "subWeapon": "PoisonMist",
     "specialWeapon": "SpMicroLaser",
-    "remoteImgIdent": "Path_Wst_Stringer_Normal_O.webp",
+    "remoteImgIdent": "Path_Wst_Stringer_Normal_O.png",
   },
   "Stringer_Short_00": {
     "code": "Stringer_Short_00",
@@ -1683,7 +1813,7 @@ export const mainsCodeToData = {
     "innerId": 7020,
     "subWeapon": "Bomb_Curling",
     "specialWeapon": "SpMultiMissile",
-    "remoteImgIdent": "Path_Wst_Stringer_Short_00.webp",
+    "remoteImgIdent": "Path_Wst_Stringer_Short_00.png",
   },
   "Stringer_Short_01": {
     "code": "Stringer_Short_01",
@@ -1695,6 +1825,6 @@ export const mainsCodeToData = {
     "innerId": 7021,
     "subWeapon": "Shield",
     "specialWeapon": "SpSkewer",
-    "remoteImgIdent": "Path_Wst_Stringer_Short_01.webp",
+    "remoteImgIdent": "Path_Wst_Stringer_Short_01.png",
   },
 } as const;

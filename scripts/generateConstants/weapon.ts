@@ -48,7 +48,7 @@ function preprocessMainWeaponInfo(
         innerId: weaponInfo["Id"] as number, // 220
         subWeapon: parseSubSpeName(weaponInfo["SubWeapon"] as string),
         specialWeapon: parseSubSpeName(weaponInfo["SpecialWeapon"] as string),
-        remoteImgIdent: `Path_Wst_${weaponInfo["__RowId"]}.webp`,
+        remoteImgIdent: `Path_Wst_${weaponInfo["__RowId"]}.png`,
       } as PreprocessedWeaponInfo;
     })
     .filter((v) => v.innerId < 10000); // Remove test weapons for nintendo developers
@@ -76,7 +76,7 @@ function preprocessSubWeaponData(
           languageDataJsonByLangCode,
         ),
         innerId: weaponInfo["Id"] as number, // 8
-        remoteImgIdent: `Wsb_${weaponInfo["__RowId"]}00.webp`,
+        remoteImgIdent: `Wsb_${weaponInfo["__RowId"]}00.png`,
       } as PreprocessedWeaponInfo;
     })
     .filter((v) => v.innerId < 100); // Remove test weapons for nintendo developers
@@ -104,7 +104,7 @@ function preProcessSpecialWeaponData(
           languageDataJsonByLangCode,
         ),
         innerId: weaponInfo["Id"] as number, // 8
-        remoteImgIdent: `Wsp_${weaponInfo["__RowId"]}00.webp`,
+        remoteImgIdent: `Wsp_${weaponInfo["__RowId"]}00.png`,
       } as PreprocessedWeaponInfo;
     })
     .filter((v) => v.innerId < 20); // Remove test weapons for nintendo developers
@@ -157,10 +157,10 @@ async function downloadImageFiles(
 }
 
 async function replaceMaskColorToSomthing(imgPath: string, color: string) {
-  // convert origin.webp \
+  // convert origin.png \
   //   \( +clone xc:"#28a1e1" -channel RGB -clut \)  # 알파레이어를 제외한 부분을 특정 컬러로 채운 이미지를 \
   //   -compose Screen -composite  # Screen Composition 시킨다 \
-  //   result.webp
+  //   result.png
   const imageMagickCommand = new Deno.Command("convert", {
     args: [
       imgPath,
@@ -254,8 +254,7 @@ export async function main(labelDataJsonByLangCode: Map<LangCode, JsonType>) {
 
   const getRemoteIdentAndDestFilenames = (
     data: Array<PreprocessedWeaponInfo>,
-  ) =>
-    data.map((v) => [v.remoteImgIdent, `${v.code}.webp`] as [string, string]);
+  ) => data.map((v) => [v.remoteImgIdent, `${v.code}.png`] as [string, string]);
 
   await Promise.all(WEAPON_TYPES.map(_downloadAndPostprocessFiles));
 }
