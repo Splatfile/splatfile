@@ -1,10 +1,18 @@
 "use client";
-import { ProfileCanvas } from "@/app/konva/components/ProfileCanvas";
+import { ProfileImage } from "@/app/konva/components/ProfileImage";
 import { DefaultModal } from "@/app/ui/components/DefaultModal";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useState } from "react";
 import { Profile } from "@/app/lib/locales/locale";
+import {
+  useGameStore,
+  useProfileImageUrl,
+  useUserStore,
+} from "@/app/lib/hooks/use-profile-store";
+import {
+  useTagStore,
+} from "@/app/plate/lib/store/use-tag-store";
 
 type ExportProfileImageModalProps = {
   open: boolean;
@@ -18,6 +26,10 @@ function ExportProfileImageModal({
   profile,
 }: ExportProfileImageModalProps) {
   const [canvasDataUrl, setCanvasDataUrl] = useState<string | null>(null);
+  const tag = useTagStore();
+  const gameStore = useGameStore();
+  const userStore = useUserStore();
+  const profileImageUrl = useProfileImageUrl();
 
   const downloadImage = () => {
     if (canvasDataUrl === null) return;
@@ -58,7 +70,10 @@ function ExportProfileImageModal({
     >
       <div className={"flex flex-col gap-4"}>
         <ProfilePreview dataUrl={canvasDataUrl} />
-        <ProfileCanvas
+        <ProfileImage
+          userInfo={userStore}
+          gameInfo={gameStore}
+          plateInfo={tag}
           onRenderComplete={(dataUrl) => setCanvasDataUrl(dataUrl)}
           hidden={true}
         />
