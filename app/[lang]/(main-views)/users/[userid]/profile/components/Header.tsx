@@ -52,7 +52,7 @@ export function Header(_: HeaderProps) {
     <header className="bg-gray-900">
       <LocaleSetter />
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-start p-6 py-0 md:justify-between lg:px-8"
+        className="mx-auto flex h-16 max-w-7xl items-center justify-start p-6 py-0 md:justify-between lg:px-8"
         aria-label="Global"
       >
         {/* 헤더 왼쪽 */}

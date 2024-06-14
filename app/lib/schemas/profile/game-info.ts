@@ -125,6 +125,23 @@ export const XMatchInfoObject = z
     tower: z.string().optional(),
   })
   .optional();
+export const WeaponGearInfoObject = z
+  .record(
+    z.object({
+      isActivated: z.boolean(),
+      mainWeapon: z.string(),
+      subWeapon: z.string(),
+      specialWeapon: z.string(),
+      selectedTime: z.number().optional(),
+      gearPowers: z.object({
+        head: z.tuple([z.string(), z.string(), z.string(), z.string()]),
+        body: z.tuple([z.string(), z.string(), z.string(), z.string()]),
+        shoes: z.tuple([z.string(), z.string(), z.string(), z.string()]),
+      }),
+      rules: z.array(z.string()),
+    }),
+  )
+  .optional();
 
 export const GameInfoObject = z.object({
   serverRegion: z.string().optional(),
@@ -147,23 +164,9 @@ export const GameInfoObject = z.object({
   xMatchInfo: XMatchInfoObject,
   ruleFavor: RuleFavorObject,
   playStyle: PlayStyleObject,
-  weaponGearInfo: z
-    .record(
-      z.object({
-        isActivated: z.boolean(),
-        mainWeapon: z.string(),
-        subWeapon: z.string(),
-        specialWeapon: z.string(),
-        gearPowers: z.object({
-          head: z.tuple([z.string(), z.string(), z.string(), z.string()]),
-          body: z.tuple([z.string(), z.string(), z.string(), z.string()]),
-          shoes: z.tuple([z.string(), z.string(), z.string(), z.string()]),
-        }),
-        rules: z.array(z.string()),
-      }),
-    )
-    .optional(),
+  weaponGearInfo: WeaponGearInfoObject,
 });
+
 export const isKeyOfXmatch = (
   key: string,
 ): key is keyof typeof GameCardXMatch =>

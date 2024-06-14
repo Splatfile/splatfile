@@ -10,6 +10,7 @@
   "ingame": {
     "ui_information": "인게임 정보",
     "ui_summary": "종합",
+    "ui_select_weapon": "무기 선택",
     "ui_weapon": "사용 무기",
     "ui_play_style": "플레이 스타일",
     "ui_game_type": "게임 유형 별",
@@ -74,6 +75,9 @@
     "playtime_weekend": "주말",
     "used_weapons_title": "사용 무기",
     "friend_code": "친구 코드"
+  },
+  "undefined": {
+    "": ""
   },
   "": {
     "": ""

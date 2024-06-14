@@ -10,6 +10,7 @@
   "ingame": {
     "ui_information": "ingame_ui_information",
     "ui_summary": "ingame_ui_summary",
+    "ui_select_weapon": "ingame_ui_select_weapon",
     "ui_weapon": "ingame_ui_weapon",
     "ui_play_style": "ingame_ui_play_style",
     "ui_game_type": "ingame_ui_game_type",
@@ -74,6 +75,9 @@
     "playtime_weekend": "preview_playtime_weekend",
     "used_weapons_title": "preview_used_weapons_title",
     "friend_code": "preview_friend_code"
+  },
+  "undefined": {
+    "": ""
   },
   "": {
     "": ""

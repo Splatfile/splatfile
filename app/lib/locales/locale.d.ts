@@ -8,14 +8,15 @@
 // match the expected interface, even if the JSON is valid.
 
 export interface Locale {
-    main:    Main;
-    ui:      UI;
-    ingame:  Ingame;
-    account: Account;
-    profile: Profile;
-    header:  Header;
-    preview: Preview;
-    "":      Empty;
+    main:      Main;
+    ui:        UI;
+    ingame:    Ingame;
+    account:   Account;
+    profile:   Profile;
+    header:    Header;
+    preview:   Preview;
+    undefined: Empty;
+    "":        Empty;
 }
 
 export interface Empty {
@@ -52,6 +53,7 @@ export interface Header {
 export interface Ingame {
     ui_information:              string;
     ui_summary:                  string;
+    ui_select_weapon:            string;
     ui_weapon:                   string;
     ui_play_style:               string;
     ui_game_type:                string;
@@ -278,6 +280,7 @@ const typeMap: any = {
         { json: "profile", js: "profile", typ: r("Profile") },
         { json: "header", js: "header", typ: r("Header") },
         { json: "preview", js: "preview", typ: r("Preview") },
+        { json: "undefined", js: "undefined", typ: r("Empty") },
         { json: "", js: "", typ: r("Empty") },
     ], false),
     "Empty": o([
@@ -311,6 +314,7 @@ const typeMap: any = {
     "Ingame": o([
         { json: "ui_information", js: "ui_information", typ: "" },
         { json: "ui_summary", js: "ui_summary", typ: "" },
+        { json: "ui_select_weapon", js: "ui_select_weapon", typ: "" },
         { json: "ui_weapon", js: "ui_weapon", typ: "" },
         { json: "ui_play_style", js: "ui_play_style", typ: "" },
         { json: "ui_game_type", js: "ui_game_type", typ: "" },

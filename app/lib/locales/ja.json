@@ -10,6 +10,7 @@
   "ingame": {
     "ui_information": "ゲーム内情報",
     "ui_summary": "総合",
+    "ui_select_weapon": "武器選択",
     "ui_weapon": "使用武器",
     "ui_play_style": "プレイスタイル",
     "ui_game_type": "ゲームタイプ別",
@@ -74,6 +75,9 @@
     "playtime_weekend": "週末",
     "used_weapons_title": "使用武器",
     "friend_code": "フレンドコ"
+  },
+  "undefined": {
+    "": ""
   },
   "": {
     "": ""
