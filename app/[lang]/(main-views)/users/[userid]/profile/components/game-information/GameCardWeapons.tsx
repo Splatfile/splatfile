@@ -144,7 +144,9 @@ type WeaponEditModalProps = {
   onClose: (open: boolean) => void;
 };
 
-function sortedWeapons(weaponGearInfo: z.infer<typeof WeaponGearInfoObject>) {
+export function sortedWeapons(
+  weaponGearInfo: z.infer<typeof WeaponGearInfoObject>,
+) {
   return Object.entries(weaponGearInfo ?? {})
     .filter(([_, w]) => w?.isActivated)
     .toSorted((a, b) => (a[1].selectedTime ?? 0) - (b[1].selectedTime ?? 0));
