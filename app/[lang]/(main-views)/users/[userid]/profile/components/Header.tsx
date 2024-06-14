@@ -52,22 +52,23 @@ export function Header(_: HeaderProps) {
     <header className="bg-gray-900">
       <LocaleSetter />
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 py-0 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-start p-6 py-0 md:justify-between lg:px-8"
         aria-label="Global"
       >
         {/* 헤더 왼쪽 */}
-        <div className="flex text-white lg:flex-1">
+        <div className="flex w-full items-center justify-start text-white lg:flex-1">
           <a href={"/"}>
-            <div className={"my-2 h-20"}>
+            <div className={"flex h-16 w-24"}>
               <Image
-                className={"h-full w-full object-contain"}
+                className={"h-full object-contain"}
                 width={660}
                 height={529}
-                src={"/logo.png"}
+                src={"/splatfile-only-text.png"}
                 alt={"Splatfile's Logo"}
               />
             </div>
           </a>
+          <div className="w-full md:hidden"></div>
           {(isLoading || isTagLoading) && (
             <div className={"mx-4 flex items-center justify-center"}>
               <LoadingLogo />
@@ -117,22 +118,36 @@ export function Header(_: HeaderProps) {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/25">
               <div className="flex flex-col gap-2 py-6">
-                <SignInButton header={headerLocale} />
-                <LanguageSetting header={headerLocale} />
+                <SignInButton
+                  header={headerLocale}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                  }}
+                />
+                <LanguageSetting
+                  header={headerLocale}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                  }}
+                />
               </div>
             </div>
           </div>
         </Dialog.Panel>
       </Dialog>
+      <div className={"w-full md:hidden"}>
+        <UserSearchBox header={headerLocale} />
+      </div>
     </header>
   );
 }
 
 type SignInButtonProps = {
   header: HeaderLocale;
+  onClick?: () => void;
 };
 export const SignInButton = (props: SignInButtonProps) => {
-  const { header } = props;
+  const { header, onClick } = props;
   const { user } = useUser();
   const client = new SplatfileClient(CLIENT_COMPONENT);
   const router = useRouter();
@@ -144,6 +159,7 @@ export const SignInButton = (props: SignInButtonProps) => {
             "cursor-pointer rounded-md px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
           }
           href={profileUrl(user.id)}
+          onClick={onClick}
           prefetch={false}
         >
           {header.ui_my_profile}
@@ -155,6 +171,7 @@ export const SignInButton = (props: SignInButtonProps) => {
           onClick={async () => {
             await client.supabase.auth.signOut();
             router.refresh();
+            onClick?.();
           }}
         >
           {header.ui_logout}
@@ -175,9 +192,10 @@ export const SignInButton = (props: SignInButtonProps) => {
 
 type LanguageSettingProps = {
   header: HeaderLocale;
+  onClick?: () => void;
 };
 const LanguageSetting = (props: LanguageSettingProps) => {
-  const { header } = props;
+  const { header, onClick } = props;
   const router = useRouter();
   const params = useParams();
 
@@ -188,10 +206,11 @@ const LanguageSetting = (props: LanguageSettingProps) => {
       return;
     }
     if (!currentLang) {
-      router.replace(`/${lang}`);
+      router.push(`/${lang}`);
       return;
     }
-    router.replace(currentPath.replace(currentLang, lang));
+    router.push(currentPath.replace(currentLang, lang));
+    onClick?.();
   };
 
   return (
