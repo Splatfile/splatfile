@@ -26,7 +26,7 @@ export const subsCodeToData = {
       "USen": "Squid Beakon",
     },
     "innerId": 8,
-    "remoteImgIdent": "Wsb_Beacon00.webp",
+    "remoteImgIdent": "Wsb_Beacon00.png",
   },
   "Bomb_Curling": {
     "code": "Bomb_Curling",
@@ -36,7 +36,7 @@ export const subsCodeToData = {
       "USen": "Curling Bomb",
     },
     "innerId": 6,
-    "remoteImgIdent": "Wsb_Bomb_Curling00.webp",
+    "remoteImgIdent": "Wsb_Bomb_Curling00.png",
   },
   "Bomb_Fizzy": {
     "code": "Bomb_Fizzy",
@@ -46,19 +46,19 @@ export const subsCodeToData = {
       "USen": "Fizzy Bomb",
     },
     "innerId": 5,
-    "remoteImgIdent": "Wsb_Bomb_Fizzy00.webp",
+    "remoteImgIdent": "Wsb_Bomb_Fizzy00.png",
   },
   "Bomb_Quick": {
     "code": "Bomb_Quick",
     "labels": { "KRko": "퀵 밤", "JPja": "クイックボム", "USen": "Burst Bomb" },
     "innerId": 2,
-    "remoteImgIdent": "Wsb_Bomb_Quick00.webp",
+    "remoteImgIdent": "Wsb_Bomb_Quick00.png",
   },
   "Bomb_Robot": {
     "code": "Bomb_Robot",
     "labels": { "KRko": "로봇 밤", "JPja": "ロボットボム", "USen": "Autobomb" },
     "innerId": 7,
-    "remoteImgIdent": "Wsb_Bomb_Robot00.webp",
+    "remoteImgIdent": "Wsb_Bomb_Robot00.png",
   },
   "Bomb_Splash": {
     "code": "Bomb_Splash",
@@ -68,7 +68,7 @@ export const subsCodeToData = {
       "USen": "Splat Bomb",
     },
     "innerId": 0,
-    "remoteImgIdent": "Wsb_Bomb_Splash00.webp",
+    "remoteImgIdent": "Wsb_Bomb_Splash00.png",
   },
   "Bomb_Suction": {
     "code": "Bomb_Suction",
@@ -78,13 +78,13 @@ export const subsCodeToData = {
       "USen": "Suction Bomb",
     },
     "innerId": 1,
-    "remoteImgIdent": "Wsb_Bomb_Suction00.webp",
+    "remoteImgIdent": "Wsb_Bomb_Suction00.png",
   },
   "Bomb_Torpedo": {
     "code": "Bomb_Torpedo",
     "labels": { "KRko": "토피도", "JPja": "トーピード", "USen": "Torpedo" },
     "innerId": 13,
-    "remoteImgIdent": "Wsb_Bomb_Torpedo00.webp",
+    "remoteImgIdent": "Wsb_Bomb_Torpedo00.png",
   },
   "LineMarker": {
     "code": "LineMarker",
@@ -94,7 +94,7 @@ export const subsCodeToData = {
       "USen": "Angle Shooter",
     },
     "innerId": 12,
-    "remoteImgIdent": "Wsb_LineMarker00.webp",
+    "remoteImgIdent": "Wsb_LineMarker00.png",
   },
   "PointSensor": {
     "code": "PointSensor",
@@ -104,7 +104,7 @@ export const subsCodeToData = {
       "USen": "Point Sensor",
     },
     "innerId": 9,
-    "remoteImgIdent": "Wsb_PointSensor00.webp",
+    "remoteImgIdent": "Wsb_PointSensor00.png",
   },
   "PoisonMist": {
     "code": "PoisonMist",
@@ -114,7 +114,7 @@ export const subsCodeToData = {
       "USen": "Toxic Mist",
     },
     "innerId": 11,
-    "remoteImgIdent": "Wsb_PoisonMist00.webp",
+    "remoteImgIdent": "Wsb_PoisonMist00.png",
   },
   "Shield": {
     "code": "Shield",
@@ -124,7 +124,7 @@ export const subsCodeToData = {
       "USen": "Splash Wall",
     },
     "innerId": 4,
-    "remoteImgIdent": "Wsb_Shield00.webp",
+    "remoteImgIdent": "Wsb_Shield00.png",
   },
   "Sprinkler": {
     "code": "Sprinkler",
@@ -134,12 +134,12 @@ export const subsCodeToData = {
       "USen": "Sprinkler",
     },
     "innerId": 3,
-    "remoteImgIdent": "Wsb_Sprinkler00.webp",
+    "remoteImgIdent": "Wsb_Sprinkler00.png",
   },
   "Trap": {
     "code": "Trap",
     "labels": { "KRko": "트랩", "JPja": "トラップ", "USen": "Ink Mine" },
     "innerId": 10,
-    "remoteImgIdent": "Wsb_Trap00.webp",
+    "remoteImgIdent": "Wsb_Trap00.png",
   },
 } as const;

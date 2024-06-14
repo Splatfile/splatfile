@@ -27,7 +27,7 @@ export const specialsCodeToData = {
     "code": "SpBlower",
     "labels": { "KRko": "흡입기", "JPja": "キューインキ", "USen": "Ink Vac" },
     "innerId": 8,
-    "remoteImgIdent": "Wsp_SpBlower00.webp",
+    "remoteImgIdent": "Wsp_SpBlower00.png",
   },
   "SpCastle": {
     "code": "SpCastle",
@@ -37,7 +37,7 @@ export const specialsCodeToData = {
       "USen": "Kraken Royale",
     },
     "innerId": 17,
-    "remoteImgIdent": "Wsp_SpCastle00.webp",
+    "remoteImgIdent": "Wsp_SpCastle00.png",
   },
   "SpChariot": {
     "code": "SpChariot",
@@ -47,7 +47,7 @@ export const specialsCodeToData = {
       "USen": "Crab Tank",
     },
     "innerId": 12,
-    "remoteImgIdent": "Wsp_SpChariot00.webp",
+    "remoteImgIdent": "Wsp_SpChariot00.png",
   },
   "SpChimney": {
     "code": "SpChimney",
@@ -57,7 +57,7 @@ export const specialsCodeToData = {
       "USen": "Splattercolor Screen",
     },
     "innerId": 19,
-    "remoteImgIdent": "Wsp_SpChimney00.webp",
+    "remoteImgIdent": "Wsp_SpChimney00.png",
   },
   "SpEnergyStand": {
     "code": "SpEnergyStand",
@@ -67,7 +67,7 @@ export const specialsCodeToData = {
       "USen": "Tacticooler",
     },
     "innerId": 15,
-    "remoteImgIdent": "Wsp_SpEnergyStand00.webp",
+    "remoteImgIdent": "Wsp_SpEnergyStand00.png",
   },
   "SpFirework": {
     "code": "SpFirework",
@@ -77,7 +77,7 @@ export const specialsCodeToData = {
       "USen": "Super Chump",
     },
     "innerId": 16,
-    "remoteImgIdent": "Wsp_SpFirework00.webp",
+    "remoteImgIdent": "Wsp_SpFirework00.png",
   },
   "SpGreatBarrier": {
     "code": "SpGreatBarrier",
@@ -87,19 +87,19 @@ export const specialsCodeToData = {
       "USen": "Big Bubbler",
     },
     "innerId": 2,
-    "remoteImgIdent": "Wsp_SpGreatBarrier00.webp",
+    "remoteImgIdent": "Wsp_SpGreatBarrier00.png",
   },
   "SpInkStorm": {
     "code": "SpInkStorm",
     "labels": { "KRko": "먹구름", "JPja": "アメフラシ", "USen": "Ink Storm" },
     "innerId": 5,
-    "remoteImgIdent": "Wsp_SpInkStorm00.webp",
+    "remoteImgIdent": "Wsp_SpInkStorm00.png",
   },
   "SpJetpack": {
     "code": "SpJetpack",
     "labels": { "KRko": "제트 팩", "JPja": "ジェットパック", "USen": "Inkjet" },
     "innerId": 10,
-    "remoteImgIdent": "Wsp_SpJetpack00.webp",
+    "remoteImgIdent": "Wsp_SpJetpack00.png",
   },
   "SpMicroLaser": {
     "code": "SpMicroLaser",
@@ -109,7 +109,7 @@ export const specialsCodeToData = {
       "USen": "Killer Wail 5.1",
     },
     "innerId": 9,
-    "remoteImgIdent": "Wsp_SpMicroLaser00.webp",
+    "remoteImgIdent": "Wsp_SpMicroLaser00.png",
   },
   "SpMultiMissile": {
     "code": "SpMultiMissile",
@@ -119,7 +119,7 @@ export const specialsCodeToData = {
       "USen": "Tenta Missiles",
     },
     "innerId": 4,
-    "remoteImgIdent": "Wsp_SpMultiMissile00.webp",
+    "remoteImgIdent": "Wsp_SpMultiMissile00.png",
   },
   "SpNiceBall": {
     "code": "SpNiceBall",
@@ -129,7 +129,7 @@ export const specialsCodeToData = {
       "USen": "Booyah Bomb",
     },
     "innerId": 6,
-    "remoteImgIdent": "Wsp_SpNiceBall00.webp",
+    "remoteImgIdent": "Wsp_SpNiceBall00.png",
   },
   "SpPogo": {
     "code": "SpPogo",
@@ -139,7 +139,7 @@ export const specialsCodeToData = {
       "USen": "Triple Splashdown",
     },
     "innerId": 18,
-    "remoteImgIdent": "Wsp_SpPogo00.webp",
+    "remoteImgIdent": "Wsp_SpPogo00.png",
   },
   "SpShockSonar": {
     "code": "SpShockSonar",
@@ -149,7 +149,7 @@ export const specialsCodeToData = {
       "USen": "Wave Breaker",
     },
     "innerId": 7,
-    "remoteImgIdent": "Wsp_SpShockSonar00.webp",
+    "remoteImgIdent": "Wsp_SpShockSonar00.png",
   },
   "SpSkewer": {
     "code": "SpSkewer",
@@ -159,7 +159,7 @@ export const specialsCodeToData = {
       "USen": "Reefslider",
     },
     "innerId": 13,
-    "remoteImgIdent": "Wsp_SpSkewer00.webp",
+    "remoteImgIdent": "Wsp_SpSkewer00.png",
   },
   "SpSuperHook": {
     "code": "SpSuperHook",
@@ -169,7 +169,7 @@ export const specialsCodeToData = {
       "USen": "Zipcaster",
     },
     "innerId": 3,
-    "remoteImgIdent": "Wsp_SpSuperHook00.webp",
+    "remoteImgIdent": "Wsp_SpSuperHook00.png",
   },
   "SpTripleTornado": {
     "code": "SpTripleTornado",
@@ -179,7 +179,7 @@ export const specialsCodeToData = {
       "USen": "Triple Inkstrike",
     },
     "innerId": 14,
-    "remoteImgIdent": "Wsp_SpTripleTornado00.webp",
+    "remoteImgIdent": "Wsp_SpTripleTornado00.png",
   },
   "SpUltraShot": {
     "code": "SpUltraShot",
@@ -189,7 +189,7 @@ export const specialsCodeToData = {
       "USen": "Trizooka",
     },
     "innerId": 1,
-    "remoteImgIdent": "Wsp_SpUltraShot00.webp",
+    "remoteImgIdent": "Wsp_SpUltraShot00.png",
   },
   "SpUltraStamp": {
     "code": "SpUltraStamp",
@@ -199,6 +199,6 @@ export const specialsCodeToData = {
       "USen": "Ultra Stamp",
     },
     "innerId": 11,
-    "remoteImgIdent": "Wsp_SpUltraStamp00.webp",
+    "remoteImgIdent": "Wsp_SpUltraStamp00.png",
   },
 } as const;
