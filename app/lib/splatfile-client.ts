@@ -201,7 +201,6 @@ export class SplatfileClient {
       throw parsed.error;
     }
 
-    console.log("lang", lang);
     const response = await fetch(`/api/users/${userId}`, {
       method: "POST",
       headers: {
@@ -220,6 +219,7 @@ export class SplatfileClient {
       .from("profiles")
       .update(profile)
       .eq("user_id", user.data.user?.id)
+      .select("*")
       .single();
 
     if (error) {
@@ -227,5 +227,33 @@ export class SplatfileClient {
     }
 
     return data;
+  };
+
+  uploadFile = async (file: Buffer | Blob, filename: string) => {
+    const user = await this._supabase.auth.getUser();
+
+    if (user.data.user?.id === undefined) {
+      throw new Error("User not logged in");
+    }
+
+    if (file instanceof Buffer) {
+      file = new Blob([file]);
+    }
+
+    const formData = new FormData();
+    formData.append("file", file, filename);
+    formData.append("userid", user.data.user.id);
+
+    const resp = await fetch("/api/upload/", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!resp.ok) {
+      throw new Error("Failed to upload file");
+    }
+
+    const { key } = await resp.json();
+    return key as string;
   };
 }

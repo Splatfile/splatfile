@@ -277,6 +277,22 @@ export async function renderOgProfileImage(
   userInfo: UserInfo,
   gameInfo: GameInfo,
   plateInfo: PlateInfo,
+  resultType?: "dataURL",
+): Promise<string>;
+export async function renderOgProfileImage(
+  containerId: string,
+  userInfo: UserInfo,
+  gameInfo: GameInfo,
+  plateInfo: PlateInfo,
+  resultType: "blob",
+): Promise<Blob>;
+
+export async function renderOgProfileImage(
+  containerId: string,
+  userInfo: UserInfo,
+  gameInfo: GameInfo,
+  plateInfo: PlateInfo,
+  resultType: "dataURL" | "blob" = "dataURL",
 ) {
   const stage = new Konva.Stage({
     container: containerId,
@@ -291,10 +307,23 @@ export async function renderOgProfileImage(
   await renderUserInfo(layer, userInfo);
   await renderGameInfo(layer, gameInfo);
 
-  return new Promise<string>((resolve) => {
+  return new Promise<string | Blob>((resolve) => {
     stage.batchDraw();
 
     // 이미지를 redraw요청 후, 150ms 후에 resolve합니다.
-    setTimeout(() => resolve(stage.toDataURL()), 150);
+    setTimeout(() => {
+      if (resultType === "dataURL") {
+        resolve(stage.toDataURL());
+      } else {
+        stage.toBlob({
+          callback: (blob) => {
+            if (!blob) {
+              throw new Error("Failed to convert to blob");
+            }
+            resolve(blob);
+          },
+        });
+      }
+    }, 150);
   });
 }

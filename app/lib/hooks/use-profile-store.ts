@@ -21,8 +21,13 @@ import { useEffect, useRef } from "react";
 import { z } from "zod";
 import { shallow } from "zustand/shallow";
 import { createWithEqualityFn } from "zustand/traditional";
-import { isGameInfo, isUserInfo } from "@/app/lib/types/type-checker";
+import {
+  isGameInfo,
+  isUserInfo,
+  isPlateInfo,
+} from "@/app/lib/types/type-checker";
 import { Lang } from "../types/component-props";
+import { renderOgProfileImage } from "@/app/konva/lib/render/og";
 
 type ProfileState = {
   user: z.infer<typeof UserInfoObject>;
@@ -291,7 +296,7 @@ export const subscribeEdit = (
         return;
       }
 
-      await client.updateProfile(
+      const { plate_info } = await client.updateProfile(
         {
           user_info: state.user,
           game_info: state.game,
@@ -299,6 +304,46 @@ export const subscribeEdit = (
         userId,
         lang,
       );
+
+      if (!isPlateInfo(plate_info)) {
+        console.error("Invalid plate info", plate_info);
+        setLoading(false);
+        return;
+      }
+
+      // og rendering
+      // 임시 div 생성
+      document.getElementById("temp-og-rendering")?.remove();
+      const div = document.createElement("div");
+      div.className = "hidden";
+      div.id = "temp-og-rendering";
+      document.body.appendChild(div);
+
+      const ogProfileBlob = await renderOgProfileImage(
+        div.id,
+        state.user,
+        state.game,
+        plate_info,
+        "blob",
+      );
+
+      if (!ogProfileBlob) {
+        console.error("Image Buffer is not truthy");
+        setLoading(false);
+        return;
+      }
+
+      const key = await client.uploadFile(ogProfileBlob, userId + "_og.png");
+      await client.updateProfile(
+        {
+          canvas_info: {
+            ogImageUrl: key,
+          },
+        },
+        userId,
+        lang,
+      );
+
       setLoading(false);
     }, 3 * 1000);
   });

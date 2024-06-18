@@ -7,9 +7,8 @@ import { ProfileWrapper } from "@/app/[lang]/(main-views)/users/[userid]/profile
 import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting";
 import { DebounceEditing } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/DebounceEditing";
-import { baseUrl } from "@/app/plate/lib/const";
 import type { Metadata } from "next";
-import { UserInfoObject } from "@/app/lib/schemas/profile";
+import { CanvasInfoObject, UserInfoObject } from "@/app/lib/schemas/profile";
 import { getDictionary } from "@/app/lib/dictionaries";
 import { PageProps } from "@/app/lib/types/component-props";
 
@@ -25,14 +24,19 @@ export const dynamic = "force-dynamic";
 export const generateMetadata = async (
   props: ProfilePage,
 ): Promise<Metadata> => {
-  const imageUrl = `${baseUrl}/api/users/${props.params.userid}/profile/og`;
-
   const admin = new SplatfileAdmin(SERVER_COMPONENT);
   const profile = await admin.getProfile(props.params.userid);
   let name = "";
-  const parsed = UserInfoObject.safeParse(profile.user_info);
-  if (parsed.success) {
-    name = parsed.data.twitterInfo?.name || parsed.data.switchInfo?.name || "";
+  const parsedUserInfo = UserInfoObject.safeParse(profile.user_info);
+  if (parsedUserInfo.success) {
+    name = parsedUserInfo.data.twitterInfo?.name || parsedUserInfo.data.switchInfo?.name || "";
+  }
+
+  let ogImageUrl = "";
+  const parsedCanvasInfo = CanvasInfoObject.safeParse(profile.canvas_info);
+
+  if (parsedCanvasInfo.success) {
+    ogImageUrl = parsedCanvasInfo.data?.ogImageUrl || "";
   }
 
   return {
@@ -41,7 +45,7 @@ export const generateMetadata = async (
     openGraph: {
       images: [
         {
-          url: (imageUrl || "") as string,
+          url: (ogImageUrl || "") as string,
           width: 700,
           height: 200,
           alt: "초코야 플레이트!",
