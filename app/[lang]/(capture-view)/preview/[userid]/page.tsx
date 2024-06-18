@@ -11,7 +11,8 @@ import {
 } from "@/app/lib/types/type-checker";
 import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting";
 import { ProfileCanvas } from "@/app/konva/components/ProfileCanvas";
-import { Og } from "@/app/konva/components/Og";
+import { ProfileImage } from "@/app/konva/components/ProfileImage";
+import { OgProfileImage } from "@/app/konva/components/OgProfileImage";
 
 type PageProps = {
   params: {
@@ -80,10 +81,11 @@ export default async function ProfilePage(props: PageProps) {
         isMine={true}
       />
       <div className={"flex flex-col text-white"}>
-        <p>내보내기 이미지</p>
         <ProfileCanvas />
+        <p>내보내기 이미지</p>
+        <ProfileImage userInfo={user_info} gameInfo={game_info} plateInfo={plate_info}/>
         <p>og 이미지</p>
-        <Og userInfo={user_info} gameInfo={game_info} plateInfo={plate_info} />
+        <OgProfileImage userInfo={user_info} gameInfo={game_info} plateInfo={plate_info} />
       </div>
     </>
   );

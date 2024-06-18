@@ -6,9 +6,7 @@ import { cookies } from "next/headers";
 
 import { ContextType, SplatfileClient } from "@/app/lib/splatfile-client";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import {
-  ProfileUpdate,
-} from "@/app/lib/types/supabase-alias";
+import { ProfileUpdate } from "@/app/lib/types/supabase-alias";
 import { createClient } from "@supabase/supabase-js";
 import { v1 as uuidVer1 } from "uuid";
 
@@ -57,13 +55,17 @@ export class SplatfileServer extends SplatfileClient {
     this._supabase = createSupabaseServerClient(contextType);
   }
 
-  uploadFile = async (file: Buffer, filename: string) => {
+  uploadFile = async (file: Buffer | Blob, filename: string) => {
     const CLOUDFLARE_R2_BUCKET = process.env.CLOUDFLARE_R2_BUCKET;
     const CLOUDFLARE_R2_PUBLIC_URL = process.env.CLOUDFLARE_R2_PUBLIC_URL;
     if (!CLOUDFLARE_R2_BUCKET || !CLOUDFLARE_R2_PUBLIC_URL) {
       throw new Error(
         `CLOUDFLARE_R2_BUCKET, CLOUDFLARE_R2_PUBLIC_URL must be defined`,
       );
+    }
+
+    if (file instanceof Blob) {
+      file = Buffer.from(await file.arrayBuffer());
     }
 
     const key = `${uuidVer1()}-${encodeURIComponent(filename)}`;

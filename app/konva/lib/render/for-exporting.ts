@@ -8,7 +8,11 @@ import { loadImages } from "@/app/konva/lib/loading-utils";
 import { GameInfo, PlateInfo, UserInfo } from "@/app/lib/types/type-checker";
 import { renderPlate } from "@/app/plate/lib/render-plate";
 import { getSalmonRunRank } from "@/app/lib/schemas/profile/game-info";
+import { Locale } from "@/app/lib/locales/locale";
 import Konva from "konva";
+
+const CANVAS_WIDTH = 1024;
+const CANVAS_HEIGHT = 536;
 
 async function renderProfileBase(
   layer: Konva.Layer,
@@ -21,7 +25,8 @@ async function renderProfileBase(
     {
       backgroundImage: "/background/body.png",
       // 브라우저가 캐싱을 하지 않도록, 이미지 URL에 timestamp를 추가합니다.
-      // 캐싱이 되어 있으면, canvas가 CORS 정책을 위반한것으로 판단합니다.
+      // 캐싱이 되어 있으면, response 헤더를 확인할 수 없기 때문에
+      // canvas가 CORS 정책을 위반한것으로 판단합니다.
       profileImage:
         userInfo.profileImageUrl + `?t=${new Date().getTime()}` || "",
     },
@@ -35,9 +40,17 @@ async function renderProfileBase(
     const backgroundImage = await newImageContainer({
       x: 0,
       y: 0,
-      width: 600,
-      height: 315,
+      width: CANVAS_WIDTH,
+      height: CANVAS_HEIGHT,
       image: loadedImages["backgroundImage"],
+      crop: {
+        x: 0,
+        y: 0,
+        width: loadedImages["backgroundImage"].width,
+        height:
+          loadedImages["backgroundImage"].height *
+          (CANVAS_HEIGHT / CANVAS_WIDTH),
+      },
     });
 
     backgroundImage.filters([
@@ -56,13 +69,13 @@ async function renderProfileBase(
     // 프로필 이미지가 있는 경우, 프로필 이미지를 렌더링합니다.
     layer.add(
       await newImageContainer({
-        x: 17,
-        y: 17,
-        width: 153,
-        height: 230,
+        x: 50,
+        y: 50,
+        width: 267,
+        height: 400,
         image: loadedImages["profileImage"],
         stroke: "white",
-        strokeWidth: 3,
+        strokeWidth: 4,
         cornerRadius: 5,
       }),
     );
@@ -86,10 +99,10 @@ async function renderProfileBase(
 
     layer.add(
       await newImageContainer({
-        x: 28,
-        y: 228,
-        width: 250,
-        height: 71,
+        x: 58,
+        y: 402,
+        width: 300,
+        height: 86,
         stroke: "white",
         strokeWidth: 3,
         cornerRadius: 3,
@@ -100,11 +113,14 @@ async function renderProfileBase(
 }
 
 async function renderUserInfo(layer: Konva.Layer, userInfo: UserInfo) {
+  const FONT_SIZE = 28;
   // 유저 정보를 렌더링합니다.
   layer.add(
     await newTextContainer({
-      x: 180,
-      y: 18,
+      x: 358,
+      y: 30,
+      width: 280,
+      fontSize: FONT_SIZE,
       text:
         "이름: " +
         (userInfo.switchInfo?.name || userInfo.twitterInfo?.name || ""),
@@ -272,32 +288,16 @@ async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
   }
 }
 
-export async function renderOgProfileImage(
+export async function renderProfileImage(
   containerId: string,
   userInfo: UserInfo,
   gameInfo: GameInfo,
   plateInfo: PlateInfo,
-  resultType?: "dataURL",
-): Promise<string>;
-export async function renderOgProfileImage(
-  containerId: string,
-  userInfo: UserInfo,
-  gameInfo: GameInfo,
-  plateInfo: PlateInfo,
-  resultType: "blob",
-): Promise<Blob>;
-
-export async function renderOgProfileImage(
-  containerId: string,
-  userInfo: UserInfo,
-  gameInfo: GameInfo,
-  plateInfo: PlateInfo,
-  resultType: "dataURL" | "blob" = "dataURL",
 ) {
   const stage = new Konva.Stage({
     container: containerId,
-    width: 600,
-    height: 315,
+    width: 1024,
+    height: 536,
   });
 
   const layer = new Konva.Layer();
@@ -307,23 +307,10 @@ export async function renderOgProfileImage(
   await renderUserInfo(layer, userInfo);
   await renderGameInfo(layer, gameInfo);
 
-  return new Promise<string | Blob>((resolve) => {
+  return new Promise<string>((resolve) => {
     stage.batchDraw();
 
     // 이미지를 redraw요청 후, 150ms 후에 resolve합니다.
-    setTimeout(() => {
-      if (resultType === "dataURL") {
-        resolve(stage.toDataURL());
-      } else {
-        stage.toBlob({
-          callback: (blob) => {
-            if (!blob) {
-              throw new Error("Failed to convert to blob");
-            }
-            resolve(blob);
-          },
-        });
-      }
-    }, 150);
+    setTimeout(() => resolve(stage.toDataURL()), 150);
   });
 }

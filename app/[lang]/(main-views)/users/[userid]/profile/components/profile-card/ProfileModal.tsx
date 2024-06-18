@@ -74,9 +74,9 @@ export const ProfileModal = (props: ProfileModalProps) => {
       if (!blob) return;
       const formData = new FormData();
       formData.append("userid", params.userid);
-      formData.append("file", blob, "image.png");
+      formData.append("file", blob, "profile.png");
 
-      fetch("/api/upload/profile", {
+      fetch("/api/upload/", {
         method: "POST",
         body: formData,
       })
