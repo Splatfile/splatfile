@@ -13,6 +13,7 @@ import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/c
 import { ProfileCanvas } from "@/app/konva/components/ProfileCanvas";
 import { ProfileImage } from "@/app/konva/components/ProfileImage";
 import { OgProfileImage } from "@/app/konva/components/OgProfileImage";
+import { useLocale } from "@/app/lib/use-locale";
 
 type PageProps = {
   params: {
@@ -48,21 +49,6 @@ export default async function ProfilePage(props: PageProps) {
   unstable_noStore();
 
   const client = new SplatfileServer(SERVER_COMPONENT);
-  const user = await client.supabase.auth.getUser();
-
-  if (user.data.user && user.data.user?.id === props.params.userid) {
-    const profile = await client.createOrGetMyProfile();
-    return (
-      <>
-        <StoreSetting
-          profile={profile}
-          userId={props.params.userid}
-          isMine={true}
-        />
-        <ProfileCanvas />
-      </>
-    );
-  }
 
   const admin = new SplatfileAdmin(SERVER_COMPONENT);
   const profile = await admin.getProfile(props.params.userid);

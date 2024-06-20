@@ -8,7 +8,9 @@ import { loadImages } from "@/app/konva/lib/loading-utils";
 import { GameInfo, PlateInfo, UserInfo } from "@/app/lib/types/type-checker";
 import { renderPlate } from "@/app/plate/lib/render-plate";
 import { getSalmonRunRank } from "@/app/lib/schemas/profile/game-info";
+import { Locale } from "@/app/lib/locales/locale";
 import Konva from "konva";
+import { useLocale } from "@/app/lib/use-locale";
 
 async function renderProfileBase(
   layer: Konva.Layer,
@@ -99,14 +101,18 @@ async function renderProfileBase(
   }
 }
 
-async function renderUserInfo(layer: Konva.Layer, userInfo: UserInfo) {
+async function renderUserInfo(
+  layer: Konva.Layer,
+  userInfo: UserInfo,
+  locale: Locale,
+) {
   // 유저 정보를 렌더링합니다.
   layer.add(
     await newTextContainer({
       x: 180,
       y: 18,
       text:
-        "이름: " +
+        `${locale.preview.nickname}: ` +
         (userInfo.switchInfo?.name || userInfo.twitterInfo?.name || ""),
     }),
   );
@@ -114,7 +120,9 @@ async function renderUserInfo(layer: Konva.Layer, userInfo: UserInfo) {
     await newTextContainer({
       x: 180,
       y: 50,
-      text: "친구 코드: " + (userInfo.switchInfo?.friendCode || ""),
+      text:
+        `${locale.preview.friend_code}: ` +
+        (userInfo.switchInfo?.friendCode || ""),
     }),
   );
 
@@ -127,7 +135,7 @@ async function renderUserInfo(layer: Konva.Layer, userInfo: UserInfo) {
       height: 60,
       fontSize: 20,
       text: userInfo.introductionMessage || "",
-      wrap: "none",
+      wrap: "word",
       ellipsis: true,
     }),
   );
@@ -209,9 +217,14 @@ async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
   }
 
   const weaponGearInfo = gameInfo.weaponGearInfo || {};
-  console.log(weaponGearInfo);
   const mainWeapons = Object.entries(weaponGearInfo)
     .filter(([_, { isActivated }]) => isActivated)
+    .sort(([_, lobj], [__, robj]) => {
+      const lhs = lobj.selectedTime || 0;
+      const rhs = robj.selectedTime || 0;
+
+      return lhs - rhs;
+    })
     .map(([key, _]) => key);
 
   const printableMainWeapons = mainWeapons.slice(0, 3);
@@ -277,6 +290,7 @@ export async function renderOgProfileImage(
   userInfo: UserInfo,
   gameInfo: GameInfo,
   plateInfo: PlateInfo,
+  locale: Locale,
   resultType?: "dataURL",
 ): Promise<string>;
 export async function renderOgProfileImage(
@@ -284,6 +298,7 @@ export async function renderOgProfileImage(
   userInfo: UserInfo,
   gameInfo: GameInfo,
   plateInfo: PlateInfo,
+  locale: Locale,
   resultType: "blob",
 ): Promise<Blob>;
 
@@ -292,6 +307,7 @@ export async function renderOgProfileImage(
   userInfo: UserInfo,
   gameInfo: GameInfo,
   plateInfo: PlateInfo,
+  locale: Locale,
   resultType: "dataURL" | "blob" = "dataURL",
 ) {
   const stage = new Konva.Stage({
@@ -304,7 +320,7 @@ export async function renderOgProfileImage(
   stage.add(layer);
 
   await renderProfileBase(layer, userInfo, plateInfo);
-  await renderUserInfo(layer, userInfo);
+  await renderUserInfo(layer, userInfo, locale);
   await renderGameInfo(layer, gameInfo);
 
   return new Promise<string | Blob>((resolve) => {

@@ -12,6 +12,8 @@ type TextContainerProps = {
   fontFamily?: string;
   fill?: string;
   wrap?: "none" | "word" | "char";
+  align?: "left" | "center" | "right";
+  verticalAlign?: "top" | "middle" | "bottom";
   ellipsis?: boolean;
 };
 

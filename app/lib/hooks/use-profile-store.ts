@@ -28,6 +28,7 @@ import {
 } from "@/app/lib/types/type-checker";
 import { Lang } from "../types/component-props";
 import { renderOgProfileImage } from "@/app/konva/lib/render/og";
+import { getLocaleByLang } from "@/app/lib/use-locale";
 
 type ProfileState = {
   user: z.infer<typeof UserInfoObject>;
@@ -324,6 +325,7 @@ export const subscribeEdit = (
         state.user,
         state.game,
         plate_info,
+        getLocaleByLang("ko"),
         "blob",
       );
 

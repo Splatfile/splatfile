@@ -10,6 +10,7 @@ import { renderPlate } from "@/app/plate/lib/render-plate";
 import { getSalmonRunRank } from "@/app/lib/schemas/profile/game-info";
 import { Locale } from "@/app/lib/locales/locale";
 import Konva from "konva";
+import { jua } from "@/app/fonts";
 
 const CANVAS_WIDTH = 1024;
 const CANVAS_HEIGHT = 536;
@@ -112,75 +113,159 @@ async function renderProfileBase(
   }
 }
 
-async function renderUserInfo(layer: Konva.Layer, userInfo: UserInfo) {
+async function renderUserInfo(
+  layer: Konva.Layer,
+  userInfo: UserInfo,
+  locale: Locale,
+) {
   const FONT_SIZE = 28;
   // 유저 정보를 렌더링합니다.
   layer.add(
     await newTextContainer({
       x: 358,
-      y: 30,
+      y: 45,
       width: 280,
       fontSize: FONT_SIZE,
       text:
-        "이름: " +
+        `${locale.preview.nickname}: ` +
         (userInfo.switchInfo?.name || userInfo.twitterInfo?.name || ""),
-    }),
-  );
-  layer.add(
-    await newTextContainer({
-      x: 180,
-      y: 50,
-      text: "친구 코드: " + (userInfo.switchInfo?.friendCode || ""),
+      ellipsis: true,
     }),
   );
 
-  layer.add(await newBox({ x: 180, y: 135, width: 400, height: 72 }));
+  {
+    const friendCodeSubtitle = await newTextContainer({
+      x: 358 + 280 + 30,
+      y: 45 - FONT_SIZE / 2,
+      width: 130,
+      height: FONT_SIZE * 2,
+      verticalAlign: "middle",
+      wrap: "word",
+      fontSize: FONT_SIZE,
+      text: `${locale.preview.friend_code}`,
+    });
+
+    layer.add(friendCodeSubtitle);
+
+    layer.add(
+      await newTextContainer({
+        x: 358 + 280 + 30 + friendCodeSubtitle.getTextWidth() + 5,
+        y: 45,
+        fontSize: FONT_SIZE,
+        text: ": " + (userInfo.switchInfo?.friendCode || "-"),
+      }),
+    );
+  }
+
+  {
+    let playTimeText = "";
+    if (userInfo.weekdayPlaytime || userInfo.weekendPlaytime) {
+      playTimeText = locale.preview.playtime_title + ": ";
+      if (userInfo.weekdayPlaytime) {
+        playTimeText += `(${locale.preview.playtime_weekday}) ${userInfo.weekdayPlaytime.start
+          .toString()
+          .padStart(2, "0")}-${userInfo.weekdayPlaytime.end
+          .toString()
+          .padStart(2, "0")} `;
+      }
+      if (userInfo.weekendPlaytime) {
+        playTimeText += `/ (${locale.preview.playtime_weekend}) ${userInfo.weekendPlaytime.start
+          .toString()
+          .padStart(2, "0")}-${userInfo.weekendPlaytime.end
+          .toString()
+          .padStart(2, "0")} `;
+      }
+    }
+
+    if (playTimeText) {
+      layer.add(
+        await newTextContainer({
+          x: 358,
+          y: 100,
+          height: FONT_SIZE * 2,
+          text: playTimeText,
+          fontSize: FONT_SIZE,
+        }),
+      );
+    }
+  }
+
+  layer.add(await newBox({ x: 385, y: 325, width: 610, height: 160 }));
   layer.add(
     await newTextContainer({
-      x: 190,
-      y: 142,
-      width: 380,
-      height: 60,
+      x: 400,
+      y: 343,
+      width: 580,
+      height: 135,
       fontSize: 20,
       text: userInfo.introductionMessage || "",
-      wrap: "none",
+      wrap: "word",
       ellipsis: true,
     }),
   );
 }
 
-async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
+async function renderGameInfo(
+  layer: Konva.Layer,
+  gameInfo: GameInfo,
+  locale: Locale,
+) {
   // 게임 정보를 렌더링합니다.
   const loadedImages = await loadImages(
     {
       level: "/ingames/level.png",
       salmon: "/ingames/salmon.png",
       ranked: "/ingames/ranked.png",
+      area: "/ingames/area.png",
+      fish: "/ingames/fish.png",
+      clam: "/ingames/clam.png",
+      tower: "/ingames/tower.png",
     },
     () => {
       layer.batchDraw();
     },
   );
 
-  layer.add(await newBox({ x: 180, y: 82, width: 400, height: 40 }));
-  {
-    // 레벨
+  const renderIconText = async (
+    x: number,
+    y: number,
+    iconImage: HTMLImageElement,
+    text: string,
+  ) => {
     layer.add(
       await newImageContainer({
-        x: 185,
-        y: 86,
+        x,
+        y,
         width: 32,
         height: 32,
-        image: loadedImages.level,
+        image: iconImage,
+      }),
+      await newTextContainer({
+        x: x + 37,
+        y: y + 4,
+        text,
+        fontFamily: "Splat-title, " + jua.style.fontFamily,
       }),
     );
-    layer.add(
-      await newTextContainer({
-        x: 222,
-        y: 90,
-        text: gameInfo.level?.toString() || "-",
-        fontFamily: "Splat-title",
-      }),
+  };
+
+  layer.add(await newBox({ x: 358, y: 150, width: 620, height: 90 }));
+  {
+    // 레벨
+    await renderIconText(
+      375,
+      160,
+      loadedImages.level,
+      gameInfo.level?.toString() || "-",
+    );
+  }
+  {
+    // 랭크
+    await renderIconText(
+      535,
+      160,
+      loadedImages.ranked,
+      gameInfo.anarchyBattleRank?.grade || "-",
     );
   }
   {
@@ -188,49 +273,50 @@ async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
     const salmonRank = gameInfo.salmonRunRank?.grade
       ? getSalmonRunRank("ko", gameInfo.salmonRunRank.grade) // TODO: locale 적용
       : "-";
-    layer.add(
-      await newImageContainer({
-        x: 185 + 133,
-        y: 86,
-        width: 32,
-        height: 32,
-        image: loadedImages.salmon,
-      }),
-      await newTextContainer({
-        x: 222 + 133,
-        y: 91,
-        text: salmonRank,
-      }),
-    );
+
+    await renderIconText(695, 160, loadedImages.salmon, salmonRank);
   }
   {
-    // 랭크
-    layer.add(
-      await newImageContainer({
-        x: 185 + 266,
-        y: 86,
-        width: 32,
-        height: 32,
-        image: loadedImages.ranked,
-      }),
+    // X매치 정보
+    await renderIconText(
+      375,
+      195,
+      loadedImages.area,
+      gameInfo.xMatchInfo?.area || "-",
     );
-    layer.add(
-      await newTextContainer({
-        x: 222 + 266,
-        y: 90,
-        text: gameInfo.anarchyBattleRank?.grade || "-",
-        fontFamily: "Splat-title",
-      }),
+    await renderIconText(
+      535,
+      195,
+      loadedImages.tower,
+      gameInfo.xMatchInfo?.tower || "-",
+    );
+    await renderIconText(
+      695,
+      195,
+      loadedImages.fish,
+      gameInfo.xMatchInfo?.fish || "-",
+    );
+    await renderIconText(
+      855,
+      195,
+      loadedImages.clam,
+      gameInfo.xMatchInfo?.clam || "-",
     );
   }
 
   const weaponGearInfo = gameInfo.weaponGearInfo || {};
-  console.log(weaponGearInfo);
   const mainWeapons = Object.entries(weaponGearInfo)
     .filter(([_, { isActivated }]) => isActivated)
+    .sort(([_, lobj], [__, robj]) => {
+      const lhs = lobj.selectedTime || 0;
+      const rhs = robj.selectedTime || 0;
+
+      return lhs - rhs;
+    })
     .map(([key, _]) => key);
 
-  const printableMainWeapons = mainWeapons.slice(0, 3);
+  const WEAPON_MAX_LIMIT = 6;
+  const printableMainWeapons = mainWeapons.slice(0, WEAPON_MAX_LIMIT);
 
   const loadedWeaponImages = await loadImages(
     printableMainWeapons.reduce(
@@ -245,11 +331,23 @@ async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
     },
   );
 
+  const weaponSubTitle = await newTextContainer({
+    x: 355,
+    y: 256,
+    verticalAlign: "middle",
+    width: 120,
+    height: 56,
+    text: locale.preview.used_weapons_title,
+    fontSize: 28,
+    wrap: "word",
+  });
+  layer.add(weaponSubTitle);
+
   for (let idx = 0; idx < printableMainWeapons.length; idx++) {
     layer.add(
       await newBox({
-        x: 300 + 70 * idx,
-        y: 230,
+        x: 475 + 70 * idx,
+        y: 252,
         width: 64,
         height: 64,
         opacity: 0.5,
@@ -257,8 +355,8 @@ async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
     );
     layer.add(
       await newImageContainer({
-        x: 300 + 70 * idx,
-        y: 230,
+        x: 475 + 70 * idx,
+        y: 252,
         width: 64,
         height: 64,
         image: loadedWeaponImages[`weapon${idx}`],
@@ -266,11 +364,11 @@ async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
     );
   }
 
-  if (mainWeapons.length > 3) {
+  if (mainWeapons.length > WEAPON_MAX_LIMIT) {
     layer.add(
       await newBox({
-        x: 300 + 70 * 3,
-        y: 230,
+        x: 475 + 70 * WEAPON_MAX_LIMIT,
+        y: 252,
         width: 64,
         height: 64,
         opacity: 0.5,
@@ -278,9 +376,9 @@ async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
     );
     layer.add(
       await newTextContainer({
-        x: 300 + 70 * 3 + 15,
-        y: 230 + 20,
-        text: `+${mainWeapons.length - 3}`,
+        x: 475 + 70 * WEAPON_MAX_LIMIT + 15,
+        y: 252 + 20,
+        text: `+${mainWeapons.length - 5}`,
         fontSize: 24,
         fontFamily: "Splat-title",
       }),
@@ -293,6 +391,7 @@ export async function renderProfileImage(
   userInfo: UserInfo,
   gameInfo: GameInfo,
   plateInfo: PlateInfo,
+  locale: Locale,
 ) {
   const stage = new Konva.Stage({
     container: containerId,
@@ -304,8 +403,8 @@ export async function renderProfileImage(
   stage.add(layer);
 
   await renderProfileBase(layer, userInfo, plateInfo);
-  await renderUserInfo(layer, userInfo);
-  await renderGameInfo(layer, gameInfo);
+  await renderUserInfo(layer, userInfo, locale);
+  await renderGameInfo(layer, gameInfo, locale);
 
   return new Promise<string>((resolve) => {
     stage.batchDraw();
