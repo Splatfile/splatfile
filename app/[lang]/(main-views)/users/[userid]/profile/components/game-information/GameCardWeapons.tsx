@@ -22,9 +22,10 @@ export function GameCardWeapons(props: GameCardWeaponsProps) {
   const { ingame } = props;
   const weaponGearInfo = useWeaponGearInfo();
   const filteredWeapons = chunkArrayInGroups(
-    Object.keys(weaponGearInfo ?? {}).filter(
-      (w) => weaponGearInfo?.[w]?.isActivated,
-    ),
+    Object.entries(weaponGearInfo ?? {})
+    .filter(([_, obj]) => obj?.isActivated)
+    .sort(([_, lobj], [__, robj]) => (lobj.selectedTime ?? 0) - (robj.selectedTime ?? 0))
+    .map(([key, _]) => key),
     4,
   );
   const [open, setOpen] = useState(false);
@@ -81,10 +82,7 @@ export function WeaponRenderer({ weaponKey }: WeaponRendererProps) {
         className={"min-h-full min-w-full object-fill"}
         width={40}
         height={40}
-        src={"/ingames/weapons/mains/" + weaponKey + ".webp"}
-        onError={(e) => {
-          e.currentTarget.src = "/ingames/weapons/mains/" + weaponKey + ".png";
-        }}
+        src={"/ingames/weapons/mains/" + weaponKey + ".png"}
         alt={weaponKey + " icon"}
       />
     </div>
@@ -108,11 +106,9 @@ export function WeaponRendererForSelectModal({
         className={"min-h-full min-w-full object-fill"}
         width={40}
         height={40}
-        src={"/ingames/weapons/mains/" + weaponKey + ".webp"}
-        onError={(e) => {
-          e.currentTarget.src = "/ingames/weapons/mains/" + weaponKey + ".png";
-        }}
+        src={"/ingames/weapons/mains/" + weaponKey + ".png"}
         alt={weaponKey + " icon"}
+        key={weaponKey}
       />
     </div>
   );
