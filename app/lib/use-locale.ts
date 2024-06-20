@@ -8,7 +8,7 @@ import ko from "./locales/ko.json";
 
 import { useParams } from "next/navigation";
 
-const getLocaleByLang = (lang: Lang) => {
+export const getLocaleByLang = (lang: Lang) => {
   switch (lang) {
     case "ko":
       return ko;

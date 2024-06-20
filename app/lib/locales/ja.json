@@ -70,11 +70,11 @@
   },
   "preview": {
     "playtime_title": "プレイ時間",
-    "nickname": "ニックネーム",
+    "nickname": "名前",
     "playtime_weekday": "平日",
     "playtime_weekend": "週末",
-    "used_weapons_title": "使用武器",
-    "friend_code": "フレンドコ"
+    "used_weapons_title": "使う武器",
+    "friend_code": "フレンドコード"
   },
   "undefined": {
     "": ""

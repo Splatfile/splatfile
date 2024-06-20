@@ -201,20 +201,6 @@ export class SplatfileClient {
       throw parsed.error;
     }
 
-    const response = await fetch(`/api/users/${userId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        lang,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to render og image");
-    }
-
     const { data, error } = await this._supabase
       .from("profiles")
       .update(profile)
