@@ -5,15 +5,14 @@ import {
 } from "@/app/lib/server/splatfile-server";
 import { unstable_noStore } from "next/cache";
 import {
-  isUserInfo,
   isGameInfo,
   isPlateInfo,
+  isUserInfo,
 } from "@/app/lib/types/type-checker";
 import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting";
 import { ProfileCanvas } from "@/app/konva/components/ProfileCanvas";
 import { ProfileImage } from "@/app/konva/components/ProfileImage";
 import { OgProfileImage } from "@/app/konva/components/OgProfileImage";
-import { useLocale } from "@/app/lib/use-locale";
 
 type PageProps = {
   params: {
@@ -55,7 +54,11 @@ export default async function ProfilePage(props: PageProps) {
 
   const { user_info, game_info, plate_info } = profile;
 
-  if (!isUserInfo(user_info) || !isGameInfo(game_info) || !isPlateInfo(plate_info)) {
+  if (
+    !isUserInfo(user_info) ||
+    !isGameInfo(game_info) ||
+    !isPlateInfo(plate_info)
+  ) {
     return <div>유효한 프로필 정보를 불러오지 못했습니다.</div>;
   }
 
@@ -69,9 +72,17 @@ export default async function ProfilePage(props: PageProps) {
       <div className={"flex flex-col text-white"}>
         <ProfileCanvas />
         <p>내보내기 이미지</p>
-        <ProfileImage userInfo={user_info} gameInfo={game_info} plateInfo={plate_info}/>
+        <ProfileImage
+          userInfo={user_info}
+          gameInfo={game_info}
+          plateInfo={plate_info}
+        />
         <p>og 이미지</p>
-        <OgProfileImage userInfo={user_info} gameInfo={game_info} plateInfo={plate_info} />
+        <OgProfileImage
+          userInfo={user_info}
+          gameInfo={game_info}
+          plateInfo={plate_info}
+        />
       </div>
     </>
   );

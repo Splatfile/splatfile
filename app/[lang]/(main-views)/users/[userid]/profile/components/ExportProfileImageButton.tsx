@@ -10,9 +10,8 @@ import {
   useProfileImageUrl,
   useUserStore,
 } from "@/app/lib/hooks/use-profile-store";
-import {
-  useTagStore,
-} from "@/app/plate/lib/store/use-tag-store";
+import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
+import { useLocale } from "@/app/lib/use-locale";
 
 type ExportProfileImageModalProps = {
   open: boolean;
@@ -30,6 +29,7 @@ function ExportProfileImageModal({
   const gameStore = useGameStore();
   const userStore = useUserStore();
   const profileImageUrl = useProfileImageUrl();
+  const locale = useLocale();
 
   const downloadImage = () => {
     if (canvasDataUrl === null) return;
@@ -76,6 +76,7 @@ function ExportProfileImageModal({
           plateInfo={tag}
           onRenderComplete={(dataUrl) => setCanvasDataUrl(dataUrl)}
           hidden={true}
+          locale={locale}
         />
         <button
           className={

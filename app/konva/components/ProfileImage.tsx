@@ -11,10 +11,18 @@ type ProfileImageProps = {
   plateInfo: PlateInfo;
   onRenderComplete?: (dataUrl: string) => void;
   hidden?: boolean;
+  locale?: Locale;
 };
 
-export function ProfileImage({ userInfo, gameInfo, plateInfo, onRenderComplete, hidden }: ProfileImageProps) {
-  const locale = useLocale();
+export function ProfileImage({
+  userInfo,
+  gameInfo,
+  plateInfo,
+  onRenderComplete,
+  hidden,
+  locale,
+}: ProfileImageProps) {
+  const tempLocale = useLocale();
   onRenderComplete = onRenderComplete || (() => {});
 
   useEffect(() => {
@@ -23,9 +31,11 @@ export function ProfileImage({ userInfo, gameInfo, plateInfo, onRenderComplete, 
       userInfo,
       gameInfo,
       plateInfo,
-      locale,
+      locale || tempLocale,
     ).then((dataUrl) => onRenderComplete(dataUrl));
   }, [onRenderComplete, locale]);
 
-  return <div id="profile-image-canvas" className={hidden ? "hidden" : ""}></div>;
+  return (
+    <div id="profile-image-canvas" className={hidden ? "hidden" : ""}></div>
+  );
 }
