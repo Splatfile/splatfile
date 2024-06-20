@@ -51,6 +51,7 @@ profile_ui_export_button,이미지로 내보내기,Export as Image,画像とし�
 profile_ui_export_modal_title,이미지로 내보내기,Export as Image,画像として保存
 profile_ui_export_modal_download_button_rendering_wait,렌더링 중,Rendering,レンダリング中
 profile_ui_export_modal_download_button,다운로드,Download,ダウンロード
+profile_ui_share_to_x_text,#Splatfile {{name}}의 스플래툰 프로필,{{name}}'s Splatoon Profile on #Splatfile,#Splatfile {{name}}のスプラトゥーンプロファイル
 header_ui_my_profile,내 프로필,My Profile,私のプロフィール
 header_ui_login,로그인,Login,ログイン
 header_ui_logout,로그아웃,Logout,ログアウト
@@ -62,7 +63,6 @@ preview_playtime_weekday,주중,Weekday,平日
 preview_playtime_weekend,주말,Weekend,週末
 preview_used_weapons_title,사용 무기,Used Weapons,使用武器
 preview_friend_code,친구 코드,Friend Code,フレンドコ
-
 ,,,
 ,,,
 ,,,
