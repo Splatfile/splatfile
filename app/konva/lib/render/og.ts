@@ -219,12 +219,10 @@ async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
   const weaponGearInfo = gameInfo.weaponGearInfo || {};
   const mainWeapons = Object.entries(weaponGearInfo)
     .filter(([_, { isActivated }]) => isActivated)
-    .sort(([_, lobj], [__, robj]) => {
-      const lhs = lobj.selectedTime || 0;
-      const rhs = robj.selectedTime || 0;
-
-      return lhs - rhs;
-    })
+    .sort(
+      ([_, lobj], [__, robj]) =>
+        (lobj.selectedTime ?? 0) - (robj.selectedTime ?? 0),
+    )
     .map(([key, _]) => key);
 
   const printableMainWeapons = mainWeapons.slice(0, 3);
