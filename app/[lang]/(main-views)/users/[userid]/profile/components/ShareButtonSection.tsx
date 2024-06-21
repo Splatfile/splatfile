@@ -23,8 +23,8 @@ export function ShareButtonSection(props: ShareButtonSectionProps) {
         <h2 className={"text-xl font-semibold text-neutral-700"}>
           {profile.ui_share_button}
         </h2>
-        <ShareButton />
-        <XShareButton />
+        <ShareButton profile={profile} />
+        <XShareButton profile={profile} />
       </div>
       <div
         title="이미지로 내보내기"
@@ -35,7 +35,7 @@ export function ShareButtonSection(props: ShareButtonSectionProps) {
         <h2 className={"text-xl font-semibold text-neutral-700"}>
           {profile.ui_export_button}
         </h2>
-        <ExportProfileImageButton profile={profile}/>
+        <ExportProfileImageButton profile={profile} />
       </div>
     </div>
   );

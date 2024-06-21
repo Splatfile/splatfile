@@ -52,6 +52,8 @@ profile_ui_export_modal_title,이미지로 내보내기,Export as Image,画像�
 profile_ui_export_modal_download_button_rendering_wait,렌더링 중,Rendering,レンダリング中
 profile_ui_export_modal_download_button,다운로드,Download,ダウンロード
 profile_ui_share_to_x_text,#Splatfile {{name}}의 스플래툰 프로필,{{name}}'s Splatoon Profile on #Splatfile,#Splatfile {{name}}のスプラトゥーンプロファイル
+profile_ui_share_desc,스플래툰 프로필을 확인해보세요!,Check out my Splatoon profile!,スプラトゥーンプロファイルをチェックしてください！
+profile_ui_share_copied_url,URL이 복사되었습니다!,URL has been copied!,URLがコピーされました！
 header_ui_my_profile,내 프로필,My Profile,私のプロフィール
 header_ui_login,로그인,Login,ログイン
 header_ui_logout,로그아웃,Logout,ログアウト

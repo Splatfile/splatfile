@@ -8,15 +8,14 @@
 // match the expected interface, even if the JSON is valid.
 
 export interface Locale {
-    main:      Main;
-    ui:        UI;
-    ingame:    Ingame;
-    account:   Account;
-    profile:   Profile;
-    header:    Header;
-    preview:   Preview;
-    undefined: Empty;
-    "":        Empty;
+    main:    Main;
+    ui:      UI;
+    ingame:  Ingame;
+    account: Account;
+    profile: Profile;
+    header:  Header;
+    preview: Preview;
+    "":      Empty;
 }
 
 export interface Empty {
@@ -101,6 +100,9 @@ export interface Profile {
     ui_export_modal_title:                                  string;
     ui_export_modal_download_button_rendering_wait:         string;
     ui_export_modal_download_button:                        string;
+    ui_share_to_x_text:                                     string;
+    ui_share_desc:                                          string;
+    ui_share_copied_url:                                    string;
 }
 
 export interface UI {
@@ -280,7 +282,6 @@ const typeMap: any = {
         { json: "profile", js: "profile", typ: r("Profile") },
         { json: "header", js: "header", typ: r("Header") },
         { json: "preview", js: "preview", typ: r("Preview") },
-        { json: "undefined", js: "undefined", typ: r("Empty") },
         { json: "", js: "", typ: r("Empty") },
     ], false),
     "Empty": o([
@@ -359,6 +360,9 @@ const typeMap: any = {
         { json: "ui_export_modal_title", js: "ui_export_modal_title", typ: "" },
         { json: "ui_export_modal_download_button_rendering_wait", js: "ui_export_modal_download_button_rendering_wait", typ: "" },
         { json: "ui_export_modal_download_button", js: "ui_export_modal_download_button", typ: "" },
+        { json: "ui_share_to_x_text", js: "ui_share_to_x_text", typ: "" },
+        { json: "ui_share_desc", js: "ui_share_desc", typ: "" },
+        { json: "ui_share_copied_url", js: "ui_share_copied_url", typ: "" },
     ], false),
     "UI": o([
         { json: "recent_users_title", js: "recent_users_title", typ: "" },

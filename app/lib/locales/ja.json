@@ -59,7 +59,10 @@
     "ui_export_button": "画像として保存",
     "ui_export_modal_title": "画像として保存",
     "ui_export_modal_download_button_rendering_wait": "レンダリング中",
-    "ui_export_modal_download_button": "ダウンロード"
+    "ui_export_modal_download_button": "ダウンロード",
+    "ui_share_to_x_text": "#Splatfile {{name}}のスプラトゥーンプロファイル",
+    "ui_share_desc": "スプラトゥーンプロファイルをチェックしてください！",
+    "ui_share_copied_url": "URLがコピーされました！"
   },
   "header": {
     "ui_my_profile": "私のプロフィール",
@@ -70,14 +73,11 @@
   },
   "preview": {
     "playtime_title": "プレイ時間",
-    "nickname": "名前",
+    "nickname": "ニックネーム",
     "playtime_weekday": "平日",
     "playtime_weekend": "週末",
-    "used_weapons_title": "使う武器",
-    "friend_code": "フレンドコード"
-  },
-  "undefined": {
-    "": ""
+    "used_weapons_title": "使用武器",
+    "friend_code": "フレンドコ"
   },
   "": {
     "": ""

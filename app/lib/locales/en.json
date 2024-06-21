@@ -59,7 +59,10 @@
     "ui_export_button": "Export as Image",
     "ui_export_modal_title": "Export as Image",
     "ui_export_modal_download_button_rendering_wait": "Rendering",
-    "ui_export_modal_download_button": "Download"
+    "ui_export_modal_download_button": "Download",
+    "ui_share_to_x_text": "{{name}}'s Splatoon Profile on #Splatfile",
+    "ui_share_desc": "Check out my Splatoon profile!",
+    "ui_share_copied_url": "URL has been copied!"
   },
   "header": {
     "ui_my_profile": "My Profile",
@@ -75,9 +78,6 @@
     "playtime_weekend": "Weekend",
     "used_weapons_title": "Used Weapons",
     "friend_code": "Friend Code"
-  },
-  "undefined": {
-    "": ""
   },
   "": {
     "": ""

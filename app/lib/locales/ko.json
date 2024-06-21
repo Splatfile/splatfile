@@ -59,7 +59,10 @@
     "ui_export_button": "이미지로 내보내기",
     "ui_export_modal_title": "이미지로 내보내기",
     "ui_export_modal_download_button_rendering_wait": "렌더링 중",
-    "ui_export_modal_download_button": "다운로드"
+    "ui_export_modal_download_button": "다운로드",
+    "ui_share_to_x_text": "#Splatfile {{name}}의 스플래툰 프로필",
+    "ui_share_desc": "스플래툰 프로필을 확인해보세요!",
+    "ui_share_copied_url": "URL이 복사되었습니다!"
   },
   "header": {
     "ui_my_profile": "내 프로필",
@@ -75,9 +78,6 @@
     "playtime_weekend": "주말",
     "used_weapons_title": "사용 무기",
     "friend_code": "친구 코드"
-  },
-  "undefined": {
-    "": ""
   },
   "": {
     "": ""

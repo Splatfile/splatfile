@@ -2,36 +2,53 @@
 import React, { useState } from "react";
 import { useUserStore } from "@/app/lib/hooks/use-profile-store";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
+import { Profile } from "@/app/lib/locales/locale";
+import Toast from "@/app/ui/components/Toast";
 
-interface ShareButtonProps {}
+interface ShareButtonProps {
+  profile: Profile;
+}
 
-export const ShareButton: React.FC<ShareButtonProps> = () => {
+export const ShareButton: React.FC<ShareButtonProps> = ({ profile }) => {
   const userInfo = useUserStore();
   const name = userInfo.twitterInfo?.name || userInfo.switchInfo?.name || "";
-  const title = `${name}의 스플래툰 프로필`;
-  const text = "스플래툰 프로필을 확인해보세요!";
+  const title = profile.ui_share_to_x_text.replace("{{name}}", name);
+  const text = profile.ui_share_desc;
 
   const [error, setError] = useState<string | null>(null);
 
   const handleShare = async () => {
+    const url = globalThis.location.href;
     if (navigator.share) {
       try {
-        await navigator.share({
-          title: title, // 제목 (옵션)
-          text: text, // 본문 내용 (옵션)
-          url: globalThis.location.href, // 공유할 URL
-        });
-      } catch (err) {
-        setError("공유에 실패했습니다.");
+        await navigator.share({ title, text, url });
+      } catch (error) {
+        console.error("Error sharing:", error);
       }
     } else {
-      setError("이 브라우저는 공유 기능을 지원하지 않습니다.");
+      fallbackCopyTextToClipboard(url);
     }
+  };
+
+  const fallbackCopyTextToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        alert(profile.ui_share_copied_url);
+      },
+      (err) => {
+        // 일어나지 말아야할 상황으로, 발생할 경우 그냥 유저에게 보여주도록 한다.(리포트 가능하게)
+        setError("Copy failed: " + err);
+        console.error("Copy failed: ", err);
+      },
+    );
   };
 
   return (
     <button onClick={handleShare}>
       <ArrowUpTrayIcon className="mr-2 mt-1 h-6 w-6 text-gray-800" />
+      {error && (
+        <Toast message={error} duration={500} onClose={() => setError("")} />
+      )}
     </button>
   );
 };

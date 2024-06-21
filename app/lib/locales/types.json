@@ -59,7 +59,10 @@
     "ui_export_button": "profile_ui_export_button",
     "ui_export_modal_title": "profile_ui_export_modal_title",
     "ui_export_modal_download_button_rendering_wait": "profile_ui_export_modal_download_button_rendering_wait",
-    "ui_export_modal_download_button": "profile_ui_export_modal_download_button"
+    "ui_export_modal_download_button": "profile_ui_export_modal_download_button",
+    "ui_share_to_x_text": "profile_ui_share_to_x_text",
+    "ui_share_desc": "profile_ui_share_desc",
+    "ui_share_copied_url": "profile_ui_share_copied_url"
   },
   "header": {
     "ui_my_profile": "header_ui_my_profile",
@@ -75,9 +78,6 @@
     "playtime_weekend": "preview_playtime_weekend",
     "used_weapons_title": "preview_used_weapons_title",
     "friend_code": "preview_friend_code"
-  },
-  "undefined": {
-    "": ""
   },
   "": {
     "": ""
