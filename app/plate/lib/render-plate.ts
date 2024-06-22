@@ -152,7 +152,6 @@ export const renderPlate = async (
   if (!((await isFontLoaded(titleFont)) && (await isFontLoaded(textFont)))) {
     return;
   }
-  console.log("font loaded");
   let x = 0,
     y = 0,
     w: number,

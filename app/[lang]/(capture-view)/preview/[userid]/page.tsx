@@ -10,7 +10,6 @@ import {
   isUserInfo,
 } from "@/app/lib/types/type-checker";
 import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting";
-import { ProfileCanvas } from "@/app/konva/components/ProfileCanvas";
 import { ProfileImage } from "@/app/konva/components/ProfileImage";
 import { OgProfileImage } from "@/app/konva/components/OgProfileImage";
 
@@ -70,7 +69,6 @@ export default async function ProfilePage(props: PageProps) {
         isMine={true}
       />
       <div className={"flex flex-col text-white"}>
-        <ProfileCanvas />
         <p>내보내기 이미지</p>
         <ProfileImage
           userInfo={user_info}

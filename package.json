@@ -35,8 +35,6 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-easy-crop": "^5.0.5",
-    "react-konva": "^18.2.10",
-    "react-konva-utils": "^1.0.6",
     "sanitize-html": "^2.13.0",
     "ts-pattern": "^5.0.6",
     "use-image": "^1.1.1",
