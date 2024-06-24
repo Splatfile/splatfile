@@ -325,7 +325,7 @@ export const subscribeEdit = (
         state.user,
         state.game,
         plate_info,
-        getLocaleByLang("ko"),
+        getLocaleByLang(lang),
         "blob",
       );
 
