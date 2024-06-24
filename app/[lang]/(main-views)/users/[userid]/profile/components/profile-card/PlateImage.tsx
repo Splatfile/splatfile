@@ -10,25 +10,35 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { loadFonts, renderPlate } from "@/app/plate/lib/render-plate";
-import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
+import {
+  getPlateLang,
+  loadFonts,
+  renderPlate,
+} from "@/app/plate/lib/render-plate";
+import {
+  setTagLanguage,
+  useTagStore,
+} from "@/app/plate/lib/store/use-tag-store";
 import { Profile } from "@/app/lib/locales/locale";
+import { Lang } from "@/app/lib/types/component-props";
 
 type PlateImageProps = {
   profile: Profile;
+  lang: Lang;
 };
 
 export function PlateImage(props: PlateImageProps) {
-  const { profile } = props;
+  const { profile, lang } = props;
   const [open, setOpen] = useState(false);
   const [fontLoaded, setFontLoaded] = useState(false);
   const { isMine } = useEditStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [language, setLanguage] = useState<Lang>(lang);
 
   useEffect(() => {
     return useTagStore.subscribe((tag) => {
       if (!canvasRef.current) return;
-      renderPlate(canvasRef.current, tag)
+      renderPlate(canvasRef.current, tag, getPlateLang(language))
         .then(() => {
           console.log("rendered");
         })
@@ -41,7 +51,11 @@ export function PlateImage(props: PlateImageProps) {
   useEffect(() => {
     setTimeout(() => {
       if (!canvasRef.current) return;
-      renderPlate(canvasRef.current, useTagStore.getState())
+      renderPlate(
+        canvasRef.current,
+        useTagStore.getState(),
+        getPlateLang(language),
+      )
         .then(() => {
           console.log("rerendered");
         })
@@ -50,6 +64,10 @@ export function PlateImage(props: PlateImageProps) {
         });
     }, 1500);
   }, [fontLoaded]);
+
+  useEffect(() => {
+    setTagLanguage(getPlateLang(language));
+  }, [language]);
 
   useEffect(() => {
     const timeout = setInterval(async () => {
@@ -77,8 +95,13 @@ export function PlateImage(props: PlateImageProps) {
         isMine && "cursor-pointer hover:opacity-80",
       )}
     >
-      <PlateModal open={open} setOpen={setOpen} profile={profile} />
-
+      <PlateModal
+        open={open}
+        setOpen={setOpen}
+        profile={profile}
+        language={language}
+        setLanguage={setLanguage}
+      />
       <canvas
         className={"max-w-full"}
         style={{
@@ -109,10 +132,12 @@ type PlateModalProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
   profile: Profile;
+  language: Lang;
+  setLanguage: (lang: Lang) => void;
 };
 
 export function PlateModal(props: PlateModalProps) {
-  const { open, setOpen, profile } = props;
+  const { open, setOpen, profile, language, setLanguage } = props;
 
   return (
     <Transition show={open} as={Fragment}>
@@ -149,7 +174,10 @@ export function PlateModal(props: PlateModalProps) {
                     >
                       {profile.ui_plate_modal_title}
                     </DialogTitle>
-                    <SplatPlateEditor />
+                    <SplatPlateEditor
+                      language={language}
+                      setLanguage={setLanguage}
+                    />
                     <button
                       type="button"
                       className="inline-flex w-40 justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"

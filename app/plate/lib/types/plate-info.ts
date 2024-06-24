@@ -1,5 +1,19 @@
 import { z } from "zod";
 
+export const PlateLanguageObject = z.enum([
+  "USen",
+  "EUnl",
+  "USfr",
+  "EUfr",
+  "EUde",
+  "EUit",
+  "EUru",
+  "USes",
+  "EUes",
+  "KRko",
+  "JPja",
+]);
+
 export const PlateInfoObject = z.object({
   id: z.string(),
   name: z.string(),
@@ -28,4 +42,5 @@ export const PlateInfoObject = z.object({
     "to bottom right",
     "to outside",
   ]),
+  language: PlateLanguageObject.optional(),
 });

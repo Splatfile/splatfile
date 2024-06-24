@@ -22,7 +22,7 @@ export function ProfileWrapper(props: ProfileWrapperProps) {
             "flex h-full w-full items-center justify-center p-8 text-white md:w-1/3 md:items-stretch md:p-0 md:py-24"
           }
         >
-          <ProfileCard profile={profile} />
+          <ProfileCard profile={profile} lang={lang} />
         </div>
         {/* 인게임 정보 */}
         <div className={"w-full md:w-2/3"}>

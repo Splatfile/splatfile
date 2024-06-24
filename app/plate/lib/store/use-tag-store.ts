@@ -9,7 +9,10 @@ import { z } from "zod";
 import { useEffect } from "react";
 import { SplatfileClient } from "@/app/lib/splatfile-client";
 import { isPlateInfo } from "@/app/lib/types/type-checker";
-import { PlateInfoObject } from "@/app/plate/lib/types/plate-info";
+import {
+  PlateInfoObject,
+  PlateLanguageObject,
+} from "@/app/plate/lib/types/plate-info";
 import { Lang } from "@/app/lib/types/component-props";
 
 export type Gradients = [string, string, string, string];
@@ -68,6 +71,7 @@ export const initTagState = (): TagState => ({
   isGradient: false,
   isCustom: false,
   gradientDirection: "to bottom",
+  language: "KRko",
 });
 
 type LoadingStore = {
@@ -218,6 +222,15 @@ export const setTagLoading = (isLoading: boolean) => {
   useTagLoadingStore.setState({
     isLoading,
   });
+};
+
+export const setTagLanguage = (
+  language: z.infer<typeof PlateLanguageObject>,
+) => {
+  useTagStore.setState((state) => ({
+    ...state,
+    language,
+  }));
 };
 
 export const subscribeEdit = (userId: string, lang: Lang) => {

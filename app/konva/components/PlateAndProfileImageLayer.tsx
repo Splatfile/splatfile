@@ -7,7 +7,7 @@ import {
 } from "@/app/lib/utils/render-preview-canvas";
 import { loadFonts, renderPlate } from "@/app/plate/lib/render-plate";
 import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
-import { RefObject, useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Image as KonvaImage, Layer, Rect } from "react-konva";
 import useImage from "use-image";
 import { useKonvaRenderStore } from "@/app/lib/hooks/use-konva-render-store";
@@ -65,7 +65,7 @@ function Plate({ tag }: PlateProps) {
       canvas.height = 200;
 
       const loaded = await loadFonts();
-      await renderPlate(canvas, tag);
+      await renderPlate(canvas, tag, tag.language ?? "USen");
 
       imageObj.src = canvas.toDataURL();
 

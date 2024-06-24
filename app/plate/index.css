@@ -33,13 +33,33 @@ body[lang="KRko"],
 body[lang="KRko"] select,
 body[lang="KRko"] input,
 option[value="KRko"] {
-    font-family: 'Splat-text', 'KERINm';
+    font-family: 'Splat-text', 'KERINm', 'Kurokane';
 }
 
 body[lang="KRko"] .tab,
 body[lang="KRko"] .category-title,
 body[lang="KRko"] .title-font {
-    font-family: 'Splat-title', 'KCUBEr';
+    font-family: 'Splat-title', 'KCUBEr', 'Rowdy';
+}
+
+/* Japanese */
+/*"font": ["Kurokane", "Rowdy"],*/
+@font-face {
+    font-family: "Kurokane";
+    src: url("/assets/fonts/JPja/Kurokane.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Rowdy";
+    src: url("/assets/fonts/JPja/Rowdy.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+body {
+    font-family: 'Splat-text', 'KERINm', 'Splat-text', 'KCUBEr', 'Kurokane', 'Rowdy';
 }
 
 

@@ -27,9 +27,13 @@ export const getLanguage: (key: Lang) => PlateLang = (key: Lang) => {
   }
 };
 
-export function SplatPlateEditor() {
-  const [language, setLanguage] = useState<Lang>("en");
+type SplatPlateEditorProps = {
+  language: Lang;
+  setLanguage: (lang: Lang) => void;
+};
 
+export function SplatPlateEditor(props: SplatPlateEditorProps) {
+  const { language, setLanguage } = props;
   const [tab, setTab] = useState(0);
   const tag = useTagStore();
   const positions = useTagPosition();
@@ -40,7 +44,7 @@ export function SplatPlateEditor() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!canvasRef.current) return;
-      renderPlate(canvasRef.current, tag).then(() => {
+      renderPlate(canvasRef.current, tag, tag.language ?? "USen").then(() => {
         console.log("rendered");
       });
     }, 150);

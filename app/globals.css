@@ -2,35 +2,101 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
     font-family: "Splat-title";
-    src: url("/assets/fonts/SplatoonTitle.otf") format('opentype');
+    src: url("/assets//fonts/SplatoonTitle.otf");
     font-style: normal;
     font-weight: normal;
 }
 
 @font-face {
     font-family: "Splat-text";
-    src: url("/assets/fonts/SplatoonText.otf") format('opentype');
+    src: url("/assets/fonts/SplatoonText.otf");
     font-style: normal;
     font-weight: normal;
 }
 
 /* Language Fonts */
+/* Japan */
+@font-face {
+    font-family: "Kurokane";
+    src: url("/assets/fonts/JPja/Kurokane.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Rowdy";
+    src: url("/assets/fonts/JPja/Rowdy.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* Chinese (Simplified) */
+@font-face {
+    font-family: "HanyiZongyi";
+    src: url("/assets/fonts/CNzh/hanyi_zongyi.ttf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "HuakangZongyi";
+    src: url("/assets/fonts/CNzh/huakang_xinzongyi.ttc");
+    font-style: normal;
+    font-weight: normal;
+}
+
 /* Korean */
 @font-face {
     font-family: "KCUBEr";
-    src: url("/assets/fonts/KRko/AsiaKCUBE-R.otf") format('opentype');
+    src: url("/assets/fonts/KRko/AsiaKCUBE-R.otf");
     font-style: normal;
     font-weight: normal;
 }
 
 @font-face {
     font-family: "KERINm";
-    src: url("/assets/fonts/KRko/AsiaKERIN-M.otf") format('opentype');
+    src: url("/assets/fonts/KRko/AsiaKERIN-M.otf");
     font-style: normal;
     font-weight: normal;
+}
+
+/* Chinese (Traditional) */
+@font-face {
+    font-family: "DFPT_AZ5";
+    src: url("/assets/fonts/TWzh/DFPT_AZ5.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "DFPT_ZY9";
+    src: url("/assets/fonts/TWzh/DFPT_ZY9.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+body, select, input {
+    font-family: 'Splat-text';
+}
+
+.tab, .category-title, .title-font, .saved-tag {
+    font-family: 'Splat-title';
+}
+
+body[lang="JPja"],
+body[lang="JPja"] select,
+body[lang="JPja"] input,
+option[value="JPja"] {
+    font-family: 'Splat-text', 'Kurokane';
+}
+
+body[lang="JPja"] .tab,
+body[lang="JPja"] .category-title,
+body[lang="JPja"] .title-font,
+body[lang="JPja"] .saved-tag {
+    font-family: 'Splat-title', 'Rowdy';
 }
 
 body[lang="KRko"],
@@ -42,9 +108,59 @@ option[value="KRko"] {
 
 body[lang="KRko"] .tab,
 body[lang="KRko"] .category-title,
-body[lang="KRko"] .title-font {
+body[lang="KRko"] .title-font,
+body[lang="KRko"] .saved-tag {
     font-family: 'Splat-title', 'KCUBEr';
 }
+
+body[lang="CNzh"],
+body[lang="CNzh"] select,
+body[lang="CNzh"] input,
+option[value="CNzh"] {
+    font-family: 'Splat-text', "HanyiZongyi";
+}
+
+body[lang="CNzh"] .tab,
+body[lang="CNzh"] .category-title,
+body[lang="CNzh"] .title-font,
+body[lang="CNzh"] .saved-tag {
+    font-family: 'Splat-title', "HuakangZongyi";
+}
+
+body[lang="TWzh"],
+body[lang="TWzh"] select,
+body[lang="TWzh"] input,
+option[value="TWzh"] {
+    font-family: 'Splat-text', "DFPT_AZ5";
+}
+
+body[lang="TWzh"] .tab,
+body[lang="TWzh"] .category-title,
+body[lang="TWzh"] .title-font,
+body[lang="TWzh"] .saved-tag {
+    font-family: 'Splat-title', "DFPT_ZY9";
+}
+
+body,
+body .tab,
+body .category-title,
+body .title-font,
+body .saved-tag {
+    font-family: 'Splat-title', 'Splat-text', 'Rowdy', 'Kurokane', 'HanyiZongyi', 'HuakangZongyi', 'DFPT_AZ5', 'DFPT_ZY9', 'KCUBEr', 'KERINm', sans-serif;
+}
+
+#languageSelector {
+    font-size: 20px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 3;
+}
+
+body {
+    font-family: 'Splat-title', 'KCUBEr', 'Splat-text', 'KERINm', 'Rowdy', 'Kurokane', 'HanyiZongyi', 'HuakangZongyi', 'DFPT_AZ5', 'DFPT_ZY9', sans-serif;
+}
+
 
 @keyframes slideUpFull {
     from {

@@ -1,4 +1,3 @@
-import lang from "../lang.json";
 import { baseUrl } from "./const";
 import { scaleStepByGradientDirection } from "./types/gradient";
 import {
@@ -10,11 +9,10 @@ import {
   getTitlePosition,
 } from "./store/use-position";
 import { TagState } from "@/app/plate/lib/store/use-tag-store";
+import { Lang } from "@/app/lib/types/component-props";
 
 const bannerSrc = (file: string, custom = false) =>
   `${baseUrl}/assets/${custom ? "custom/" : ""}banners/${removeImageExtension(file)}.webp`;
-
-const language = "KRko";
 
 const getXScale = (width: number, max: number) => {
   return width > max ? max / width : 1;
@@ -89,7 +87,20 @@ const isSpaceLang = (language: string) => {
   );
 };
 
-const titleToString = (title: TagState["title"]) => {
+type PlateLang =
+  | "USen"
+  | "EUnl"
+  | "USfr"
+  | "EUfr"
+  | "EUde"
+  | "EUit"
+  | "EUru"
+  | "USes"
+  | "EUes"
+  | "KRko"
+  | "JPja";
+
+const titleToString = (language: PlateLang, title: TagState["title"]) => {
   const chosentitles = [];
   if (title.string) chosentitles.push(title.string);
   else {
@@ -129,30 +140,64 @@ const loadFont = async () => {
   await document.fonts.ready;
 };
 
-const textFont = `Splat-text${
-  lang[language].font ? "," + lang[language].font[0] : ""
-}`;
+// 현재는 다 똑같은 상태이지만 나중변경을 대비하여 일단 코드 남겨  둠
+const textFont = (lang: PlateLang) => {
+  switch (lang) {
+    case "KRko":
+      return `Splat-text, Kurokane, HanyiZongyi, DFPT_AZ5, KERINm`;
+    case "JPja":
+      return `Splat-text, Kurokane, HanyiZongyi, DFPT_AZ5, KERINm`;
+    default:
+      return `Splat-text, Kurokane, HanyiZongyi, DFPT_AZ5, KERINm`;
+  }
+};
 
-const titleFont = `Splat-title${
-  lang[language].font ? "," + lang[language].font[1] : ""
-}`;
+const titleFont = (lang: PlateLang) => {
+  switch (lang) {
+    case "KRko":
+      return `Splat-title, Rowdy,HuakangZongyi, DFPT_ZY9, KCUBEr`;
+    case "JPja":
+      return `Splat-title, Rowdy,HuakangZongyi, DFPT_ZY9, KCUBEr`;
+    default:
+      return `Splat-title, KCUBEr, Rowdy, HuakangZongyi, DFPT_ZY9`;
+  }
+};
 
-export const loadFonts = async () => {
+export const loadFonts = async (plateLang: PlateLang) => {
   await loadFont();
-  return (await isFontLoaded(titleFont)) && (await isFontLoaded(textFont));
+  return (
+    (await isFontLoaded(titleFont(plateLang))) &&
+    (await isFontLoaded(textFont(plateLang)))
+  );
+};
+
+export const getPlateLang = (lang: Lang): PlateLang => {
+  switch (lang) {
+    case "ko":
+      return "KRko";
+    case "ja":
+      return "JPja";
+    default:
+      return "USen";
+  }
 };
 
 export const renderPlate = async (
   canvas: HTMLCanvasElement,
   tagState: TagState,
+  plateLang: PlateLang = "KRko",
   preview = false,
 ) => {
   initCanvases();
-  await loadFonts();
-  if (!((await isFontLoaded(titleFont)) && (await isFontLoaded(textFont)))) {
+  await loadFonts(plateLang);
+  if (
+    !(
+      (await isFontLoaded(titleFont(plateLang))) &&
+      (await isFontLoaded(textFont(plateLang)))
+    )
+  ) {
     return;
   }
-  console.log("font loaded");
   let x = 0,
     y = 0,
     w: number,
@@ -188,7 +233,7 @@ export const renderPlate = async (
     isGradient,
     gradientDirection,
   } = tagState;
-
+  console.log("Tagstate", tagState);
   const bannerImage = await getBannerImage(banner);
   compositeCanvas.width = w;
   compositeCanvas.height = h;
@@ -274,15 +319,17 @@ export const renderPlate = async (
   const titlePosition = getTitlePosition();
   if (title) {
     textCtx.save();
-    textCtx.font = `${titlePosition.fontSize}px ${textFont}`;
+    textCtx.font = `${titlePosition.fontSize}px ${textFont(plateLang)}`;
     textCtx.letterSpacing = "-0.3px";
-    const textWidth = textCtx.measureText(titleToString(title)).width;
+    const textWidth = textCtx.measureText(
+      titleToString(plateLang, title),
+    ).width;
     const xScale = getXScale(textWidth, w - 32);
 
     textCtx.transform(1, 0, -7.5 / 100, 1, x, y);
     textCtx.scale(xScale, 1);
     textCtx.fillText(
-      titleToString(title),
+      titleToString(plateLang, title),
       18 / xScale + titlePosition.x,
       42 + titlePosition.y + (h - 200) / 2,
     );
@@ -294,7 +341,7 @@ export const renderPlate = async (
   const idPosition = getIdPosition();
   if (id.length) {
     textCtx.save();
-    textCtx.font = `${idPosition.fontSize}px ${textFont}`;
+    textCtx.font = `${idPosition.fontSize}px ${textFont(plateLang)}`;
     textCtx.letterSpacing = "0.2px";
 
     // tag text should adjust to the leftmost badge position.
@@ -319,7 +366,7 @@ export const renderPlate = async (
 
   if (name.length) {
     textCtx.save();
-    textCtx.font = `${namePosition.fontSize}px ${titleFont}`;
+    textCtx.font = `${namePosition.fontSize}px ${titleFont(plateLang)}`;
     textCtx.letterSpacing = "-0.4px";
     const textWidth = textCtx.measureText(name).width;
     const xScale = getXScale(textWidth, w - 32);

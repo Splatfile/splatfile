@@ -3,13 +3,15 @@ import { ProfileImage } from "@/app/[lang]/(main-views)/users/[userid]/profile/c
 import { PlateImage } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/profile-card/PlateImage";
 import { ShareButtonSection } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ShareButtonSection";
 import { Profile } from "@/app/lib/locales/locale";
+import { Lang } from "@/app/lib/types/component-props";
 
 type ProfileCardProps = {
   profile: Profile;
+  lang: Lang;
 };
 
 export function ProfileCard(props: ProfileCardProps) {
-  const { profile } = props;
+  const { profile, lang } = props;
   return (
     <div
       className={
@@ -17,7 +19,7 @@ export function ProfileCard(props: ProfileCardProps) {
       }
     >
       <ProfileImage profile={profile} />
-      <PlateImage profile={profile} />
+      <PlateImage profile={profile} lang={lang} />
       <ShareButtonSection profile={profile} />
     </div>
   );

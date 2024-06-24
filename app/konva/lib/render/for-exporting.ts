@@ -1,8 +1,8 @@
 "use client";
 import {
   newBox,
-  newTextContainer,
   newImageContainer,
+  newTextContainer,
 } from "@/app/konva/lib/commons";
 import { loadImages } from "@/app/konva/lib/loading-utils";
 import { GameInfo, PlateInfo, UserInfo } from "@/app/lib/types/type-checker";
@@ -88,7 +88,7 @@ async function renderProfileBase(
     tempCanvas.width = 700;
     tempCanvas.height = 200;
 
-    await renderPlate(tempCanvas, plateInfo);
+    await renderPlate(tempCanvas, plateInfo, plateInfo.language ?? "USen");
 
     const plateImage = new Image();
     // 이미지가 정상적으로 로드 될때까지 기다립니다.
