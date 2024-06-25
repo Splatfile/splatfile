@@ -13,11 +13,15 @@ export function ProfileCard(props: ProfileCardProps) {
   return (
     <div
       className={
-        "flex h-full w-full flex-col items-center justify-center overflow-clip rounded-lg"
+        "flex h-full w-full flex-col overflow-visible rounded-lg"
       }
     >
-      <ProfileImage profile={profile} />
-      <PlateImage profile={profile} />
+      <div className={"relative mb-8"}>
+        <ProfileImage profile={profile} />
+        <div className={"absolute -bottom-8 -right-5 w-full z-10"}>
+          <PlateImage profile={profile} /> 
+        </div>
+      </div>
       <ShareButtonSection profile={profile} />
     </div>
   );
