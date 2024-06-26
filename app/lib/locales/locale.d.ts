@@ -103,6 +103,13 @@ export interface Profile {
     ui_plate_modal_confirm_button:                          string;
     ui_export_button:                                       string;
     ui_export_modal_title:                                  string;
+    ui_export_modal_checklist_title:                        string;
+    ui_export_modal_checklist_nickname:                     string;
+    ui_export_modal_checklist_playtime:                     string;
+    ui_export_modal_checklist_used_weapons:                 string;
+    ui_export_modal_checklist_friend_code:                  string;
+    ui_export_modal_checklist_additional_information:       string;
+    ui_export_modal_checklist_profile_image:                string;
     ui_export_modal_download_button_rendering_wait:         string;
     ui_export_modal_download_button:                        string;
     ui_share_to_x_text:                                     string;
@@ -367,6 +374,13 @@ const typeMap: any = {
         { json: "ui_plate_modal_confirm_button", js: "ui_plate_modal_confirm_button", typ: "" },
         { json: "ui_export_button", js: "ui_export_button", typ: "" },
         { json: "ui_export_modal_title", js: "ui_export_modal_title", typ: "" },
+        { json: "ui_export_modal_checklist_title", js: "ui_export_modal_checklist_title", typ: "" },
+        { json: "ui_export_modal_checklist_nickname", js: "ui_export_modal_checklist_nickname", typ: "" },
+        { json: "ui_export_modal_checklist_playtime", js: "ui_export_modal_checklist_playtime", typ: "" },
+        { json: "ui_export_modal_checklist_used_weapons", js: "ui_export_modal_checklist_used_weapons", typ: "" },
+        { json: "ui_export_modal_checklist_friend_code", js: "ui_export_modal_checklist_friend_code", typ: "" },
+        { json: "ui_export_modal_checklist_additional_information", js: "ui_export_modal_checklist_additional_information", typ: "" },
+        { json: "ui_export_modal_checklist_profile_image", js: "ui_export_modal_checklist_profile_image", typ: "" },
         { json: "ui_export_modal_download_button_rendering_wait", js: "ui_export_modal_download_button_rendering_wait", typ: "" },
         { json: "ui_export_modal_download_button", js: "ui_export_modal_download_button", typ: "" },
         { json: "ui_share_to_x_text", js: "ui_share_to_x_text", typ: "" },

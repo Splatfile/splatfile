@@ -49,6 +49,13 @@ profile_ui_plate_modal_title,플레이트 꾸미기,Customize Plate,プレート
 profile_ui_plate_modal_confirm_button,확인,Confirm,確認
 profile_ui_export_button,이미지로 내보내기,Export as Image,画像のエクスポート
 profile_ui_export_modal_title,이미지로 내보내기,Export as Image,画像のエクスポート
+profile_ui_export_modal_checklist_title,필요한 정보들,Required Information,必要な情報
+profile_ui_export_modal_checklist_nickname,이름,Nickname,名前
+profile_ui_export_modal_checklist_playtime,접속 시간대,Playtime,プレイ時間
+profile_ui_export_modal_checklist_used_weapons,사용 무기,Used Weapons,使う武器
+profile_ui_export_modal_checklist_friend_code,친구 코드,Friend Code,フレンドコード
+profile_ui_export_modal_checklist_additional_information,하고 싶은 말,Additional Information,追加情報
+profile_ui_export_modal_checklist_profile_image,프로필 이미지,Profile Image,プロフィール画像
 profile_ui_export_modal_download_button_rendering_wait,렌더링 중,Rendering,レンダリング中
 profile_ui_export_modal_download_button,다운로드,Download,ダウンロード
 profile_ui_share_to_x_text,#Splatfile {{name}}의 스플래툰 프로필,{{name}}'s Splatoon Profile on #Splatfile,#Splatfile {{name}}のプロフィール
