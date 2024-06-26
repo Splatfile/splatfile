@@ -29,7 +29,10 @@ export const generateMetadata = async (
   let name = "";
   const parsedUserInfo = UserInfoObject.safeParse(profile.user_info);
   if (parsedUserInfo.success) {
-    name = parsedUserInfo.data.twitterInfo?.name || parsedUserInfo.data.switchInfo?.name || "";
+    name =
+      parsedUserInfo.data.twitterInfo?.name ||
+      parsedUserInfo.data.switchInfo?.name ||
+      "";
   }
 
   let ogImageUrl = "";
@@ -69,6 +72,7 @@ export default async function ProfilePage(props: ProfilePage) {
         <DebounceEditing
           userId={props.params.userid}
           lang={props.params.lang}
+          err={dictionary.err}
         />
         <StoreSetting
           profile={profile}

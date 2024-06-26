@@ -15,6 +15,7 @@ export interface Locale {
     profile: Profile;
     header:  Header;
     preview: Preview;
+    err:     Err;
     "":      Empty;
 }
 
@@ -39,6 +40,10 @@ export interface Account {
     ui_friend_code_link:          string;
     ui_edit_playtime_description: string;
     ui_additional_information:    string;
+}
+
+export interface Err {
+    refresh_please: string;
 }
 
 export interface Header {
@@ -282,6 +287,7 @@ const typeMap: any = {
         { json: "profile", js: "profile", typ: r("Profile") },
         { json: "header", js: "header", typ: r("Header") },
         { json: "preview", js: "preview", typ: r("Preview") },
+        { json: "err", js: "err", typ: r("Err") },
         { json: "", js: "", typ: r("Empty") },
     ], false),
     "Empty": o([
@@ -304,6 +310,9 @@ const typeMap: any = {
         { json: "ui_friend_code_link", js: "ui_friend_code_link", typ: "" },
         { json: "ui_edit_playtime_description", js: "ui_edit_playtime_description", typ: "" },
         { json: "ui_additional_information", js: "ui_additional_information", typ: "" },
+    ], false),
+    "Err": o([
+        { json: "refresh_please", js: "refresh_please", typ: "" },
     ], false),
     "Header": o([
         { json: "ui_my_profile", js: "ui_my_profile", typ: "" },

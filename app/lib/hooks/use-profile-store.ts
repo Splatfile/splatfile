@@ -23,16 +23,20 @@ import { shallow } from "zustand/shallow";
 import { createWithEqualityFn } from "zustand/traditional";
 import {
   isGameInfo,
-  isUserInfo,
   isPlateInfo,
+  isUserInfo,
 } from "@/app/lib/types/type-checker";
 import { Lang } from "../types/component-props";
 import { renderOgProfileImage } from "@/app/konva/lib/render/og";
 import { getLocaleByLang } from "@/app/lib/use-locale";
+import { initializeTagStore } from "@/app/plate/lib/store/use-tag-store";
+import { Err } from "@/app/lib/locales/locale";
+import { setErrorMessage } from "@/app/lib/hooks/use-error-toast-store";
 
 type ProfileState = {
   user: z.infer<typeof UserInfoObject>;
   game: z.infer<typeof GameInfoObject>;
+  updatedAt: string;
 };
 
 type ProfileStore = {
@@ -69,6 +73,7 @@ const initState = (): ProfileState => {
         dropIn: false,
       },
     },
+    updatedAt: "",
   };
 };
 
@@ -83,7 +88,7 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
 );
 
 export const initProfileStore = (profile: Profile, isMine: boolean) => {
-  const { user_info, game_info } = profile;
+  const { user_info, game_info, updated_at } = profile;
 
   if (!isUserInfo(user_info) || !isGameInfo(game_info)) {
     console.error("Invalid profile data", profile);
@@ -98,6 +103,7 @@ export const initProfileStore = (profile: Profile, isMine: boolean) => {
   useProfileStore.setState(() => ({
     user: user_info,
     game: game_info,
+    updatedAt: updated_at,
   }));
   setMine(isMine);
 };
@@ -253,14 +259,15 @@ export const usePlaytime = (timeType: "weekdayPlaytime" | "weekendPlaytime") =>
 export const useDebounceEdit = (
   userId: string,
   isMine: boolean,
+  err: Err,
   lang: Lang,
 ) => {
   const timeoutIdRef: React.MutableRefObject<
     NodeJS.Timeout | string | number | undefined
   > = useRef<NodeJS.Timeout | string | number | undefined>();
   useEffect(
-    () => (isMine ? subscribeEdit(userId, timeoutIdRef, lang) : undefined),
-    [userId, isMine, lang],
+    () => (isMine ? subscribeEdit(userId, timeoutIdRef, err, lang) : undefined),
+    [userId, isMine, err, lang],
   );
 };
 
@@ -271,6 +278,7 @@ export const subscribeEdit = (
   timeoutIdRef: React.MutableRefObject<
     NodeJS.Timeout | string | number | undefined
   >,
+  err: Err,
   lang: Lang,
 ) => {
   const client = new SplatfileClient("CLIENT_COMPONENT");
@@ -289,66 +297,90 @@ export const subscribeEdit = (
         return;
       }
 
-      const currJson = JSON.stringify(state);
-      const prevJson = JSON.stringify(prevState);
+      const currJson = JSON.stringify(state, (key, value) => {
+        if (key === "updatedAt") {
+          return undefined;
+        }
+        return value;
+      });
+      const prevJson = JSON.stringify(prevState, (key, value) => {
+        if (key === "updatedAt") {
+          return undefined;
+        }
+        return value;
+      });
 
       if (!checkValidState(prevJson, currJson)) {
         setLoading(false);
         return;
       }
 
-      const { plate_info } = await client.updateProfile(
+      const { plate_info, updated_at } = await client.updateProfile(
         {
           user_info: state.user,
           game_info: state.game,
+          updated_at: state.updatedAt,
         },
         userId,
         lang,
       );
+      try {
+        if (!isPlateInfo(plate_info)) {
+          console.error("Invalid plate info", plate_info);
+          setErrorMessage(err.refresh_please);
+          setLoading(false);
+          return;
+        }
 
-      if (!isPlateInfo(plate_info)) {
-        console.error("Invalid plate info", plate_info);
-        setLoading(false);
-        return;
-      }
+        // og rendering
+        // 임시 div 생성
+        document.getElementById("temp-og-rendering")?.remove();
+        const div = document.createElement("div");
+        div.className = "hidden";
+        div.id = "temp-og-rendering";
+        document.body.appendChild(div);
 
-      // og rendering
-      // 임시 div 생성
-      document.getElementById("temp-og-rendering")?.remove();
-      const div = document.createElement("div");
-      div.className = "hidden";
-      div.id = "temp-og-rendering";
-      document.body.appendChild(div);
+        const ogProfileBlob = await renderOgProfileImage(
+          div.id,
+          state.user,
+          state.game,
+          plate_info,
+          getLocaleByLang(lang),
+          "blob",
+        );
 
-      const ogProfileBlob = await renderOgProfileImage(
-        div.id,
-        state.user,
-        state.game,
-        plate_info,
-        getLocaleByLang(lang),
-        "blob",
-      );
+        if (!ogProfileBlob) {
+          console.error("Image Buffer is not truthy");
+          setErrorMessage(err.refresh_please);
+          setLoading(false);
+          return;
+        }
 
-      if (!ogProfileBlob) {
-        console.error("Image Buffer is not truthy");
-        setLoading(false);
-        return;
-      }
-
-      const key = await client.uploadFile(ogProfileBlob, userId + "_og.png");
-      await client.updateProfile(
-        {
-          canvas_info: {
-            ogImageUrl: key,
+        const key = await client.uploadFile(ogProfileBlob, userId + "_og.png");
+        const updated = await client.updateProfile(
+          {
+            canvas_info: {
+              ogImageUrl: key,
+            },
+            updated_at: updated_at,
           },
-        },
-        userId,
-        lang,
-      );
-
-      setLoading(false);
+          userId,
+          lang,
+        );
+        initProfileStore(updated, true);
+        initializeTagStore(updated);
+        setLoading(false);
+      } catch (e) {
+        console.error(e);
+        setErrorMessage(err.refresh_please);
+        setLoading(false);
+      }
     }, 3 * 1000);
   });
+};
+
+export const getUpdatedAt = () => {
+  return useProfileStore.getState().updatedAt;
 };
 
 const checkValidState = (prevStateJson: string, currStateJson: string) => {

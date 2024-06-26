@@ -79,6 +79,9 @@
     "used_weapons_title": "使う武器",
     "friend_code": "フレンドコード"
   },
+  "err": {
+    "refresh_please": "エラーが発生しました。ページをリフレッシュしてください。"
+  },
   "": {
     "": ""
   }

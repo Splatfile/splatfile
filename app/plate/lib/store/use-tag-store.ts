@@ -14,6 +14,12 @@ import {
   PlateLanguageObject,
 } from "@/app/plate/lib/types/plate-info";
 import { Lang } from "@/app/lib/types/component-props";
+import {
+  getUpdatedAt,
+  initProfileStore,
+} from "@/app/lib/hooks/use-profile-store";
+import { setErrorMessage } from "@/app/lib/hooks/use-error-toast-store";
+import { Err } from "@/app/lib/locales/locale";
 
 export type Gradients = [string, string, string, string];
 
@@ -233,7 +239,7 @@ export const setTagLanguage = (
   }));
 };
 
-export const subscribeEdit = (userId: string, lang: Lang) => {
+export const subscribeEdit = (userId: string, err: Err, lang: Lang) => {
   let timeoutId: NodeJS.Timeout | string | number | undefined;
   const client = new SplatfileClient("CLIENT_COMPONENT");
 
@@ -257,14 +263,23 @@ export const subscribeEdit = (userId: string, lang: Lang) => {
         return;
       }
       const { set, ...plate_info } = state;
-      await client.updateProfile(
-        {
-          plate_info,
-        },
-        userId,
-        lang,
-      );
-      setTagLoading(false);
+      try {
+        const updated = await client.updateProfile(
+          {
+            plate_info,
+            updated_at: getUpdatedAt(),
+          },
+          userId,
+          lang,
+        );
+        initProfileStore(updated, true);
+        initializeTagStore(updated);
+        setTagLoading(false);
+      } catch (e) {
+        console.error(e);
+        setErrorMessage(err.refresh_please);
+        setTagLoading(false);
+      }
     }, 2 * 1000);
   });
 };
@@ -282,10 +297,11 @@ const checkValidState = (prevStateJson: string, currStateJson: string) => {
 export const useDebounceTagEdit = (
   userId: string,
   isMine: boolean,
+  err: Err,
   lang: Lang,
 ) => {
   useEffect(
-    () => (userId ? subscribeEdit(userId, lang) : undefined),
-    [userId, isMine, lang],
+    () => (userId ? subscribeEdit(userId, err, lang) : undefined),
+    [userId, isMine, err, lang],
   );
 };

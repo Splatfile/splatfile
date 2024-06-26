@@ -79,6 +79,9 @@
     "used_weapons_title": "preview_used_weapons_title",
     "friend_code": "preview_friend_code"
   },
+  "err": {
+    "refresh_please": "err_refresh_please"
+  },
   "": {
     "": ""
   }

@@ -79,6 +79,9 @@
     "used_weapons_title": "사용 무기",
     "friend_code": "친구 코드"
   },
+  "err": {
+    "refresh_please": "에러가 발생했습니다. 페이지를 새로고침 해주세요."
+  },
   "": {
     "": ""
   }

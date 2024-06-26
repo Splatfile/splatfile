@@ -201,6 +201,28 @@ export class SplatfileClient {
       throw parsed.error;
     }
 
+    const { data: exist, error: existError } = await this._supabase
+      .from("profiles")
+      .select("*")
+      .eq("user_id", user.data.user?.id)
+      .single();
+
+    if (existError) {
+      throw existError;
+    }
+
+    console.log(
+      "exist",
+      exist.updated_at,
+      "profile",
+      profile.updated_at,
+      exist.updated_at > (profile.updated_at ?? ""),
+    );
+
+    if (exist.updated_at > (profile.updated_at ?? "")) {
+      throw new Error("Profile is outdated");
+    }
+
     const { data, error } = await this._supabase
       .from("profiles")
       .update(profile)
