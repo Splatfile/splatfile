@@ -85,67 +85,67 @@ body, select, input {
     font-family: 'Splat-title';
 }
 
-body[lang="JPja"],
-body[lang="JPja"] select,
-body[lang="JPja"] input,
+body[lang="JPja"] #plate-modal,
+body[lang="JPja"] #plate-modal select,
+body[lang="JPja"] #plate-modal input,
 option[value="JPja"] {
     font-family: 'Splat-text', 'Kurokane';
 }
 
-body[lang="JPja"] .tab,
-body[lang="JPja"] .category-title,
-body[lang="JPja"] .title-font,
-body[lang="JPja"] .saved-tag {
+body[lang="JPja"] #plate-modal .tab,
+body[lang="JPja"] #plate-modal .category-title,
+body[lang="JPja"] #plate-modal .title-font,
+body[lang="JPja"] #plate-modal .saved-tag {
     font-family: 'Splat-title', 'Rowdy';
 }
 
-body[lang="KRko"],
-body[lang="KRko"] select,
-body[lang="KRko"] input,
+body[lang="KRko"] #plate-modal,
+body[lang="KRko"] #plate-modal select,
+body[lang="KRko"] #plate-modal input,
 option[value="KRko"] {
     font-family: 'Splat-text', 'KERINm';
 }
 
-body[lang="KRko"] .tab,
-body[lang="KRko"] .category-title,
-body[lang="KRko"] .title-font,
-body[lang="KRko"] .saved-tag {
+body[lang="KRko"] #plate-modal .tab,
+body[lang="KRko"] #plate-modal .category-title,
+body[lang="KRko"] #plate-modal .title-font,
+body[lang="KRko"] #plate-modal .saved-tag {
     font-family: 'Splat-title', 'KCUBEr';
 }
 
-body[lang="CNzh"],
-body[lang="CNzh"] select,
-body[lang="CNzh"] input,
+body[lang="CNzh"] #plate-modal,
+body[lang="CNzh"] #plate-modal select,
+body[lang="CNzh"] #plate-modal input,
 option[value="CNzh"] {
     font-family: 'Splat-text', "HanyiZongyi";
 }
 
-body[lang="CNzh"] .tab,
-body[lang="CNzh"] .category-title,
-body[lang="CNzh"] .title-font,
-body[lang="CNzh"] .saved-tag {
+body[lang="CNzh"] #plate-modal .tab,
+body[lang="CNzh"] #plate-modal .category-title,
+body[lang="CNzh"] #plate-modal .title-font,
+body[lang="CNzh"] #plate-modal .saved-tag {
     font-family: 'Splat-title', "HuakangZongyi";
 }
 
-body[lang="TWzh"],
-body[lang="TWzh"] select,
-body[lang="TWzh"] input,
+body[lang="TWzh"] #plate-modal,
+body[lang="TWzh"] #plate-modal select,
+body[lang="TWzh"] #plate-modal input,
 option[value="TWzh"] {
     font-family: 'Splat-text', "DFPT_AZ5";
 }
 
-body[lang="TWzh"] .tab,
-body[lang="TWzh"] .category-title,
-body[lang="TWzh"] .title-font,
-body[lang="TWzh"] .saved-tag {
+body[lang="TWzh"] #plate-modal .tab,
+body[lang="TWzh"] #plate-modal .category-title,
+body[lang="TWzh"] #plate-modal .title-font,
+body[lang="TWzh"] #plate-modal .saved-tag {
     font-family: 'Splat-title', "DFPT_ZY9";
 }
 
-body,
-body .tab,
-body .category-title,
-body .title-font,
-body .saved-tag {
+body #plate-modal,
+body #plate-modal .tab,
+body #plate-modal .category-title,
+body #plate-modal .title-font,
+body #plate-modal .saved-tag {
     font-family: 'Splat-title', 'Splat-text', 'Rowdy', 'Kurokane', 'HanyiZongyi', 'HuakangZongyi', 'DFPT_AZ5', 'DFPT_ZY9', 'KCUBEr', 'KERINm', sans-serif;
 }
 
@@ -157,8 +157,8 @@ body .saved-tag {
     z-index: 3;
 }
 
-body {
-    font-family: 'Splat-title', 'KCUBEr', 'Splat-text', 'KERINm', 'Rowdy', 'Kurokane', 'HanyiZongyi', 'HuakangZongyi', 'DFPT_AZ5', 'DFPT_ZY9', sans-serif;
+body #plate-modal {
+    font-family: 'Splat-title', 'Splat-text', 'Rowdy', 'Kurokane', 'HanyiZongyi', 'HuakangZongyi', 'DFPT_AZ5', 'DFPT_ZY9', 'KERINm', 'KCUBEr', sans-serif;
 }
 
 

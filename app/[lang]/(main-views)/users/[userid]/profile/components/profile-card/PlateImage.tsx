@@ -71,7 +71,7 @@ export function PlateImage(props: PlateImageProps) {
 
   useEffect(() => {
     const timeout = setInterval(async () => {
-      const fontLoaded = await loadFonts();
+      const fontLoaded = await loadFonts(getPlateLang(lang));
       console.log("fontLoaded", fontLoaded);
 
       setFontLoaded(fontLoaded);
@@ -141,7 +141,12 @@ export function PlateModal(props: PlateModalProps) {
 
   return (
     <Transition show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
+      <Dialog
+        as="div"
+        id={"plate-modal"}
+        className="relative z-10"
+        onClose={() => setOpen(false)}
+      >
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"

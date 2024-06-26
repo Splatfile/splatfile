@@ -33,13 +33,13 @@ body[lang="KRko"],
 body[lang="KRko"] select,
 body[lang="KRko"] input,
 option[value="KRko"] {
-    font-family: 'Splat-text', 'KERINm', 'Kurokane';
+    font-family: 'Splat-text', 'Kurokane', 'KERINm';
 }
 
 body[lang="KRko"] .tab,
 body[lang="KRko"] .category-title,
 body[lang="KRko"] .title-font {
-    font-family: 'Splat-title', 'KCUBEr', 'Rowdy';
+    font-family: 'Splat-title', 'Rowdy', 'KCUBEr';
 }
 
 /* Japanese */
@@ -58,8 +58,8 @@ body[lang="KRko"] .title-font {
     font-weight: normal;
 }
 
-body {
-    font-family: 'Splat-text', 'KERINm', 'Splat-text', 'KCUBEr', 'Kurokane', 'Rowdy';
+body #plate-modal {
+    font-family: 'Splat-text', 'Splat-text', 'Kurokane', 'Rowdy', 'KERINm', 'KCUBEr',;
 }
 
 
