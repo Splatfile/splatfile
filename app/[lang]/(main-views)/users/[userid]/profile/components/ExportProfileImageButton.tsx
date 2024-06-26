@@ -1,7 +1,7 @@
 "use client";
 import { ProfileImage } from "@/app/konva/components/ProfileImage";
 import { DefaultModal } from "@/app/ui/components/DefaultModal";
-import { PhotoIcon } from "@heroicons/react/24/outline";
+import { PhotoIcon, CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useState } from "react";
 import { Profile } from "@/app/lib/locales/locale";
@@ -62,6 +62,25 @@ function ExportProfileImageModal({
     );
   };
 
+  const checklist = {
+    [locale.profile.ui_export_modal_checklist_nickname]: !!(
+      userStore.switchInfo?.name || userStore.twitterInfo?.name
+    ),
+    [locale.profile.ui_export_modal_checklist_profile_image]: !!profileImageUrl,
+    [locale.profile.ui_export_modal_checklist_used_weapons]:
+      gameStore.weaponGearInfo
+        ? Object.keys(gameStore.weaponGearInfo).length !== 0
+        : false,
+    [locale.profile.ui_export_modal_checklist_friend_code]:
+      !!userStore.switchInfo?.friendCode,
+    [locale.profile.ui_export_modal_checklist_playtime]: !!(
+      userStore.weekdayPlaytime || userStore.weekendPlaytime
+    ),
+    [locale.profile.ui_export_modal_checklist_additional_information]:
+      !!userStore.introductionMessage,
+  };
+  const isChecklistAllTrue = Object.values(checklist).every((value) => value);
+
   return (
     <DefaultModal
       open={open}
@@ -78,6 +97,30 @@ function ExportProfileImageModal({
           hidden={true}
           locale={locale}
         />
+        {!isChecklistAllTrue ? (
+          <>
+            <h3 className={"text-md font-semibold"}>
+              {locale.profile.ui_export_modal_checklist_title}
+            </h3>
+            <ul className="list-inside list-disc">
+              {Object.entries(checklist).map(([key, value]) => (
+                <li key={key} className="flex items-center">
+                  {value ? (
+                    <>
+                      <CheckIcon className="mr-2 h-5 w-5 text-green-500" />
+                      <span className="opacity-50">{key}</span>
+                    </>
+                  ) : (
+                    <>
+                      <XMarkIcon className="mr-2 h-5 w-5 text-red-500" />
+                      <span className="font-semibold">{key}</span>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : null}
         <button
           className={
             "rounded bg-blue-400 px-4 py-2 font-bold text-white hover:bg-blue-700"
