@@ -78,7 +78,8 @@
 }
 
 body, select, input {
-    font-family: 'Splat-text';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .tab, .category-title, .title-font, .saved-tag {
