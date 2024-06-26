@@ -158,7 +158,7 @@ async function renderUserInfo(
   }
 
   {
-    let playTimeText = "";
+    let playTimeText = locale.preview.playtime_title + ": -";
     if (userInfo.weekdayPlaytime || userInfo.weekendPlaytime) {
       playTimeText = locale.preview.playtime_title + ": ";
       if (userInfo.weekdayPlaytime) {
