@@ -13,10 +13,10 @@ export function InlineTextCard(props: InlineTextCardProps) {
   return (
     <div
       className={
-        "flex w-full items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md md:w-auto md:flex-col md:items-center md:justify-center md:px-4 md:py-12"
+        "relative flex w-full items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 pt-10 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md md:w-auto md:flex-col md:items-center md:justify-center md:px-4 md:py-12"
       }
     >
-      <h3 className={"break-normal text-lg font-bold md:text-xl"}>
+      <h3 className={"absolute top-2 left-4 break-normal text-lg font-bold md:text-xl"}>
         {props.title}
       </h3>
       <div className={"flex flex-col gap-1 font-semibold text-neutral-700"}>
@@ -38,11 +38,11 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
   return (
     <div
       className={
-        "flex w-full items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md md:w-auto md:flex-col md:items-center md:justify-center md:px-4 md:py-12"
+        "relative flex w-full items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 pt-10 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md md:w-auto md:flex-col md:items-center md:justify-center md:px-4"
       }
     >
       <div
-        className={clsx("flex items-center gap-2 md:flex-row", {
+        className={clsx("absolute top-2 left-4 flex items-center gap-2 md:flex-row", {
           "flex-col": props.edit,
           "flex-row": !props.edit,
         })}
