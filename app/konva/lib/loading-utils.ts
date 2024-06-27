@@ -5,29 +5,20 @@ export async function loadFont(
   fontFamily: string,
   text: string,
 ) {
-  const loadOneFont = (font: string, fontSize: number, text: string) => {
-    return new Promise((resolve, reject) => {
-      if (document.fonts.check(`${fontSize}px ${font}`, text)) {
-        resolve(true);
-      } else {
-        document.fonts
-          .load(`${fontSize}px ${font}`, text)
-          .then(() => {
-            resolve(true);
-          })
-          .catch((e) => {
-            reject(e);
-          });
-      }
-    });
-  };
-
-  await Promise.all(
-    fontFamily
-      .split(",")
-      .map((font) => font.trim())
-      .map((font) => loadOneFont(font, fontSize, text)),
-  );
+  await new Promise((resolve, reject) => {
+    if (document.fonts.check(`${fontSize}px ${fontFamily}`, text)) {
+      resolve(true);
+    } else {
+      document.fonts
+        .load(`${fontSize}px ${fontFamily}`, text)
+        .then(() => {
+          resolve(true);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    }
+  });
 
   await document.fonts.ready;
 }

@@ -155,9 +155,9 @@ const textFont = (lang: PlateLang) => {
 const titleFont = (lang: PlateLang) => {
   switch (lang) {
     case "KRko":
-      return `Splat-title, Rowdy,HuakangZongyi, DFPT_ZY9, KCUBEr`;
+      return `Splat-title, Rowdy, DFPT_ZY9, KCUBEr`;
     case "JPja":
-      return `Splat-title, Rowdy,HuakangZongyi, DFPT_ZY9, KCUBEr`;
+      return `Splat-title, Rowdy, DFPT_ZY9, KCUBEr`;
     default:
       return `Splat-title, KCUBEr, Rowdy, HuakangZongyi, DFPT_ZY9`;
   }

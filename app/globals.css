@@ -40,12 +40,14 @@
     font-weight: normal;
 }
 
+/*
+ttc files are not supported by all browsers
 @font-face {
     font-family: "HuakangZongyi";
     src: url("/assets/fonts/CNzh/huakang_xinzongyi.ttc");
     font-style: normal;
     font-weight: normal;
-}
+} */
 
 /* Korean */
 @font-face {
