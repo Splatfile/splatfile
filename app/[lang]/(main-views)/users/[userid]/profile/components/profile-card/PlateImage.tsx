@@ -91,7 +91,7 @@ export function PlateImage(props: PlateImageProps) {
       disabled={!isMine}
       onClick={() => setOpen(true)}
       className={clsx(
-        "relative aspect-[7/2] w-full max-w-full bg-gray-900",
+        "relative aspect-[7/2] w-full max-w-full rounded-md bg-gray-900 shadow-xl",
         isMine && "cursor-pointer hover:opacity-80",
       )}
     >
@@ -103,7 +103,7 @@ export function PlateImage(props: PlateImageProps) {
         setLanguage={setLanguage}
       />
       <canvas
-        className={"max-w-full"}
+        className={"max-w-full rounded-md border-2 border-gray-800"}
         style={{
           aspectRatio: `auto ${700} / ${200}`,
         }}

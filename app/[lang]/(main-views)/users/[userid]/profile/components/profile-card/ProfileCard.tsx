@@ -36,7 +36,9 @@ export function ProfileImage(props: ProfileImageProps) {
             height={960}
             src={profileImageUrl}
             alt="Profile Image"
-            className={"h-full w-full rounded-md object-cover border-2 border-gray-200"}
+            className={
+              "h-full w-full rounded-md border-2 border-gray-200 object-cover"
+            }
           />
         ) : (
           <div
@@ -47,7 +49,7 @@ export function ProfileImage(props: ProfileImageProps) {
         )}
         <div
           className={clsx(
-            "absolute inset-0 z-10 h-full w-full bg-black opacity-0 group-hover:flex rounded-md",
+            "absolute inset-0 z-10 h-full w-full rounded-md bg-black opacity-0 group-hover:flex",
             isMine ? "flex group-hover:opacity-50" : "hidden",
           )}
         >
