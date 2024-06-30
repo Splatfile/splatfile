@@ -3,7 +3,6 @@ main_first_section_title,스플래툰 프로필 관리 <br /> 스플랫파일,Ma
 main_first_section_description,"스플랫파일을 통해 손 쉽게 스플래툰 프로필을 관리해 보세요! <br /> 프로필 사진 설정 랭크 및 무기 정보 수정, 플레이트 꾸미기 등 다양한 기능을 제공합니다. 만드신 프로필은 이미지로 저장하여 공유하실 수 있습니다.","Easily manage your Splatoon profile with SplatFile! <br /> Set profile pictures, edit rank and weapon information, customize plates, and more. Save and share your created profiles as images.","スプラフィールで簡単にプロフィールを管理しましょう！ <br /> プロフィールにイメージ、ランクや武器情報の編集、プレートのカスタマイズなど、多彩な機能を提供します。作成したプロフィールはイメージでエクスポートして共有することができます。"
 main_first_section_button,시작하기,Get Started,始める
 ui_recent_users_title,최근 갱신 유저,Recent Updated Users,最近更新されたユーザー
-ingame_ui_information,인게임 정보,In-game Information,ゲーム
 ingame_ui_summary,종합,Summary,総合
 ingame_ui_select_weapon,무기 선택,Select Weapon,武器の選択
 ingame_ui_weapon,사용 무기,Used Weapons,使う武器
@@ -15,15 +14,14 @@ ingame_ui_game_play_style_hardcore,빡겜,Hardcore,ガチ
 ingame_ui_rule_preference,룰 별 선호도,Rule Preference,ルールの好き嫌い
 ingame_ui_x_match,X 매치,X Match,Xマッチ
 ingame_ui_salmon_run,연어런,Salmon Run,サーモンラン
-ingame_ui_account_information,계정 정보,Account Information,アカウント情報
 ingame_ui_open,오픈,Open,オープン
 ingame_ui_regular,레귤러,Regular,レギュラー
 ingame_ui_drop_ins,난입,Drop-ins,乱入
 ingame_ui_drop_ins_welcome,환영,Welcome,歓迎
+account_ui_empty_card_text,💤비어 있음💤,Empty,💤空っぽ💤
 account_ui_switch_nickname,스위치 닉네임,Switch Nickname,スイッチニックネーム
 account_ui_twitter_nickname,트위터 닉네임,Twitter Nickname,ツイッターニックネーム
 account_ui_twitter_handle,트위터 핸들,Twitter Handle,ツイッターニックネーム
-account_ui_information,유저 정보,User Information,ユーザー情報
 account_ui_friend_code,친구 코드,Friend Code,フレンドコード
 account_ui_weekday_playtime,"평일 접속 시간","Weekday Playtime","平日のプレイ時間"
 account_ui_weekend_playtime,주말 접속 시간,Weekend Playtime,週末のプレイ時間
@@ -36,6 +34,7 @@ account_ui_add_button,추가,Add,追加
 account_ui_friend_code_link,친구 코드 링크,Friend Code Link,フレンドコードのリンク
 account_ui_edit_playtime_description,00~23시 사이의 숫자를 입력해주세요.,Please enter a number between 00 and 23.,00から23の間の数字を入力してください。
 account_ui_additional_information,하고 싶은 말,Additional Information,追加情報
+profile_ui_empty_card_text,💤비어 있음💤,Empty,💤空っぽ💤
 profile_ui_upload_image_title,프로필 이미지 업로드,Upload Profile Image,プロフィール画像のアップロード
 profile_ui_image_upload_button,클릭해서 이미지 업로드,Click to Upload Image,クリックして画像をアップロード
 profile_ui_image_upload_cancel_button,취소,Cancel,キャンセル

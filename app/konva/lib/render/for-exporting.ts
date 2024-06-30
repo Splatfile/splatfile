@@ -28,8 +28,9 @@ async function renderProfileBase(
       // 브라우저가 캐싱을 하지 않도록, 이미지 URL에 timestamp를 추가합니다.
       // 캐싱이 되어 있으면, response 헤더를 확인할 수 없기 때문에
       // canvas가 CORS 정책을 위반한것으로 판단합니다.
-      profileImage:
-        userInfo.profileImageUrl + `?t=${new Date().getTime()}` || "",
+      profileImage: userInfo.profileImageUrl
+        ? userInfo.profileImageUrl + `?t=${new Date().getTime()}`
+        : "",
     },
     () => {
       layer.batchDraw();

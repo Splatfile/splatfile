@@ -52,6 +52,11 @@ export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
       edit={edit}
       setEdit={setEdit}
     >
+      {!friendCode && !qrCode && !edit && (
+        <p className={"text-center font-normal text-black opacity-40"}>
+          {account.ui_empty_card_text}
+        </p>
+      )}
       <EditableText
         ref={friendCodeRef}
         edit={edit}
@@ -68,6 +73,7 @@ export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
             friendLinkRef.current?.focus();
           }
         }}
+        emptytext={account.ui_empty_card_text}
       />
 
       <div className={clsx("flex", qrCode || "hidden")}>

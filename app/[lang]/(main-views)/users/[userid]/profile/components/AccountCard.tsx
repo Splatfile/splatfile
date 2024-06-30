@@ -15,10 +15,6 @@ export function AccountCard(props: AccountCardProps) {
   const { account } = props;
   return (
     <div>
-      <h2
-        className={"pb-2 pt-6 text-xl font-semibold"}
-        {...getHtml(account.ui_information)}
-      ></h2>
       <div className={"flex flex-col items-stretch "}>
         <div className={"p-4"}>
           <div

@@ -8,7 +8,6 @@
     "recent_users_title": "最近更新されたユーザー"
   },
   "ingame": {
-    "ui_information": "ゲーム",
     "ui_summary": "総合",
     "ui_select_weapon": "武器の選択",
     "ui_weapon": "使う武器",
@@ -20,17 +19,16 @@
     "ui_rule_preference": "ルールの好き嫌い",
     "ui_x_match": "Xマッチ",
     "ui_salmon_run": "サーモンラン",
-    "ui_account_information": "アカウント情報",
     "ui_open": "オープン",
     "ui_regular": "レギュラー",
     "ui_drop_ins": "乱入",
     "ui_drop_ins_welcome": "歓迎"
   },
   "account": {
+    "ui_empty_card_text": "💤空っぽ💤",
     "ui_switch_nickname": "スイッチニックネーム",
     "ui_twitter_nickname": "ツイッターニックネーム",
     "ui_twitter_handle": "ツイッターニックネーム",
-    "ui_information": "ユーザー情報",
     "ui_friend_code": "フレンドコード",
     "ui_weekday_playtime": "平日のプレイ時間",
     "ui_weekend_playtime": "週末のプレイ時間",
@@ -45,6 +43,7 @@
     "ui_additional_information": "追加情報"
   },
   "profile": {
+    "ui_empty_card_text": "💤空っぽ💤",
     "ui_upload_image_title": "プロフィール画像のアップロード",
     "ui_image_upload_button": "クリックして画像をアップロード",
     "ui_image_upload_cancel_button": "キャンセル",
