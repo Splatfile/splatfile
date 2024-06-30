@@ -17,12 +17,15 @@ export function TextCard(props: TextCardProps) {
   return (
     <div
       className={clsx(
-        "relative flex w-full flex-col items-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 pt-10 drop-shadow-sm md:w-auto md:items-center md:justify-center md:px-4 md:py-12",
+        "relative flex w-full flex-col items-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-5 pt-10 drop-shadow-sm md:w-auto md:items-center md:justify-center md:px-4 md:py-12",
         props.wrapperClassName,
       )}
     >
       <h3
-        className={clsx("absolute top-2 left-4 text-lg font-bold md:text-xl", props.titleClassName)}
+        className={clsx(
+          "absolute left-4 top-2 text-lg font-bold md:text-xl",
+          props.titleClassName,
+        )}
       >
         {props.title}
       </h3>
@@ -49,13 +52,13 @@ export function EditableTextCard(props: EditableTextCardProps) {
   return (
     <div
       className={clsx(
-        "relative flex w-full flex-col items-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-6 pt-10 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md md:w-auto md:items-center md:justify-center md:px-4 md:py-12",
+        "relative flex w-full flex-col items-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-5 pt-10 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md md:w-auto md:items-center md:justify-center md:px-4 md:py-12",
         props.wrapperClassName,
       )}
     >
       <div
         className={clsx(
-          "absolute top-2 left-4 flex w-full items-center gap-2 md:flex-row",
+          "absolute left-4 top-2 flex w-full items-center gap-2 md:flex-row",
           {
             "flex-col": props.edit,
             "flex-row": !props.edit,

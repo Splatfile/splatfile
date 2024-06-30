@@ -1,5 +1,6 @@
 import sanitizeHtml from "sanitize-html";
 import { DetailedHTMLProps, forwardRef, InputHTMLAttributes } from "react";
+import clsx from "clsx";
 
 type EditableTextProps = {
   edit: boolean;
@@ -7,6 +8,7 @@ type EditableTextProps = {
   onChange: (value: string) => void;
   textClassName?: string;
   inputClassName?: string;
+  emptytext?: string;
 } & Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
   "ref" | "className" | "value" | "onChange"
@@ -43,7 +45,20 @@ export const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
       );
     }
 
-    return <p className={textClassName}>{value}</p>;
+    if (value) {
+      return <p className={textClassName}>{value}</p>;
+    } else {
+      return (
+        <p
+          className={clsx(
+            textClassName,
+            "text-center font-normal text-black opacity-40",
+          )}
+        >
+          {props.emptytext ?? "-"}
+        </p>
+      );
+    }
   },
 );
 
@@ -80,16 +95,29 @@ export function EditableParagraph(props: EditableParagraphProps) {
     );
   }
 
-  return (
-    <p
-      className={textClassName}
-      dangerouslySetInnerHTML={{
-        __html: sanitizeHtml(value)
-          .replaceAll("\n", "<br>")
-          .replaceAll(" ", "&nbsp;"),
-      }}
-    />
-  );
+  if (value) {
+    return (
+      <p
+        className={textClassName}
+        dangerouslySetInnerHTML={{
+          __html: sanitizeHtml(value)
+            .replaceAll("\n", "<br>")
+            .replaceAll(" ", "&nbsp;"),
+        }}
+      />
+    );
+  } else {
+    return (
+      <p
+        className={clsx(
+          textClassName,
+          "text-center font-normal text-black opacity-40",
+        )}
+      >
+        {props.emptytext ?? "-"}
+      </p>
+    );
+  }
 }
 
 type EditableNumberProps = {

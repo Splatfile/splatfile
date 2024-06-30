@@ -39,6 +39,7 @@ export const GenderCard = (props: GenderCardProps) => {
             setEdit(false);
           }
         }}
+        emptytext={account.ui_empty_card_text}
       />
     </EditableInlineTextCard>
   );

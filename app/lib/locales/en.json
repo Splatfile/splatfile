@@ -8,7 +8,6 @@
     "recent_users_title": "Recent Updated Users"
   },
   "ingame": {
-    "ui_information": "In-game Information",
     "ui_summary": "Summary",
     "ui_select_weapon": "Select Weapon",
     "ui_weapon": "Used Weapons",
@@ -20,17 +19,16 @@
     "ui_rule_preference": "Rule Preference",
     "ui_x_match": "X Match",
     "ui_salmon_run": "Salmon Run",
-    "ui_account_information": "Account Information",
     "ui_open": "Open",
     "ui_regular": "Regular",
     "ui_drop_ins": "Drop-ins",
     "ui_drop_ins_welcome": "Welcome"
   },
   "account": {
+    "ui_empty_card_text": "Empty",
     "ui_switch_nickname": "Switch Nickname",
     "ui_twitter_nickname": "Twitter Nickname",
     "ui_twitter_handle": "Twitter Handle",
-    "ui_information": "User Information",
     "ui_friend_code": "Friend Code",
     "ui_weekday_playtime": "Weekday Playtime",
     "ui_weekend_playtime": "Weekend Playtime",
@@ -45,6 +43,7 @@
     "ui_additional_information": "Additional Information"
   },
   "profile": {
+    "ui_empty_card_text": "Empty",
     "ui_upload_image_title": "Upload Profile Image",
     "ui_image_upload_button": "Click to Upload Image",
     "ui_image_upload_cancel_button": "Cancel",

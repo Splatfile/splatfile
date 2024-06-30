@@ -8,7 +8,6 @@
     "recent_users_title": "최근 갱신 유저"
   },
   "ingame": {
-    "ui_information": "인게임 정보",
     "ui_summary": "종합",
     "ui_select_weapon": "무기 선택",
     "ui_weapon": "사용 무기",
@@ -20,17 +19,16 @@
     "ui_rule_preference": "룰 별 선호도",
     "ui_x_match": "X 매치",
     "ui_salmon_run": "연어런",
-    "ui_account_information": "계정 정보",
     "ui_open": "오픈",
     "ui_regular": "레귤러",
     "ui_drop_ins": "난입",
     "ui_drop_ins_welcome": "환영"
   },
   "account": {
+    "ui_empty_card_text": "💤비어 있음💤",
     "ui_switch_nickname": "스위치 닉네임",
     "ui_twitter_nickname": "트위터 닉네임",
     "ui_twitter_handle": "트위터 핸들",
-    "ui_information": "유저 정보",
     "ui_friend_code": "친구 코드",
     "ui_weekday_playtime": "평일 접속 시간",
     "ui_weekend_playtime": "주말 접속 시간",
@@ -45,6 +43,7 @@
     "ui_additional_information": "하고 싶은 말"
   },
   "profile": {
+    "ui_empty_card_text": "💤비어 있음💤",
     "ui_upload_image_title": "프로필 이미지 업로드",
     "ui_image_upload_button": "클릭해서 이미지 업로드",
     "ui_image_upload_cancel_button": "취소",

@@ -40,6 +40,7 @@ export function IntroductionCard(props: AboutMeProps) {
         value={message ?? ""}
         cols={80}
         rows={20}
+        emptytext={account.ui_empty_card_text}
       />
     </EditableTextCard>
   );

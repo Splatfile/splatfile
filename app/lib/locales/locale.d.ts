@@ -23,10 +23,10 @@ export interface Empty {
 }
 
 export interface Account {
+    ui_empty_card_text:           string;
     ui_switch_nickname:           string;
     ui_twitter_nickname:          string;
     ui_twitter_handle:            string;
-    ui_information:               string;
     ui_friend_code:               string;
     ui_weekday_playtime:          string;
     ui_weekend_playtime:          string;
@@ -50,7 +50,6 @@ export interface Header {
 }
 
 export interface Ingame {
-    ui_information:              string;
     ui_summary:                  string;
     ui_select_weapon:            string;
     ui_weapon:                   string;
@@ -62,7 +61,6 @@ export interface Ingame {
     ui_rule_preference:          string;
     ui_x_match:                  string;
     ui_salmon_run:               string;
-    ui_account_information:      string;
     ui_open:                     string;
     ui_regular:                  string;
     ui_drop_ins:                 string;
@@ -85,6 +83,7 @@ export interface Preview {
 }
 
 export interface Profile {
+    ui_empty_card_text:                                     string;
     ui_upload_image_title:                                  string;
     ui_image_upload_button:                                 string;
     ui_image_upload_cancel_button:                          string;
@@ -295,10 +294,10 @@ const typeMap: any = {
         { json: "", js: "", typ: "" },
     ], false),
     "Account": o([
+        { json: "ui_empty_card_text", js: "ui_empty_card_text", typ: "" },
         { json: "ui_switch_nickname", js: "ui_switch_nickname", typ: "" },
         { json: "ui_twitter_nickname", js: "ui_twitter_nickname", typ: "" },
         { json: "ui_twitter_handle", js: "ui_twitter_handle", typ: "" },
-        { json: "ui_information", js: "ui_information", typ: "" },
         { json: "ui_friend_code", js: "ui_friend_code", typ: "" },
         { json: "ui_weekday_playtime", js: "ui_weekday_playtime", typ: "" },
         { json: "ui_weekend_playtime", js: "ui_weekend_playtime", typ: "" },
@@ -320,7 +319,6 @@ const typeMap: any = {
         { json: "ui_language_setting", js: "ui_language_setting", typ: "" },
     ], false),
     "Ingame": o([
-        { json: "ui_information", js: "ui_information", typ: "" },
         { json: "ui_summary", js: "ui_summary", typ: "" },
         { json: "ui_select_weapon", js: "ui_select_weapon", typ: "" },
         { json: "ui_weapon", js: "ui_weapon", typ: "" },
@@ -332,7 +330,6 @@ const typeMap: any = {
         { json: "ui_rule_preference", js: "ui_rule_preference", typ: "" },
         { json: "ui_x_match", js: "ui_x_match", typ: "" },
         { json: "ui_salmon_run", js: "ui_salmon_run", typ: "" },
-        { json: "ui_account_information", js: "ui_account_information", typ: "" },
         { json: "ui_open", js: "ui_open", typ: "" },
         { json: "ui_regular", js: "ui_regular", typ: "" },
         { json: "ui_drop_ins", js: "ui_drop_ins", typ: "" },
@@ -352,6 +349,7 @@ const typeMap: any = {
         { json: "friend_code", js: "friend_code", typ: "" },
     ], false),
     "Profile": o([
+        { json: "ui_empty_card_text", js: "ui_empty_card_text", typ: "" },
         { json: "ui_upload_image_title", js: "ui_upload_image_title", typ: "" },
         { json: "ui_image_upload_button", js: "ui_image_upload_button", typ: "" },
         { json: "ui_image_upload_cancel_button", js: "ui_image_upload_cancel_button", typ: "" },

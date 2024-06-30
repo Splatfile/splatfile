@@ -40,6 +40,7 @@ export async function loadImages<T extends string>(
           resolve(null);
         };
         image.onerror = (e) => {
+          console.log(e);
           resolve(e);
         };
         image.src = src;
