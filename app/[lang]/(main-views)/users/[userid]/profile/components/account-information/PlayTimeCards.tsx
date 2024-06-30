@@ -71,15 +71,17 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
           account={account}
         />
       ) : !!playtime?.start && !!playtime?.end ? (
-        <p className={"text-md text-neutral-500 md:w-72 md:text-center"}>
+        <p className={"text-md pt-4 text-neutral-500 md:w-72 md:text-center"}>
           {formattedStart} - {formattedEnd}
         </p>
       ) : (
         <p
           className={
-            "text-md text-neutral-500 opacity-75 md:w-72 md:text-center"
+            "text-md pt-4 text-black opacity-40 md:w-72 md:text-center"
           }
-        ></p>
+        >
+          {account.ui_empty_card_text}
+        </p>
       )}
     </EditableTextCard>
   );
