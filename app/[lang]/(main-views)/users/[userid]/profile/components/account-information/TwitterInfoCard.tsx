@@ -55,6 +55,7 @@ export const TwitterInfoCard = (props: TwitterInfoCardProps) => {
             handleRef.current?.focus();
           }
         }}
+        emptytext={account.ui_empty_card_text}
       />
 
       {edit ? (
