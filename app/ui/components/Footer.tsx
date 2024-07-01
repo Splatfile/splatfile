@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
   return (
     <footer className="bottom-0 left-0 w-full bg-gray-800 py-4 text-center text-white">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col items-center justify-between sm:flex-row">
           <div className={"flex items-center gap-2"}>
             <a
               target={"_blank"}

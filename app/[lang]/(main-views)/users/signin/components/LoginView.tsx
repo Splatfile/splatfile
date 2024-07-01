@@ -35,13 +35,13 @@ export function LoginView(props: LoginViewProps) {
 
   useEffect(() => {
     if (user) {
-      router.replace(profileUrl(user.id));
+      router.push(profileUrl(user.id));
     }
   }, [router, user]);
 
   return (
-    <div className={"flex w-full justify-center"}>
-      <div className={"w-80"}>
+    <div className={"flex w-screen justify-center sm:w-full"}>
+      <div className={"w-full px-4 sm:w-96"}>
         <Auth
           localization={{
             variables: getLocalization(lang),

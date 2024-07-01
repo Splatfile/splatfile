@@ -34,7 +34,7 @@ export function ProfileWrapper(props: ProfileWrapperProps) {
       <div>
         <div
           className={
-            "flex flex-col justify-center gap-2 px-2 py-12 lg:px-8 xl:px-24"
+            "flex flex-col justify-center gap-2 px-2 py-4 lg:px-8 xl:px-24"
           }
         >
           {/* 계정 정보*/}

@@ -4,10 +4,8 @@ import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
 
 export default async function Page(props: PageProps) {
   return (
-    <div>
-      <UserContextWrapper>
-        <LoginView lang={props.params.lang} />
-      </UserContextWrapper>
-    </div>
+    <UserContextWrapper>
+      <LoginView lang={props.params.lang} />
+    </UserContextWrapper>
   );
 }

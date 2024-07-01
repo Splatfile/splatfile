@@ -17,7 +17,7 @@ export function GameCard(props: GameCardProps) {
   const { ingame, lang } = props;
   return (
     <div
-      className={"flex w-full flex-col justify-center gap-2 py-6 pl-4 lg:px-8"}
+      className={"flex w-full flex-col justify-center gap-2 px-2 py-6 lg:px-8"}
     >
       <div
         className={

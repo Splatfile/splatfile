@@ -5,7 +5,6 @@ import { SwitchCodeCard } from "@/app/[lang]/(main-views)/users/[userid]/profile
 import { PlaytimeCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/account-information/PlayTimeCards";
 import { IntroductionCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/account-information/IntroductionCard";
 import { Account } from "@/app/lib/locales/locale";
-import { getHtml } from "@/app/lib/dictionaries";
 
 type AccountCardProps = {
   account: Account;
@@ -16,7 +15,7 @@ export function AccountCard(props: AccountCardProps) {
   return (
     <div>
       <div className={"flex flex-col items-stretch "}>
-        <div className={"p-4"}>
+        <div className={"sm:p-4"}>
           <div
             className={
               "bottom-auto mx-auto grid grid-flow-dense grid-cols-1 content-around justify-center gap-6 sm:grid-cols-2 md:grid-cols-4"
@@ -36,7 +35,7 @@ export function AccountCard(props: AccountCardProps) {
             <PlaytimeCard account={account} timeType={"weekendPlaytime"} />
           </div>
         </div>
-        <div className={"mx-2 p-2"}>
+        <div className={"mt-4 sm:mx-2 sm:mt-0 sm:p-2"}>
           <IntroductionCard account={account} />
         </div>
       </div>
