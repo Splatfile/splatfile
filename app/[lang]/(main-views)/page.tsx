@@ -40,7 +40,7 @@ export default async function Page(props: PageProps) {
         </div>
         <div className="mx-auto mt-16 flex max-w-2xl animate-slide-left-full sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
           <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-            <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:my-auto lg:rounded-2xl lg:p-4">
+            <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:my-auto lg:mt-8 lg:rounded-2xl lg:p-4">
               <Image
                 src="/samples/hero_main.png"
                 alt="Splatfile screenshot"
