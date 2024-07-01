@@ -101,12 +101,6 @@ const createSupabaseClient = (context: ContextType) => {
   throw new Error("Invalid contextType");
 };
 
-interface GetProfile {
-  (userId: string): Promise<Profile>;
-  (userId: string, ignoreNotFound: true): Promise<Profile>;
-  (userId: string, ignoreNotFound?: boolean): Promise<Profile | null>;
-}
-
 export class SplatfileClient {
   protected _supabase: SupabaseClient<Database>;
 

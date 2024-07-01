@@ -1,6 +1,7 @@
 import { notoSansKR } from "@/app/fonts";
 import "@/app/globals.css";
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {};
 
@@ -76,6 +77,19 @@ export default function RootLayout({
           as="font"
           type="font/ttc"
         />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-DSG2NFQFWQ"
+        ></Script>
+        <Script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-DSG2NFQFWQ');
+          `}
+        </Script>
       </head>
       <body
         className={notoSansKR.className}
