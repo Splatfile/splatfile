@@ -56,7 +56,7 @@ const XMatchCardView = (props: XMatchCardViewProps) => {
   return (
     <div className={"grid grid-cols-2 gap-4 md:mt-2"}>
       {area && (
-        <div className={"flex w-full gap-2"}>
+        <div className={"flex w-full items-center gap-2"}>
           <Image
             width={24}
             height={24}
@@ -67,7 +67,7 @@ const XMatchCardView = (props: XMatchCardViewProps) => {
         </div>
       )}
       {clam && (
-        <div className={"flex gap-2"}>
+        <div className={"flex items-center gap-2"}>
           <Image
             width={24}
             height={24}
@@ -78,7 +78,7 @@ const XMatchCardView = (props: XMatchCardViewProps) => {
         </div>
       )}
       {fish && (
-        <div className={"flex gap-2"}>
+        <div className={"flex items-center gap-2"}>
           <Image
             width={24}
             height={24}
@@ -89,7 +89,7 @@ const XMatchCardView = (props: XMatchCardViewProps) => {
         </div>
       )}
       {tower && (
-        <div className={"flex gap-2"}>
+        <div className={"flex items-center gap-2"}>
           <Image
             width={24}
             height={24}
