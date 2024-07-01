@@ -183,6 +183,16 @@ export class SplatfileClient {
   };
 
   getProfile = async (userId: string) => {
+    const data = await this.getProfileWithoutNotFound(userId);
+
+    if (!data) {
+      notFound();
+    }
+
+    return data;
+  };
+
+  getProfileWithoutNotFound = async (userId: string) => {
     const { data, error } = await this._supabase
       .from("profiles")
       .select("*")
@@ -191,7 +201,7 @@ export class SplatfileClient {
 
     if (!data || error) {
       console.error("Profile not found", userId, data, error);
-      notFound();
+      return null;
     }
 
     return data;

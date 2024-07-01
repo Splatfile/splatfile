@@ -4,6 +4,12 @@
     "first_section_description": "スプラフィールで簡単にプロフィールを管理しましょう！ <br /> プロフィールにイメージ、ランクや使う武器の情報、プレートのカスタマイズなど、いろんな機能を提供します。作成したプロフィールはイメージでエクスポートして共有することもできます。",
     "first_section_button": "始める"
   },
+  "og": {
+    "default_title": " #Splatfile - スプラトゥーン プロフィール管理",
+    "default_description": "スプラトゥーンのプロフィールを簡単に管理して共有しましょう！",
+    "profile_title": " #Splatfile - {{name}}のスプラトゥーンプロフィール",
+    "profile_description": "{{name}}のプロフィールを確認してください！"
+  },
   "ui": {
     "recent_users_title": "最近更新されたユーザー"
   },

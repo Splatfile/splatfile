@@ -4,6 +4,12 @@
     "first_section_description": "Easily manage your Splatoon profile with SplatFile! <br /> Set profile pictures, edit rank and weapon information, customize plates, and more. Save and share your created profiles as images.",
     "first_section_button": "Get Started"
   },
+  "og": {
+    "default_title": " #Splatfile - Manage Splatoon Profiles",
+    "default_description": "Easily manage and share your Splatoon profiles!",
+    "profile_title": " #Splatfile - {{name}}'s Splatoon Profile",
+    "profile_description": "Check out {{name}}'s Splatoon profile!"
+  },
   "ui": {
     "recent_users_title": "Recent Updated Users"
   },
