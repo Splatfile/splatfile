@@ -4,6 +4,12 @@
     "first_section_description": "main_first_section_description",
     "first_section_button": "main_first_section_button"
   },
+  "og": {
+    "default_title": "og_default_title",
+    "default_description": "og_default_description",
+    "profile_title": "og_profile_title",
+    "profile_description": "og_profile_description"
+  },
   "ui": {
     "recent_users_title": "ui_recent_users_title"
   },

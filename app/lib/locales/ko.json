@@ -4,6 +4,12 @@
     "first_section_description": "스플랫파일을 통해 손 쉽게 스플래툰 프로필을 관리해 보세요! <br /> 프로필 사진 설정 랭크 및 무기 정보 수정, 플레이트 꾸미기 등 다양한 기능을 제공합니다. 만드신 프로필은 이미지로 저장하여 공유하실 수 있습니다.",
     "first_section_button": "시작하기"
   },
+  "og": {
+    "default_title": " #Splatfile - 스플래툰 프로필 관리",
+    "default_description": "스플래툰 프로필을 손쉽게 관리하고 공유하세요!",
+    "profile_title": " #Splatfile - {{name}}의 스플래툰 프로필",
+    "profile_description": "{{name}}의 스플래툰 프로필을 확인해보세요!"
+  },
   "ui": {
     "recent_users_title": "최근 갱신 유저"
   },

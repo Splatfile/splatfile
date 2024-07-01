@@ -9,6 +9,7 @@
 
 export interface Locale {
     main:    Main;
+    og:      Og;
     ui:      UI;
     ingame:  Ingame;
     account: Account;
@@ -76,6 +77,13 @@ export interface Main {
     first_section_title:       string;
     first_section_description: string;
     first_section_button:      string;
+}
+
+export interface Og {
+    default_title:       string;
+    default_description: string;
+    profile_title:       string;
+    profile_description: string;
 }
 
 export interface Preview {
@@ -287,6 +295,7 @@ function r(name: string) {
 const typeMap: any = {
     "Locale": o([
         { json: "main", js: "main", typ: r("Main") },
+        { json: "og", js: "og", typ: r("Og") },
         { json: "ui", js: "ui", typ: r("UI") },
         { json: "ingame", js: "ingame", typ: r("Ingame") },
         { json: "account", js: "account", typ: r("Account") },
@@ -348,6 +357,12 @@ const typeMap: any = {
         { json: "first_section_title", js: "first_section_title", typ: "" },
         { json: "first_section_description", js: "first_section_description", typ: "" },
         { json: "first_section_button", js: "first_section_button", typ: "" },
+    ], false),
+    "Og": o([
+        { json: "default_title", js: "default_title", typ: "" },
+        { json: "default_description", js: "default_description", typ: "" },
+        { json: "profile_title", js: "profile_title", typ: "" },
+        { json: "profile_description", js: "profile_description", typ: "" },
     ], false),
     "Preview": o([
         { json: "playtime_title", js: "playtime_title", typ: "" },

@@ -11,6 +11,7 @@ import { CanvasInfoObject, UserInfoObject } from "@/app/lib/schemas/profile";
 import { getDictionary } from "@/app/lib/dictionaries";
 import { PageProps } from "@/app/lib/types/component-props";
 import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
+import { getLocaleByLang } from "@/app/lib/server/locale";
 
 type ProfilePage = PageProps & {
   params: {
@@ -24,7 +25,16 @@ export const generateMetadata = async (
   props: ProfilePage,
 ): Promise<Metadata> => {
   const admin = new SplatfileAdmin(SERVER_COMPONENT);
-  const profile = await admin.getProfile(props.params.userid);
+  const profile = await admin.getProfileWithoutNotFound(props.params.userid);
+  const locale = getLocaleByLang(props.params.lang);
+
+  if (!profile) {
+    return {
+      title: locale.og.default_title,
+      description: locale.og.default_description,
+    };
+  }
+
   let name = "";
   const parsedUserInfo = UserInfoObject.safeParse(profile.user_info);
   if (parsedUserInfo.success) {
@@ -42,15 +52,15 @@ export const generateMetadata = async (
   }
 
   return {
-    title: name + "의 프로필",
-    description: name + "의 스플래툰 프로필. 스플랫파일",
+    title: locale.og.profile_title.replace("{{name}}", name),
+    description: locale.og.profile_description.replace("{{name}}", name),
     openGraph: {
       images: [
         {
           url: (ogImageUrl || "") as string,
-          width: 700,
-          height: 200,
-          alt: "초코야 플레이트!",
+          width: 600,
+          height: 315,
+          alt: "splatfile preview image",
         },
       ],
     },

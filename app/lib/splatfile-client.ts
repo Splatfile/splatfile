@@ -101,6 +101,12 @@ const createSupabaseClient = (context: ContextType) => {
   throw new Error("Invalid contextType");
 };
 
+interface GetProfile {
+  (userId: string): Promise<Profile>;
+  (userId: string, ignoreNotFound: true): Promise<Profile>;
+  (userId: string, ignoreNotFound?: boolean): Promise<Profile | null>;
+}
+
 export class SplatfileClient {
   protected _supabase: SupabaseClient<Database>;
 
@@ -183,6 +189,16 @@ export class SplatfileClient {
   };
 
   getProfile = async (userId: string) => {
+    const data = await this.getProfileWithoutNotFound(userId);
+
+    if (!data) {
+      notFound();
+    }
+
+    return data;
+  };
+
+  getProfileWithoutNotFound = async (userId: string) => {
     const { data, error } = await this._supabase
       .from("profiles")
       .select("*")
@@ -191,7 +207,7 @@ export class SplatfileClient {
 
     if (!data || error) {
       console.error("Profile not found", userId, data, error);
-      notFound();
+      return null;
     }
 
     return data;
