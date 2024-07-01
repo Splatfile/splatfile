@@ -292,7 +292,7 @@ function RuleFavorSelect({ rule }: RuleFavorSelectProps) {
 
 const getRuleFavorEmoji = (favor: z.infer<typeof RuleFavorEnum>) => {
   return favor === "love"
-    ? "❤️"
+    ? "🥰"
     : favor === "like"
       ? "🙂"
       : favor === "normal"
@@ -301,7 +301,7 @@ const getRuleFavorEmoji = (favor: z.infer<typeof RuleFavorEnum>) => {
           ? "🙁"
           : favor === "hate"
             ? "😡"
-            : "❤️";
+            : "🥰";
 };
 
 const getDropIn = (ingame: Ingame, dropIn?: boolean) => {
