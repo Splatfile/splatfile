@@ -71,6 +71,7 @@ export const LevelText = ({ edit }: LevelTextProps) => {
 
     setLevel(uiLevel);
   }, [uiLevel]);
+
   if (!level && !edit) return <></>;
 
   const onChangeLevel = (value: string) => {
@@ -102,7 +103,7 @@ export const LevelText = ({ edit }: LevelTextProps) => {
           "w-16 sm:w-32 underline underline-offset-2 outline-none"
         }
         edit={edit}
-        value={uiLevel ?? 0}
+        value={uiLevel || level || 0}
         onChange={onChangeLevel}
       />
     </div>
