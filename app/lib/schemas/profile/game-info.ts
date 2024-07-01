@@ -145,7 +145,7 @@ export const WeaponGearInfoObject = z
 
 export const GameInfoObject = z.object({
   serverRegion: z.string().optional(),
-  level: z.number().optional(),
+  level: z.number().optional().nullable(),
   anarchyBattleRank: AnarchyBattleRankObject,
   salmonRunRank: z
     .object({

@@ -47,11 +47,7 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
             {account.ui_empty_card_text}
           </p>
         )}
-        <div
-          className={clsx("mt-2 flex items-center gap-2", {
-            hidden: !switchInfo?.name && !edit,
-          })}
-        >
+        <div className={clsx("mt-2 flex items-center gap-2")}>
           <div className={"h-6 w-6 text-[#d42d22]"}>
             <NintendoSwitchLogo className={"h-6 w-6"} />
           </div>
