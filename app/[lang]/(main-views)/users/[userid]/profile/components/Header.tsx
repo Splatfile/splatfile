@@ -183,6 +183,8 @@ export const SignInButton = (props: SignInButtonProps) => {
     <Link
       key={header.ui_login}
       href={signinUrl}
+      onClick={onClick}
+      prefetch={false}
       className="-mx-3 block cursor-pointer rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
     >
       <span>{header.ui_login}</span>
