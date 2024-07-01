@@ -80,7 +80,7 @@ export const LevelText = ({ edit }: LevelTextProps) => {
       <EditableNumber
         inputClassName={"w-32 underline underline-offset-2 outline-none"}
         edit={edit}
-        value={level ?? 1}
+        value={level ?? 0}
         onChange={onChangeLevel}
       />
     </div>
@@ -141,6 +141,7 @@ export const RankText = (props: RankTextProps) => {
               min={0}
               max={50}
               defaultValue={0}
+              value={anarchyBattleRank?.point}
             />
           )}
         </div>
