@@ -1,7 +1,7 @@
 {
   "main": {
-    "first_section_title": "スプラトゥーンプロフィールの管理 <br /> スプラフィール",
-    "first_section_description": "スプラフィールで簡単にプロフィールを管理しましょう！ <br /> プロフィールにイメージ、ランクや武器情報の編集、プレートのカスタマイズなど、多彩な機能を提供します。作成したプロフィールはイメージでエクスポートして共有することができます。",
+    "first_section_title": "スプラトゥーン <br/> プロフィール <br /> スプラフィール",
+    "first_section_description": "スプラフィールで簡単にプロフィールを管理しましょう！ <br /> プロフィールにイメージ、ランクや使う武器の情報、プレートのカスタマイズなど、いろんな機能を提供します。作成したプロフィールはイメージでエクスポートして共有することもできます。",
     "first_section_button": "始める"
   },
   "ui": {
@@ -14,8 +14,8 @@
     "ui_play_style": "プレイスタイル",
     "ui_game_type": "ゲームタイプ別",
     "ui_game_play_style_newbie": "ニュービー",
-    "ui_game_play_style_casual": "カジュアル",
-    "ui_game_play_style_hardcore": "ガチ",
+    "ui_game_play_style_casual": "カジュアルで",
+    "ui_game_play_style_hardcore": "ガチで",
     "ui_rule_preference": "ルールの好き嫌い",
     "ui_x_match": "Xマッチ",
     "ui_salmon_run": "サーモンラン",

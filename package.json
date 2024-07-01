@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "PORT=3101 next dev",
     "start:local": "PORT=3101 next start",
-    "gen:locale": "tsc scripts/locales/generate-locale.ts --outFile scripts/locales/generate-locale.js && node scripts/locales/generate-locale.js && cp -r scripts/locales/dist/* app/lib/locales",
+    "gen:locale": "tsc scripts/locales/generate-locale.ts --outFile scripts/locales/generate-locale.js && node scripts/locales/generate-locale.js && cp -r scripts/locales/dist/* app/lib/locales && rm -rf scripts/locales/dist && rm scripts/locales/generate-locale.js",
     "get:plates": "node scripts/getPlateData/get-plate-data.js",
     "build": "next build",
     "start": "next start",
