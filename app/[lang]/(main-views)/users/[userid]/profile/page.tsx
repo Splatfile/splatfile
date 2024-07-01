@@ -98,7 +98,7 @@ export default async function ProfilePage(props: ProfilePage) {
       <StoreSetting
         profile={profile}
         userId={props.params.userid}
-        isMine={true}
+        isMine={false}
       />
       <ProfileWrapper
         lang={props.params.lang}
