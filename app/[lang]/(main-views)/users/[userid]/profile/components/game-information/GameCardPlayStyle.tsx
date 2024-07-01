@@ -143,19 +143,21 @@ function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
             <h3 className={"text-center text-lg text-neutral-800"}>
               {ingame.ui_drop_ins}
             </h3>
-            <div className={"flex justify-center"}>
+            <div className={"flex justify-center text-neutral-400"}>
               <p>{getDropIn(ingame, usePlayStyle()?.dropIn)}</p>
             </div>
           </div>
         </div>
       </div>
+      {/* divider */}
+      <div className={"h-auto w-1 border-r border-gray-200"} />
       <div>
         <h3 className={"mb-4 text-center font-semibold text-gray-600"}>
           {ingame.ui_rule_preference}
         </h3>
         <div
           className={
-            "grid grid-cols-2 items-center gap-x-4 gap-y-2 sm:gap-y-1 md:grid-cols-3"
+            "grid grid-cols-2 items-center gap-x-2 gap-y-2 sm:gap-y-1 md:grid-cols-3"
           }
         >
           {ruleFavorRules.map((rule, i) => {
@@ -231,7 +233,9 @@ function PlayStyleItem({ playKey, ingame }: PlayStyleItemProps) {
   const playStyle = usePlayStyle();
   return (
     <div
-      className={"flex w-full items-center justify-center gap-0.5 text-center"}
+      className={
+        "flex w-full items-center justify-center gap-0.5 text-center text-neutral-400"
+      }
     >
       <p className={"w-full"}>{getPlayStyle(playStyle?.[playKey], ingame)}</p>
     </div>
@@ -247,7 +251,11 @@ function RuleFavorItem({
   const favor = ruleFavor?.[rule];
 
   return (
-    <div className={"flex w-full items-center justify-center gap-0.5"}>
+    <div
+      className={
+        "flex w-full items-center justify-center gap-0.5 rounded-xl bg-gray-200 px-1"
+      }
+    >
       <div className={"h-6 w-6"}>
         <Image
           width={24}
