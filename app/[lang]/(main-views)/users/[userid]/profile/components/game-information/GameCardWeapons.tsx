@@ -97,12 +97,11 @@ export function WeaponRendererForSelectModal({
   weaponKey,
 }: WeaponRendererProps) {
   const weaponGearInfo = useWeaponGearInfo();
-  const [open, setOpen] = useState(false);
 
   return (
     <div
       className={clsx(
-        "h-16 w-16 cursor-pointer rounded-full object-fill outline outline-gray-300 hover:outline-gray-500",
+        "h-12 w-12 cursor-pointer rounded-full object-fill outline outline-gray-300 hover:outline-gray-500 sm:h-16 sm:w-16",
         weaponGearInfo?.[weaponKey]?.isActivated ? "opacity-100" : "opacity-65",
       )}
     >
@@ -207,11 +206,11 @@ function WeaponEditModal(props: WeaponEditModalProps) {
       open={props.open}
       onClose={props.onClose}
     >
-      <div className={"relative h-[80vh] max-h-max overflow-scroll"}>
+      <div className={"relative h-[80vh] max-h-max overflow-y-scroll"}>
         {weapons.map((line: string[], i) => (
           <div
             key={i}
-            className={"flex items-center justify-center gap-4 py-2"}
+            className={"flex items-center justify-center gap-3 py-2 sm:gap-4"}
           >
             {line.map((w) => (
               <button

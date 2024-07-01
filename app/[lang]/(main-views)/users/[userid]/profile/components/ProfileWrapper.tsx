@@ -16,7 +16,9 @@ export function ProfileWrapper(props: ProfileWrapperProps) {
   console.log("ProfileWrapper Render");
 
   return (
-    <div className={"flex flex-col items-stretch"}>
+    <div
+      className={"flex flex-col items-stretch overflow-hidden sm:overflow-auto"}
+    >
       <div className={"flex h-full flex-col md:flex-row md:items-stretch"}>
         {/* 유저 사진 및 프로필 */}
         <div
