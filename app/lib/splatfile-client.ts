@@ -238,7 +238,7 @@ export class SplatfileClient {
     const profileUpdatedAt = new Date(profile.updated_at ?? "").getTime();
     const gap = existUpdatedAt - profileUpdatedAt;
 
-    if (gap > -60000) {
+    if (gap < -60000) {
       throw new Error("Profile is outdated");
     }
 

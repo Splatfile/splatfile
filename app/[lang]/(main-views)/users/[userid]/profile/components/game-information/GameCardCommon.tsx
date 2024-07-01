@@ -24,6 +24,7 @@ import {
 } from "@/app/lib/constants/image-urls";
 import { Ingame } from "@/app/lib/locales/locale";
 import { Lang } from "@/app/lib/types/component-props";
+import clsx from "clsx";
 
 type GameCardCommonProps = {
   lang: Lang;
@@ -36,9 +37,9 @@ export function GameCardCommon(props: GameCardCommonProps) {
 
   return (
     <EditableInlineTextCard
-      childrenClassName={
-        "!flex-row sm:!flex-col !justify-between !gap-6 sm:!gap-2"
-      }
+      childrenClassName={clsx(
+        edit || "!flex-row sm:!flex-col !justify-between !gap-5 sm:!gap-2",
+      )}
       title={ingame.ui_summary}
       edit={edit}
       setEdit={setEdit}
@@ -81,7 +82,9 @@ export const LevelText = ({ edit }: LevelTextProps) => {
         />
       </div>
       <EditableNumber
-        inputClassName={"w-32 underline underline-offset-2 outline-none"}
+        inputClassName={
+          "w-16 sm:w-32 underline underline-offset-2 outline-none"
+        }
         edit={edit}
         value={level ?? 0}
         onChange={onChangeLevel}

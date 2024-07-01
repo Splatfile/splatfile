@@ -87,7 +87,7 @@ export default function RootLayout({
       >
         <div
           className={
-            "min-w-screen min-h-screen bg-black/50 backdrop-blur md:text-lg"
+            "min-w-screen min-h-screen max-w-full bg-black/50 backdrop-blur md:text-lg"
           }
         >
           {children}

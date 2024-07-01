@@ -42,11 +42,6 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
       setEdit={setEdit}
     >
       <div className={"flex flex-col gap-2"}>
-        {!switchInfo?.name && !switchInfo?.inGameName && !edit && (
-          <p className={"text-center font-normal text-black opacity-40"}>
-            {account.ui_empty_card_text}
-          </p>
-        )}
         <div className={clsx("mt-2 flex items-center gap-2")}>
           <div className={"h-6 w-6 text-[#d42d22]"}>
             <NintendoSwitchLogo className={"h-6 w-6"} />
