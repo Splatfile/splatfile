@@ -4,13 +4,13 @@ import {
   SplatfileServer,
 } from "@/app/lib/server/splatfile-server";
 import { ProfileWrapper } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileWrapper";
-import { unstable_noStore } from "next/cache";
 import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting";
 import { DebounceEditing } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/DebounceEditing";
 import type { Metadata } from "next";
 import { CanvasInfoObject, UserInfoObject } from "@/app/lib/schemas/profile";
 import { getDictionary } from "@/app/lib/dictionaries";
 import { PageProps } from "@/app/lib/types/component-props";
+import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
 
 type ProfilePage = PageProps & {
   params: {
@@ -18,8 +18,7 @@ type ProfilePage = PageProps & {
   };
 };
 
-// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const generateMetadata = async (
   props: ProfilePage,
@@ -59,8 +58,7 @@ export const generateMetadata = async (
 };
 
 export default async function ProfilePage(props: ProfilePage) {
-  unstable_noStore();
-
+  console.log("User Profile");
   const client = new SplatfileServer(SERVER_COMPONENT);
   const user = await client.supabase.auth.getUser();
   const dictionary = await getDictionary(props.params.lang);
@@ -69,16 +67,19 @@ export default async function ProfilePage(props: ProfilePage) {
     const profile = await client.createOrGetMyProfile();
     return (
       <>
-        <DebounceEditing
-          userId={props.params.userid}
-          lang={props.params.lang}
-          err={dictionary.err}
-        />
+        <UserContextWrapper>
+          <DebounceEditing
+            userId={props.params.userid}
+            lang={props.params.lang}
+            err={dictionary.err}
+          />
+        </UserContextWrapper>
         <StoreSetting
           profile={profile}
           userId={props.params.userid}
           isMine={true}
         />
+
         <ProfileWrapper
           lang={props.params.lang}
           account={dictionary.account}

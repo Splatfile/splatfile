@@ -40,7 +40,7 @@ export function PlateImage(props: PlateImageProps) {
       if (!canvasRef.current) return;
       renderPlate(canvasRef.current, tag, getPlateLang(language))
         .then(() => {
-          console.log("rendered");
+          console.log("Plate rendered");
         })
         .catch((e) => {
           console.error(e);

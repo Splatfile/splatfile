@@ -1,5 +1,6 @@
 import React from "react";
 import { DiscordIcon } from "@/app/plate/ui/icons/DiscordIcon";
+import Link from "next/link";
 
 export const Footer: React.FC = () => {
   return (
@@ -19,13 +20,13 @@ export const Footer: React.FC = () => {
             <p>© 2024 Splatfile</p>
           </div>
           <div>
-            <a href="/privacy" className="hover:text-gray-400">
+            <Link href="/privacy" className="hover:text-gray-400">
               Privacy Policy
-            </a>
+            </Link>
             <span className="mx-2">|</span>
-            <a href="/terms" className="hover:text-gray-400">
+            <Link href="/terms" className="hover:text-gray-400">
               Terms of Use
-            </a>
+            </Link>
           </div>
         </div>
       </div>

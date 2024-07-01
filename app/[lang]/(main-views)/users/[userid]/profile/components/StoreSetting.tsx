@@ -16,7 +16,7 @@ export function StoreSetting(props: StoreSettingProps) {
   const { profile, isMine, userId } = props;
   const user = useUser();
   useEffect(() => {
-    initProfileStore(profile, userId === user.user?.id);
+    initProfileStore(profile, isMine);
     initializeTagStore(profile);
   }, [profile, isMine, userId, user]);
   return null;

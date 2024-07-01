@@ -13,6 +13,8 @@ type ProfileWrapperProps = {
 
 export function ProfileWrapper(props: ProfileWrapperProps) {
   const { account, ingame, profile, lang } = props;
+  console.log("ProfileWrapper Render");
+
   return (
     <div className={"flex flex-col items-stretch"}>
       <div className={"flex h-full flex-col md:flex-row md:items-stretch"}>

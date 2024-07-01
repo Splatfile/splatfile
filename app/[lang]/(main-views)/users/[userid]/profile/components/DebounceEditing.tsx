@@ -16,6 +16,7 @@ type DebounceEditingProps = {
 export function DebounceEditing(props: DebounceEditingProps) {
   const { userId, lang, err } = props;
   const user = useUser();
+  
   useDebounceEdit(userId, userId === user.user?.id, err, lang);
   useDebounceTagEdit(userId, userId === user.user?.id, err, lang);
   return <></>;

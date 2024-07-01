@@ -4,6 +4,9 @@ import { RecentUpdatedUsers } from "@/app/ui/components/RecentUpdatedUsers";
 import { PageProps } from "@/app/lib/types/component-props";
 import { getDictionary, getHtml } from "@/app/lib/dictionaries";
 import { signinUrl } from "@/app/plate/lib/const";
+import { QueryClientWrapper } from "@/app/lib/hooks/query-client-wrapper";
+
+export const revalidate = 0;
 
 export default async function Page(props: PageProps) {
   const dictionary = await getDictionary(props.params.lang);
@@ -30,7 +33,9 @@ export default async function Page(props: PageProps) {
             />
           </div>
           <div className={"p-8"}>
-            <RecentUpdatedUsers ui={dictionary["ui"]} />
+            <QueryClientWrapper>
+              <RecentUpdatedUsers ui={dictionary["ui"]} />
+            </QueryClientWrapper>
           </div>
         </div>
         <div className="mx-auto mt-16 flex max-w-2xl animate-slide-left-full sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">

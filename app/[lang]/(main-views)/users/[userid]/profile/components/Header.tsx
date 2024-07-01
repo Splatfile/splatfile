@@ -57,7 +57,7 @@ export function Header(_: HeaderProps) {
       >
         {/* 헤더 왼쪽 */}
         <div className="flex w-full items-center justify-start text-white lg:flex-1">
-          <a href={"/"}>
+          <Link href={"/"}>
             <div className={"flex h-16 w-24"}>
               <Image
                 className={"h-full object-contain"}
@@ -67,7 +67,7 @@ export function Header(_: HeaderProps) {
                 alt={"Splatfile's Logo"}
               />
             </div>
-          </a>
+          </Link>
           <div className="w-full md:hidden"></div>
           {(isLoading || isTagLoading) && (
             <div className={"mx-4 flex items-center justify-center"}>
