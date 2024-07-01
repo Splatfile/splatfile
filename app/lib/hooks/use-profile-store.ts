@@ -1,3 +1,4 @@
+"use client";
 import {
   SwitchInfo,
   TwitterInfo,
@@ -29,7 +30,6 @@ import {
 import { Lang } from "../types/component-props";
 import { renderOgProfileImage } from "@/app/konva/lib/render/og";
 import { getLocaleByLang } from "@/app/lib/use-locale";
-import { initializeTagStore } from "@/app/plate/lib/store/use-tag-store";
 import { Err } from "@/app/lib/locales/locale";
 import { setErrorMessage } from "@/app/lib/hooks/use-error-toast-store";
 
@@ -58,6 +58,7 @@ const initState = (): ProfileState => {
       },
     },
     game: {
+      level: 0,
       salmonRunMapPoints: {
         Shakedent: 40,
         Shakehighway: 40,
@@ -349,6 +350,8 @@ export const subscribeEdit = (
           "blob",
         );
 
+        console.log("updated_at", updated_at);
+
         if (!ogProfileBlob) {
           console.error("Image Buffer is not truthy");
           setErrorMessage(err.refresh_please);
@@ -357,7 +360,7 @@ export const subscribeEdit = (
         }
 
         const key = await client.uploadFile(ogProfileBlob, userId + "_og.png");
-        const updated = await client.updateProfile(
+        await client.updateProfile(
           {
             canvas_info: {
               ogImageUrl: key,
@@ -367,8 +370,7 @@ export const subscribeEdit = (
           userId,
           lang,
         );
-        initProfileStore(updated, true);
-        initializeTagStore(updated);
+
         setLoading(false);
       } catch (e) {
         console.error(e);

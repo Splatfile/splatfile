@@ -23,9 +23,12 @@ export function GameCardWeapons(props: GameCardWeaponsProps) {
   const weaponGearInfo = useWeaponGearInfo();
   const filteredWeapons = chunkArrayInGroups(
     Object.entries(weaponGearInfo ?? {})
-    .filter(([_, obj]) => obj?.isActivated)
-    .sort(([_, lobj], [__, robj]) => (lobj.selectedTime ?? 0) - (robj.selectedTime ?? 0))
-    .map(([key, _]) => key),
+      .filter(([_, obj]) => obj?.isActivated)
+      .sort(
+        ([_, lobj], [__, robj]) =>
+          (lobj.selectedTime ?? 0) - (robj.selectedTime ?? 0),
+      )
+      .map(([key, _]) => key),
     4,
   );
   const [open, setOpen] = useState(false);
@@ -205,34 +208,31 @@ function WeaponEditModal(props: WeaponEditModalProps) {
     >
       <div className={"relative h-[80vh] max-h-max overflow-scroll"}>
         {weapons.map((line: string[], i) => (
-          <>
-            <div
-              key={i}
-              className={"flex items-center justify-center gap-4 py-2"}
-            >
-              {line.map((w) => (
-                <button
-                  key={w}
-                  onClick={() => onActivate(w)}
+          <div
+            key={i}
+            className={"flex items-center justify-center gap-4 py-2"}
+          >
+            {line.map((w) => (
+              <button
+                key={w}
+                onClick={() => onActivate(w)}
+                className={clsx(
+                  "relative rounded-full",
+                  weaponGearInfo?.[w]?.isActivated ? "" : "bg-gray-400/60",
+                )}
+              >
+                <WeaponRendererForSelectModal key={w} weaponKey={w} />
+                <p
                   className={clsx(
-                    "relative rounded-full",
-                    weaponGearInfo?.[w]?.isActivated ? "" : "bg-gray-400/60",
+                    "absolute inset-0 flex items-center justify-center rounded-full text-4xl font-bold text-white/80 decoration-blue-400 decoration-2 hover:text-white/50",
+                    weaponGearInfo?.[w]?.isActivated ? "bg-blue-600/20" : "",
                   )}
                 >
-                  <WeaponRendererForSelectModal key={w} weaponKey={w} />
-                  <p
-                    className={clsx(
-                      "absolute inset-0 flex items-center justify-center rounded-full text-4xl font-bold text-white/80 decoration-blue-400 decoration-2 hover:text-white/50",
-                      weaponGearInfo?.[w]?.isActivated ? "bg-blue-600/20" : "",
-                    )}
-                  >
-                    {selectedWeapons.findIndex((sw) => sw[0] === w) + 1 ||
-                      false}
-                  </p>
-                </button>
-              ))}
-            </div>
-          </>
+                  {selectedWeapons.findIndex((sw) => sw[0] === w) + 1 || false}
+                </p>
+              </button>
+            ))}
+          </div>
         ))}
       </div>
     </DefaultModal>

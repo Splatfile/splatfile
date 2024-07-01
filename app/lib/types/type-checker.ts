@@ -18,6 +18,7 @@ export function isPlateInfo(obj: unknown): obj is PlateInfo {
 export const isUserInfo = (data: unknown): data is UserInfo => {
   const result = UserInfoObject.safeParse(data);
   if (!result.success) {
+    console.error(result.error);
     throw result.error;
   }
   return result.success;
@@ -26,6 +27,7 @@ export const isGameInfo = (data: unknown): data is GameInfo => {
   const result = GameInfoObject.safeParse(data);
   if (!result.success) {
     console.error(result.error);
+    throw result.error;
   }
   return result.success;
 };

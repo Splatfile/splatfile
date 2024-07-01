@@ -45,6 +45,7 @@ const initTagState: TagState = {
 };
 
 const initGameInfo: z.infer<typeof GameInfoObject> = {
+  level: 0,
   salmonRunMapPoints: {
     Shakedent: 40,
     Shakehighway: 40,
@@ -233,7 +234,10 @@ export class SplatfileClient {
       exist.updated_at > (profile.updated_at ?? ""),
     );
 
-    if (exist.updated_at > (profile.updated_at ?? "")) {
+    const existUpdatedAt = new Date(exist.updated_at).getTime();
+    const profileUpdatedAt = new Date(profile.updated_at ?? "").getTime();
+
+    if (Math.abs(existUpdatedAt - profileUpdatedAt) > 60000) {
       throw new Error("Profile is outdated");
     }
 
