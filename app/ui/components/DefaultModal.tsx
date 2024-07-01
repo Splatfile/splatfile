@@ -49,7 +49,7 @@ export function DefaultModal(props: PropsWithChildren<DefaultModalProps>) {
                   <div className="mt-3 text-center sm:mt-5">
                     <DialogTitle
                       as="h2"
-                      className="mb-4 mt-8 text-xl  font-semibold leading-6 text-gray-900"
+                      className="mb-4 mt-8 text-xl font-semibold leading-6 text-gray-900"
                     >
                       {title}
                     </DialogTitle>

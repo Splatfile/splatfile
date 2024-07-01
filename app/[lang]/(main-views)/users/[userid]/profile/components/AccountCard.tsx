@@ -18,7 +18,7 @@ export function AccountCard(props: AccountCardProps) {
         <div className={"sm:p-4"}>
           <div
             className={
-              "bottom-auto mx-auto flex content-around justify-center gap-6 sm:grid-cols-2 md:grid-cols-4"
+              "bottom-auto mx-auto flex flex-col content-around justify-center gap-6 sm:grid-cols-2 sm:flex-row md:grid-cols-4"
             }
           >
             <SwitchInfoCard account={account} />

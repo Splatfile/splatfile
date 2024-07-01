@@ -53,7 +53,11 @@ const SalmonRunView = (props: SalmonRunViewProps) => {
   if (!props.mapPoints) return null;
 
   return (
-    <div className={"grid grid-cols-2 gap-4"}>
+    <div
+      className={
+        "grid w-full grid-cols-4 items-center justify-center gap-4 sm:grid-cols-2"
+      }
+    >
       {salmonrunCodes.map(
         (key) =>
           isKeyOfSalmonRunMapPoints(key) && (

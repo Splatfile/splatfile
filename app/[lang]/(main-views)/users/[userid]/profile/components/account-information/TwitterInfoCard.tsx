@@ -45,7 +45,7 @@ export const TwitterInfoCard = (props: TwitterInfoCardProps) => {
         edit={edit}
         value={name ?? ""}
         placeholder={account.ui_twitter_nickname}
-        textClassName={"text-center"}
+        textClassName={"text-left sm:text-center"}
         inputClassName={
           "w-full underline underline-offset-2 outline-none max-w-full"
         }

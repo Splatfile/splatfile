@@ -36,8 +36,9 @@ export function GameCardWeapons(props: GameCardWeaponsProps) {
 
   return (
     <InlineTextCard
+      childrenClassName={"w-full"}
       title={
-        <div className={"flex items-center justify-center gap-2"}>
+        <div className={"flex w-full items-center justify-center gap-2"}>
           <p>{ingame.ui_weapon}</p>
           {isMine && (
             <button

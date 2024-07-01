@@ -124,7 +124,7 @@ function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
         </h3>
         <div
           className={
-            "flex flex-col items-center justify-center gap-2 px-4 sm:flex-row sm:gap-8"
+            "flex flex-wrap items-center justify-center gap-2 px-4 sm:flex-row sm:gap-8"
           }
         >
           <div className={"flex flex-col items-center justify-center"}>

@@ -7,6 +7,7 @@ import { clsx } from "clsx";
 export type InlineTextCardProps = {
   title: ReactNode;
   children: ReactNode;
+  childrenClassName?: string;
 };
 
 export function InlineTextCard(props: InlineTextCardProps) {
@@ -23,7 +24,12 @@ export function InlineTextCard(props: InlineTextCardProps) {
       >
         {props.title}
       </h3>
-      <div className={"flex flex-col gap-1 font-semibold text-neutral-700"}>
+      <div
+        className={clsx(
+          "flex flex-col gap-1 font-semibold text-neutral-700",
+          props.childrenClassName,
+        )}
+      >
         {props.children}
       </div>
     </div>
@@ -49,7 +55,6 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
         className={clsx(
           "absolute left-4 top-2 flex items-center gap-2 md:flex-row",
           {
-            "flex-col": props.edit,
             "flex-row": !props.edit,
           },
         )}

@@ -36,6 +36,9 @@ export function GameCardCommon(props: GameCardCommonProps) {
 
   return (
     <EditableInlineTextCard
+      childrenClassName={
+        "!flex-row sm:!flex-col !justify-between !gap-6 sm:!gap-2"
+      }
       title={ingame.ui_summary}
       edit={edit}
       setEdit={setEdit}
