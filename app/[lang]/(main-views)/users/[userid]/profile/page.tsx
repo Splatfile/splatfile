@@ -57,7 +57,7 @@ export const generateMetadata = async (
     openGraph: {
       type: "profile",
       siteName: "splatfile",
-      url: `https://www.splatfile.com/${props.params.lang}/users/${props.params.userid}/profile`,
+      url: `https://www.splatfile.ink/${props.params.lang}/users/${props.params.userid}/profile`,
       images: [
         {
           url: (ogImageUrl || "") as string,
