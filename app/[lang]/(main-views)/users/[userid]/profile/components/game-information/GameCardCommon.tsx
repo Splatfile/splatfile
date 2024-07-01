@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   setAnarchyBattleRank,
@@ -58,16 +58,32 @@ export type LevelTextProps = {
 export const LevelText = ({ edit }: LevelTextProps) => {
   const { level } = useGameStore();
 
+  const [uiLevel, setUiLevel] = useState<number | string>(level ?? 0);
+  useEffect(() => {
+    if (!uiLevel) {
+      return;
+    }
+
+    if (typeof uiLevel === "string") {
+      setLevel(parseInt(uiLevel));
+      return;
+    }
+
+    setLevel(uiLevel);
+  }, [uiLevel]);
   if (!level && !edit) return <></>;
 
   const onChangeLevel = (value: string) => {
     const level = parseInt(value);
+
     if (level < 1) {
-      setLevel(1);
+      setUiLevel(1);
     } else if (level > 999) {
-      setLevel(999);
+      setUiLevel(999);
+    } else if (isNaN(level)) {
+      setUiLevel("");
     } else {
-      setLevel(level);
+      setUiLevel(level);
     }
   };
 
@@ -86,7 +102,7 @@ export const LevelText = ({ edit }: LevelTextProps) => {
           "w-16 sm:w-32 underline underline-offset-2 outline-none"
         }
         edit={edit}
-        value={level ?? 0}
+        value={uiLevel ?? 0}
         onChange={onChangeLevel}
       />
     </div>
@@ -109,6 +125,9 @@ export const RankText = (props: RankTextProps) => {
 
   const onChangePoint = (e: React.ChangeEvent<HTMLInputElement>) => {
     const point = parseInt(e.target.value);
+    if (isNaN(point)) {
+      return;
+    }
     setAnarchyBattleRank(
       anarchyBattleRank?.grade || "S+",
       point > 50 ? 50 : point < 0 ? 0 : point,
