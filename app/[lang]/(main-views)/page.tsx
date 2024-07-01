@@ -11,6 +11,15 @@ export const revalidate = 0;
 export default async function Page(props: PageProps) {
   const dictionary = await getDictionary(props.params.lang);
   const main = dictionary["main"];
+  const maxImageIndexByLang = {
+    ko: 3,
+    en: 1,
+    ja: 2,
+  };
+  const randomIndex =
+    Math.floor(Math.random() * maxImageIndexByLang[props.params.lang]) + 1;
+
+  const bannerImageUrl = `/samples/${props.params.lang}/${randomIndex}.png`;
 
   return (
     <div className="relative isolate my-8 overflow-hidden rounded-md bg-white shadow-2xl">
@@ -40,13 +49,13 @@ export default async function Page(props: PageProps) {
         </div>
         <div className="mx-auto mt-16 flex max-w-2xl animate-slide-left-full sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
           <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-            <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:my-auto lg:mt-8 lg:rounded-2xl lg:p-4">
+            <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:my-auto lg:mt-12 lg:rounded-2xl lg:p-4">
               <Image
-                src="/samples/hero_main.png"
+                src={bannerImageUrl}
                 alt="Splatfile screenshot"
-                width={1393}
-                height={967}
-                className="w-[63rem] rounded-md shadow-2xl ring-1 ring-gray-900/10"
+                width={1400}
+                height={1000}
+                className="w-[60rem] rounded-md shadow-2xl ring-1 ring-gray-900/10"
               />
             </div>
           </div>
