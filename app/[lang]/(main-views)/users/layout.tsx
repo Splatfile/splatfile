@@ -6,7 +6,7 @@ export default function Layout(props: PropsWithChildren<LayoutProps>) {
   return (
     <main
       className={
-        "h-full w-full rounded-2xl bg-white/95 py-4 sm:max-w-screen-2xl md:my-8 md:p-6"
+        "h-full w-full rounded-2xl bg-white/95 py-4 sm:max-w-screen-lg md:my-8 md:p-6"
       }
     >
       {props.children}
