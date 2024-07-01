@@ -76,6 +76,10 @@ export type ContextType =
   | typeof CLIENT_COMPONENT
   | typeof ROUTER;
 
+const sleep = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
 type DummySupabaseClient = SupabaseClient<Database>;
 
 const createDummyClient = (): DummySupabaseClient => {
@@ -107,12 +111,22 @@ export class SplatfileClient {
     return this._supabase;
   }
 
+  getUser = async () => {
+    let user = await this._supabase.auth.getUser();
+    if (!user.data.user?.id) {
+      for (let i = 0; i < 5; i++) {
+        await sleep(3000);
+        user = await this._supabase.auth.getUser();
+      }
+    }
+    return user;
+  };
+
   createOrGetMyProfile = async (): Promise<Profile> => {
-    const user = await this._supabase.auth.getUser();
+    const user = await this.getUser();
     if (!user.data.user?.id) {
       notFound();
     }
-
     const { data, error } = await this._supabase
       .from("profiles")
       .select("*")
