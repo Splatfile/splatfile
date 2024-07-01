@@ -111,7 +111,7 @@ export class SplatfileClient {
     return this._supabase;
   }
 
-  getUser = async () => {
+  getUserWithRetry = async () => {
     let user = await this._supabase.auth.getUser();
     if (!user.data.user?.id) {
       for (let i = 0; i < 5; i++) {
@@ -123,7 +123,7 @@ export class SplatfileClient {
   };
 
   createOrGetMyProfile = async (): Promise<Profile> => {
-    const user = await this.getUser();
+    const user = await this.getUserWithRetry();
     if (!user.data.user?.id) {
       notFound();
     }

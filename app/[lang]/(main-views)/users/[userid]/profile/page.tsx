@@ -58,7 +58,6 @@ export const generateMetadata = async (
 };
 
 export default async function ProfilePage(props: ProfilePage) {
-  console.log("User Profile");
   const client = new SplatfileServer(SERVER_COMPONENT);
   const user = await client.supabase.auth.getUser();
   const dictionary = await getDictionary(props.params.lang);
