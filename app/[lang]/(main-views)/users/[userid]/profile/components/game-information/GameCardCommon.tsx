@@ -34,7 +34,6 @@ type GameCardCommonProps = {
 export function GameCardCommon(props: GameCardCommonProps) {
   const { ingame, lang } = props;
   const [edit, setEdit] = useState(false);
-
   return (
     <EditableInlineTextCard
       childrenClassName={clsx(
@@ -71,6 +70,15 @@ export const LevelText = ({ edit }: LevelTextProps) => {
 
     setLevel(uiLevel);
   }, [uiLevel]);
+
+  useEffect(() => {
+    setUiLevel((prevUiLevel) => {
+      if (prevUiLevel != level) {
+        return level ?? uiLevel;
+      }
+      return uiLevel;
+    });
+  }, [level]);
 
   if (!level && !edit) return <></>;
 

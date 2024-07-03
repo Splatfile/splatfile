@@ -12,6 +12,7 @@ import { getDictionary } from "@/app/lib/dictionaries";
 import { PageProps } from "@/app/lib/types/component-props";
 import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
 import { getLocaleByLang } from "@/app/lib/server/locale";
+import { unstable_noStore } from "next/cache";
 
 type ProfilePage = PageProps & {
   params: {
@@ -71,6 +72,7 @@ export const generateMetadata = async (
 };
 
 export default async function ProfilePage(props: ProfilePage) {
+  unstable_noStore();
   const client = new SplatfileServer(SERVER_COMPONENT);
   const user = await client.supabase.auth.getUser();
   const dictionary = await getDictionary(props.params.lang);
@@ -91,7 +93,6 @@ export default async function ProfilePage(props: ProfilePage) {
           userId={props.params.userid}
           isMine={true}
         />
-
         <ProfileWrapper
           lang={props.params.lang}
           account={dictionary.account}

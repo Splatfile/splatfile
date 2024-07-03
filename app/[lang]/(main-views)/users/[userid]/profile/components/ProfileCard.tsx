@@ -4,7 +4,6 @@ import { PlateImage } from "@/app/[lang]/(main-views)/users/[userid]/profile/com
 import { ShareButtonSection } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ShareButtonSection";
 import { Profile } from "@/app/lib/locales/locale";
 import { Lang } from "@/app/lib/types/component-props";
-import { Auth } from "@supabase/auth-ui-react";
 
 type ProfileCardProps = {
   profile: Profile;
@@ -13,7 +12,6 @@ type ProfileCardProps = {
 
 export function ProfileCard(props: ProfileCardProps) {
   const { profile, lang } = props;
-  console.log("ProfileCard Render");
   return (
     <div className={"flex h-full w-full flex-col overflow-visible rounded-lg"}>
       <div className={"relative mb-8"}>

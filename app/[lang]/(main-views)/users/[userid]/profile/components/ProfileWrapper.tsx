@@ -13,7 +13,6 @@ type ProfileWrapperProps = {
 
 export function ProfileWrapper(props: ProfileWrapperProps) {
   const { account, ingame, profile, lang } = props;
-  console.log("ProfileWrapper Render");
 
   return (
     <div

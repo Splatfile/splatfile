@@ -109,12 +109,14 @@ export const initProfileStore = (profile: Profile, isMine: boolean) => {
   setMine(isMine);
 };
 
-export const useUserStore = () => useProfileStore((state) => state.user);
+export const useUserStore = () =>
+  useProfileStore((state) => state.user, shallow);
 
 export const useSwitchInfo = () =>
-  useProfileStore((state) => state.user.switchInfo);
+  useProfileStore((state) => state.user.switchInfo, shallow);
 
-export const useGameStore = () => useProfileStore((state) => state.game);
+export const useGameStore = () =>
+  useProfileStore((state) => state.game, shallow);
 
 const setUserInfo = (userInfo: Partial<z.infer<typeof UserInfoObject>>) => {
   useProfileStore.setState((state) => ({
@@ -212,27 +214,27 @@ export const setSalmonRunRank = (rank: SalmonRunRankGrade) => {
 };
 
 export const useSalmonRunMapPoints = () =>
-  useProfileStore((state) => state.game.salmonRunMapPoints);
+  useProfileStore((state) => state.game.salmonRunMapPoints, shallow);
 
 export const useSalmonRunRank = () =>
-  useProfileStore((state) => state.game.salmonRunRank);
+  useProfileStore((state) => state.game.salmonRunRank, shallow);
 
 export const useTwitterInfo = () =>
-  useProfileStore((state) => state.user.twitterInfo);
+  useProfileStore((state) => state.user.twitterInfo, shallow);
 
 export const useGender = () => useProfileStore((state) => state.user.gender);
 
 export const setGender = (gender: string) => setUserInfo({ gender });
 
 export const useIntroductionMessage = () =>
-  useProfileStore((state) => state.user.introductionMessage);
+  useProfileStore((state) => state.user.introductionMessage, shallow);
 
 export const setIntroductionMessage = (introductionMessage: string) => {
   setUserInfo({ introductionMessage });
 };
 
 export const useProfileImageUrl = () =>
-  useProfileStore((state) => state.user.profileImageUrl);
+  useProfileStore((state) => state.user.profileImageUrl, shallow);
 
 export const setProfileImageUrl = (profileImageUrl: string) => {
   setUserInfo({ profileImageUrl });

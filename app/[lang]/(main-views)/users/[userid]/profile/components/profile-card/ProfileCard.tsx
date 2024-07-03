@@ -18,7 +18,6 @@ export function ProfileImage(props: ProfileImageProps) {
   const [open, setOpen] = useState(false);
   const profileImageUrl = useProfileImageUrl();
   const { isMine } = useEditStore();
-  console.log("ProfileImage Render");
   return (
     <button
       onClick={() => setOpen(true)}
