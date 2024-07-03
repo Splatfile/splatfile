@@ -12,7 +12,7 @@ export default async function Page(props: PageProps) {
   const dictionary = await getDictionary(props.params.lang);
   const main = dictionary["main"];
   const maxImageIndexByLang = {
-    ko: 3,
+    ko: 4,
     en: 1,
     ja: 2,
   };
