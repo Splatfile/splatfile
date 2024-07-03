@@ -9,18 +9,41 @@ import {
   isPlateInfo,
   isUserInfo,
 } from "@/app/lib/types/type-checker";
-import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting";
+
 import { ProfileImage } from "@/app/konva/components/ProfileImage";
 import { OgProfileImage } from "@/app/konva/components/OgProfileImage";
+
+import dynamic from "next/dynamic";
+
+const StoreSetting = dynamic(
+  () =>
+    import(
+      "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting"
+    ),
+  { ssr: false },
+);
+
+const DebounceEditing = dynamic(
+  () =>
+    import(
+      "@/app/[lang]/(main-views)/users/[userid]/profile/components/DebounceEditing"
+    ),
+  { ssr: false },
+);
+
+const ProfileWrapper = dynamic(
+  () =>
+    import(
+      "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileWrapper"
+    ),
+  { ssr: false },
+);
 
 type PageProps = {
   params: {
     userid: string;
   };
 };
-
-// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-export const dynamic = "force-dynamic";
 
 export const generateMetadata = async (props: PageProps) => {
   const admin = new SplatfileAdmin(SERVER_COMPONENT);
