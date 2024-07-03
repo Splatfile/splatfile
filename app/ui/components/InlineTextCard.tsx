@@ -48,7 +48,7 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
   return (
     <div
       className={
-        "relative flex w-full min-w-36 items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-5 pt-10 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md md:w-auto md:flex-col md:items-center md:justify-center md:px-4"
+        "relative flex w-full min-w-36 items-center justify-start gap-4 rounded-md border border-gray-300 bg-white px-4 py-5 pt-10 drop-shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md sm:min-w-52 md:w-auto md:flex-col md:items-center md:justify-center md:px-4"
       }
     >
       <div

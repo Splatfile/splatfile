@@ -78,7 +78,7 @@ export function WeaponRenderer({ weaponKey }: WeaponRendererProps) {
   return (
     <div
       className={clsx(
-        "h-10 w-10 cursor-pointer rounded-full object-fill outline outline-gray-300 hover:outline-gray-500",
+        "h-10 w-10 cursor-pointer rounded-full object-fill outline outline-gray-300 hover:outline-gray-500 sm:min-w-10",
         weaponGearInfo?.[weaponKey]?.isActivated ? "opacity-100" : "opacity-65",
       )}
     >
@@ -101,7 +101,7 @@ export function WeaponRendererForSelectModal({
   return (
     <div
       className={clsx(
-        "h-12 w-12 cursor-pointer rounded-full object-fill outline outline-gray-300 hover:outline-gray-500 sm:h-16 sm:w-16",
+        "h-12 w-12 min-w-12 cursor-pointer rounded-full object-fill outline outline-gray-300 hover:outline-gray-500 sm:h-16 sm:w-16 sm:min-w-16",
         weaponGearInfo?.[weaponKey]?.isActivated ? "opacity-100" : "opacity-65",
       )}
     >
