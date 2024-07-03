@@ -3,9 +3,7 @@ import {
   SplatfileAdmin,
   SplatfileServer,
 } from "@/app/lib/server/splatfile-server";
-import { ProfileWrapper } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileWrapper";
-import { StoreSetting } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting";
-import { DebounceEditing } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/DebounceEditing";
+
 import type { Metadata } from "next";
 import { CanvasInfoObject, UserInfoObject } from "@/app/lib/schemas/profile";
 import { getDictionary } from "@/app/lib/dictionaries";
@@ -13,6 +11,32 @@ import { PageProps } from "@/app/lib/types/component-props";
 import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
 import { getLocaleByLang } from "@/app/lib/server/locale";
 import { unstable_noStore } from "next/cache";
+
+import dynamic from "next/dynamic";
+
+const StoreSetting = dynamic(
+  () =>
+    import(
+      "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting"
+    ),
+  { ssr: false },
+);
+
+const DebounceEditing = dynamic(
+  () =>
+    import(
+      "@/app/[lang]/(main-views)/users/[userid]/profile/components/DebounceEditing"
+    ),
+  { ssr: false },
+);
+
+const ProfileWrapper = dynamic(
+  () =>
+    import(
+      "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileWrapper"
+    ),
+  { ssr: false },
+);
 
 type ProfilePage = PageProps & {
   params: {

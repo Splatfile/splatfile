@@ -13,10 +13,10 @@ type DebounceEditingProps = {
   userId: string;
 };
 
-export function DebounceEditing(props: DebounceEditingProps) {
+export default function DebounceEditing(props: DebounceEditingProps) {
   const { userId, lang, err } = props;
   const user = useUser();
-  
+
   useDebounceEdit(userId, userId === user.user?.id, err, lang);
   useDebounceTagEdit(userId, userId === user.user?.id, err, lang);
   return <></>;

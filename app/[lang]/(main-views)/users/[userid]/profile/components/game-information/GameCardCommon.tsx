@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import {
   setAnarchyBattleRank,
@@ -9,6 +9,7 @@ import {
   setSalmonRunRank,
   useGameStore,
   useLevel,
+  useMine,
 } from "@/app/lib/hooks/use-profile-store";
 import { EditableNumber } from "@/app/ui/components/EditableText";
 import {
@@ -26,6 +27,7 @@ import {
 import { Ingame } from "@/app/lib/locales/locale";
 import { Lang } from "@/app/lib/types/component-props";
 import clsx from "clsx";
+import { useInputNumber } from "@/app/lib/hooks/use-input-number";
 
 type GameCardCommonProps = {
   lang: Lang;
@@ -61,51 +63,29 @@ export type LevelTextProps = {
 export const LevelText = (props: LevelTextProps) => {
   const { edit, level } = props;
   const [uiLevel, setUiLevel] = useState<number | string>(level);
-  useEffect(() => {
-    if (!uiLevel) {
-      return;
-    }
+  useInputNumber(uiLevel, setUiLevel, level, setLevel);
+  const isMine = useMine();
 
-    if (typeof uiLevel === "string") {
-      setLevel(parseInt(uiLevel));
-      return;
-    }
+  const onChangeLevel = useCallback(
+    (value: string) => {
+      if (!isMine) return;
 
-    setLevel(uiLevel);
-  }, [uiLevel]);
+      const level = parseInt(value);
 
-  useEffect(() => {
-    if (!level) {
-      setUiLevel(0);
-      return;
-    }
-
-    setUiLevel(level);
-  }, [level]);
-
-  useEffect(
-    () => () => {
-      setUiLevel(0);
-      setLevel(0);
+      if (level < 1) {
+        setUiLevel(1);
+      } else if (level > 999) {
+        setUiLevel(999);
+      } else if (isNaN(level)) {
+        setUiLevel("");
+      } else {
+        setUiLevel(level);
+      }
     },
-    [],
+    [isMine],
   );
 
   if (!level && !edit) return <></>;
-
-  const onChangeLevel = (value: string) => {
-    const level = parseInt(value);
-
-    if (level < 1) {
-      setUiLevel(1);
-    } else if (level > 999) {
-      setUiLevel(999);
-    } else if (isNaN(level)) {
-      setUiLevel("");
-    } else {
-      setUiLevel(level);
-    }
-  };
 
   return (
     <div className={"flex items-center gap-2"}>

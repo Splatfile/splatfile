@@ -11,7 +11,7 @@ type ProfileWrapperProps = {
   lang: Lang;
 };
 
-export function ProfileWrapper(props: ProfileWrapperProps) {
+export default function ProfileWrapper(props: ProfileWrapperProps) {
   const { account, ingame, profile, lang } = props;
 
   return (

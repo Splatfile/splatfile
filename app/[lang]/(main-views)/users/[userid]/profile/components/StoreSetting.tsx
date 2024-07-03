@@ -12,7 +12,7 @@ type StoreSettingProps = {
   isMine: boolean;
 };
 
-export function StoreSetting(props: StoreSettingProps) {
+export default function StoreSetting(props: StoreSettingProps) {
   const { profile, isMine, userId } = props;
   const user = useUser();
   useEffect(() => {
