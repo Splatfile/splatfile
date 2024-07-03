@@ -116,7 +116,9 @@ const SalmonEditText = (props: SalmonEditTextProps) => {
         value={String(point || 40)}
         step={10}
         onChange={onChangePoint}
-        inputClassName={"w-14 px-2 underline underline-offset-2 outline-none"}
+        inputClassName={
+          "w-14 sm:w-18 px-2 underline underline-offset-2 outline-none"
+        }
       />
     </div>
   );
