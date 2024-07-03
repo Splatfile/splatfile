@@ -82,6 +82,9 @@ const SalmonEditText = (props: SalmonEditTextProps) => {
   const { mapKey, point = 40, edit } = props;
   const onChangePoint = (value: string) => {
     let point = parseInt(value);
+    if (isNaN(point)) {
+      return;
+    }
     if (point < 0) {
       point = 0;
     } else if (point > 999) {
