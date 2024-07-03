@@ -41,6 +41,7 @@ type ProfileState = {
 
 type ProfileStore = {
   set: (state: Partial<ProfileState>) => void;
+  setLevel: (level: number) => void;
 } & ProfileState;
 
 const initState = (): ProfileState => {
@@ -84,6 +85,9 @@ const useProfileStore = createWithEqualityFn<ProfileStore>(
     set: (state: Partial<ProfileState>) => {
       set({ ...get(), ...state });
     },
+    setLevel: (level: number) => {
+      set({ game: { ...get().game, level } });
+    },
   }),
   shallow,
 );
@@ -101,9 +105,10 @@ export const initProfileStore = (profile: Profile, isMine: boolean) => {
     );
   }
 
-  useProfileStore.setState(() => ({
-    user: user_info,
-    game: game_info,
+  useProfileStore.setState((state) => ({
+    ...state,
+    user: { ...user_info },
+    game: { ...game_info, level: game_info.level || 0 },
     updatedAt: updated_at,
   }));
   setMine(isMine);
@@ -257,6 +262,11 @@ export const setPlaytime = (
 
 export const usePlaytime = (timeType: "weekdayPlaytime" | "weekendPlaytime") =>
   useProfileStore((state) => state.user[timeType]);
+
+export const useLevel = () => useGameStore().level;
+
+export const useAnarchyPoint = () =>
+  useProfileStore((state) => state.game.anarchyBattleRank?.point);
 
 // State가 변경될 때마다, 2초 뒤에 supabase에 저장하는 로직을 실행합니다.
 export const useDebounceEdit = (

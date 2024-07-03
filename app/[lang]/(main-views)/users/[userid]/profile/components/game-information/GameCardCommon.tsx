@@ -8,6 +8,7 @@ import {
   setLevel,
   setSalmonRunRank,
   useGameStore,
+  useLevel,
 } from "@/app/lib/hooks/use-profile-store";
 import { EditableNumber } from "@/app/ui/components/EditableText";
 import {
@@ -34,6 +35,8 @@ type GameCardCommonProps = {
 export function GameCardCommon(props: GameCardCommonProps) {
   const { ingame, lang } = props;
   const [edit, setEdit] = useState(false);
+  const level = useLevel();
+
   return (
     <EditableInlineTextCard
       childrenClassName={clsx(
@@ -43,7 +46,7 @@ export function GameCardCommon(props: GameCardCommonProps) {
       edit={edit}
       setEdit={setEdit}
     >
-      <LevelText edit={edit} />
+      <LevelText edit={edit} level={level || 0} />
       <RankText edit={edit} />
       <SalmonText lang={lang} edit={edit} />
     </EditableInlineTextCard>
@@ -52,12 +55,12 @@ export function GameCardCommon(props: GameCardCommonProps) {
 
 export type LevelTextProps = {
   edit: boolean;
+  level: number;
 };
 
-export const LevelText = ({ edit }: LevelTextProps) => {
-  const { level } = useGameStore();
-
-  const [uiLevel, setUiLevel] = useState<number | string>(level ?? 0);
+export const LevelText = (props: LevelTextProps) => {
+  const { edit, level } = props;
+  const [uiLevel, setUiLevel] = useState<number | string>(level);
   useEffect(() => {
     if (!uiLevel) {
       return;
@@ -72,13 +75,21 @@ export const LevelText = ({ edit }: LevelTextProps) => {
   }, [uiLevel]);
 
   useEffect(() => {
-    setUiLevel((prevUiLevel) => {
-      if (prevUiLevel != level) {
-        return level ?? uiLevel;
-      }
-      return uiLevel;
-    });
+    if (!level) {
+      setUiLevel(0);
+      return;
+    }
+
+    setUiLevel(level);
   }, [level]);
+
+  useEffect(
+    () => () => {
+      setUiLevel(0);
+      setLevel(0);
+    },
+    [],
+  );
 
   if (!level && !edit) return <></>;
 
