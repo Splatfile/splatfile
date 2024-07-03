@@ -2,8 +2,6 @@
 import Link from "next/link";
 import { Auth } from "@supabase/auth-ui-react";
 import { CLIENT_COMPONENT, SplatfileClient } from "@/app/lib/splatfile-client";
-import { useEditStore } from "@/app/lib/hooks/use-profile-store";
-import { LoadingLogo } from "@/app/ui/components/LoadingLogo";
 import { useParams, useRouter } from "next/navigation";
 import {
   Dialog,
@@ -19,12 +17,12 @@ import { Header as HeaderLocale } from "@/app/lib/locales/locale";
 import { header as en } from "@/app/lib/locales/en.json";
 import { header as ko } from "@/app/lib/locales/ko.json";
 import { header as ja } from "@/app/lib/locales/ja.json";
-import { useTagLoadingStore } from "@/app/plate/lib/store/use-tag-store";
 import Image from "next/image";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { profileUrl, signinUrl } from "@/app/plate/lib/const";
 import { Lang } from "@/app/lib/types/component-props";
 import { LocaleSetter } from "@/app/ui/components/LocaleSetter";
+import { HeaderLoadingWrapper } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/HeaderLoadingWrapper";
 import useUser = Auth.useUser;
 
 type HeaderProps = {};
@@ -44,9 +42,6 @@ export function Header(_: HeaderProps) {
       setHeaderLocale(en);
     }
   }, [params]);
-
-  const { isLoading } = useEditStore();
-  const { isLoading: isTagLoading } = useTagLoadingStore();
 
   return (
     <header className="bg-gray-900">
@@ -69,11 +64,7 @@ export function Header(_: HeaderProps) {
             </div>
           </Link>
           <div className="w-full md:hidden"></div>
-          {(isLoading || isTagLoading) && (
-            <div className={"mx-4 flex items-center justify-center"}>
-              <LoadingLogo />
-            </div>
-          )}
+          <HeaderLoadingWrapper />
         </div>
         {/* 모바일 헤더 오른쪽 */}
         <div className="flex lg:hidden">

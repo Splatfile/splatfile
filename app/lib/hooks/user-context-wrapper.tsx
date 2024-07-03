@@ -10,7 +10,6 @@ type UserContextWrapperProps = {
 };
 
 export function UserContextWrapper(props: UserContextWrapperProps) {
-  console.log("UserContextWrapper");
   const client = new SplatfileClient(CLIENT_COMPONENT);
   return (
     <UserContextProvider supabaseClient={client.supabase}>
