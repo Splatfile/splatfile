@@ -7,9 +7,6 @@ import {
   setAnarchyBattleRank,
   setLevel,
   setSalmonRunRank,
-  useGameStore,
-  useLevel,
-  useMine,
 } from "@/app/lib/hooks/use-profile-store";
 import { EditableNumber } from "@/app/ui/components/EditableText";
 import {
@@ -28,16 +25,18 @@ import { Lang } from "@/app/lib/types/component-props";
 import clsx from "clsx";
 import { useInputNumber } from "@/app/lib/hooks/use-input-number";
 import { IngameLocale } from "@/app/lib/locales/locale";
+import { GameInfo } from "@/app/lib/types/type-checker";
 
 type GameCardCommonProps = {
   lang: Lang;
+  gameInfo: GameInfo;
   ingameLocale: IngameLocale;
+  isMine: boolean;
 };
 
 export function GameCardCommon(props: GameCardCommonProps) {
-  const { ingameLocale, lang } = props;
+  const { ingameLocale, gameInfo, lang, isMine } = props;
   const [edit, setEdit] = useState(false);
-  const level = useLevel();
 
   return (
     <EditableInlineTextCard
@@ -48,23 +47,23 @@ export function GameCardCommon(props: GameCardCommonProps) {
       edit={edit}
       setEdit={setEdit}
     >
-      <LevelText edit={edit} level={level || 0} />
-      <RankText edit={edit} />
-      <SalmonText lang={lang} edit={edit} />
+      <LevelText edit={edit} gameInfo={gameInfo} isMine={isMine} />
+      <RankText edit={edit} gameInfo={gameInfo} isMine={isMine} />
+      <SalmonText lang={lang} edit={edit} gameInfo={gameInfo} />
     </EditableInlineTextCard>
   );
 }
 
 export type LevelTextProps = {
   edit: boolean;
-  level: number;
+  gameInfo: GameInfo;
+  isMine: boolean;
 };
 
 export const LevelText = (props: LevelTextProps) => {
-  const { edit, level } = props;
-  const [uiLevel, setUiLevel] = useState<number | string>(level);
-  useInputNumber(uiLevel, setUiLevel, level, setLevel);
-  const isMine = useMine();
+  const { edit, gameInfo, isMine } = props;
+  const [uiLevel, setUiLevel] = useState<number | string>(gameInfo.level || 0);
+  useInputNumber(uiLevel, setUiLevel, gameInfo.level || 0, setLevel);
 
   const onChangeLevel = useCallback(
     (value: string) => {
@@ -85,7 +84,7 @@ export const LevelText = (props: LevelTextProps) => {
     [isMine],
   );
 
-  if (!level && !edit) return <></>;
+  if (!gameInfo.level && !edit) return <></>;
 
   return (
     <div className={"flex items-center gap-2"}>
@@ -102,18 +101,20 @@ export const LevelText = (props: LevelTextProps) => {
           "w-16 sm:w-32 underline underline-offset-2 outline-none"
         }
         edit={edit}
-        value={uiLevel || level || 0}
+        value={uiLevel || gameInfo.level || 0}
         onChange={onChangeLevel}
       />
     </div>
   );
 };
 export type RankTextProps = {
+  gameInfo: GameInfo;
   edit: boolean;
+  isMine: boolean;
 };
 export const RankText = (props: RankTextProps) => {
-  const { edit } = props;
-  const { anarchyBattleRank } = useGameStore();
+  const { edit, gameInfo, isMine } = props;
+  const anarchyBattleRank = gameInfo.anarchyBattleRank;
 
   const onChangeGrade = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (!isAnarchyBattleRank(e.target.value)) {
@@ -183,10 +184,11 @@ export const RankText = (props: RankTextProps) => {
 export type SalmonTextProps = {
   lang: Lang;
   edit: boolean;
+  gameInfo: GameInfo;
 };
 export const SalmonText = (props: SalmonTextProps) => {
-  const { edit } = props;
-  const { salmonRunRank } = useGameStore();
+  const { edit, gameInfo } = props;
+  const salmonRunRank = gameInfo.salmonRunRank;
 
   const onChangeGrade = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (!isSalmonRunRank(e.target.value)) {

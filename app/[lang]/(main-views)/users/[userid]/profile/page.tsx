@@ -8,11 +8,11 @@ import type { Metadata } from "next";
 import { CanvasInfoObject, UserInfoObject } from "@/app/lib/schemas/profile";
 import { getDictionary } from "@/app/lib/dictionaries";
 import { PageProps } from "@/app/lib/types/component-props";
-import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
 import { getLocaleByLang } from "@/app/lib/server/locale";
 import { unstable_noStore } from "next/cache";
 
 import dynamic from "next/dynamic";
+import { ProfileWithStore } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileWithStore";
 
 const StoreSetting = dynamic(
   () =>
@@ -104,28 +104,11 @@ export default async function ProfilePage(props: ProfilePage) {
   if (user.data.user && user.data.user?.id === props.params.userid) {
     const profile = await client.createOrGetMyProfile();
     return (
-      <>
-        <UserContextWrapper>
-          <DebounceEditing
-            userId={props.params.userid}
-            lang={props.params.lang}
-            err={dictionary.errLocale}
-          />
-        </UserContextWrapper>
-        <StoreSetting
-          profile={profile}
-          userId={props.params.userid}
-          isMine={true}
-        />
-        <ProfileWrapper
-          lang={props.params.lang}
-          profile={profile}
-          accountLocale={dictionary.accountLocale}
-          ingameLocale={dictionary.ingameLocale}
-          profileLocale={dictionary.profileLocale}
-          isMine={true}
-        />
-      </>
+      <ProfileWithStore
+        dictionary={dictionary}
+        profile={profile}
+        params={props.params}
+      />
     );
   }
 
@@ -133,15 +116,13 @@ export default async function ProfilePage(props: ProfilePage) {
   const profile = await admin.getProfile(props.params.userid);
 
   return (
-    <>
-      <ProfileWrapper
-        lang={props.params.lang}
-        profile={profile}
-        accountLocale={dictionary.accountLocale}
-        ingameLocale={dictionary.ingameLocale}
-        profileLocale={dictionary.profileLocale}
-        isMine={false}
-      />
-    </>
+    <ProfileWrapper
+      lang={props.params.lang}
+      profile={profile}
+      accountLocale={dictionary.accountLocale}
+      ingameLocale={dictionary.ingameLocale}
+      profileLocale={dictionary.profileLocale}
+      isMine={false}
+    />
   );
 }

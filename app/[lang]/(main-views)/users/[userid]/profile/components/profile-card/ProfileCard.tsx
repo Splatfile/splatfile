@@ -8,12 +8,12 @@ import { UserInfo } from "@/app/lib/types/type-checker";
 
 type ProfileImageProps = {
   userInfo: UserInfo;
-  profile: ProfileLocale;
+  profileLocale: ProfileLocale;
   isMine: boolean;
 };
 
 export function ProfileImage(props: ProfileImageProps) {
-  const { userInfo, profile, isMine } = props;
+  const { userInfo, profileLocale, isMine } = props;
   const [open, setOpen] = useState(false);
   const profileImageUrl = userInfo.profileImageUrl;
 
@@ -26,7 +26,11 @@ export function ProfileImage(props: ProfileImageProps) {
         isMine ? "cursor-pointer" : "cursor-default",
       )}
     >
-      <ProfileModal profile={profile} open={open} setOpen={setOpen} />
+      <ProfileModal
+        profileLocale={profileLocale}
+        open={open}
+        setOpen={setOpen}
+      />
       <div className={clsx("relative h-full w-full", isMine && "group")}>
         {profileImageUrl ? (
           <img
@@ -52,7 +56,7 @@ export function ProfileImage(props: ProfileImageProps) {
           )}
         >
           <p className={"m-auto w-full text-white"}>
-            {profile.ui_image_upload_button}
+            {profileLocale.ui_image_upload_button}
           </p>
         </div>
       </div>

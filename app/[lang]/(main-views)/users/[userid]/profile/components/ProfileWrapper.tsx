@@ -1,9 +1,17 @@
 import { GameCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCard";
 import { AccountCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/AccountCard";
 import { ProfileCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileCard";
-import { AccountLocale, IngameLocale, ProfileLocale } from "@/app/lib/locales/locale";
+import {
+  AccountLocale,
+  IngameLocale,
+  ProfileLocale,
+} from "@/app/lib/locales/locale";
 import { Lang } from "@/app/lib/types/component-props";
-import { isGameInfo, isPlateInfo, isUserInfo } from "@/app/lib/types/type-checker";
+import {
+  isGameInfo,
+  isPlateInfo,
+  isUserInfo,
+} from "@/app/lib/types/type-checker";
 import { Profile } from "@/app/lib/types/supabase-alias";
 
 type ProfileWrapperProps = {
@@ -50,7 +58,8 @@ export default function ProfileWrapper(props: ProfileWrapperProps) {
             profileLocale={profileLocale}
             lang={lang}
             isMine={isMine}
-            gameInfo={game_info} />
+            gameInfo={game_info}
+          />
         </div>
         {/* 인게임 정보 */}
         <div className={"w-full md:w-3/5"}>
@@ -68,7 +77,11 @@ export default function ProfileWrapper(props: ProfileWrapperProps) {
           }
         >
           {/* 계정 정보*/}
-          <AccountCard userInfo={user_info} accountLocale={accountLocale} />
+          <AccountCard
+            userInfo={user_info}
+            accountLocale={accountLocale}
+            isMine={isMine}
+          />
         </div>
       </div>
     </div>

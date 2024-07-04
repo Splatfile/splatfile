@@ -23,7 +23,7 @@ export function ProfileCard(props: ProfileCardProps) {
         <ProfileImage
           isMine={isMine}
           userInfo={userInfo}
-          profile={profileLocale}
+          profileLocale={profileLocale}
         />
         <div className={"absolute -bottom-8 -right-5 z-10 w-full"}>
           <PlateImage

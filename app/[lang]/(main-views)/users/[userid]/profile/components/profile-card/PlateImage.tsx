@@ -14,10 +14,7 @@ import {
   loadFonts,
   renderPlate,
 } from "@/app/plate/lib/render-plate";
-import {
-  setTagLanguage,
-  useTagStore,
-} from "@/app/plate/lib/store/use-tag-store";
+import { setTagLanguage } from "@/app/plate/lib/store/use-tag-store";
 import { Lang } from "@/app/lib/types/component-props";
 import { PlateInfo } from "@/app/lib/types/type-checker";
 import { ProfileLocale } from "@/app/lib/locales/locale";
@@ -30,33 +27,27 @@ type PlateImageProps = {
 };
 
 export function PlateImage(props: PlateImageProps) {
-  const { profile, lang, isMine } = props;
+  const { profile, lang, plateInfo, isMine } = props;
   const [open, setOpen] = useState(false);
   const [fontLoaded, setFontLoaded] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [language, setLanguage] = useState<Lang>(lang);
 
   useEffect(() => {
-    return useTagStore.subscribe((tag) => {
-      if (!canvasRef.current) return;
-      renderPlate(canvasRef.current, tag, getPlateLang(language))
-        .then(() => {
-          console.log("Plate rendered");
-        })
-        .catch((e) => {
-          console.error(e);
-        });
-    });
-  }, []);
+    if (!canvasRef.current) return;
+    renderPlate(canvasRef.current, plateInfo, getPlateLang(language))
+      .then(() => {
+        console.log("Plate rendered");
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [language, plateInfo]);
 
   useEffect(() => {
     setTimeout(() => {
       if (!canvasRef.current) return;
-      renderPlate(
-        canvasRef.current,
-        useTagStore.getState(),
-        getPlateLang(language),
-      )
+      renderPlate(canvasRef.current, plateInfo, getPlateLang(language))
         .then(() => {
           console.log("rerendered");
         })
@@ -73,7 +64,6 @@ export function PlateImage(props: PlateImageProps) {
   useEffect(() => {
     const timeout = setInterval(async () => {
       const fontLoaded = await loadFonts(getPlateLang(lang));
-      console.log("fontLoaded", fontLoaded);
 
       setFontLoaded(fontLoaded);
 

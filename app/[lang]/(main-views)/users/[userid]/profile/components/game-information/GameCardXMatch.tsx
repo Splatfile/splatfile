@@ -15,12 +15,13 @@ import { GameInfo } from "@/app/lib/types/type-checker";
 type GameCardXMatchProps = {
   gameInfo: GameInfo;
   ingameLocale: IngameLocale;
+  isMine: boolean;
 };
 
 export function GameCardXMatch(props: GameCardXMatchProps) {
-  const { gameInfo, ingameLocale } = props;
-  const { xMatchInfo, anarchyBattleRank } = useGameStore();
-  const { isMine } = useEditStore();
+  const { gameInfo, ingameLocale, isMine } = props;
+  const { xMatchInfo, anarchyBattleRank } = gameInfo;
+
   const [edit, setEdit] = useState(false);
 
   if (anarchyBattleRank?.grade !== "S+") return null;
