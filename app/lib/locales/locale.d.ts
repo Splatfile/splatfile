@@ -8,20 +8,16 @@
 // match the expected interface, even if the JSON is valid.
 
 export interface Locale {
-    main:    Main;
-    og:      Og;
-    ui:      UI;
-    ingame:  Ingame;
-    account: Account;
-    profile: Profile;
-    header:  Header;
-    preview: Preview;
-    err:     Err;
-    "":      Empty;
-}
-
-export interface Empty {
-    "": string;
+    main:     Main;
+    og:       Og;
+    ui:       UI;
+    ingame:   Ingame;
+    account:  Account;
+    profile:  Profile;
+    header:   Header;
+    preview:  Preview;
+    err:      Err;
+    metadata: Metadata;
 }
 
 export interface Account {
@@ -77,6 +73,10 @@ export interface Main {
     first_section_title:       string;
     first_section_description: string;
     first_section_button:      string;
+}
+
+export interface Metadata {
+    lang: string;
 }
 
 export interface Og {
@@ -303,10 +303,7 @@ const typeMap: any = {
         { json: "header", js: "header", typ: r("Header") },
         { json: "preview", js: "preview", typ: r("Preview") },
         { json: "err", js: "err", typ: r("Err") },
-        { json: "", js: "", typ: r("Empty") },
-    ], false),
-    "Empty": o([
-        { json: "", js: "", typ: "" },
+        { json: "metadata", js: "metadata", typ: r("Metadata") },
     ], false),
     "Account": o([
         { json: "ui_empty_card_text", js: "ui_empty_card_text", typ: "" },
@@ -357,6 +354,9 @@ const typeMap: any = {
         { json: "first_section_title", js: "first_section_title", typ: "" },
         { json: "first_section_description", js: "first_section_description", typ: "" },
         { json: "first_section_button", js: "first_section_button", typ: "" },
+    ], false),
+    "Metadata": o([
+        { json: "lang", js: "lang", typ: "" },
     ], false),
     "Og": o([
         { json: "default_title", js: "default_title", typ: "" },

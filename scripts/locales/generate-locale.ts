@@ -25,6 +25,10 @@ fs.createReadStream(__dirname + "/locales.csv")
   .pipe(csv())
   .on("data", (data: LangData) => {
     const key = data["lang"];
+    if (!key) {
+      return;
+    }
+
     results["types"][key] = key || "";
     results["ko"][key] = data["ko"] || "";
     results["en"][key] = data["en"] || "";

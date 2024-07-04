@@ -94,7 +94,7 @@
   "err": {
     "refresh_please": "err_refresh_please"
   },
-  "": {
-    "": ""
+  "metadata": {
+    "lang": "metadata_lang"
   }
 }

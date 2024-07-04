@@ -10,6 +10,7 @@ import { renderPlate } from "@/app/plate/lib/render-plate";
 import { getSalmonRunRank } from "@/app/lib/schemas/profile/game-info";
 import { Locale } from "@/app/lib/locales/locale";
 import Konva from "konva";
+import { Lang } from "@/app/lib/types/component-props";
 
 async function renderProfileBase(
   layer: Konva.Layer,
@@ -141,7 +142,11 @@ async function renderUserInfo(
   );
 }
 
-async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
+async function renderGameInfo(
+  layer: Konva.Layer,
+  gameInfo: GameInfo,
+  locale: Locale,
+) {
   // 게임 정보를 렌더링합니다.
   const loadedImages = await loadImages(
     {
@@ -178,7 +183,10 @@ async function renderGameInfo(layer: Konva.Layer, gameInfo: GameInfo) {
   {
     // 연어런
     const salmonRank = gameInfo.salmonRunRank?.grade
-      ? getSalmonRunRank("ko", gameInfo.salmonRunRank.grade) // TODO: locale 적용
+      ? getSalmonRunRank(
+          locale.metadata.lang as Lang,
+          gameInfo.salmonRunRank.grade,
+        )
       : "-";
     layer.add(
       await newImageContainer({
@@ -319,7 +327,7 @@ export async function renderOgProfileImage(
 
   await renderProfileBase(layer, userInfo, plateInfo);
   await renderUserInfo(layer, userInfo, locale);
-  await renderGameInfo(layer, gameInfo);
+  await renderGameInfo(layer, gameInfo, locale);
 
   return new Promise<string | Blob>((resolve) => {
     stage.batchDraw();

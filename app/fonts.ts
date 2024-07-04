@@ -2,7 +2,7 @@ import { Jua, Noto_Sans_KR } from "next/font/google";
 
 export const jua = Jua({
   subsets: ["latin"],
-  weight: ["400"]
+  weight: ["400"],
 });
 
 export const notoSansKR = Noto_Sans_KR({
