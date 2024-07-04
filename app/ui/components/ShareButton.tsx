@@ -2,18 +2,20 @@
 import React, { useState } from "react";
 import { useUserStore } from "@/app/lib/hooks/use-profile-store";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
-import { Profile } from "@/app/lib/locales/locale";
+import { ProfileLocale } from "@/app/lib/locales/locale";
 import Toast from "@/app/ui/components/Toast";
+import { UserInfo } from "@/app/lib/types/type-checker";
 
 interface ShareButtonProps {
-  profile: Profile;
+  profileLocale: ProfileLocale;
+  userInfo: UserInfo;
 }
 
-export const ShareButton: React.FC<ShareButtonProps> = ({ profile }) => {
+export const ShareButton: React.FC<ShareButtonProps> = ({ profileLocale }) => {
   const userInfo = useUserStore();
   const name = userInfo.twitterInfo?.name || userInfo.switchInfo?.name || "";
-  const title = profile.ui_share_to_x_text.replace("{{name}}", name);
-  const text = profile.ui_share_desc;
+  const title = profileLocale.ui_share_to_x_text.replace("{{name}}", name);
+  const text = profileLocale.ui_share_desc;
 
   const [error, setError] = useState<string | null>(null);
 
@@ -33,7 +35,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ profile }) => {
   const fallbackCopyTextToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(
       () => {
-        alert(profile.ui_share_copied_url);
+        alert(profileLocale.ui_share_copied_url);
       },
       (err) => {
         // 일어나지 말아야할 상황으로, 발생할 경우 그냥 유저에게 보여주도록 한다.(리포트 가능하게)

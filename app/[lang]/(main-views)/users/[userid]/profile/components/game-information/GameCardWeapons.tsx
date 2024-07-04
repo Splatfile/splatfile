@@ -22,7 +22,7 @@ type GameCardWeaponsProps = {
 
 export function GameCardWeapons(props: GameCardWeaponsProps) {
   const { gameInfo, ingameLocale } = props;
-  const weaponGearInfo = useWeaponGearInfo();
+  const weaponGearInfo = gameInfo.weaponGearInfo;
   const filteredWeapons = chunkArrayInGroups(
     Object.entries(weaponGearInfo ?? {})
       .filter(([_, obj]) => obj?.isActivated)

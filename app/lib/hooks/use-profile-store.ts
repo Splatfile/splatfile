@@ -335,7 +335,6 @@ export const subscribeEdit = (
           updated_at: state.updatedAt,
         },
         userId,
-        lang,
       );
       try {
         if (!isPlateInfo(plate_info)) {
@@ -380,7 +379,6 @@ export const subscribeEdit = (
             updated_at: updated_at,
           },
           userId,
-          lang,
         );
 
         setLoading(false);

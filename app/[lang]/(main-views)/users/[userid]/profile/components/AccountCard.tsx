@@ -10,6 +10,7 @@ import { UserInfo } from "@/app/lib/types/type-checker";
 type AccountCardProps = {
   userInfo: UserInfo;
   accountLocale: AccountLocale;
+  isMine: boolean;
 };
 
 export function AccountCard(props: AccountCardProps) {

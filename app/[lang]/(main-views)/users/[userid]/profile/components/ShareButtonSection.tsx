@@ -5,16 +5,18 @@ import { XShareButton } from "@/app/ui/components/XShareButton";
 import React from "react";
 import { ExportProfileImageButton } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ExportProfileImageButton";
 import { ProfileLocale } from "@/app/lib/locales/locale";
-import { Profile } from "@/app/lib/types/supabase-alias";
+import { GameInfo, PlateInfo, UserInfo } from "@/app/lib/types/type-checker";
 
 type ShareButtonSectionProps = {
-  profile: Profile;
   profileLocale: ProfileLocale;
+  userInfo: UserInfo;
+  plateInfo: PlateInfo;
+  gameInfo: GameInfo;
   isMine: boolean;
 };
 
 export function ShareButtonSection(props: ShareButtonSectionProps) {
-  const { profile, profileLocale, isMine } = props;
+  const { profileLocale, isMine, ...infoProps } = props;
 
   if (!isMine) return null;
 
@@ -29,8 +31,14 @@ export function ShareButtonSection(props: ShareButtonSectionProps) {
         <h2 className={"text-xl font-semibold text-neutral-700"}>
           {profileLocale.ui_share_button}
         </h2>
-        <ShareButton profile={profileLocale} />
-        <XShareButton profile={profileLocale} />
+        <ShareButton
+          userInfo={infoProps.userInfo}
+          profileLocale={profileLocale}
+        />
+        <XShareButton
+          userInfo={infoProps.userInfo}
+          profileLocale={profileLocale}
+        />
       </div>
       <div
         title="이미지로 내보내기"
@@ -43,7 +51,7 @@ export function ShareButtonSection(props: ShareButtonSectionProps) {
         </h2>
         <ExportProfileImageButton
           profileLocale={profileLocale}
-          profile={profile}
+          {...infoProps}
         />
       </div>
     </div>

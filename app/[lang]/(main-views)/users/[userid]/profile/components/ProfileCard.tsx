@@ -16,7 +16,7 @@ type ProfileCardProps = {
 };
 
 export function ProfileCard(props: ProfileCardProps) {
-  const { userInfo, plateInfo, profileLocale, lang, isMine } = props;
+  const { userInfo, plateInfo, gameInfo, profileLocale, lang, isMine } = props;
   return (
     <div className={"flex h-full w-full flex-col overflow-visible rounded-lg"}>
       <div className={"relative mb-8"}>
@@ -34,7 +34,13 @@ export function ProfileCard(props: ProfileCardProps) {
           />
         </div>
       </div>
-      <ShareButtonSection isMine={isMine} profile={profileLocale} />
+      <ShareButtonSection
+        isMine={isMine}
+        profileLocale={profileLocale}
+        userInfo={userInfo}
+        gameInfo={gameInfo}
+        plateInfo={plateInfo}
+      />
     </div>
   );
 }

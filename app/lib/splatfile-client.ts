@@ -5,8 +5,8 @@ import {
 } from "@/app/lib/schemas/profile/game-info";
 import { Database } from "@/app/lib/supabase";
 import {
+  Profile,
   ProfileInsert,
-  ProfileLocale,
   ProfileUpdate,
 } from "@/app/lib/types/supabase-alias";
 import lang from "@/app/plate/lang.json";
@@ -122,7 +122,7 @@ export class SplatfileClient {
     return user;
   };
 
-  createOrGetMyProfile = async (): Promise<ProfileLocale> => {
+  createOrGetMyProfile = async (): Promise<Profile> => {
     const user = await this.getUserWithRetry();
     if (!user.data.user?.id) {
       notFound();

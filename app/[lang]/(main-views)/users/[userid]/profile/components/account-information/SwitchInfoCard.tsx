@@ -1,6 +1,6 @@
 "use client";
 
-import { setSwitchInfo, useEditStore } from "@/app/lib/hooks/use-profile-store";
+import { setSwitchInfo } from "@/app/lib/hooks/use-profile-store";
 import { useRef, useState } from "react";
 import { SwitchInfo } from "@/app/lib/schemas/profile";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
@@ -14,11 +14,11 @@ import { UserInfo } from "@/app/lib/types/type-checker";
 type SwitchInfoCardProps = {
   userInfo: UserInfo;
   accountLocale: AccountLocale;
+  isMine: boolean;
 };
 export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
-  const { accountLocale, userInfo } = props;
+  const { accountLocale, userInfo, isMine } = props;
   const switchInfo = userInfo.switchInfo;
-  const { isMine } = useEditStore();
 
   const [edit, setEdit] = useState(false);
 

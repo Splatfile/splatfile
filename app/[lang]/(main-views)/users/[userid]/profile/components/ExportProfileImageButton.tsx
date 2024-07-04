@@ -4,32 +4,30 @@ import { DefaultModal } from "@/app/ui/components/DefaultModal";
 import { CheckIcon, PhotoIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useState } from "react";
-import {
-  useGameStore,
-  useProfileImageUrl,
-  useUserStore,
-} from "@/app/lib/hooks/use-profile-store";
-import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
+import { useProfileImageUrl } from "@/app/lib/hooks/use-profile-store";
 import { useLocale } from "@/app/lib/use-locale";
 import { ProfileLocale } from "@/app/lib/locales/locale";
-import { Profile } from "@/app/lib/types/supabase-alias";
+import { GameInfo, PlateInfo, UserInfo } from "@/app/lib/types/type-checker";
 
 type ExportProfileImageModalProps = {
   onClose: () => void;
   open: boolean;
-  profile: Profile;
   profileLocale: ProfileLocale;
+  plateInfo: PlateInfo;
+  userInfo: UserInfo;
+  gameInfo: GameInfo;
 };
 
 function ExportProfileImageModal({
   open,
   onClose,
   profileLocale,
+  plateInfo,
+  userInfo,
+  gameInfo,
 }: ExportProfileImageModalProps) {
   const [canvasDataUrl, setCanvasDataUrl] = useState<string | null>(null);
-  const tag = useTagStore();
-  const gameStore = useGameStore();
-  const userStore = useUserStore();
+
   const profileImageUrl = useProfileImageUrl();
   const locale = useLocale();
 
@@ -66,21 +64,21 @@ function ExportProfileImageModal({
 
   const checklist = {
     [locale.profileLocale.ui_export_modal_checklist_nickname]: !!(
-      userStore.switchInfo?.name || userStore.twitterInfo?.name
+      userInfo.switchInfo?.name || userInfo.twitterInfo?.name
     ),
     [locale.profileLocale.ui_export_modal_checklist_profile_image]:
       !!profileImageUrl,
     [locale.profileLocale.ui_export_modal_checklist_used_weapons]:
-      gameStore.weaponGearInfo
-        ? Object.keys(gameStore.weaponGearInfo).length !== 0
+      gameInfo.weaponGearInfo
+        ? Object.keys(gameInfo.weaponGearInfo).length !== 0
         : false,
     [locale.profileLocale.ui_export_modal_checklist_friend_code]:
-      !!userStore.switchInfo?.friendCode,
+      !!userInfo.switchInfo?.friendCode,
     [locale.profileLocale.ui_export_modal_checklist_playtime]: !!(
-      userStore.weekdayPlaytime || userStore.weekendPlaytime
+      userInfo.weekdayPlaytime || userInfo.weekendPlaytime
     ),
     [locale.profileLocale.ui_export_modal_checklist_additional_information]:
-      !!userStore.introductionMessage,
+      !!userInfo.introductionMessage,
   };
   const isChecklistAllTrue = Object.values(checklist).every((value) => value);
 
@@ -93,9 +91,9 @@ function ExportProfileImageModal({
       <div className={"flex flex-col gap-4"}>
         <ProfilePreview dataUrl={canvasDataUrl} />
         <ProfileImage
-          userInfo={userStore}
-          gameInfo={gameStore}
-          plateInfo={tag}
+          userInfo={userInfo}
+          gameInfo={gameInfo}
+          plateInfo={plateInfo}
           onRenderComplete={(dataUrl) => setCanvasDataUrl(dataUrl)}
           hidden={true}
           locale={locale}
@@ -140,14 +138,13 @@ function ExportProfileImageModal({
 }
 
 type ExportProfileImageButtonProps = {
-  profile: Profile;
   profileLocale: ProfileLocale;
+  plateInfo: PlateInfo;
+  userInfo: UserInfo;
+  gameInfo: GameInfo;
 };
 
-export function ExportProfileImageButton({
-  profile,
-  profileLocale,
-}: ExportProfileImageButtonProps) {
+export function ExportProfileImageButton(props: ExportProfileImageButtonProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -158,8 +155,7 @@ export function ExportProfileImageButton({
       <ExportProfileImageModal
         open={open}
         onClose={() => setOpen(false)}
-        profileLocale={profileLocale}
-        profile={profile}
+        {...props}
       />
     </>
   );
