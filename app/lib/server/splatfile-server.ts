@@ -121,7 +121,7 @@ export class SplatfileAdmin extends SplatfileServer {
       .from("profiles")
       .select("*")
       .order("updated_at", { ascending: false })
-      .limit(10);
+      .limit(5);
 
     if (error) {
       throw error;
