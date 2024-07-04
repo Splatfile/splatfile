@@ -24,18 +24,18 @@ import {
   regularImageUrl,
   salmonImageUrl,
 } from "@/app/lib/constants/image-urls";
-import { Ingame } from "@/app/lib/locales/locale";
 import { Lang } from "@/app/lib/types/component-props";
 import clsx from "clsx";
 import { useInputNumber } from "@/app/lib/hooks/use-input-number";
+import { IngameLocale } from "@/app/lib/locales/locale";
 
 type GameCardCommonProps = {
   lang: Lang;
-  ingame: Ingame;
+  ingameLocale: IngameLocale;
 };
 
 export function GameCardCommon(props: GameCardCommonProps) {
-  const { ingame, lang } = props;
+  const { ingameLocale, lang } = props;
   const [edit, setEdit] = useState(false);
   const level = useLevel();
 
@@ -44,7 +44,7 @@ export function GameCardCommon(props: GameCardCommonProps) {
       childrenClassName={clsx(
         edit || "!flex-row sm:!flex-col !justify-between !gap-5 sm:!gap-2",
       )}
-      title={ingame.ui_summary}
+      title={ingameLocale.ui_summary}
       edit={edit}
       setEdit={setEdit}
     >

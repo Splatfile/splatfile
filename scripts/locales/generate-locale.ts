@@ -55,10 +55,11 @@ async function saveLangFiles(data: { [key: string]: LangData }) {
 
     sepratedKeys.forEach((key) => {
       const [key1, ...key2] = key.split("_");
-      if (!separatedObj[key1]) {
-        separatedObj[key1] = {};
+      const localeKey = key1 + "Locale";
+      if (!separatedObj[localeKey]) {
+        separatedObj[localeKey] = {};
       }
-      separatedObj[key1][key2.join("_")] = obj[key];
+      separatedObj[localeKey][key2.join("_")] = obj[key];
     });
 
     console.log("obj", obj);

@@ -10,16 +10,18 @@ import { PencilIcon } from "@heroicons/react/20/solid";
 import { DefaultModal } from "@/app/ui/components/DefaultModal";
 import clsx from "clsx";
 import { chunkArrayInGroups } from "@/app/lib/utils/array";
-import { Ingame } from "@/app/lib/locales/locale";
 import { z } from "zod";
 import { WeaponGearInfoObject } from "@/app/lib/schemas/profile/game-info";
+import { IngameLocale } from "@/app/lib/locales/locale";
+import { GameInfo } from "@/app/lib/types/type-checker";
 
 type GameCardWeaponsProps = {
-  ingame: Ingame;
+  gameInfo: GameInfo;
+  ingameLocale: IngameLocale;
 };
 
 export function GameCardWeapons(props: GameCardWeaponsProps) {
-  const { ingame } = props;
+  const { gameInfo, ingameLocale } = props;
   const weaponGearInfo = useWeaponGearInfo();
   const filteredWeapons = chunkArrayInGroups(
     Object.entries(weaponGearInfo ?? {})
@@ -39,7 +41,7 @@ export function GameCardWeapons(props: GameCardWeaponsProps) {
       childrenClassName={"w-full"}
       title={
         <div className={"flex w-full items-center justify-center gap-2"}>
-          <p>{ingame.ui_weapon}</p>
+          <p>{ingameLocale.ui_weapon}</p>
           {isMine && (
             <button
               className={"h-4 w-4 text-neutral-500"}
@@ -60,7 +62,7 @@ export function GameCardWeapons(props: GameCardWeaponsProps) {
       ))}
       <WeaponEditModal
         open={open}
-        ingame={ingame}
+        ingame={ingameLocale}
         onClose={() => setOpen(false)}
       />
     </InlineTextCard>
@@ -73,7 +75,6 @@ export type WeaponRendererProps = {
 
 export function WeaponRenderer({ weaponKey }: WeaponRendererProps) {
   const weaponGearInfo = useWeaponGearInfo();
-  const [open, setOpen] = useState(false);
 
   return (
     <div
@@ -138,7 +139,7 @@ export function WeaponDetailEditModal({
 }
 
 type WeaponEditModalProps = {
-  ingame: Ingame;
+  ingame: IngameLocale;
   open: boolean;
   onClose: (open: boolean) => void;
 };

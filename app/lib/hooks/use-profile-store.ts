@@ -17,7 +17,6 @@ import {
   SalmonRunRankGrade,
 } from "@/app/lib/schemas/profile/game-info";
 import { SplatfileClient } from "@/app/lib/splatfile-client";
-import { Profile } from "@/app/lib/types/supabase-alias";
 import { useEffect, useRef } from "react";
 import { z } from "zod";
 import { shallow } from "zustand/shallow";
@@ -30,8 +29,9 @@ import {
 import { Lang } from "../types/component-props";
 import { renderOgProfileImage } from "@/app/konva/lib/render/og";
 import { getLocaleByLang } from "@/app/lib/use-locale";
-import { Err } from "@/app/lib/locales/locale";
 import { setErrorMessage } from "@/app/lib/hooks/use-error-toast-store";
+import { Profile } from "../types/supabase-alias";
+import { ErrLocale } from "../locales/locale";
 
 type ProfileState = {
   user: z.infer<typeof UserInfoObject>;
@@ -272,7 +272,7 @@ export const useAnarchyPoint = () =>
 export const useDebounceEdit = (
   userId: string,
   isMine: boolean,
-  err: Err,
+  err: ErrLocale,
   lang: Lang,
 ) => {
   const timeoutIdRef: React.MutableRefObject<
@@ -291,7 +291,7 @@ export const subscribeEdit = (
   timeoutIdRef: React.MutableRefObject<
     NodeJS.Timeout | string | number | undefined
   >,
-  err: Err,
+  err: ErrLocale,
   lang: Lang,
 ) => {
   const client = new SplatfileClient("CLIENT_COMPONENT");

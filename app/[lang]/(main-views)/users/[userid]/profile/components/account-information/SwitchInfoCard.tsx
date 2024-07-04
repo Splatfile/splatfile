@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  setSwitchInfo,
-  useEditStore,
-  useSwitchInfo,
-} from "@/app/lib/hooks/use-profile-store";
+import { setSwitchInfo, useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { useRef, useState } from "react";
 import { SwitchInfo } from "@/app/lib/schemas/profile";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
@@ -12,14 +8,16 @@ import { clsx } from "clsx";
 import { NintendoSwitchLogo } from "@/app/ui/icons/NintendoSwitchLogo";
 import { EditableText } from "@/app/ui/components/EditableText";
 import { SquidLogo } from "@/app/ui/icons/SquidLogo";
-import { Account } from "@/app/lib/locales/locale";
+import { AccountLocale } from "@/app/lib/locales/locale";
+import { UserInfo } from "@/app/lib/types/type-checker";
 
 type SwitchInfoCardProps = {
-  account: Account;
+  userInfo: UserInfo;
+  accountLocale: AccountLocale;
 };
 export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
-  const { account } = props;
-  const switchInfo = useSwitchInfo();
+  const { accountLocale, userInfo } = props;
+  const switchInfo = userInfo.switchInfo;
   const { isMine } = useEditStore();
 
   const [edit, setEdit] = useState(false);
@@ -37,7 +35,7 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
 
   return (
     <EditableInlineTextCard
-      title={account.ui_nickname}
+      title={accountLocale.ui_nickname}
       edit={edit}
       setEdit={setEdit}
     >
@@ -50,7 +48,7 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
             ref={nameRef}
             edit={edit}
             value={switchInfo?.name ?? ""}
-            placeholder={account.ui_switch_nickname}
+            placeholder={accountLocale.ui_switch_nickname}
             inputClassName={
               "w-full underline underline-offset-2 outline-none max-w-full"
             }
@@ -60,7 +58,7 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
                 inGameNameRef.current?.focus();
               }
             }}
-            emptytext={account.ui_empty_card_text}
+            emptytext={accountLocale.ui_empty_card_text}
           />
         </div>
         <div
@@ -85,7 +83,7 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
                 setEdit(false);
               }
             }}
-            emptytext={account.ui_empty_card_text}
+            emptytext={accountLocale.ui_empty_card_text}
           />
         </div>
       </div>

@@ -1,19 +1,19 @@
 {
-  "main": {
+  "mainLocale": {
     "first_section_title": "スプラトゥーン <br/> プロフィール <br /> スプラフィール",
     "first_section_description": "スプラフィールで簡単にプロフィールを管理しましょう！ <br /> プロフィールにイメージ、ランクや使う武器の情報、プレートのカスタマイズなど、いろんな機能を提供します。作成したプロフィールはイメージでエクスポートして共有することもできます。",
     "first_section_button": "始める"
   },
-  "og": {
+  "ogLocale": {
     "default_title": " #Splatfile - スプラトゥーン プロフィール管理",
     "default_description": "スプラトゥーンのプロフィールを簡単に管理して共有しましょう！",
     "profile_title": " #Splatfile - {{name}}のスプラトゥーンプロフィール",
     "profile_description": "{{name}}のプロフィールを確認してください！"
   },
-  "ui": {
+  "uiLocale": {
     "recent_users_title": "最近更新されたユーザー"
   },
-  "ingame": {
+  "ingameLocale": {
     "ui_summary": "総合",
     "ui_select_weapon": "武器の選択",
     "ui_weapon": "使う武器",
@@ -30,7 +30,7 @@
     "ui_drop_ins": "乱入",
     "ui_drop_ins_welcome": "歓迎"
   },
-  "account": {
+  "accountLocale": {
     "ui_empty_card_text": "💤空っぽ💤",
     "ui_switch_nickname": "スイッチニックネーム",
     "ui_twitter_nickname": "ツイッターニックネーム",
@@ -48,7 +48,7 @@
     "ui_edit_playtime_description": "00から23の間の数字を入力してください。",
     "ui_additional_information": "追加情報"
   },
-  "profile": {
+  "profileLocale": {
     "ui_empty_card_text": "💤空っぽ💤",
     "ui_upload_image_title": "プロフィール画像のアップロード",
     "ui_image_upload_button": "クリックして画像をアップロード",
@@ -76,14 +76,14 @@
     "ui_share_desc": "スプラトゥーンのプロフィールを確認してください！",
     "ui_share_copied_url": "URLがコピーされました！"
   },
-  "header": {
+  "headerLocale": {
     "ui_my_profile": "自分のプロフィール",
     "ui_login": "ログイン",
     "ui_logout": "ログアウト",
     "ui_user_search_placeholder": "ユーザー検索",
     "ui_language_setting": "言語"
   },
-  "preview": {
+  "previewLocale": {
     "playtime_title": "プレイ時間",
     "nickname": "名前",
     "playtime_weekday": "平日",
@@ -91,10 +91,10 @@
     "used_weapons_title": "使う武器",
     "friend_code": "フレンドコード"
   },
-  "err": {
+  "errLocale": {
     "refresh_please": "エラーが発生しました。ページをリフレッシュしてください。"
   },
-  "": {
+  "Locale": {
     "": ""
   }
 }

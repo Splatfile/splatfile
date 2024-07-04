@@ -55,8 +55,8 @@ export const generateMetadata = async (
 
   if (!profile) {
     return {
-      title: locale.og.default_title,
-      description: locale.og.default_description,
+      title: locale.ogLocale.default_title,
+      description: locale.ogLocale.default_description,
     };
   }
 
@@ -77,8 +77,8 @@ export const generateMetadata = async (
   }
 
   return {
-    title: locale.og.profile_title.replace("{{name}}", name),
-    description: locale.og.profile_description.replace("{{name}}", name),
+    title: locale.ogLocale.profile_title.replace("{{name}}", name),
+    description: locale.ogLocale.profile_description.replace("{{name}}", name),
     openGraph: {
       type: "profile",
       siteName: "splatfile",
@@ -109,7 +109,7 @@ export default async function ProfilePage(props: ProfilePage) {
           <DebounceEditing
             userId={props.params.userid}
             lang={props.params.lang}
-            err={dictionary.err}
+            err={dictionary.errLocale}
           />
         </UserContextWrapper>
         <StoreSetting
@@ -119,9 +119,11 @@ export default async function ProfilePage(props: ProfilePage) {
         />
         <ProfileWrapper
           lang={props.params.lang}
-          account={dictionary.account}
-          ingame={dictionary.ingame}
-          profile={dictionary.profile}
+          profile={profile}
+          accountLocale={dictionary.accountLocale}
+          ingameLocale={dictionary.ingameLocale}
+          profileLocale={dictionary.profileLocale}
+          isMine={true}
         />
       </>
     );
@@ -132,16 +134,13 @@ export default async function ProfilePage(props: ProfilePage) {
 
   return (
     <>
-      <StoreSetting
-        profile={profile}
-        userId={props.params.userid}
-        isMine={false}
-      />
       <ProfileWrapper
         lang={props.params.lang}
-        account={dictionary.account}
-        ingame={dictionary.ingame}
-        profile={dictionary.profile}
+        profile={profile}
+        accountLocale={dictionary.accountLocale}
+        ingameLocale={dictionary.ingameLocale}
+        profileLocale={dictionary.profileLocale}
+        isMine={false}
       />
     </>
   );

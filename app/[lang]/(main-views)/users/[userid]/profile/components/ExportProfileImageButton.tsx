@@ -1,10 +1,9 @@
 "use client";
 import { ProfileImage } from "@/app/konva/components/ProfileImage";
 import { DefaultModal } from "@/app/ui/components/DefaultModal";
-import { PhotoIcon, CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, PhotoIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useState } from "react";
-import { Profile } from "@/app/lib/locales/locale";
 import {
   useGameStore,
   useProfileImageUrl,
@@ -12,17 +11,20 @@ import {
 } from "@/app/lib/hooks/use-profile-store";
 import { useTagStore } from "@/app/plate/lib/store/use-tag-store";
 import { useLocale } from "@/app/lib/use-locale";
+import { ProfileLocale } from "@/app/lib/locales/locale";
+import { Profile } from "@/app/lib/types/supabase-alias";
 
 type ExportProfileImageModalProps = {
-  open: boolean;
   onClose: () => void;
+  open: boolean;
   profile: Profile;
+  profileLocale: ProfileLocale;
 };
 
 function ExportProfileImageModal({
   open,
   onClose,
-  profile,
+  profileLocale,
 }: ExportProfileImageModalProps) {
   const [canvasDataUrl, setCanvasDataUrl] = useState<string | null>(null);
   const tag = useTagStore();
@@ -63,20 +65,21 @@ function ExportProfileImageModal({
   };
 
   const checklist = {
-    [locale.profile.ui_export_modal_checklist_nickname]: !!(
+    [locale.profileLocale.ui_export_modal_checklist_nickname]: !!(
       userStore.switchInfo?.name || userStore.twitterInfo?.name
     ),
-    [locale.profile.ui_export_modal_checklist_profile_image]: !!profileImageUrl,
-    [locale.profile.ui_export_modal_checklist_used_weapons]:
+    [locale.profileLocale.ui_export_modal_checklist_profile_image]:
+      !!profileImageUrl,
+    [locale.profileLocale.ui_export_modal_checklist_used_weapons]:
       gameStore.weaponGearInfo
         ? Object.keys(gameStore.weaponGearInfo).length !== 0
         : false,
-    [locale.profile.ui_export_modal_checklist_friend_code]:
+    [locale.profileLocale.ui_export_modal_checklist_friend_code]:
       !!userStore.switchInfo?.friendCode,
-    [locale.profile.ui_export_modal_checklist_playtime]: !!(
+    [locale.profileLocale.ui_export_modal_checklist_playtime]: !!(
       userStore.weekdayPlaytime || userStore.weekendPlaytime
     ),
-    [locale.profile.ui_export_modal_checklist_additional_information]:
+    [locale.profileLocale.ui_export_modal_checklist_additional_information]:
       !!userStore.introductionMessage,
   };
   const isChecklistAllTrue = Object.values(checklist).every((value) => value);
@@ -85,7 +88,7 @@ function ExportProfileImageModal({
     <DefaultModal
       open={open}
       onClose={onClose}
-      title={profile.ui_export_modal_title}
+      title={profileLocale.ui_export_modal_title}
     >
       <div className={"flex flex-col gap-4"}>
         <ProfilePreview dataUrl={canvasDataUrl} />
@@ -100,7 +103,7 @@ function ExportProfileImageModal({
         {!isChecklistAllTrue ? (
           <>
             <h3 className={"text-md font-semibold"}>
-              {locale.profile.ui_export_modal_checklist_title}
+              {locale.profileLocale.ui_export_modal_checklist_title}
             </h3>
             <ul className="list-inside list-disc">
               {Object.entries(checklist).map(([key, value]) => (
@@ -128,8 +131,8 @@ function ExportProfileImageModal({
           onClick={downloadImage}
         >
           {canvasDataUrl === null
-            ? profile.ui_export_modal_download_button_rendering_wait
-            : profile.ui_export_modal_download_button}
+            ? profileLocale.ui_export_modal_download_button_rendering_wait
+            : profileLocale.ui_export_modal_download_button}
         </button>
       </div>
     </DefaultModal>
@@ -138,10 +141,12 @@ function ExportProfileImageModal({
 
 type ExportProfileImageButtonProps = {
   profile: Profile;
+  profileLocale: ProfileLocale;
 };
 
 export function ExportProfileImageButton({
   profile,
+  profileLocale,
 }: ExportProfileImageButtonProps) {
   const [open, setOpen] = useState(false);
 
@@ -153,6 +158,7 @@ export function ExportProfileImageButton({
       <ExportProfileImageModal
         open={open}
         onClose={() => setOpen(false)}
+        profileLocale={profileLocale}
         profile={profile}
       />
     </>

@@ -1,23 +1,22 @@
 "use client";
 import React, { useState } from "react";
-import {
-  useEditStore,
-  useProfileImageUrl,
-} from "@/app/lib/hooks/use-profile-store";
 import clsx from "clsx";
 
 import { ProfileModal } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/profile-card/ProfileModal";
-import { Profile } from "@/app/lib/locales/locale";
+import { ProfileLocale } from "@/app/lib/locales/locale";
+import { UserInfo } from "@/app/lib/types/type-checker";
 
 type ProfileImageProps = {
-  profile: Profile;
+  userInfo: UserInfo;
+  profile: ProfileLocale;
+  isMine: boolean;
 };
 
 export function ProfileImage(props: ProfileImageProps) {
-  const { profile } = props;
+  const { userInfo, profile, isMine } = props;
   const [open, setOpen] = useState(false);
-  const profileImageUrl = useProfileImageUrl();
-  const { isMine } = useEditStore();
+  const profileImageUrl = userInfo.profileImageUrl;
+
   return (
     <button
       onClick={() => setOpen(true)}

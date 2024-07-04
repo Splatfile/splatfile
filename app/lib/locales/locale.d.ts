@@ -8,23 +8,23 @@
 // match the expected interface, even if the JSON is valid.
 
 export interface Locale {
-    main:    Main;
-    og:      Og;
-    ui:      UI;
-    ingame:  Ingame;
-    account: Account;
-    profile: Profile;
-    header:  Header;
-    preview: Preview;
-    err:     Err;
-    "":      Empty;
+    mainLocale:    MainLocale;
+    ogLocale:      OgLocale;
+    uiLocale:      UILocale;
+    ingameLocale:  IngameLocale;
+    accountLocale: AccountLocale;
+    profileLocale: ProfileLocale;
+    headerLocale:  HeaderLocale;
+    previewLocale: PreviewLocale;
+    errLocale:     ErrLocale;
+    Locale:        LocaleClass;
 }
 
-export interface Empty {
+export interface LocaleClass {
     "": string;
 }
 
-export interface Account {
+export interface AccountLocale {
     ui_empty_card_text:           string;
     ui_switch_nickname:           string;
     ui_twitter_nickname:          string;
@@ -43,11 +43,11 @@ export interface Account {
     ui_additional_information:    string;
 }
 
-export interface Err {
+export interface ErrLocale {
     refresh_please: string;
 }
 
-export interface Header {
+export interface HeaderLocale {
     ui_my_profile:              string;
     ui_login:                   string;
     ui_logout:                  string;
@@ -55,7 +55,7 @@ export interface Header {
     ui_language_setting:        string;
 }
 
-export interface Ingame {
+export interface IngameLocale {
     ui_summary:                  string;
     ui_select_weapon:            string;
     ui_weapon:                   string;
@@ -73,20 +73,20 @@ export interface Ingame {
     ui_drop_ins_welcome:         string;
 }
 
-export interface Main {
+export interface MainLocale {
     first_section_title:       string;
     first_section_description: string;
     first_section_button:      string;
 }
 
-export interface Og {
+export interface OgLocale {
     default_title:       string;
     default_description: string;
     profile_title:       string;
     profile_description: string;
 }
 
-export interface Preview {
+export interface PreviewLocale {
     playtime_title:     string;
     nickname:           string;
     playtime_weekday:   string;
@@ -95,7 +95,7 @@ export interface Preview {
     friend_code:        string;
 }
 
-export interface Profile {
+export interface ProfileLocale {
     ui_empty_card_text:                                     string;
     ui_upload_image_title:                                  string;
     ui_image_upload_button:                                 string;
@@ -124,7 +124,7 @@ export interface Profile {
     ui_share_copied_url:                                    string;
 }
 
-export interface UI {
+export interface UILocale {
     recent_users_title: string;
 }
 
@@ -294,21 +294,21 @@ function r(name: string) {
 
 const typeMap: any = {
     "Locale": o([
-        { json: "main", js: "main", typ: r("Main") },
-        { json: "og", js: "og", typ: r("Og") },
-        { json: "ui", js: "ui", typ: r("UI") },
-        { json: "ingame", js: "ingame", typ: r("Ingame") },
-        { json: "account", js: "account", typ: r("Account") },
-        { json: "profile", js: "profile", typ: r("Profile") },
-        { json: "header", js: "header", typ: r("Header") },
-        { json: "preview", js: "preview", typ: r("Preview") },
-        { json: "err", js: "err", typ: r("Err") },
-        { json: "", js: "", typ: r("Empty") },
+        { json: "mainLocale", js: "mainLocale", typ: r("MainLocale") },
+        { json: "ogLocale", js: "ogLocale", typ: r("OgLocale") },
+        { json: "uiLocale", js: "uiLocale", typ: r("UILocale") },
+        { json: "ingameLocale", js: "ingameLocale", typ: r("IngameLocale") },
+        { json: "accountLocale", js: "accountLocale", typ: r("AccountLocale") },
+        { json: "profileLocale", js: "profileLocale", typ: r("ProfileLocale") },
+        { json: "headerLocale", js: "headerLocale", typ: r("HeaderLocale") },
+        { json: "previewLocale", js: "previewLocale", typ: r("PreviewLocale") },
+        { json: "errLocale", js: "errLocale", typ: r("ErrLocale") },
+        { json: "Locale", js: "Locale", typ: r("LocaleClass") },
     ], false),
-    "Empty": o([
+    "LocaleClass": o([
         { json: "", js: "", typ: "" },
     ], false),
-    "Account": o([
+    "AccountLocale": o([
         { json: "ui_empty_card_text", js: "ui_empty_card_text", typ: "" },
         { json: "ui_switch_nickname", js: "ui_switch_nickname", typ: "" },
         { json: "ui_twitter_nickname", js: "ui_twitter_nickname", typ: "" },
@@ -326,17 +326,17 @@ const typeMap: any = {
         { json: "ui_edit_playtime_description", js: "ui_edit_playtime_description", typ: "" },
         { json: "ui_additional_information", js: "ui_additional_information", typ: "" },
     ], false),
-    "Err": o([
+    "ErrLocale": o([
         { json: "refresh_please", js: "refresh_please", typ: "" },
     ], false),
-    "Header": o([
+    "HeaderLocale": o([
         { json: "ui_my_profile", js: "ui_my_profile", typ: "" },
         { json: "ui_login", js: "ui_login", typ: "" },
         { json: "ui_logout", js: "ui_logout", typ: "" },
         { json: "ui_user_search_placeholder", js: "ui_user_search_placeholder", typ: "" },
         { json: "ui_language_setting", js: "ui_language_setting", typ: "" },
     ], false),
-    "Ingame": o([
+    "IngameLocale": o([
         { json: "ui_summary", js: "ui_summary", typ: "" },
         { json: "ui_select_weapon", js: "ui_select_weapon", typ: "" },
         { json: "ui_weapon", js: "ui_weapon", typ: "" },
@@ -353,18 +353,18 @@ const typeMap: any = {
         { json: "ui_drop_ins", js: "ui_drop_ins", typ: "" },
         { json: "ui_drop_ins_welcome", js: "ui_drop_ins_welcome", typ: "" },
     ], false),
-    "Main": o([
+    "MainLocale": o([
         { json: "first_section_title", js: "first_section_title", typ: "" },
         { json: "first_section_description", js: "first_section_description", typ: "" },
         { json: "first_section_button", js: "first_section_button", typ: "" },
     ], false),
-    "Og": o([
+    "OgLocale": o([
         { json: "default_title", js: "default_title", typ: "" },
         { json: "default_description", js: "default_description", typ: "" },
         { json: "profile_title", js: "profile_title", typ: "" },
         { json: "profile_description", js: "profile_description", typ: "" },
     ], false),
-    "Preview": o([
+    "PreviewLocale": o([
         { json: "playtime_title", js: "playtime_title", typ: "" },
         { json: "nickname", js: "nickname", typ: "" },
         { json: "playtime_weekday", js: "playtime_weekday", typ: "" },
@@ -372,7 +372,7 @@ const typeMap: any = {
         { json: "used_weapons_title", js: "used_weapons_title", typ: "" },
         { json: "friend_code", js: "friend_code", typ: "" },
     ], false),
-    "Profile": o([
+    "ProfileLocale": o([
         { json: "ui_empty_card_text", js: "ui_empty_card_text", typ: "" },
         { json: "ui_upload_image_title", js: "ui_upload_image_title", typ: "" },
         { json: "ui_image_upload_button", js: "ui_image_upload_button", typ: "" },
@@ -400,7 +400,7 @@ const typeMap: any = {
         { json: "ui_share_desc", js: "ui_share_desc", typ: "" },
         { json: "ui_share_copied_url", js: "ui_share_copied_url", typ: "" },
     ], false),
-    "UI": o([
+    "UILocale": o([
         { json: "recent_users_title", js: "recent_users_title", typ: "" },
     ], false),
 };

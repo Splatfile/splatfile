@@ -5,16 +5,18 @@ import { GameCardXMatch } from "@/app/[lang]/(main-views)/users/[userid]/profile
 import { GameCardSalmonRun } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCardSalmonRun";
 import { GameCardWeapons } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCardWeapons";
 import { GameCardPlayStyle } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCardPlayStyle";
-import { Ingame } from "@/app/lib/locales/locale";
 import { Lang } from "@/app/lib/types/component-props";
+import { IngameLocale } from "@/app/lib/locales/locale";
+import { GameInfo } from "@/app/lib/types/type-checker";
 
 type GameCardProps = {
   lang: Lang;
-  ingame: Ingame;
+  gameInfo: GameInfo;
+  ingameLocale: IngameLocale;
 };
 
 export function GameCard(props: GameCardProps) {
-  const { ingame, lang } = props;
+  const { lang, ...commonProps } = props;
   return (
     <div
       className={"flex w-full flex-col justify-center gap-2 px-2 py-6 lg:px-8"}
@@ -24,15 +26,15 @@ export function GameCard(props: GameCardProps) {
           "align-center grid w-full justify-stretch gap-6 md:grid-cols-2 md:items-stretch md:justify-center"
         }
       >
-        <GameCardCommon lang={lang} ingame={ingame} />
+        <GameCardCommon lang={lang} {...commonProps} />
         {/* 랭크 S+ 이상일 때만 보여짐 */}
-        <GameCardXMatch ingame={ingame} />
+        <GameCardXMatch {...commonProps} />
         {/*연어런 전설 등급 이상일 때만*/}
-        <GameCardSalmonRun ingame={ingame} />
-        <GameCardWeapons ingame={ingame} />
+        <GameCardSalmonRun {...commonProps} />
+        <GameCardWeapons {...commonProps} />
       </div>
       <div className={"pt-4"}>
-        <GameCardPlayStyle ingame={ingame} />
+        <GameCardPlayStyle {...commonProps} />
       </div>
     </div>
   );

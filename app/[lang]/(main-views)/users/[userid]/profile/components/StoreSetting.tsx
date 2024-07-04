@@ -1,13 +1,13 @@
 "use client";
 import { initProfileStore } from "@/app/lib/hooks/use-profile-store";
 import { useEffect } from "react";
-import { Profile } from "@/app/lib/types/supabase-alias";
+import { ProfileLocale } from "@/app/lib/types/supabase-alias";
 import { Auth } from "@supabase/auth-ui-react";
 import { initializeTagStore } from "@/app/plate/lib/store/use-tag-store";
 import useUser = Auth.useUser;
 
 type StoreSettingProps = {
-  profile: Profile;
+  profile: ProfileLocale;
   userId: string;
   isMine: boolean;
 };

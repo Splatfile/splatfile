@@ -2,25 +2,39 @@ import React from "react";
 import { ProfileImage } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/profile-card/ProfileCard";
 import { PlateImage } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/profile-card/PlateImage";
 import { ShareButtonSection } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ShareButtonSection";
-import { Profile } from "@/app/lib/locales/locale";
 import { Lang } from "@/app/lib/types/component-props";
+import { GameInfo, PlateInfo, UserInfo } from "@/app/lib/types/type-checker";
+import { ProfileLocale } from "@/app/lib/locales/locale";
 
 type ProfileCardProps = {
-  profile: Profile;
+  userInfo: UserInfo;
+  plateInfo: PlateInfo;
+  gameInfo: GameInfo;
+  profileLocale: ProfileLocale;
   lang: Lang;
+  isMine: boolean;
 };
 
 export function ProfileCard(props: ProfileCardProps) {
-  const { profile, lang } = props;
+  const { userInfo, plateInfo, profileLocale, lang, isMine } = props;
   return (
     <div className={"flex h-full w-full flex-col overflow-visible rounded-lg"}>
       <div className={"relative mb-8"}>
-        <ProfileImage profile={profile} />
+        <ProfileImage
+          isMine={isMine}
+          userInfo={userInfo}
+          profile={profileLocale}
+        />
         <div className={"absolute -bottom-8 -right-5 z-10 w-full"}>
-          <PlateImage profile={profile} lang={lang} />
+          <PlateImage
+            plateInfo={plateInfo}
+            profile={profileLocale}
+            lang={lang}
+            isMine={isMine}
+          />
         </div>
       </div>
-      <ShareButtonSection profile={profile} />
+      <ShareButtonSection isMine={isMine} profile={profileLocale} />
     </div>
   );
 }

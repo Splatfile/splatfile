@@ -26,7 +26,7 @@ import { Checkbox } from "@headlessui/react";
 import { Ingame } from "@/app/lib/locales/locale";
 
 type GameCardPlayStyleProps = {
-  ingame: Ingame;
+  ingame: IngameLocale;
 };
 
 export function GameCardPlayStyle(props: GameCardPlayStyleProps) {
@@ -171,7 +171,7 @@ function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
 }
 
 type PlayStyleItemProps = {
-  ingame: Ingame;
+  ingame: IngameLocale;
   playKey: z.infer<typeof PlayStyleKeysObject>;
 };
 

@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { GradientDirection } from "../types/gradient";
 
 import { StateStorage } from "zustand/middleware";
-import { Profile } from "@/app/lib/types/supabase-alias";
+import { ProfileLocale } from "@/app/lib/types/supabase-alias";
 import { z } from "zod";
 import { useEffect } from "react";
 import { SplatfileClient } from "@/app/lib/splatfile-client";
@@ -100,7 +100,7 @@ export const useTagStore = create<TagStore>((set) => ({
     })),
 }));
 
-export const initializeTagStore = (profile: Profile) => {
+export const initializeTagStore = (profile: ProfileLocale) => {
   const { plate_info } = profile;
 
   if (!isPlateInfo(plate_info)) {
@@ -270,7 +270,6 @@ export const subscribeEdit = (userId: string, err: Err, lang: Lang) => {
             updated_at: getUpdatedAt(),
           },
           userId,
-          lang,
         );
         initProfileStore(updated, true);
         initializeTagStore(updated);

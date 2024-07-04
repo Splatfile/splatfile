@@ -5,8 +5,8 @@ import {
 } from "@/app/lib/schemas/profile/game-info";
 import { Database } from "@/app/lib/supabase";
 import {
-  Profile,
   ProfileInsert,
+  ProfileLocale,
   ProfileUpdate,
 } from "@/app/lib/types/supabase-alias";
 import lang from "@/app/plate/lang.json";
@@ -17,7 +17,6 @@ import {
 } from "@supabase/auth-helpers-nextjs";
 import { notFound } from "next/navigation";
 import { z } from "zod";
-import { Lang } from "@/app/lib/types/component-props";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -123,7 +122,7 @@ export class SplatfileClient {
     return user;
   };
 
-  createOrGetMyProfile = async (): Promise<Profile> => {
+  createOrGetMyProfile = async (): Promise<ProfileLocale> => {
     const user = await this.getUserWithRetry();
     if (!user.data.user?.id) {
       notFound();
@@ -207,11 +206,7 @@ export class SplatfileClient {
     return data;
   };
 
-  updateProfile = async (
-    profile: ProfileUpdate,
-    userId: string,
-    lang: Lang,
-  ) => {
+  updateProfile = async (profile: ProfileUpdate, userId: string) => {
     const user = await this._supabase.auth.getUser();
 
     if (user.data.user?.id !== userId) {

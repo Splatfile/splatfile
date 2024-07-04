@@ -1,36 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import {
-  setGender,
-  useEditStore,
-  useGender,
-} from "@/app/lib/hooks/use-profile-store";
+import { setGender, useGender } from "@/app/lib/hooks/use-profile-store";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { EditableText } from "@/app/ui/components/EditableText";
-import { Account } from "@/app/lib/locales/locale";
+import { UserInfo } from "@/app/lib/types/type-checker";
+import { AccountLocale } from "@/app/lib/locales/locale";
 
 type GenderCardProps = {
-  account: Account;
+  userInfo: UserInfo;
+  accountLocale: AccountLocale;
+  isMine: boolean;
 };
 export const GenderCard = (props: GenderCardProps) => {
-  const { account } = props;
+  const { accountLocale, userInfo, isMine } = props;
   const [edit, setEdit] = useState(false);
-  const { isMine } = useEditStore();
   const gender = useGender();
 
   if (!isMine && !gender) return null;
 
   return (
     <EditableInlineTextCard
-      title={account.ui_gender}
+      title={accountLocale.ui_gender}
       edit={edit}
       setEdit={setEdit}
     >
       <EditableText
         edit={edit}
         value={gender ?? ""}
-        placeholder={account.ui_gender_placeholder}
+        placeholder={accountLocale.ui_gender_placeholder}
         textClassName={"text-center"}
         inputClassName={"w-full"}
         onChange={(value) => setGender(value)}
@@ -39,7 +37,7 @@ export const GenderCard = (props: GenderCardProps) => {
             setEdit(false);
           }
         }}
-        emptytext={account.ui_empty_card_text}
+        emptytext={accountLocale.ui_empty_card_text}
       />
     </EditableInlineTextCard>
   );

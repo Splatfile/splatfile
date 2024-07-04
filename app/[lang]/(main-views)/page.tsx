@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import { RecentUpdatedUsers } from "@/app/ui/components/RecentUpdatedUsers";
 import { PageProps } from "@/app/lib/types/component-props";
@@ -10,7 +9,7 @@ export const revalidate = 0;
 
 export default async function Page(props: PageProps) {
   const dictionary = await getDictionary(props.params.lang);
-  const main = dictionary["main"];
+  const main = dictionary["mainLocale"];
   const maxImageIndexByLang = {
     ko: 4,
     en: 1,
@@ -43,7 +42,7 @@ export default async function Page(props: PageProps) {
           </div>
           <div className={"p-8"}>
             <QueryClientWrapper>
-              <RecentUpdatedUsers ui={dictionary["ui"]} />
+              <RecentUpdatedUsers uiLocale={dictionary["uiLocale"]} />
             </QueryClientWrapper>
           </div>
         </div>

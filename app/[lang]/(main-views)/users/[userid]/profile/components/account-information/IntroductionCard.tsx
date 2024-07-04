@@ -3,20 +3,19 @@
 import { EditableTextCard } from "@/app/ui/components/TextCard";
 import { useState } from "react";
 import { EditableParagraph } from "@/app/ui/components/EditableText";
-import {
-  setIntroductionMessage,
-  useIntroductionMessage,
-} from "@/app/lib/hooks/use-profile-store";
-import { Account } from "@/app/lib/locales/locale";
+import { setIntroductionMessage } from "@/app/lib/hooks/use-profile-store";
+import { AccountLocale } from "@/app/lib/locales/locale";
+import { UserInfo } from "@/app/lib/types/type-checker";
 
 type AboutMeProps = {
-  account: Account;
+  accountLocale: AccountLocale;
+  userInfo: UserInfo;
 };
 
 export function IntroductionCard(props: AboutMeProps) {
-  const { account } = props;
+  const { userInfo, accountLocale } = props;
   const [edit, setEdit] = useState(false);
-  const message = useIntroductionMessage();
+  const message = userInfo.introductionMessage;
 
   const onChange = (message: string) => {
     setIntroductionMessage(message);
@@ -24,7 +23,7 @@ export function IntroductionCard(props: AboutMeProps) {
 
   return (
     <EditableTextCard
-      title={account.ui_additional_information}
+      title={accountLocale.ui_additional_information}
       edit={edit}
       setEdit={setEdit}
     >
@@ -40,7 +39,7 @@ export function IntroductionCard(props: AboutMeProps) {
         value={message ?? ""}
         cols={80}
         rows={20}
-        emptytext={account.ui_empty_card_text}
+        emptytext={accountLocale.ui_empty_card_text}
       />
     </EditableTextCard>
   );
