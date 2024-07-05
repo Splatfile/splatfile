@@ -2,7 +2,6 @@ import { SplatfileAdmin } from "@/app/lib/server/splatfile-server";
 import { NextResponse } from "next/server";
 import { ROUTER } from "@/app/lib/splatfile-client";
 import { UserInfoObject } from "@/app/lib/schemas/profile";
-import { ProfileLocale } from "@/app/lib/types/supabase-alias";
 import { isUserInfo } from "@/app/lib/types/type-checker";
 
 export const dynamic = "force-dynamic";
