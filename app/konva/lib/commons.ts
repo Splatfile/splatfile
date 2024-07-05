@@ -20,7 +20,7 @@ type TextContainerProps = {
 export async function newTextContainer(props: TextContainerProps) {
   props = {
     fontSize: 24,
-    fontFamily: jua.style.fontFamily,
+    fontFamily: jua.style.fontFamily + ", 'Kurokane', system-ui",
     fill: "white",
     wrap: "none",
     ...props,

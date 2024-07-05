@@ -11,6 +11,7 @@ import { getSalmonRunRank } from "@/app/lib/schemas/profile/game-info";
 import { Locale } from "@/app/lib/locales/locale";
 import Konva from "konva";
 import { jua } from "@/app/fonts";
+import { Lang } from "@/app/lib/types/component-props";
 
 const CANVAS_WIDTH = 1024;
 const CANVAS_HEIGHT = 536;
@@ -245,7 +246,8 @@ async function renderGameInfo(
         x: x + 37,
         y: y + 4,
         text,
-        fontFamily: "Splat-title, " + jua.style.fontFamily,
+        fontFamily:
+          "Splat-title, " + jua.style.fontFamily + ", 'Kurokane', system-ui",
       }),
     );
   };
@@ -272,7 +274,10 @@ async function renderGameInfo(
   {
     // 연어런
     const salmonRank = gameInfo.salmonRunRank?.grade
-      ? getSalmonRunRank("ko", gameInfo.salmonRunRank.grade) // TODO: locale 적용
+      ? getSalmonRunRank(
+          locale.metadata.lang as Lang,
+          gameInfo.salmonRunRank.grade,
+        )
       : "-";
 
     await renderIconText(695, 160, loadedImages.salmon, salmonRank);
