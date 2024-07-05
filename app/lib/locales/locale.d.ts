@@ -8,20 +8,16 @@
 // match the expected interface, even if the JSON is valid.
 
 export interface Locale {
-    mainLocale:    MainLocale;
-    ogLocale:      OgLocale;
-    uiLocale:      UILocale;
-    ingameLocale:  IngameLocale;
-    accountLocale: AccountLocale;
-    profileLocale: ProfileLocale;
-    headerLocale:  HeaderLocale;
-    previewLocale: PreviewLocale;
-    errLocale:     ErrLocale;
-    Locale:        LocaleClass;
-}
-
-export interface LocaleClass {
-    "": string;
+    mainLocale:     MainLocale;
+    ogLocale:       OgLocale;
+    uiLocale:       UILocale;
+    ingameLocale:   IngameLocale;
+    accountLocale:  AccountLocale;
+    profileLocale:  ProfileLocale;
+    headerLocale:   HeaderLocale;
+    previewLocale:  PreviewLocale;
+    errLocale:      ErrLocale;
+    metadataLocale: MetadataLocale;
 }
 
 export interface AccountLocale {
@@ -77,6 +73,10 @@ export interface MainLocale {
     first_section_title:       string;
     first_section_description: string;
     first_section_button:      string;
+}
+
+export interface MetadataLocale {
+    lang: string;
 }
 
 export interface OgLocale {
@@ -303,10 +303,7 @@ const typeMap: any = {
         { json: "headerLocale", js: "headerLocale", typ: r("HeaderLocale") },
         { json: "previewLocale", js: "previewLocale", typ: r("PreviewLocale") },
         { json: "errLocale", js: "errLocale", typ: r("ErrLocale") },
-        { json: "Locale", js: "Locale", typ: r("LocaleClass") },
-    ], false),
-    "LocaleClass": o([
-        { json: "", js: "", typ: "" },
+        { json: "metadataLocale", js: "metadataLocale", typ: r("MetadataLocale") },
     ], false),
     "AccountLocale": o([
         { json: "ui_empty_card_text", js: "ui_empty_card_text", typ: "" },
@@ -357,6 +354,9 @@ const typeMap: any = {
         { json: "first_section_title", js: "first_section_title", typ: "" },
         { json: "first_section_description", js: "first_section_description", typ: "" },
         { json: "first_section_button", js: "first_section_button", typ: "" },
+    ], false),
+    "MetadataLocale": o([
+        { json: "lang", js: "lang", typ: "" },
     ], false),
     "OgLocale": o([
         { json: "default_title", js: "default_title", typ: "" },

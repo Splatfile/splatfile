@@ -94,7 +94,7 @@
   "errLocale": {
     "refresh_please": "에러가 발생했습니다. 페이지를 새로고침 해주세요."
   },
-  "Locale": {
-    "": ""
+  "metadataLocale": {
+    "lang": "ko"
   }
 }

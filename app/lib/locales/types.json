@@ -94,7 +94,7 @@
   "errLocale": {
     "refresh_please": "err_refresh_please"
   },
-  "Locale": {
-    "": ""
+  "metadataLocale": {
+    "lang": "metadata_lang"
   }
 }

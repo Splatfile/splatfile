@@ -275,7 +275,7 @@ async function renderGameInfo(
     // 연어런
     const salmonRank = gameInfo.salmonRunRank?.grade
       ? getSalmonRunRank(
-          locale.metadata.lang as Lang,
+          locale.metadataLocale.lang as Lang,
           gameInfo.salmonRunRank.grade,
         )
       : "-";

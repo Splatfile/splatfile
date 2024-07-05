@@ -94,7 +94,7 @@
   "errLocale": {
     "refresh_please": "エラーが発生しました。ページをリフレッシュしてください。"
   },
-  "Locale": {
-    "": ""
+  "metadataLocale": {
+    "lang": "ja"
   }
 }
