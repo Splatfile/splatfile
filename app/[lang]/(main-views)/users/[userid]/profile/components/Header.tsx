@@ -14,6 +14,7 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import { UserSearchBox } from "@/app/ui/components/UserSearchBox";
 import { HeaderLocale } from "@/app/lib/locales/locale";
+import ko from "@/app/lib/locales/ko.json";
 import en from "@/app/lib/locales/en.json";
 import ja from "@/app/lib/locales/ja.json";
 import Image from "next/image";
@@ -27,16 +28,16 @@ import useUser = Auth.useUser;
 type HeaderProps = {};
 
 export function Header(_: HeaderProps) {
+  const params = useParams();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [headerLocale, setHeaderLocale] = useState<HeaderLocale>(
     en.headerLocale,
   );
 
-  const params = useParams();
   useEffect(() => {
     const lang = params["lang"] ?? "en";
     if (lang === "ko") {
-      setHeaderLocale(en.headerLocale);
+      setHeaderLocale(ko.headerLocale);
     } else if (lang === "ja") {
       setHeaderLocale(ja.headerLocale);
     } else {
