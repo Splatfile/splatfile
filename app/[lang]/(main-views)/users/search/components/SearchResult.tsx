@@ -1,4 +1,4 @@
-import { ProfileLocale } from "@/app/lib/types/supabase-alias";
+import { Profile } from "@/app/lib/types/supabase-alias";
 import Link from "next/link";
 
 import { isPlateInfo, isUserInfo } from "@/app/lib/types/type-checker";
@@ -10,7 +10,7 @@ import { XLogo } from "@/app/ui/icons/XLogo";
 
 type SearchResultProps = {
   query: string;
-  profiles?: ProfileLocale[];
+  profiles?: Profile[];
 };
 
 export function SearchResult(props: SearchResultProps) {
