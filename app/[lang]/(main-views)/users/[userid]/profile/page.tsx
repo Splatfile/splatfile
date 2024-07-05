@@ -10,33 +10,13 @@ import { getDictionary } from "@/app/lib/dictionaries";
 import { PageProps } from "@/app/lib/types/component-props";
 import { getLocaleByLang } from "@/app/lib/server/locale";
 import { unstable_noStore } from "next/cache";
-
-import dynamic from "next/dynamic";
-import { ProfileWithStore } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileWithStore";
-
-const StoreSetting = dynamic(
-  () =>
-    import(
-      "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting"
-    ),
-  { ssr: false },
-);
-
-const DebounceEditing = dynamic(
-  () =>
-    import(
-      "@/app/[lang]/(main-views)/users/[userid]/profile/components/DebounceEditing"
-    ),
-  { ssr: false },
-);
-
-const ProfileWrapper = dynamic(
-  () =>
-    import(
-      "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileWrapper"
-    ),
-  { ssr: false },
-);
+import ProfileWrapper from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileWrapper";
+import {
+  isGameInfo,
+  isPlateInfo,
+  isUserInfo,
+} from "@/app/lib/types/type-checker";
+import { ProfileWithStore } from "./components/ProfileWithStore";
 
 type ProfilePage = PageProps & {
   params: {
@@ -115,10 +95,28 @@ export default async function ProfilePage(props: ProfilePage) {
   const admin = new SplatfileAdmin(SERVER_COMPONENT);
   const profile = await admin.getProfile(props.params.userid);
 
+  const {
+    user_info: userInfo,
+    game_info: gameInfo,
+    plate_info: plateInfo,
+  } = profile;
+
+  if (
+    !isUserInfo(userInfo) ||
+    !isGameInfo(gameInfo) ||
+    !isPlateInfo(plateInfo)
+  ) {
+    throw new Error("ProfileWrapper: profile is not valid");
+  }
+
   return (
     <ProfileWrapper
       lang={props.params.lang}
-      profile={profile}
+      infos={{
+        userInfo,
+        gameInfo,
+        plateInfo,
+      }}
       accountLocale={dictionary.accountLocale}
       ingameLocale={dictionary.ingameLocale}
       profileLocale={dictionary.profileLocale}

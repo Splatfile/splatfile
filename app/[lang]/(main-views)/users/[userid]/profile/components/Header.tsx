@@ -14,9 +14,8 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import { UserSearchBox } from "@/app/ui/components/UserSearchBox";
 import { HeaderLocale } from "@/app/lib/locales/locale";
-import { headerLocale as en } from "@/app/lib/locales/en.json";
-import { headerLocale as ko } from "@/app/lib/locales/ko.json";
-import { headerLocale as ja } from "@/app/lib/locales/ja.json";
+import en from "@/app/lib/locales/en.json";
+import ja from "@/app/lib/locales/ja.json";
 import Image from "next/image";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { profileUrl, signinUrl } from "@/app/plate/lib/const";
@@ -29,17 +28,19 @@ type HeaderProps = {};
 
 export function Header(_: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [headerLocale, setHeaderLocale] = useState<HeaderLocale>(en);
+  const [headerLocale, setHeaderLocale] = useState<HeaderLocale>(
+    en.headerLocale,
+  );
 
   const params = useParams();
   useEffect(() => {
     const lang = params["lang"] ?? "en";
     if (lang === "ko") {
-      setHeaderLocale(ko);
+      setHeaderLocale(en.headerLocale);
     } else if (lang === "ja") {
-      setHeaderLocale(ja);
+      setHeaderLocale(ja.headerLocale);
     } else {
-      setHeaderLocale(en);
+      setHeaderLocale(en.headerLocale);
     }
   }, [params]);
 

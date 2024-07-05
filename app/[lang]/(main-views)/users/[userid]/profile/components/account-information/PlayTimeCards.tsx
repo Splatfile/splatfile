@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { EditableTextCard } from "@/app/ui/components/TextCard";
-import { setPlaytime, useMine } from "@/app/lib/hooks/use-profile-store";
+import { setPlaytime } from "@/app/lib/hooks/use-profile-store";
 import { format } from "date-fns";
 import { enUS, ja, ko } from "date-fns/locale";
 import { useParams } from "next/navigation";
@@ -14,6 +14,7 @@ type PlayTimeCardProps = {
   accountLocale: AccountLocale;
   userInfo: UserInfo;
   timeType: "weekdayPlaytime" | "weekendPlaytime";
+  isMine: boolean;
 };
 
 const getDateFnsLocale = (lang: Lang) => {
@@ -30,10 +31,10 @@ const getDateFnsLocale = (lang: Lang) => {
 };
 
 export const PlaytimeCard = (props: PlayTimeCardProps) => {
-  const { timeType, accountLocale, userInfo } = props;
+  const { timeType, accountLocale, userInfo, isMine } = props;
   const [edit, setEdit] = useState(false);
   const playtime = userInfo[timeType];
-  const isMine = useMine();
+
   const params = useParams();
   const lang = params.lang as Lang;
 
@@ -61,6 +62,7 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
       }
       edit={edit}
       setEdit={setEdit}
+      isMine={isMine}
     >
       {edit ? (
         <EditPlayTimeCard
@@ -95,8 +97,14 @@ export const EditPlayTimeCard = (props: EditPlayTimeCardProps) => {
   const { account, timeType, playtime } = props;
 
   const onChange = (key: "start" | "end", value: string) => {
-    if (!value) return;
+    if (!value) {
+      return;
+    }
     const otherKey = key === "start" ? "end" : "start";
+    const parsedValue = parseInt(value);
+    if (isNaN(parsedValue)) {
+      return;
+    }
     setPlaytime(timeType, {
       [key]: parseInt(value),
       [otherKey]: playtime?.[otherKey] ?? 0,

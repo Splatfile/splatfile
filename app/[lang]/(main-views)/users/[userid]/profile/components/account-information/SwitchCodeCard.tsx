@@ -13,9 +13,10 @@ import { AccountLocale } from "@/app/lib/locales/locale";
 type SwitchCodeCardProps = {
   userInfo: UserInfo;
   accountLocale: AccountLocale;
+  isMine: boolean;
 };
 export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
-  const { accountLocale, userInfo } = props;
+  const { accountLocale, userInfo, isMine } = props;
   const [edit, setEdit] = useState(false);
   const [qrCode, setQrCode] = useState<string>("");
   const switchInfo = userInfo.switchInfo;
@@ -50,6 +51,7 @@ export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
       title={accountLocale.ui_friend_code}
       edit={edit}
       setEdit={setEdit}
+      isMine={isMine}
     >
       {!friendCode && !qrCode && !edit && (
         <p className={"text-center font-normal text-black opacity-40"}>

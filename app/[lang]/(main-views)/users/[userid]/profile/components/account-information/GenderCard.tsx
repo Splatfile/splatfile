@@ -24,6 +24,7 @@ export const GenderCard = (props: GenderCardProps) => {
       title={accountLocale.ui_gender}
       edit={edit}
       setEdit={setEdit}
+      isMine={isMine}
     >
       <EditableText
         edit={edit}

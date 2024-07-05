@@ -12,10 +12,10 @@ import {
   isPlateInfo,
   isUserInfo,
 } from "@/app/lib/types/type-checker";
-import { Profile } from "@/app/lib/types/supabase-alias";
+import { Infos } from "@/app/lib/schemas/profile";
 
 type ProfileWrapperProps = {
-  profile: Profile;
+  infos: Infos;
   isMine: boolean;
   accountLocale: AccountLocale;
   profileLocale: ProfileLocale;
@@ -24,19 +24,19 @@ type ProfileWrapperProps = {
 };
 
 export default function ProfileWrapper(props: ProfileWrapperProps) {
-  const { profile, isMine, accountLocale, ingameLocale, profileLocale, lang } =
+  const { infos, isMine, accountLocale, ingameLocale, profileLocale, lang } =
     props;
 
-  const { game_info, plate_info, user_info } = profile;
+  const { gameInfo, plateInfo, userInfo } = infos;
 
-  if (!game_info || !plate_info || !user_info) {
+  if (!gameInfo || !plateInfo || !userInfo) {
     throw new Error("ProfileWrapper: profile is not valid");
   }
 
   if (
-    !isUserInfo(user_info) ||
-    !isGameInfo(game_info) ||
-    !isPlateInfo(plate_info)
+    !isUserInfo(userInfo) ||
+    !isGameInfo(gameInfo) ||
+    !isPlateInfo(plateInfo)
   ) {
     throw new Error("ProfileWrapper: profile is not valid");
   }
@@ -53,20 +53,21 @@ export default function ProfileWrapper(props: ProfileWrapperProps) {
           }
         >
           <ProfileCard
-            userInfo={user_info}
-            plateInfo={plate_info}
+            userInfo={userInfo}
+            plateInfo={plateInfo}
             profileLocale={profileLocale}
             lang={lang}
             isMine={isMine}
-            gameInfo={game_info}
+            gameInfo={gameInfo}
           />
         </div>
         {/* 인게임 정보 */}
         <div className={"w-full md:w-3/5"}>
           <GameCard
-            gameInfo={game_info}
+            gameInfo={gameInfo}
             ingameLocale={ingameLocale}
             lang={lang}
+            isMine={isMine}
           />
         </div>
       </div>
@@ -78,7 +79,7 @@ export default function ProfileWrapper(props: ProfileWrapperProps) {
         >
           {/* 계정 정보*/}
           <AccountCard
-            userInfo={user_info}
+            userInfo={userInfo}
             accountLocale={accountLocale}
             isMine={isMine}
           />

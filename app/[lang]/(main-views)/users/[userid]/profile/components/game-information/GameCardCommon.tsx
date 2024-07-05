@@ -32,11 +32,12 @@ type GameCardCommonProps = {
   gameInfo: GameInfo;
   ingameLocale: IngameLocale;
   isMine: boolean;
+  edit: boolean;
+  setEdit: (edit: boolean) => void;
 };
 
 export function GameCardCommon(props: GameCardCommonProps) {
-  const { ingameLocale, gameInfo, lang, isMine } = props;
-  const [edit, setEdit] = useState(false);
+  const { ingameLocale, gameInfo, lang, isMine, edit, setEdit } = props;
 
   return (
     <EditableInlineTextCard
@@ -46,6 +47,7 @@ export function GameCardCommon(props: GameCardCommonProps) {
       title={ingameLocale.ui_summary}
       edit={edit}
       setEdit={setEdit}
+      isMine={isMine}
     >
       <LevelText edit={edit} gameInfo={gameInfo} isMine={isMine} />
       <RankText edit={edit} gameInfo={gameInfo} isMine={isMine} />

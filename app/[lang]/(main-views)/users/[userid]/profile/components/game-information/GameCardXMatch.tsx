@@ -4,7 +4,6 @@ import Image from "next/image";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import {
   setXMatchPoint,
-  useEditStore,
   useGameStore,
 } from "@/app/lib/hooks/use-profile-store";
 import { ChangeEvent, useRef, useState } from "react";
@@ -35,9 +34,10 @@ export function GameCardXMatch(props: GameCardXMatchProps) {
       edit={edit}
       title={ingameLocale.ui_x_match}
       setEdit={setEdit}
+      isMine={isMine}
     >
       {edit ? (
-        <XMatchCardEdit setEdit={setEdit} />
+        <XMatchCardEdit setEdit={setEdit} isMine={isMine} />
       ) : (
         <XMatchCardView xMatchInfo={xMatchInfo} />
       )}
@@ -108,10 +108,10 @@ const XMatchCardView = (props: XMatchCardViewProps) => {
 
 type XMatchCardEditProps = {
   setEdit: (edit: boolean) => void;
+  isMine: boolean;
 };
 
 const XMatchCardEdit = (props: XMatchCardEditProps) => {
-  const { isMine } = useEditStore();
   const { xMatchInfo, anarchyBattleRank } = useGameStore();
 
   const areaRef = useRef<HTMLInputElement>(null);
@@ -119,7 +119,7 @@ const XMatchCardEdit = (props: XMatchCardEditProps) => {
   const fishRef = useRef<HTMLInputElement>(null);
   const towerRef = useRef<HTMLInputElement>(null);
 
-  if (anarchyBattleRank?.grade !== "S+" || !isMine) {
+  if (anarchyBattleRank?.grade !== "S+" || !props.isMine) {
     return null;
   }
 

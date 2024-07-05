@@ -1,6 +1,3 @@
-"use client";
-
-import { GameCardCommon } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCardCommon";
 import { GameCardXMatch } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCardXMatch";
 import { GameCardSalmonRun } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCardSalmonRun";
 import { GameCardWeapons } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCardWeapons";
@@ -8,11 +5,13 @@ import { GameCardPlayStyle } from "@/app/[lang]/(main-views)/users/[userid]/prof
 import { Lang } from "@/app/lib/types/component-props";
 import { IngameLocale } from "@/app/lib/locales/locale";
 import { GameInfo } from "@/app/lib/types/type-checker";
+import { GameCardCommonWithStore } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCardCommonWithStore";
 
 type GameCardProps = {
   lang: Lang;
   gameInfo: GameInfo;
   ingameLocale: IngameLocale;
+  isMine: boolean;
 };
 
 export function GameCard(props: GameCardProps) {
@@ -26,7 +25,7 @@ export function GameCard(props: GameCardProps) {
           "align-center grid w-full justify-stretch gap-6 md:grid-cols-2 md:items-stretch md:justify-center"
         }
       >
-        <GameCardCommon lang={lang} {...commonProps} />
+        <GameCardCommonWithStore lang={lang} {...commonProps} />
         {/* 랭크 S+ 이상일 때만 보여짐 */}
         <GameCardXMatch {...commonProps} />
         {/*연어런 전설 등급 이상일 때만*/}

@@ -10,10 +10,11 @@ import { UserInfo } from "@/app/lib/types/type-checker";
 type AboutMeProps = {
   accountLocale: AccountLocale;
   userInfo: UserInfo;
+  isMine: boolean;
 };
 
 export function IntroductionCard(props: AboutMeProps) {
-  const { userInfo, accountLocale } = props;
+  const { userInfo, accountLocale, isMine } = props;
   const [edit, setEdit] = useState(false);
   const message = userInfo.introductionMessage;
 
@@ -24,6 +25,7 @@ export function IntroductionCard(props: AboutMeProps) {
   return (
     <EditableTextCard
       title={accountLocale.ui_additional_information}
+      isMine={isMine}
       edit={edit}
       setEdit={setEdit}
     >

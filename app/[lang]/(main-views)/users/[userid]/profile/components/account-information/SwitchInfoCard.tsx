@@ -38,6 +38,7 @@ export const SwitchInfoCard = (props: SwitchInfoCardProps) => {
       title={accountLocale.ui_nickname}
       edit={edit}
       setEdit={setEdit}
+      isMine={isMine}
     >
       <div className={"flex flex-col gap-2"}>
         <div className={clsx("mt-2 flex items-center gap-2")}>

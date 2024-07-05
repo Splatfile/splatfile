@@ -37,6 +37,7 @@ export const TwitterInfoCard = (props: TwitterInfoCardProps) => {
       title={<XLogo className={"h-6 w-6"} />}
       edit={edit}
       setEdit={setEdit}
+      isMine={isMine}
     >
       <EditableText
         ref={xNicknameRef}

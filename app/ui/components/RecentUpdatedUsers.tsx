@@ -48,6 +48,7 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
             className={"flex items-center justify-between px-1 py-2"}
           >
             <Link
+              prefetch={true}
               href={profileUrl(user.userId)}
               className={`text-blue-600 hover:text-blue-400 hover:underline`}
             >

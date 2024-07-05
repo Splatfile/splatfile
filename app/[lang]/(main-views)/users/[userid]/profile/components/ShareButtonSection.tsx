@@ -1,4 +1,3 @@
-"use client";
 import { ShareButton } from "@/app/ui/components/ShareButton";
 import { XShareButton } from "@/app/ui/components/XShareButton";
 

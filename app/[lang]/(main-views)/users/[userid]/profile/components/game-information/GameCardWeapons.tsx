@@ -1,9 +1,9 @@
+"use client";
 import { mainsCodes } from "@/app/lib/constants/weapons";
 import { InlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { useEffect, useState } from "react";
 import {
   setWeaponGearInfo,
-  useEditStore,
   useWeaponGearInfo,
 } from "@/app/lib/hooks/use-profile-store";
 import { PencilIcon } from "@heroicons/react/20/solid";
@@ -18,10 +18,11 @@ import { GameInfo } from "@/app/lib/types/type-checker";
 type GameCardWeaponsProps = {
   gameInfo: GameInfo;
   ingameLocale: IngameLocale;
+  isMine: boolean;
 };
 
 export function GameCardWeapons(props: GameCardWeaponsProps) {
-  const { gameInfo, ingameLocale } = props;
+  const { gameInfo, ingameLocale, isMine } = props;
   const weaponGearInfo = gameInfo.weaponGearInfo;
   const filteredWeapons = chunkArrayInGroups(
     Object.entries(weaponGearInfo ?? {})
@@ -34,7 +35,6 @@ export function GameCardWeapons(props: GameCardWeaponsProps) {
     4,
   );
   const [open, setOpen] = useState(false);
-  const { isMine } = useEditStore();
 
   return (
     <InlineTextCard

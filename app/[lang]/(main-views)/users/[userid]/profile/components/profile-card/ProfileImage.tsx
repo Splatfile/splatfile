@@ -1,8 +1,5 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import clsx from "clsx";
-
-import { ProfileModal } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/profile-card/ProfileModal";
 import { ProfileLocale } from "@/app/lib/locales/locale";
 import { UserInfo } from "@/app/lib/types/type-checker";
 
@@ -14,29 +11,15 @@ type ProfileImageProps = {
 
 export function ProfileImage(props: ProfileImageProps) {
   const { userInfo, profileLocale, isMine } = props;
-  const [open, setOpen] = useState(false);
-  const profileImageUrl = userInfo.profileImageUrl;
 
   return (
-    <button
-      onClick={() => setOpen(true)}
-      disabled={!isMine}
-      className={clsx(
-        "flex w-full items-center justify-center",
-        isMine ? "cursor-pointer" : "cursor-default",
-      )}
-    >
-      <ProfileModal
-        profileLocale={profileLocale}
-        open={open}
-        setOpen={setOpen}
-      />
-      <div className={clsx("relative h-full w-full", isMine && "group")}>
-        {profileImageUrl ? (
+    <>
+      <div className={clsx("group relative h-full w-full")}>
+        {userInfo.profileImageUrl ? (
           <img
             width={480}
             height={960}
-            src={profileImageUrl}
+            src={userInfo.profileImageUrl}
             alt="Profile Image"
             className={
               "h-full w-full rounded-md border-2 border-gray-200 object-cover"
@@ -60,6 +43,6 @@ export function ProfileImage(props: ProfileImageProps) {
           </p>
         </div>
       </div>
-    </button>
+    </>
   );
 }

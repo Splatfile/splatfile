@@ -128,7 +128,7 @@ async function renderUserInfo(
       width: 280,
       fontSize: FONT_SIZE,
       text:
-        `${locale.preview.nickname}: ` +
+        `${locale.previewLocale.nickname}: ` +
         (userInfo.switchInfo?.name || userInfo.twitterInfo?.name || ""),
       ellipsis: true,
     }),
@@ -143,7 +143,7 @@ async function renderUserInfo(
       verticalAlign: "middle",
       wrap: "word",
       fontSize: FONT_SIZE,
-      text: `${locale.preview.friend_code}`,
+      text: `${locale.previewLocale.friend_code}`,
     });
 
     layer.add(friendCodeSubtitle);
@@ -159,18 +159,18 @@ async function renderUserInfo(
   }
 
   {
-    let playTimeText = locale.preview.playtime_title + ": -";
+    let playTimeText = locale.previewLocale.playtime_title + ": -";
     if (userInfo.weekdayPlaytime || userInfo.weekendPlaytime) {
-      playTimeText = locale.preview.playtime_title + ": ";
+      playTimeText = locale.previewLocale.playtime_title + ": ";
       if (userInfo.weekdayPlaytime) {
-        playTimeText += `(${locale.preview.playtime_weekday}) ${userInfo.weekdayPlaytime.start
+        playTimeText += `(${locale.previewLocale.playtime_weekday}) ${userInfo.weekdayPlaytime.start
           .toString()
           .padStart(2, "0")}-${userInfo.weekdayPlaytime.end
           .toString()
           .padStart(2, "0")} `;
       }
       if (userInfo.weekendPlaytime) {
-        playTimeText += `/ (${locale.preview.playtime_weekend}) ${userInfo.weekendPlaytime.start
+        playTimeText += `/ (${locale.previewLocale.playtime_weekend}) ${userInfo.weekendPlaytime.start
           .toString()
           .padStart(2, "0")}-${userInfo.weekendPlaytime.end
           .toString()
@@ -336,7 +336,7 @@ async function renderGameInfo(
     verticalAlign: "middle",
     width: 120,
     height: 56,
-    text: locale.preview.used_weapons_title,
+    text: locale.previewLocale.used_weapons_title,
     fontSize: 28,
     wrap: "word",
   });

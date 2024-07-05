@@ -1,3 +1,4 @@
+"use client";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { useState } from "react";
 import Image from "next/image";
@@ -27,10 +28,11 @@ import { IngameLocale } from "@/app/lib/locales/locale";
 
 type GameCardPlayStyleProps = {
   ingameLocale: IngameLocale;
+  isMine: boolean;
 };
 
 export function GameCardPlayStyle(props: GameCardPlayStyleProps) {
-  const { ingameLocale } = props;
+  const { ingameLocale, isMine } = props;
   const [edit, setEdit] = useState(false);
 
   return (
@@ -39,11 +41,12 @@ export function GameCardPlayStyle(props: GameCardPlayStyleProps) {
       edit={edit}
       setEdit={setEdit}
       childrenClassName={"justify-center w-full"}
+      isMine={isMine}
     >
       {edit ? (
-        <EditPlayCard ingameLocale={ingameLocale} />
+        <EditPlayCard ingameLocale={ingameLocale} isMine={isMine} />
       ) : (
-        <ViewPlayStyleCard ingameLocale={ingameLocale} />
+        <ViewPlayStyleCard ingameLocale={ingameLocale} isMine={isMine} />
       )}
     </EditableInlineTextCard>
   );

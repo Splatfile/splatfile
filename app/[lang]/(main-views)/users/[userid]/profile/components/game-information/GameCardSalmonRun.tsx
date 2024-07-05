@@ -1,10 +1,7 @@
 "use client";
 
 import { salmonrunCodes } from "@/app/lib/constants/maps";
-import {
-  setSalmonRunMapPoints,
-  useMine,
-} from "@/app/lib/hooks/use-profile-store";
+import { setSalmonRunMapPoints } from "@/app/lib/hooks/use-profile-store";
 import {
   isKeyOfSalmonRunMapPoints,
   salmonrun_legend,
@@ -20,14 +17,14 @@ import { GameInfo } from "@/app/lib/types/type-checker";
 type GameCardSalmonRunProps = {
   gameInfo: GameInfo;
   ingameLocale: IngameLocale;
+  isMine: boolean;
 };
 
 export function GameCardSalmonRun(props: GameCardSalmonRunProps) {
-  const { gameInfo, ingameLocale } = props;
+  const { gameInfo, ingameLocale, isMine } = props;
   const salmonRunRank = gameInfo.salmonRunRank;
   const mapPoints = gameInfo.salmonRunMapPoints;
   const [edit, setEdit] = useState(false);
-  const isMine = useMine();
 
   if (salmonRunRank?.grade !== salmonrun_legend) return null;
 
@@ -38,6 +35,7 @@ export function GameCardSalmonRun(props: GameCardSalmonRunProps) {
       title={ingameLocale.ui_salmon_run}
       edit={edit}
       setEdit={setEdit}
+      isMine={isMine}
     >
       <SalmonRunView edit={edit} mapPoints={mapPoints} />
     </EditableInlineTextCard>
