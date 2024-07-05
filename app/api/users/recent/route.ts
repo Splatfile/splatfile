@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { ROUTER } from "@/app/lib/splatfile-client";
 import { UserInfoObject } from "@/app/lib/schemas/profile";
 import { isUserInfo } from "@/app/lib/types/type-checker";
+import { Profile } from "@/app/lib/types/supabase-alias";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 30;
@@ -13,7 +14,7 @@ export async function GET() {
     const users = await admin.getRecentUpdatedUsers();
     const responseUsers: RecentUsers =
       users
-        ?.map((profile: ProfileLocale) => ({
+        ?.map((profile: Profile) => ({
           userId: profile.user_id,
           name: extractUserName(profile),
           lastUpdated: profile.updated_at,
@@ -42,7 +43,7 @@ type RecentUser = {
 
 type RecentUsers = RecentUser[];
 
-const extractUserName = (profile: ProfileLocale) => {
+const extractUserName = (profile: Profile) => {
   let name = "";
   const user = profile.user_info;
   if (!isUserInfo(user)) {
