@@ -14,7 +14,10 @@ import {
   loadFonts,
   renderPlate,
 } from "@/app/plate/lib/render-plate";
-import { setTagLanguage } from "@/app/plate/lib/store/use-tag-store";
+import {
+  isInitPlates,
+  setTagLanguage,
+} from "@/app/plate/lib/store/use-tag-store";
 import { Lang } from "@/app/lib/types/component-props";
 import { PlateInfo } from "@/app/lib/types/type-checker";
 import { ProfileLocale } from "@/app/lib/locales/locale";
@@ -35,6 +38,9 @@ export function PlateImage(props: PlateImageProps) {
 
   useEffect(() => {
     if (!canvasRef.current) return;
+    // initPlate 렌더 방지
+    // 이 방법이 옳진 않지만 현재 플레이트를 분리하기엔 너무 작업이 크므로 일단 이렇게 진행
+    if (isInitPlates(plateInfo)) return;
     renderPlate(canvasRef.current, plateInfo, getPlateLang(language))
       .then(() => {
         console.log("Plate rendered");
@@ -47,6 +53,8 @@ export function PlateImage(props: PlateImageProps) {
   useEffect(() => {
     setTimeout(() => {
       if (!canvasRef.current) return;
+      if (isInitPlates(plateInfo)) return;
+
       renderPlate(canvasRef.current, plateInfo, getPlateLang(language))
         .then(() => {
           console.log("rerendered");

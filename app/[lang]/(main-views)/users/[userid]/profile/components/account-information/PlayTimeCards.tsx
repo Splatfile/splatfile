@@ -70,7 +70,8 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
           playtime={playtime}
           account={accountLocale}
         />
-      ) : !!playtime?.start && !!playtime?.end ? (
+      ) : (!!playtime?.start || playtime?.start === 0) &&
+        (!!playtime?.end || playtime?.end === 0) ? (
         <p className={"text-md pt-4 text-neutral-500 md:w-72 md:text-center"}>
           {formattedStart} - {formattedEnd}
         </p>

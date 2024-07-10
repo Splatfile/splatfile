@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { useUserStore } from "@/app/lib/hooks/use-profile-store";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { ProfileLocale } from "@/app/lib/locales/locale";
 import Toast from "@/app/ui/components/Toast";
@@ -11,8 +10,10 @@ interface ShareButtonProps {
   userInfo: UserInfo;
 }
 
-export const ShareButton: React.FC<ShareButtonProps> = ({ profileLocale }) => {
-  const userInfo = useUserStore();
+export const ShareButton: React.FC<ShareButtonProps> = ({
+  userInfo,
+  profileLocale,
+}) => {
   const name = userInfo.twitterInfo?.name || userInfo.switchInfo?.name || "";
   const title = profileLocale.ui_share_to_x_text.replace("{{name}}", name);
   const text = profileLocale.ui_share_desc;

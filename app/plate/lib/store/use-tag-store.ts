@@ -90,6 +90,12 @@ export const useTagLoadingStore = create<LoadingStore>((set) => ({
   setLoading: (isLoading: boolean) => set({ isLoading }),
 }));
 
+export const isInitPlates = (plateInfo: TagState) => {
+  const initJson = JSON.stringify(initTagState());
+  const plateInfoJson = JSON.stringify(plateInfo);
+  return initJson === plateInfoJson;
+};
+
 export const useTagStore = create<TagStore>((set) => ({
   ...initTagState(),
 
