@@ -1,7 +1,6 @@
 "use client";
 import { ReactNode } from "react";
 import { PencilIcon } from "@heroicons/react/20/solid";
-import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { clsx } from "clsx";
 
 export type InlineTextCardProps = {
@@ -40,11 +39,10 @@ type EditableInlineTextCardProps = InlineTextCardProps & {
   edit: boolean;
   setEdit: (edit: boolean) => void;
   childrenClassName?: string;
+  isMine: boolean;
 };
 
 export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
-  const { isMine } = useEditStore();
-
   return (
     <div
       className={
@@ -72,7 +70,7 @@ export function EditableInlineTextCard(props: EditableInlineTextCardProps) {
             확인
           </button>
         ) : (
-          isMine && (
+          props.isMine && (
             <button
               className={"h-4 w-4 text-neutral-500"}
               onClick={() => props.setEdit(true)}

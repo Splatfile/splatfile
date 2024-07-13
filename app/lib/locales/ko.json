@@ -1,19 +1,19 @@
 {
-  "main": {
+  "mainLocale": {
     "first_section_title": "스플래툰 프로필 관리 <br /> 스플랫파일",
     "first_section_description": "스플랫파일을 통해 손 쉽게 스플래툰 프로필을 관리해 보세요! <br /> 프로필 사진 설정 랭크 및 무기 정보 수정, 플레이트 꾸미기 등 다양한 기능을 제공합니다. 만드신 프로필은 이미지로 저장하여 공유하실 수 있습니다.",
     "first_section_button": "시작하기"
   },
-  "og": {
+  "ogLocale": {
     "default_title": " #Splatfile - 스플래툰 프로필 관리",
     "default_description": "스플래툰 프로필을 손쉽게 관리하고 공유하세요!",
     "profile_title": " #Splatfile - {{name}}의 스플래툰 프로필",
     "profile_description": "{{name}}의 스플래툰 프로필을 확인해보세요!"
   },
-  "ui": {
+  "uiLocale": {
     "recent_users_title": "최근 갱신 유저"
   },
-  "ingame": {
+  "ingameLocale": {
     "ui_summary": "종합",
     "ui_select_weapon": "무기 선택",
     "ui_weapon": "사용 무기",
@@ -30,7 +30,7 @@
     "ui_drop_ins": "난입",
     "ui_drop_ins_welcome": "환영"
   },
-  "account": {
+  "accountLocale": {
     "ui_empty_card_text": "💤비어 있음💤",
     "ui_switch_nickname": "스위치 닉네임",
     "ui_twitter_nickname": "트위터 닉네임",
@@ -48,7 +48,7 @@
     "ui_edit_playtime_description": "00~23시 사이의 숫자를 입력해주세요.",
     "ui_additional_information": "하고 싶은 말"
   },
-  "profile": {
+  "profileLocale": {
     "ui_empty_card_text": "💤비어 있음💤",
     "ui_upload_image_title": "프로필 이미지 업로드",
     "ui_image_upload_button": "클릭해서 이미지 업로드",
@@ -76,14 +76,14 @@
     "ui_share_desc": "스플래툰 프로필을 확인해보세요!",
     "ui_share_copied_url": "URL이 복사되었습니다!"
   },
-  "header": {
+  "headerLocale": {
     "ui_my_profile": "내 프로필",
     "ui_login": "로그인",
     "ui_logout": "로그아웃",
     "ui_user_search_placeholder": "유저 검색",
     "ui_language_setting": "언어 설정"
   },
-  "preview": {
+  "previewLocale": {
     "playtime_title": "접속 시간대",
     "nickname": "이름",
     "playtime_weekday": "주중",
@@ -91,10 +91,10 @@
     "used_weapons_title": "사용 무기",
     "friend_code": "친구 코드"
   },
-  "err": {
+  "errLocale": {
     "refresh_please": "에러가 발생했습니다. 페이지를 새로고침 해주세요."
   },
-  "metadata": {
+  "metadataLocale": {
     "lang": "ko"
   }
 }

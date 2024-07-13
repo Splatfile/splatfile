@@ -4,21 +4,23 @@ import Image from "next/image";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import {
   setXMatchPoint,
-  useEditStore,
   useGameStore,
 } from "@/app/lib/hooks/use-profile-store";
 import { ChangeEvent, useRef, useState } from "react";
 import { isKeyOfXmatch, XMatchInfo } from "@/app/lib/schemas/profile/game-info";
-import { Ingame } from "@/app/lib/locales/locale";
+import { IngameLocale } from "@/app/lib/locales/locale";
+import { GameInfo } from "@/app/lib/types/type-checker";
 
 type GameCardXMatchProps = {
-  ingame: Ingame;
+  gameInfo: GameInfo;
+  ingameLocale: IngameLocale;
+  isMine: boolean;
 };
 
 export function GameCardXMatch(props: GameCardXMatchProps) {
-  const { ingame } = props;
-  const { xMatchInfo, anarchyBattleRank } = useGameStore();
-  const { isMine } = useEditStore();
+  const { gameInfo, ingameLocale, isMine } = props;
+  const { xMatchInfo, anarchyBattleRank } = gameInfo;
+
   const [edit, setEdit] = useState(false);
 
   if (anarchyBattleRank?.grade !== "S+") return null;
@@ -30,11 +32,12 @@ export function GameCardXMatch(props: GameCardXMatchProps) {
   return (
     <EditableInlineTextCard
       edit={edit}
-      title={ingame.ui_x_match}
+      title={ingameLocale.ui_x_match}
       setEdit={setEdit}
+      isMine={isMine}
     >
       {edit ? (
-        <XMatchCardEdit setEdit={setEdit} />
+        <XMatchCardEdit setEdit={setEdit} isMine={isMine} />
       ) : (
         <XMatchCardView xMatchInfo={xMatchInfo} />
       )}
@@ -105,10 +108,10 @@ const XMatchCardView = (props: XMatchCardViewProps) => {
 
 type XMatchCardEditProps = {
   setEdit: (edit: boolean) => void;
+  isMine: boolean;
 };
 
 const XMatchCardEdit = (props: XMatchCardEditProps) => {
-  const { isMine } = useEditStore();
   const { xMatchInfo, anarchyBattleRank } = useGameStore();
 
   const areaRef = useRef<HTMLInputElement>(null);
@@ -116,7 +119,7 @@ const XMatchCardEdit = (props: XMatchCardEditProps) => {
   const fishRef = useRef<HTMLInputElement>(null);
   const towerRef = useRef<HTMLInputElement>(null);
 
-  if (anarchyBattleRank?.grade !== "S+" || !isMine) {
+  if (anarchyBattleRank?.grade !== "S+" || !props.isMine) {
     return null;
   }
 

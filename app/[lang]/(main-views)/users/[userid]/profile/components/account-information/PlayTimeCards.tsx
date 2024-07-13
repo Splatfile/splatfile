@@ -2,20 +2,19 @@
 
 import { useState } from "react";
 import { EditableTextCard } from "@/app/ui/components/TextCard";
-import {
-  setPlaytime,
-  useMine,
-  usePlaytime,
-} from "@/app/lib/hooks/use-profile-store";
+import { setPlaytime } from "@/app/lib/hooks/use-profile-store";
 import { format } from "date-fns";
 import { enUS, ja, ko } from "date-fns/locale";
-import { Account } from "@/app/lib/locales/locale";
 import { useParams } from "next/navigation";
 import { Lang } from "@/app/lib/types/component-props";
+import { AccountLocale } from "@/app/lib/locales/locale";
+import { UserInfo } from "@/app/lib/types/type-checker";
 
 type PlayTimeCardProps = {
-  account: Account;
+  accountLocale: AccountLocale;
+  userInfo: UserInfo;
   timeType: "weekdayPlaytime" | "weekendPlaytime";
+  isMine: boolean;
 };
 
 const getDateFnsLocale = (lang: Lang) => {
@@ -32,10 +31,10 @@ const getDateFnsLocale = (lang: Lang) => {
 };
 
 export const PlaytimeCard = (props: PlayTimeCardProps) => {
-  const { timeType, account } = props;
+  const { timeType, accountLocale, userInfo, isMine } = props;
   const [edit, setEdit] = useState(false);
-  const playtime = usePlaytime(timeType);
-  const isMine = useMine();
+  const playtime = userInfo[timeType];
+
   const params = useParams();
   const lang = params.lang as Lang;
 
@@ -58,19 +57,21 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
     <EditableTextCard
       title={
         timeType === "weekdayPlaytime"
-          ? account.ui_weekday_playtime
-          : account.ui_weekend_playtime
+          ? accountLocale.ui_weekday_playtime
+          : accountLocale.ui_weekend_playtime
       }
       edit={edit}
       setEdit={setEdit}
+      isMine={isMine}
     >
       {edit ? (
         <EditPlayTimeCard
           timeType={timeType}
           playtime={playtime}
-          account={account}
+          account={accountLocale}
         />
-      ) : !!playtime?.start && !!playtime?.end ? (
+      ) : (!!playtime?.start || playtime?.start === 0) &&
+        (!!playtime?.end || playtime?.end === 0) ? (
         <p className={"text-md pt-4 text-neutral-500 md:w-72 md:text-center"}>
           {formattedStart} - {formattedEnd}
         </p>
@@ -80,7 +81,7 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
             "text-md pt-4 text-black opacity-40 md:w-72 md:text-center"
           }
         >
-          {account.ui_empty_card_text}
+          {accountLocale.ui_empty_card_text}
         </p>
       )}
     </EditableTextCard>
@@ -88,7 +89,7 @@ export const PlaytimeCard = (props: PlayTimeCardProps) => {
 };
 
 type EditPlayTimeCardProps = {
-  account: Account;
+  account: AccountLocale;
   timeType: "weekdayPlaytime" | "weekendPlaytime";
   playtime?: { start: number; end: number };
 };
@@ -97,8 +98,14 @@ export const EditPlayTimeCard = (props: EditPlayTimeCardProps) => {
   const { account, timeType, playtime } = props;
 
   const onChange = (key: "start" | "end", value: string) => {
-    if (!value) return;
+    if (!value) {
+      return;
+    }
     const otherKey = key === "start" ? "end" : "start";
+    const parsedValue = parseInt(value);
+    if (isNaN(parsedValue)) {
+      return;
+    }
     setPlaytime(timeType, {
       [key]: parseInt(value),
       [otherKey]: playtime?.[otherKey] ?? 0,

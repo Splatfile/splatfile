@@ -8,35 +8,15 @@ import type { Metadata } from "next";
 import { CanvasInfoObject, UserInfoObject } from "@/app/lib/schemas/profile";
 import { getDictionary } from "@/app/lib/dictionaries";
 import { PageProps } from "@/app/lib/types/component-props";
-import { UserContextWrapper } from "@/app/lib/hooks/user-context-wrapper";
 import { getLocaleByLang } from "@/app/lib/server/locale";
 import { unstable_noStore } from "next/cache";
-
-import dynamic from "next/dynamic";
-
-const StoreSetting = dynamic(
-  () =>
-    import(
-      "@/app/[lang]/(main-views)/users/[userid]/profile/components/StoreSetting"
-    ),
-  { ssr: false },
-);
-
-const DebounceEditing = dynamic(
-  () =>
-    import(
-      "@/app/[lang]/(main-views)/users/[userid]/profile/components/DebounceEditing"
-    ),
-  { ssr: false },
-);
-
-const ProfileWrapper = dynamic(
-  () =>
-    import(
-      "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileWrapper"
-    ),
-  { ssr: false },
-);
+import ProfileWrapper from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileWrapper";
+import {
+  isGameInfo,
+  isPlateInfo,
+  isUserInfo,
+} from "@/app/lib/types/type-checker";
+import { ProfileWithStore } from "./components/ProfileWithStore";
 
 type ProfilePage = PageProps & {
   params: {
@@ -55,8 +35,8 @@ export const generateMetadata = async (
 
   if (!profile) {
     return {
-      title: locale.og.default_title,
-      description: locale.og.default_description,
+      title: locale.ogLocale.default_title,
+      description: locale.ogLocale.default_description,
     };
   }
 
@@ -77,8 +57,8 @@ export const generateMetadata = async (
   }
 
   return {
-    title: locale.og.profile_title.replace("{{name}}", name),
-    description: locale.og.profile_description.replace("{{name}}", name),
+    title: locale.ogLocale.profile_title.replace("{{name}}", name),
+    description: locale.ogLocale.profile_description.replace("{{name}}", name),
     openGraph: {
       type: "profile",
       siteName: "splatfile",
@@ -104,45 +84,43 @@ export default async function ProfilePage(props: ProfilePage) {
   if (user.data.user && user.data.user?.id === props.params.userid) {
     const profile = await client.createOrGetMyProfile();
     return (
-      <>
-        <UserContextWrapper>
-          <DebounceEditing
-            userId={props.params.userid}
-            lang={props.params.lang}
-            err={dictionary.err}
-          />
-        </UserContextWrapper>
-        <StoreSetting
-          profile={profile}
-          userId={props.params.userid}
-          isMine={true}
-        />
-        <ProfileWrapper
-          lang={props.params.lang}
-          account={dictionary.account}
-          ingame={dictionary.ingame}
-          profile={dictionary.profile}
-        />
-      </>
+      <ProfileWithStore
+        dictionary={dictionary}
+        profile={profile}
+        params={props.params}
+      />
     );
   }
 
   const admin = new SplatfileAdmin(SERVER_COMPONENT);
   const profile = await admin.getProfile(props.params.userid);
 
+  const {
+    user_info: userInfo,
+    game_info: gameInfo,
+    plate_info: plateInfo,
+  } = profile;
+
+  if (
+    !isUserInfo(userInfo) ||
+    !isGameInfo(gameInfo) ||
+    !isPlateInfo(plateInfo)
+  ) {
+    throw new Error("ProfileWrapper: profile is not valid");
+  }
+
   return (
-    <>
-      <StoreSetting
-        profile={profile}
-        userId={props.params.userid}
-        isMine={false}
-      />
-      <ProfileWrapper
-        lang={props.params.lang}
-        account={dictionary.account}
-        ingame={dictionary.ingame}
-        profile={dictionary.profile}
-      />
-    </>
+    <ProfileWrapper
+      lang={props.params.lang}
+      infos={{
+        userInfo,
+        gameInfo,
+        plateInfo,
+      }}
+      accountLocale={dictionary.accountLocale}
+      ingameLocale={dictionary.ingameLocale}
+      profileLocale={dictionary.profileLocale}
+      isMine={false}
+    />
   );
 }

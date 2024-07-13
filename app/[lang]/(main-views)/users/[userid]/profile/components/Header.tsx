@@ -13,10 +13,10 @@ import {
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import { UserSearchBox } from "@/app/ui/components/UserSearchBox";
-import { Header as HeaderLocale } from "@/app/lib/locales/locale";
-import { header as en } from "@/app/lib/locales/en.json";
-import { header as ko } from "@/app/lib/locales/ko.json";
-import { header as ja } from "@/app/lib/locales/ja.json";
+import { HeaderLocale } from "@/app/lib/locales/locale";
+import ko from "@/app/lib/locales/ko.json";
+import en from "@/app/lib/locales/en.json";
+import ja from "@/app/lib/locales/ja.json";
 import Image from "next/image";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { profileUrl, signinUrl } from "@/app/plate/lib/const";
@@ -28,18 +28,20 @@ import useUser = Auth.useUser;
 type HeaderProps = {};
 
 export function Header(_: HeaderProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [headerLocale, setHeaderLocale] = useState<HeaderLocale>(en);
-
   const params = useParams();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [headerLocale, setHeaderLocale] = useState<HeaderLocale>(
+    en.headerLocale,
+  );
+
   useEffect(() => {
     const lang = params["lang"] ?? "en";
     if (lang === "ko") {
-      setHeaderLocale(ko);
+      setHeaderLocale(ko.headerLocale);
     } else if (lang === "ja") {
-      setHeaderLocale(ja);
+      setHeaderLocale(ja.headerLocale);
     } else {
-      setHeaderLocale(en);
+      setHeaderLocale(en.headerLocale);
     }
   }, [params]);
 
@@ -79,7 +81,7 @@ export function Header(_: HeaderProps) {
         </div>
         {/* 헤더 가운데 */}
         <div className="hidden lg:flex lg:gap-x-12">
-          <UserSearchBox header={headerLocale} />
+          <UserSearchBox headerLocale={headerLocale} />
         </div>
         {/* 헤더 오른쪽 */}
         <div className="hidden gap-4 lg:flex lg:flex-1 lg:justify-end">
@@ -127,7 +129,7 @@ export function Header(_: HeaderProps) {
         </Dialog.Panel>
       </Dialog>
       <div className={"w-full md:hidden"}>
-        <UserSearchBox header={headerLocale} />
+        <UserSearchBox headerLocale={headerLocale} />
       </div>
     </header>
   );

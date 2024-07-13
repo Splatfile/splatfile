@@ -7,21 +7,21 @@ import {
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
-import { UI } from "@/app/lib/locales/locale";
 import { profileUrl } from "@/app/plate/lib/const";
+import { UILocale } from "@/app/lib/locales/locale";
 
 type RecentUpdatedUsersProps = {
-  ui: UI;
+  uiLocale: UILocale;
 };
 
 export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
-  const { ui } = props;
+  const { uiLocale } = props;
   const { isPending, error, data } = useQuery({
     queryKey: [getRecentUpdatedUsers()],
     queryFn: () => fetch(getRecentUpdatedUsers()).then((res) => res.json()),
   });
 
-  if (isPending) return <RecentUpdatedUsersSkeleton ui={ui} />;
+  if (isPending) return <RecentUpdatedUsersSkeleton uiLocale={uiLocale} />;
 
   if (error) return "An error has occurred: " + error.message;
 
@@ -31,7 +31,6 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
     return "An error has occurred: " + resentUsers.error.message;
   }
   const users = resentUsers.data;
-  console.log("users", users);
 
   return (
     <div
@@ -40,7 +39,7 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
       }
     >
       <h1 className={"w-full text-center text-xl text-gray-800"}>
-        {ui.recent_users_title}
+        {uiLocale.recent_users_title}
       </h1>
       <ul className={"flex flex-col gap-0.5 divide-y divide-gray-800"}>
         {users.map((user: any) => (
@@ -49,6 +48,7 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
             className={"flex items-center justify-between px-1 py-2"}
           >
             <Link
+              prefetch={true}
               href={profileUrl(user.userId)}
               className={`text-blue-600 hover:text-blue-400 hover:underline`}
             >
@@ -68,7 +68,7 @@ export function RecentUpdatedUsers(props: RecentUpdatedUsersProps) {
 }
 
 export const RecentUpdatedUsersSkeleton = (props: RecentUpdatedUsersProps) => {
-  const { ui } = props;
+  const { uiLocale } = props;
   const temp = Array.from({ length: 5 }, (_, i) => i);
   return (
     <div
@@ -77,7 +77,7 @@ export const RecentUpdatedUsersSkeleton = (props: RecentUpdatedUsersProps) => {
       }
     >
       <h1 className={"w-full text-center text-xl text-gray-800"}>
-        {ui.recent_users_title}
+        {uiLocale.recent_users_title}
       </h1>
       <ul className={"flex flex-col gap-0.5 divide-y divide-gray-800"}>
         {temp.map((i) => (

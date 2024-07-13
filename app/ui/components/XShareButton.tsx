@@ -1,18 +1,18 @@
 "use client";
-import { useUserStore } from "@/app/lib/hooks/use-profile-store";
 import React, { useEffect, useState } from "react";
 import { XLogo } from "@/app/ui/icons/XLogo";
 import Link from "next/link";
-import { Profile } from "@/app/lib/locales/locale";
+import { ProfileLocale } from "@/app/lib/locales/locale";
+import { UserInfo } from "@/app/lib/types/type-checker";
 
 type XShareButtonProps = {
-  profile: Profile;
+  profileLocale: ProfileLocale;
+  userInfo: UserInfo;
 };
 
-export function XShareButton({ profile }: XShareButtonProps) {
-  const userInfo = useUserStore();
+export function XShareButton({ profileLocale, userInfo }: XShareButtonProps) {
   const name = userInfo.twitterInfo?.name || userInfo.switchInfo?.name || "";
-  const title = profile.ui_share_to_x_text.replace("{{name}}", name);
+  const title = profileLocale.ui_share_to_x_text.replace("{{name}}", name);
 
   const [href, setHref] = useState<string | undefined>("");
 

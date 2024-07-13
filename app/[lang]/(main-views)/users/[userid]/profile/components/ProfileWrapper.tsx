@@ -1,18 +1,45 @@
 import { GameCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/game-information/GameCard";
 import { AccountCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/AccountCard";
 import { ProfileCard } from "@/app/[lang]/(main-views)/users/[userid]/profile/components/ProfileCard";
-import { Account, Ingame, Profile } from "@/app/lib/locales/locale";
+import {
+  AccountLocale,
+  IngameLocale,
+  ProfileLocale,
+} from "@/app/lib/locales/locale";
 import { Lang } from "@/app/lib/types/component-props";
+import {
+  isGameInfo,
+  isPlateInfo,
+  isUserInfo,
+} from "@/app/lib/types/type-checker";
+import { Infos } from "@/app/lib/schemas/profile";
 
 type ProfileWrapperProps = {
-  account: Account;
-  profile: Profile;
-  ingame: Ingame;
+  infos: Infos;
+  isMine: boolean;
+  accountLocale: AccountLocale;
+  profileLocale: ProfileLocale;
+  ingameLocale: IngameLocale;
   lang: Lang;
 };
 
 export default function ProfileWrapper(props: ProfileWrapperProps) {
-  const { account, ingame, profile, lang } = props;
+  const { infos, isMine, accountLocale, ingameLocale, profileLocale, lang } =
+    props;
+
+  const { gameInfo, plateInfo, userInfo } = infos;
+
+  if (!gameInfo || !plateInfo || !userInfo) {
+    throw new Error("ProfileWrapper: profile is not valid");
+  }
+
+  if (
+    !isUserInfo(userInfo) ||
+    !isGameInfo(gameInfo) ||
+    !isPlateInfo(plateInfo)
+  ) {
+    throw new Error("ProfileWrapper: profile is not valid");
+  }
 
   return (
     <div
@@ -25,11 +52,23 @@ export default function ProfileWrapper(props: ProfileWrapperProps) {
             "flex h-full w-full items-center justify-center p-8 text-white md:w-2/5 md:items-stretch md:p-0 md:py-6"
           }
         >
-          <ProfileCard profile={profile} lang={lang} />
+          <ProfileCard
+            userInfo={userInfo}
+            plateInfo={plateInfo}
+            profileLocale={profileLocale}
+            lang={lang}
+            isMine={isMine}
+            gameInfo={gameInfo}
+          />
         </div>
         {/* 인게임 정보 */}
         <div className={"w-full md:w-3/5"}>
-          <GameCard ingame={ingame} lang={lang} />
+          <GameCard
+            gameInfo={gameInfo}
+            ingameLocale={ingameLocale}
+            lang={lang}
+            isMine={isMine}
+          />
         </div>
       </div>
       <div>
@@ -39,7 +78,11 @@ export default function ProfileWrapper(props: ProfileWrapperProps) {
           }
         >
           {/* 계정 정보*/}
-          <AccountCard account={account} />
+          <AccountCard
+            userInfo={userInfo}
+            accountLocale={accountLocale}
+            isMine={isMine}
+          />
         </div>
       </div>
     </div>

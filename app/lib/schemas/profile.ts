@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { GameInfo, PlateInfo, UserInfo } from "@/app/lib/types/type-checker";
 
 /*
 엑스 매치 정보
@@ -74,3 +75,9 @@ export const CanvasInfoObject = z
     ogImageUrl: z.string().optional(),
   })
   .optional();
+
+export type Infos = {
+  userInfo: UserInfo;
+  gameInfo: GameInfo;
+  plateInfo: PlateInfo;
+};

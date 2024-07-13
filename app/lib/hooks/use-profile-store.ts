@@ -16,22 +16,11 @@ import {
   SalmonRunMapPoints,
   SalmonRunRankGrade,
 } from "@/app/lib/schemas/profile/game-info";
-import { SplatfileClient } from "@/app/lib/splatfile-client";
-import { Profile } from "@/app/lib/types/supabase-alias";
-import { useEffect, useRef } from "react";
 import { z } from "zod";
 import { shallow } from "zustand/shallow";
 import { createWithEqualityFn } from "zustand/traditional";
-import {
-  isGameInfo,
-  isPlateInfo,
-  isUserInfo,
-} from "@/app/lib/types/type-checker";
-import { Lang } from "../types/component-props";
-import { renderOgProfileImage } from "@/app/konva/lib/render/og";
-import { getLocaleByLang } from "@/app/lib/use-locale";
-import { Err } from "@/app/lib/locales/locale";
-import { setErrorMessage } from "@/app/lib/hooks/use-error-toast-store";
+import { isGameInfo, isUserInfo } from "@/app/lib/types/type-checker";
+import { Profile } from "../types/supabase-alias";
 
 type ProfileState = {
   user: z.infer<typeof UserInfoObject>;
@@ -79,7 +68,7 @@ const initState = (): ProfileState => {
   };
 };
 
-const useProfileStore = createWithEqualityFn<ProfileStore>(
+export const useProfileStore = createWithEqualityFn<ProfileStore>(
   (set, get) => ({
     ...initState(),
     set: (state: Partial<ProfileState>) => {
@@ -260,149 +249,10 @@ export const setPlaytime = (
   });
 };
 
-export const usePlaytime = (timeType: "weekdayPlaytime" | "weekendPlaytime") =>
-  useProfileStore((state) => state.user[timeType]);
-
-export const useLevel = () => useGameStore().level;
-
-export const useAnarchyPoint = () =>
-  useProfileStore((state) => state.game.anarchyBattleRank?.point);
-
-// State가 변경될 때마다, 2초 뒤에 supabase에 저장하는 로직을 실행합니다.
-export const useDebounceEdit = (
-  userId: string,
-  isMine: boolean,
-  err: Err,
-  lang: Lang,
-) => {
-  const timeoutIdRef: React.MutableRefObject<
-    NodeJS.Timeout | string | number | undefined
-  > = useRef<NodeJS.Timeout | string | number | undefined>();
-  useEffect(
-    () => (isMine ? subscribeEdit(userId, timeoutIdRef, err, lang) : undefined),
-    [userId, isMine, err, lang],
-  );
-};
-
-const initStateJson = JSON.stringify(initState());
-
-export const subscribeEdit = (
-  userId: string,
-  timeoutIdRef: React.MutableRefObject<
-    NodeJS.Timeout | string | number | undefined
-  >,
-  err: Err,
-  lang: Lang,
-) => {
-  const client = new SplatfileClient("CLIENT_COMPONENT");
-
-  // subscribe은 unsubscribe를 return 하여, useEffect의 cleanup 함수로 사용할 수 있습니다.
-  return useProfileStore.subscribe((state, prevState) => {
-    if (!prevState) return;
-
-    setLoading(true);
-    clearTimeout(timeoutIdRef.current);
-
-    timeoutIdRef.current = setTimeout(async () => {
-      const user = await client.supabase.auth.getUser();
-      if (userId !== user.data.user?.id) {
-        setLoading(false);
-        return;
-      }
-
-      const currJson = JSON.stringify(state, (key, value) => {
-        if (key === "updatedAt") {
-          return undefined;
-        }
-        return value;
-      });
-      const prevJson = JSON.stringify(prevState, (key, value) => {
-        if (key === "updatedAt") {
-          return undefined;
-        }
-        return value;
-      });
-
-      if (!checkValidState(prevJson, currJson)) {
-        setLoading(false);
-        return;
-      }
-
-      const { plate_info, updated_at } = await client.updateProfile(
-        {
-          user_info: state.user,
-          game_info: state.game,
-          updated_at: state.updatedAt,
-        },
-        userId,
-        lang,
-      );
-      try {
-        if (!isPlateInfo(plate_info)) {
-          console.error("Invalid plate info", plate_info);
-          setErrorMessage(err.refresh_please);
-          setLoading(false);
-          return;
-        }
-
-        // og rendering
-        // 임시 div 생성
-        document.getElementById("temp-og-rendering")?.remove();
-        const div = document.createElement("div");
-        div.className = "hidden";
-        div.id = "temp-og-rendering";
-        document.body.appendChild(div);
-
-        const ogProfileBlob = await renderOgProfileImage(
-          div.id,
-          state.user,
-          state.game,
-          plate_info,
-          getLocaleByLang(lang),
-          "blob",
-        );
-
-        console.log("updated_at", updated_at);
-
-        if (!ogProfileBlob) {
-          console.error("Image Buffer is not truthy");
-          setErrorMessage(err.refresh_please);
-          setLoading(false);
-          return;
-        }
-
-        const key = await client.uploadFile(ogProfileBlob, userId + "_og.png");
-        await client.updateProfile(
-          {
-            canvas_info: {
-              ogImageUrl: key,
-            },
-            updated_at: updated_at,
-          },
-          userId,
-          lang,
-        );
-
-        setLoading(false);
-      } catch (e) {
-        console.error(e);
-        setErrorMessage(err.refresh_please);
-        setLoading(false);
-      }
-    }, 3 * 1000);
-  });
-};
+export const initProfileStateJson = JSON.stringify(initState());
 
 export const getUpdatedAt = () => {
   return useProfileStore.getState().updatedAt;
-};
-
-const checkValidState = (prevStateJson: string, currStateJson: string) => {
-  return (
-    currStateJson !== prevStateJson &&
-    currStateJson !== initStateJson &&
-    prevStateJson !== initStateJson
-  );
 };
 
 type EditStore = {
@@ -421,7 +271,7 @@ export const useEditStore = createWithEqualityFn<EditStore>(
   shallow,
 );
 
-const setLoading = (isLoading: boolean) => {
+export const setLoading = (isLoading: boolean) => {
   useEditStore.setState((state) => ({ ...state, isLoading }));
 };
 
@@ -473,10 +323,6 @@ export const setTwitterInfo = (key: keyof TwitterInfo, value: string) => {
       [key]: value,
     },
   });
-};
-
-export const useMine = () => {
-  return useEditStore((state) => state.isMine);
 };
 
 export const setSalmonRunMapPoints = (

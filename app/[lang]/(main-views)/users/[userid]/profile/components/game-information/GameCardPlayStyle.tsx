@@ -1,3 +1,4 @@
+"use client";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { useState } from "react";
 import Image from "next/image";
@@ -23,34 +24,36 @@ import {
 } from "@/app/lib/schemas/profile/game-info";
 import { z } from "zod";
 import { Checkbox } from "@headlessui/react";
-import { Ingame } from "@/app/lib/locales/locale";
+import { IngameLocale } from "@/app/lib/locales/locale";
 
 type GameCardPlayStyleProps = {
-  ingame: Ingame;
+  ingameLocale: IngameLocale;
+  isMine: boolean;
 };
 
 export function GameCardPlayStyle(props: GameCardPlayStyleProps) {
-  const { ingame } = props;
+  const { ingameLocale, isMine } = props;
   const [edit, setEdit] = useState(false);
 
   return (
     <EditableInlineTextCard
-      title={ingame.ui_play_style}
+      title={ingameLocale.ui_play_style}
       edit={edit}
       setEdit={setEdit}
       childrenClassName={"justify-center w-full"}
+      isMine={isMine}
     >
       {edit ? (
-        <EditPlayCard ingame={ingame} />
+        <EditPlayCard ingameLocale={ingameLocale} isMine={isMine} />
       ) : (
-        <ViewPlayStyleCard ingame={ingame} />
+        <ViewPlayStyleCard ingameLocale={ingameLocale} isMine={isMine} />
       )}
     </EditableInlineTextCard>
   );
 }
 
 function EditPlayCard(props: GameCardPlayStyleProps) {
-  const { ingame } = props;
+  const { ingameLocale } = props;
 
   return (
     <div
@@ -60,7 +63,7 @@ function EditPlayCard(props: GameCardPlayStyleProps) {
     >
       <div>
         <h3 className={"p-2 text-center font-semibold text-gray-600"}>
-          {ingame.ui_game_type}
+          {ingameLocale.ui_game_type}
         </h3>
         <div
           className={
@@ -68,15 +71,18 @@ function EditPlayCard(props: GameCardPlayStyleProps) {
           }
         >
           <div>
-            <p className={"text-center text-lg"}>{ingame.ui_open}</p>
-            <EditPlayStyleItem ingame={ingame} playKey={"open"} />
+            <p className={"text-center text-lg"}>{ingameLocale.ui_open}</p>
+            <EditPlayStyleItem ingameLocale={ingameLocale} playKey={"open"} />
           </div>
           <div>
-            <p className={"text-center text-lg"}>{ingame.ui_regular}</p>
-            <EditPlayStyleItem ingame={ingame} playKey={"regular"} />
+            <p className={"text-center text-lg"}>{ingameLocale.ui_regular}</p>
+            <EditPlayStyleItem
+              ingameLocale={ingameLocale}
+              playKey={"regular"}
+            />
           </div>
           <div>
-            <p className={"text-center text-lg"}>{ingame.ui_drop_ins}</p>
+            <p className={"text-center text-lg"}>{ingameLocale.ui_drop_ins}</p>
             <div className={" w-full justify-center"}>
               <EditDropInItem />
             </div>
@@ -115,12 +121,12 @@ function EditPlayCard(props: GameCardPlayStyleProps) {
 }
 
 function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
-  const { ingame } = props;
+  const { ingameLocale } = props;
   return (
     <div className={"flex w-full justify-center gap-6"}>
       <div>
         <h3 className={"mb-4 text-center font-semibold text-gray-600"}>
-          {ingame.ui_game_type}
+          {ingameLocale.ui_game_type}
         </h3>
         <div
           className={
@@ -129,22 +135,22 @@ function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
         >
           <div className={"flex flex-col items-center justify-center"}>
             <h3 className={"text-center text-lg text-neutral-800"}>
-              {ingame.ui_open}
+              {ingameLocale.ui_open}
             </h3>
-            <PlayStyleItem playKey={"open"} ingame={ingame} />
+            <PlayStyleItem playKey={"open"} ingameLocale={ingameLocale} />
           </div>
           <div className={"flex flex-col items-center justify-center"}>
             <h3 className={"text-center text-lg text-neutral-800"}>
-              {ingame.ui_regular}
+              {ingameLocale.ui_regular}
             </h3>
-            <PlayStyleItem playKey={"regular"} ingame={ingame} />
+            <PlayStyleItem playKey={"regular"} ingameLocale={ingameLocale} />
           </div>
           <div className={"flex flex-col items-center justify-center"}>
             <h3 className={"text-center text-lg text-neutral-800"}>
-              {ingame.ui_drop_ins}
+              {ingameLocale.ui_drop_ins}
             </h3>
             <div className={"flex justify-center text-neutral-400"}>
-              <p>{getDropIn(ingame, usePlayStyle()?.dropIn)}</p>
+              <p>{getDropIn(ingameLocale, usePlayStyle()?.dropIn)}</p>
             </div>
           </div>
         </div>
@@ -153,7 +159,7 @@ function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
       <div className={"h-auto w-1 border-r border-gray-200"} />
       <div>
         <h3 className={"mb-4 text-center font-semibold text-gray-600"}>
-          {ingame.ui_rule_preference}
+          {ingameLocale.ui_rule_preference}
         </h3>
         <div
           className={
@@ -171,11 +177,11 @@ function ViewPlayStyleCard(props: GameCardPlayStyleProps) {
 }
 
 type PlayStyleItemProps = {
-  ingame: Ingame;
+  ingameLocale: IngameLocale;
   playKey: z.infer<typeof PlayStyleKeysObject>;
 };
 
-function EditPlayStyleItem({ playKey, ingame }: PlayStyleItemProps) {
+function EditPlayStyleItem({ playKey, ingameLocale }: PlayStyleItemProps) {
   const playStyle = usePlayStyle();
   return (
     <select
@@ -190,7 +196,7 @@ function EditPlayStyleItem({ playKey, ingame }: PlayStyleItemProps) {
     >
       {playStyleEnum.map((playKey) => (
         <option key={playKey} value={playKey}>
-          {getPlayStyle(playKey, ingame)}
+          {getPlayStyle(playKey, ingameLocale)}
         </option>
       ))}
     </select>
@@ -229,7 +235,7 @@ function EditDropInItem() {
   );
 }
 
-function PlayStyleItem({ playKey, ingame }: PlayStyleItemProps) {
+function PlayStyleItem({ playKey, ingameLocale }: PlayStyleItemProps) {
   const playStyle = usePlayStyle();
   return (
     <div
@@ -237,7 +243,9 @@ function PlayStyleItem({ playKey, ingame }: PlayStyleItemProps) {
         "flex w-full items-center justify-center gap-0.5 text-center text-neutral-400"
       }
     >
-      <p className={"w-full"}>{getPlayStyle(playStyle?.[playKey], ingame)}</p>
+      <p className={"w-full"}>
+        {getPlayStyle(playStyle?.[playKey], ingameLocale)}
+      </p>
     </div>
   );
 }
@@ -312,13 +320,13 @@ const getRuleFavorEmoji = (favor: z.infer<typeof RuleFavorEnum>) => {
             : "🥰";
 };
 
-const getDropIn = (ingame: Ingame, dropIn?: boolean) => {
+const getDropIn = (ingame: IngameLocale, dropIn?: boolean) => {
   return dropIn ? ingame.ui_drop_ins_welcome : "X";
 };
 
 const getPlayStyle = (
   style: z.infer<typeof PlayStyleEnumObject>,
-  ingame: Ingame,
+  ingame: IngameLocale,
 ) => {
   return style === NEWBIE
     ? ingame.ui_game_play_style_newbie

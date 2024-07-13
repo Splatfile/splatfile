@@ -4,7 +4,6 @@ import { create } from "zustand";
 import { GradientDirection } from "../types/gradient";
 
 import { StateStorage } from "zustand/middleware";
-import { Profile } from "@/app/lib/types/supabase-alias";
 import { z } from "zod";
 import { useEffect } from "react";
 import { SplatfileClient } from "@/app/lib/splatfile-client";
@@ -19,7 +18,8 @@ import {
   initProfileStore,
 } from "@/app/lib/hooks/use-profile-store";
 import { setErrorMessage } from "@/app/lib/hooks/use-error-toast-store";
-import { Err } from "@/app/lib/locales/locale";
+import { ErrLocale } from "@/app/lib/locales/locale";
+import { Profile } from "@/app/lib/types/supabase-alias";
 
 export type Gradients = [string, string, string, string];
 
@@ -89,6 +89,12 @@ export const useTagLoadingStore = create<LoadingStore>((set) => ({
   isLoading: false,
   setLoading: (isLoading: boolean) => set({ isLoading }),
 }));
+
+export const isInitPlates = (plateInfo: TagState) => {
+  const initJson = JSON.stringify(initTagState());
+  const plateInfoJson = JSON.stringify(plateInfo);
+  return initJson === plateInfoJson;
+};
 
 export const useTagStore = create<TagStore>((set) => ({
   ...initTagState(),
@@ -239,7 +245,7 @@ export const setTagLanguage = (
   }));
 };
 
-export const subscribeEdit = (userId: string, err: Err, lang: Lang) => {
+export const subscribeEdit = (userId: string, err: ErrLocale, lang: Lang) => {
   let timeoutId: NodeJS.Timeout | string | number | undefined;
   const client = new SplatfileClient("CLIENT_COMPONENT");
 
@@ -270,7 +276,6 @@ export const subscribeEdit = (userId: string, err: Err, lang: Lang) => {
             updated_at: getUpdatedAt(),
           },
           userId,
-          lang,
         );
         initProfileStore(updated, true);
         initializeTagStore(updated);
@@ -297,7 +302,7 @@ const checkValidState = (prevStateJson: string, currStateJson: string) => {
 export const useDebounceTagEdit = (
   userId: string,
   isMine: boolean,
-  err: Err,
+  err: ErrLocale,
   lang: Lang,
 ) => {
   useEffect(

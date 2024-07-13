@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { clsx } from "clsx";
-import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { PencilIcon } from "@heroicons/react/20/solid";
+import assert from "assert";
 
 export type TextCardProps = {
   title: ReactNode;
@@ -44,10 +44,12 @@ export function TextCard(props: TextCardProps) {
 export type EditableTextCardProps = TextCardProps & {
   edit: boolean;
   setEdit: (edit: boolean) => void;
+  isMine: boolean;
 };
 
 export function EditableTextCard(props: EditableTextCardProps) {
-  const { isMine } = useEditStore();
+  const { isMine } = props;
+  assert(isMine !== undefined);
 
   return (
     <div

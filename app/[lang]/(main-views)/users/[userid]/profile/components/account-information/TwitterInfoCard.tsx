@@ -1,26 +1,24 @@
 "use client";
 
 import { useRef, useState } from "react";
-import {
-  setTwitterInfo,
-  useEditStore,
-  useTwitterInfo,
-} from "@/app/lib/hooks/use-profile-store";
+import { setTwitterInfo } from "@/app/lib/hooks/use-profile-store";
 import { TwitterInfo } from "@/app/lib/schemas/profile";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { XLogo } from "@/app/ui/icons/XLogo";
 import { EditableText } from "@/app/ui/components/EditableText";
-import { Account } from "@/app/lib/locales/locale";
+import { UserInfo } from "@/app/lib/types/type-checker";
+import { AccountLocale } from "@/app/lib/locales/locale";
 
 type TwitterInfoCardProps = {
-  account: Account;
+  userInfo: UserInfo;
+  accountLocale: AccountLocale;
+  isMine: boolean;
 };
 
 export const TwitterInfoCard = (props: TwitterInfoCardProps) => {
-  const { account } = props;
+  const { accountLocale, userInfo, isMine } = props;
   const [edit, setEdit] = useState(false);
-  const twitterInfo = useTwitterInfo();
-  const { isMine } = useEditStore();
+  const twitterInfo = userInfo.twitterInfo;
   const xNicknameRef = useRef<HTMLInputElement>(null);
   const handleRef = useRef<HTMLInputElement>(null);
 
@@ -39,12 +37,13 @@ export const TwitterInfoCard = (props: TwitterInfoCardProps) => {
       title={<XLogo className={"h-6 w-6"} />}
       edit={edit}
       setEdit={setEdit}
+      isMine={isMine}
     >
       <EditableText
         ref={xNicknameRef}
         edit={edit}
         value={name ?? ""}
-        placeholder={account.ui_twitter_nickname}
+        placeholder={accountLocale.ui_twitter_nickname}
         textClassName={"text-left sm:text-center"}
         inputClassName={
           "w-full underline underline-offset-2 outline-none max-w-full"
@@ -55,7 +54,7 @@ export const TwitterInfoCard = (props: TwitterInfoCardProps) => {
             handleRef.current?.focus();
           }
         }}
-        emptytext={account.ui_empty_card_text}
+        emptytext={accountLocale.ui_empty_card_text}
       />
 
       {edit ? (
@@ -65,7 +64,7 @@ export const TwitterInfoCard = (props: TwitterInfoCardProps) => {
             ref={handleRef}
             type="text"
             className={"w-full max-w-full underline underline-offset-2"}
-            placeholder={account.ui_twitter_handle}
+            placeholder={accountLocale.ui_twitter_handle}
             value={id}
             onChange={(e) => {
               onChange("id")(e.target.value);

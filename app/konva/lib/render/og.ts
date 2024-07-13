@@ -113,7 +113,7 @@ async function renderUserInfo(
       x: 180,
       y: 18,
       text:
-        `${locale.preview.nickname}: ` +
+        `${locale.previewLocale.nickname}: ` +
         (userInfo.switchInfo?.name || userInfo.twitterInfo?.name || ""),
     }),
   );
@@ -122,7 +122,7 @@ async function renderUserInfo(
       x: 180,
       y: 50,
       text:
-        `${locale.preview.friend_code}: ` +
+        `${locale.previewLocale.friend_code}: ` +
         (userInfo.switchInfo?.friendCode || ""),
     }),
   );
@@ -184,7 +184,7 @@ async function renderGameInfo(
     // 연어런
     const salmonRank = gameInfo.salmonRunRank?.grade
       ? getSalmonRunRank(
-          locale.metadata.lang as Lang,
+          locale.metadataLocale.lang as Lang,
           gameInfo.salmonRunRank.grade,
         )
       : "-";

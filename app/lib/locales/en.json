@@ -1,19 +1,19 @@
 {
-  "main": {
+  "mainLocale": {
     "first_section_title": "Manage Splatoon Profiles <br /> with SplatFile",
     "first_section_description": "Easily manage your Splatoon profile with SplatFile! <br /> Set profile pictures, edit rank and weapon information, customize plates, and more. Save and share your created profiles as images.",
     "first_section_button": "Get Started"
   },
-  "og": {
+  "ogLocale": {
     "default_title": " #Splatfile - Manage Splatoon Profiles",
     "default_description": "Easily manage and share your Splatoon profiles!",
     "profile_title": " #Splatfile - {{name}}'s Splatoon Profile",
     "profile_description": "Check out {{name}}'s Splatoon profile!"
   },
-  "ui": {
+  "uiLocale": {
     "recent_users_title": "Recent Updated Users"
   },
-  "ingame": {
+  "ingameLocale": {
     "ui_summary": "Summary",
     "ui_select_weapon": "Select Weapon",
     "ui_weapon": "Used Weapons",
@@ -30,7 +30,7 @@
     "ui_drop_ins": "Drop-ins",
     "ui_drop_ins_welcome": "Welcome"
   },
-  "account": {
+  "accountLocale": {
     "ui_empty_card_text": "Empty",
     "ui_switch_nickname": "Switch Nickname",
     "ui_twitter_nickname": "Twitter Nickname",
@@ -48,7 +48,7 @@
     "ui_edit_playtime_description": "Please enter a number between 00 and 23.",
     "ui_additional_information": "Additional Information"
   },
-  "profile": {
+  "profileLocale": {
     "ui_empty_card_text": "Empty",
     "ui_upload_image_title": "Upload Profile Image",
     "ui_image_upload_button": "Click to Upload Image",
@@ -76,14 +76,14 @@
     "ui_share_desc": "Check out my Splatoon profile!",
     "ui_share_copied_url": "URL has been copied!"
   },
-  "header": {
+  "headerLocale": {
     "ui_my_profile": "My Profile",
     "ui_login": "Login",
     "ui_logout": "Logout",
     "ui_user_search_placeholder": "User Search",
     "ui_language_setting": "Language"
   },
-  "preview": {
+  "previewLocale": {
     "playtime_title": "Playtime",
     "nickname": "Nickname",
     "playtime_weekday": "Weekday",
@@ -91,10 +91,10 @@
     "used_weapons_title": "Used Weapons",
     "friend_code": "Friend Code"
   },
-  "err": {
+  "errLocale": {
     "refresh_please": "An error has occurred. Please refresh the page."
   },
-  "metadata": {
+  "metadataLocale": {
     "lang": "en"
   }
 }

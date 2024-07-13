@@ -1,7 +1,6 @@
 "use client";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { SplatPlateEditor } from "@/app/plate/ui/SplatPlateEditor";
-import { useEditStore } from "@/app/lib/hooks/use-profile-store";
 import { clsx } from "clsx";
 import {
   Dialog,
@@ -16,46 +15,47 @@ import {
   renderPlate,
 } from "@/app/plate/lib/render-plate";
 import {
+  isInitPlates,
   setTagLanguage,
-  useTagStore,
 } from "@/app/plate/lib/store/use-tag-store";
-import { Profile } from "@/app/lib/locales/locale";
 import { Lang } from "@/app/lib/types/component-props";
+import { PlateInfo } from "@/app/lib/types/type-checker";
+import { ProfileLocale } from "@/app/lib/locales/locale";
 
 type PlateImageProps = {
-  profile: Profile;
+  plateInfo: PlateInfo;
+  profile: ProfileLocale;
+  isMine: boolean;
   lang: Lang;
 };
 
 export function PlateImage(props: PlateImageProps) {
-  const { profile, lang } = props;
+  const { profile, lang, plateInfo, isMine } = props;
   const [open, setOpen] = useState(false);
   const [fontLoaded, setFontLoaded] = useState(false);
-  const { isMine } = useEditStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [language, setLanguage] = useState<Lang>(lang);
 
   useEffect(() => {
-    return useTagStore.subscribe((tag) => {
-      if (!canvasRef.current) return;
-      renderPlate(canvasRef.current, tag, getPlateLang(language))
-        .then(() => {
-          console.log("Plate rendered");
-        })
-        .catch((e) => {
-          console.error(e);
-        });
-    });
-  }, []);
+    if (!canvasRef.current) return;
+    // initPlate 렌더 방지
+    // 이 방법이 옳진 않지만 현재 플레이트를 분리하기엔 너무 작업이 크므로 일단 이렇게 진행
+    if (isInitPlates(plateInfo)) return;
+    renderPlate(canvasRef.current, plateInfo, getPlateLang(language))
+      .then(() => {
+        console.log("Plate rendered");
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [language, plateInfo]);
 
   useEffect(() => {
     setTimeout(() => {
       if (!canvasRef.current) return;
-      renderPlate(
-        canvasRef.current,
-        useTagStore.getState(),
-        getPlateLang(language),
-      )
+      if (isInitPlates(plateInfo)) return;
+
+      renderPlate(canvasRef.current, plateInfo, getPlateLang(language))
         .then(() => {
           console.log("rerendered");
         })
@@ -72,7 +72,6 @@ export function PlateImage(props: PlateImageProps) {
   useEffect(() => {
     const timeout = setInterval(async () => {
       const fontLoaded = await loadFonts(getPlateLang(lang));
-      console.log("fontLoaded", fontLoaded);
 
       setFontLoaded(fontLoaded);
 
@@ -98,7 +97,7 @@ export function PlateImage(props: PlateImageProps) {
       <PlateModal
         open={open}
         setOpen={setOpen}
-        profile={profile}
+        profileLocale={profile}
         language={language}
         setLanguage={setLanguage}
       />
@@ -131,13 +130,13 @@ export function PlateImage(props: PlateImageProps) {
 type PlateModalProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  profile: Profile;
+  profileLocale: ProfileLocale;
   language: Lang;
   setLanguage: (lang: Lang) => void;
 };
 
 export function PlateModal(props: PlateModalProps) {
-  const { open, setOpen, profile, language, setLanguage } = props;
+  const { open, setOpen, profileLocale, language, setLanguage } = props;
 
   return (
     <Transition show={open} as={Fragment}>
@@ -177,7 +176,7 @@ export function PlateModal(props: PlateModalProps) {
                       as="h2"
                       className="mb-4 mt-8 text-xl font-semibold leading-6 text-white"
                     >
-                      {profile.ui_plate_modal_title}
+                      {profileLocale.ui_plate_modal_title}
                     </DialogTitle>
                     <SplatPlateEditor
                       language={language}
@@ -188,7 +187,7 @@ export function PlateModal(props: PlateModalProps) {
                       className="inline-flex w-40 justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                       onClick={() => setOpen(false)}
                     >
-                      {profile.ui_plate_modal_confirm_button}
+                      {profileLocale.ui_plate_modal_confirm_button}
                     </button>
                   </div>
                 </div>

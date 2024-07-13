@@ -5,21 +5,21 @@ import QRCode from "qrcode";
 import { EditableInlineTextCard } from "@/app/ui/components/InlineTextCard";
 import { EditableText } from "@/app/ui/components/EditableText";
 import { SwitchInfo } from "@/app/lib/schemas/profile";
-import {
-  setSwitchInfo,
-  useSwitchInfo,
-} from "@/app/lib/hooks/use-profile-store";
+import { setSwitchInfo } from "@/app/lib/hooks/use-profile-store";
 import { clsx } from "clsx";
-import { Account } from "@/app/lib/locales/locale";
+import { UserInfo } from "@/app/lib/types/type-checker";
+import { AccountLocale } from "@/app/lib/locales/locale";
 
 type SwitchCodeCardProps = {
-  account: Account;
+  userInfo: UserInfo;
+  accountLocale: AccountLocale;
+  isMine: boolean;
 };
 export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
-  const { account } = props;
+  const { accountLocale, userInfo, isMine } = props;
   const [edit, setEdit] = useState(false);
   const [qrCode, setQrCode] = useState<string>("");
-  const switchInfo = useSwitchInfo();
+  const switchInfo = userInfo.switchInfo;
 
   const { friendCode, friendLink } = switchInfo ?? {
     friendCode: "",
@@ -48,13 +48,14 @@ export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
 
   return (
     <EditableInlineTextCard
-      title={account.ui_friend_code}
+      title={accountLocale.ui_friend_code}
       edit={edit}
       setEdit={setEdit}
+      isMine={isMine}
     >
       {!friendCode && !qrCode && !edit && (
         <p className={"text-center font-normal text-black opacity-40"}>
-          {account.ui_empty_card_text}
+          {accountLocale.ui_empty_card_text}
         </p>
       )}
       <EditableText
@@ -73,7 +74,7 @@ export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
             friendLinkRef.current?.focus();
           }
         }}
-        emptytext={account.ui_empty_card_text}
+        emptytext={accountLocale.ui_empty_card_text}
       />
 
       <div className={clsx("flex", qrCode || "hidden")}>
@@ -99,7 +100,7 @@ export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
         )}
         href={friendLink}
       >
-        {account.ui_add_button}
+        {accountLocale.ui_add_button}
       </a>
 
       {edit && (
@@ -111,7 +112,7 @@ export const SwitchCodeCard = (props: SwitchCodeCardProps) => {
               "w-full max-w-full px-1 underline underline-offset-2",
               friendLink || "text-center",
             )}
-            placeholder={account.ui_friend_code_link}
+            placeholder={accountLocale.ui_friend_code_link}
             value={friendLink}
             onChange={(e) => {
               onChange("friendLink")(e.target.value);
