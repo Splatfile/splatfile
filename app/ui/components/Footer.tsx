@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
           <div className={"flex items-center gap-2"}>
             <a
               target={"_blank"}
-              href={"https://discord.gg/nnAwPxH4"}
+              href={"https://discord.gg/VaucBzq8Rw"}
               className={
                 "mt-2 h-8 w-8 items-center fill-white text-white hover:text-gray-400"
               }
